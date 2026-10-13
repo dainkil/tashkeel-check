@@ -1,0 +1,204 @@
+{
+ "doc_id": "eval_012",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الغربي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 919869، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيدة إيمان سلمان القشطة، كويتية الجنسية، وتحمل جواز سفر رقم C4081447، تعمل لديها بوظيفة مندوبة مبيعات منذ 09/12/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: سطام محمد المشعان"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 10/04/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 12,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الغربي",
+    "english_full": "Al Gharbi",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الغربي",
+      "position": "family",
+      "english_variants": [
+       "Al Gharbi"
+      ],
+      "english_used": "Al Gharbi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     11,
+     29
+    ],
+    "token_ids": [
+     23,
+     24,
+     25
+    ],
+    "arabic_full": "إيمان سلمان القشطة",
+    "english_full": "Iman Salman Al Qeshtah",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "إيمان",
+      "position": "given",
+      "english_variants": [
+       "Eman",
+       "Iman",
+       "Eiman"
+      ],
+      "english_used": "Iman"
+     },
+     {
+      "token_id": 24,
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman"
+     },
+     {
+      "token_id": 25,
+      "arabic": "القشطة",
+      "position": "family",
+      "english_variants": [
+       "Al Qeshtah"
+      ],
+      "english_used": "Al Qeshtah"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     34
+    ],
+    "token_ids": [
+     55,
+     56,
+     57
+    ],
+    "arabic_full": "سطام محمد المشعان",
+    "english_full": "Sattam Mohammed Mashaan",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "سطام",
+      "position": "given",
+      "english_variants": [
+       "Sattam",
+       "Satam"
+      ],
+      "english_used": "Sattam"
+     },
+     {
+      "token_id": 56,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 57,
+      "arabic": "المشعان",
+      "position": "family",
+      "english_variants": [
+       "Mashaan",
+       "al Masha'an"
+      ],
+      "english_used": "Mashaan"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

@@ -1,0 +1,340 @@
+{
+ "doc_id": "dev_003",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 11/12/2026 حضر أمام الكاتب العدل السيدة فوزية جاسم القاسمي، قطرية الجنسية، وتحمل جواز سفر رقم N6063298."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفتها مديرة لشركة المؤذن للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 667699، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقررت أنها وكّلت السيد محمد سلمان المزروعي، كويتي الجنسية، ويحمل بطاقة هوية رقم 77435000."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكلة: فوزية جاسم القاسمي"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيل: محمد سلمان المزروعي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 3,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     69
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "فوزية جاسم القاسمي",
+    "english_full": "Fawzia Jaseem Al Qasimi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "فوزية",
+      "position": "given",
+      "english_variants": [
+       "Fawzia",
+       "Fawziyya"
+      ],
+      "english_used": "Fawzia"
+     },
+     {
+      "token_id": 12,
+      "arabic": "جاسم",
+      "position": "middle",
+      "english_variants": [
+       "Jassim",
+       "Jassem",
+       "Jasim",
+       "Jasem",
+       "Gasm",
+       "Jaseem"
+      ],
+      "english_used": "Jaseem"
+     },
+     {
+      "token_id": 13,
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     26
+    ],
+    "arabic_full": "المؤذن",
+    "english_full": "Al Mu'adhin",
+    "tokens": [
+     {
+      "token_id": 26,
+      "arabic": "المؤذن",
+      "position": "family",
+      "english_variants": [
+       "Al Mu'adhin"
+      ],
+      "english_used": "Al Mu'adhin"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     23,
+     42
+    ],
+    "token_ids": [
+     48,
+     49,
+     50
+    ],
+    "arabic_full": "محمد سلمان المزروعي",
+    "english_full": "Mohammed Salman Al Mazrouei",
+    "tokens": [
+     {
+      "token_id": 48,
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 49,
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman"
+     },
+     {
+      "token_id": 50,
+      "arabic": "المزروعي",
+      "position": "family",
+      "english_variants": [
+       "Al Mazrouei",
+       "Mazrouei",
+       "Al Mazrui",
+       "Al Mazroui"
+      ],
+      "english_used": "Al Mazrouei"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     9,
+     27
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "فوزية جاسم القاسمي",
+    "english_full": "Fawzia Jaseem Al Qasimi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "فوزية",
+      "position": "given",
+      "english_variants": [
+       "Fawzia",
+       "Fawziyya"
+      ],
+      "english_used": "Fawzia"
+     },
+     {
+      "token_id": 75,
+      "arabic": "جاسم",
+      "position": "middle",
+      "english_variants": [
+       "Jassim",
+       "Jassem",
+       "Jasim",
+       "Jasem",
+       "Gasm",
+       "Jaseem"
+      ],
+      "english_used": "Jaseem"
+     },
+     {
+      "token_id": 76,
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     8,
+     27
+    ],
+    "token_ids": [
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "محمد سلمان المزروعي",
+    "english_full": "Mohammed Salman Al Mazrouei",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 79,
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman"
+     },
+     {
+      "token_id": 80,
+      "arabic": "المزروعي",
+      "position": "family",
+      "english_variants": [
+       "Al Mazrouei",
+       "Mazrouei",
+       "Al Mazrui",
+       "Al Mazroui"
+      ],
+      "english_used": "Al Mazrouei"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
+   40,
+   41,
+   42,
+   43
+  ]
+ }
+}

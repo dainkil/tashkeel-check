@@ -1,0 +1,312 @@
+{
+ "doc_id": "dev_009",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 04/02/2026 حضر أمام الكاتب العدل السيدة عليزا صادق الحربي، إماراتية الجنسية، وتحمل جواز سفر رقم V8952351."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفتها مديرة لشركة الجابر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 925459، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقررت أنها وكّلت السيد فهد زايد الديحاني، سعودي الجنسية، ويحمل بطاقة هوية رقم 72543702."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكلة: عليزا صادق الحربي"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيل: فهد زايد الديحاني"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 9,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     68
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "عليزا صادق الحربي",
+    "english_full": "Aliza Sadik Al Harbi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "عليزا",
+      "position": "given",
+      "english_variants": [
+       "Aliza"
+      ],
+      "english_used": "Aliza"
+     },
+     {
+      "token_id": 12,
+      "arabic": "صادق",
+      "position": "middle",
+      "english_variants": [
+       "Sadiq",
+       "Sadeq",
+       "Sadik",
+       "Sadegh"
+      ],
+      "english_used": "Sadik"
+     },
+     {
+      "token_id": 13,
+      "arabic": "الحربي",
+      "position": "family",
+      "english_variants": [
+       "Al Harbi",
+       "al Harbi",
+       "Al Harby",
+       "El Harby",
+       "El Harbi"
+      ],
+      "english_used": "Al Harbi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     26
+    ],
+    "arabic_full": "الجابر",
+    "english_full": "Al Jaber",
+    "tokens": [
+     {
+      "token_id": 26,
+      "arabic": "الجابر",
+      "position": "family",
+      "english_variants": [
+       "Al Jaber",
+       "Jaber",
+       "al Jaber"
+      ],
+      "english_used": "Al Jaber"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     23,
+     40
+    ],
+    "token_ids": [
+     48,
+     49,
+     50
+    ],
+    "arabic_full": "فهد زايد الديحاني",
+    "english_full": "Fahad Zaid Al Deehani",
+    "tokens": [
+     {
+      "token_id": 48,
+      "arabic": "فهد",
+      "position": "given",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad"
+     },
+     {
+      "token_id": 49,
+      "arabic": "زايد",
+      "position": "middle",
+      "english_variants": [
+       "Zayed",
+       "Zaid",
+       "Zahed"
+      ],
+      "english_used": "Zaid"
+     },
+     {
+      "token_id": 50,
+      "arabic": "الديحاني",
+      "position": "family",
+      "english_variants": [
+       "Al Deehani",
+       "Al Daihani"
+      ],
+      "english_used": "Al Deehani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     9,
+     26
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "عليزا صادق الحربي",
+    "english_full": "Aliza Sadik Al Harbi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "عليزا",
+      "position": "given",
+      "english_variants": [
+       "Aliza"
+      ],
+      "english_used": "Aliza"
+     },
+     {
+      "token_id": 75,
+      "arabic": "صادق",
+      "position": "middle",
+      "english_variants": [
+       "Sadiq",
+       "Sadeq",
+       "Sadik",
+       "Sadegh"
+      ],
+      "english_used": "Sadik"
+     },
+     {
+      "token_id": 76,
+      "arabic": "الحربي",
+      "position": "family",
+      "english_variants": [
+       "Al Harbi",
+       "al Harbi",
+       "Al Harby",
+       "El Harby",
+       "El Harbi"
+      ],
+      "english_used": "Al Harbi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     8,
+     25
+    ],
+    "token_ids": [
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "فهد زايد الديحاني",
+    "english_full": "Fahad Zaid Al Deehani",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "فهد",
+      "position": "given",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad"
+     },
+     {
+      "token_id": 79,
+      "arabic": "زايد",
+      "position": "middle",
+      "english_variants": [
+       "Zayed",
+       "Zaid",
+       "Zahed"
+      ],
+      "english_used": "Zaid"
+     },
+     {
+      "token_id": 80,
+      "arabic": "الديحاني",
+      "position": "family",
+      "english_variants": [
+       "Al Deehani",
+       "Al Daihani"
+      ],
+      "english_used": "Al Deehani"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
+   40,
+   41,
+   42,
+   43
+  ]
+ }
+}

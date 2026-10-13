@@ -1,0 +1,209 @@
+{
+ "doc_id": "eval_030",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الأنصاري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 590177، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيدة علياء مازن القاسمي، قطرية الجنسية، وتحمل جواز سفر رقم R7690972، تعمل لديها بوظيفة محاسبة منذ 08/01/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: حسن بن يوسف الجابري"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 01/04/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 30,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     17
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الأنصاري",
+    "english_full": "Al Ansari",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الأنصاري",
+      "position": "family",
+      "english_variants": [
+       "Al Ansari",
+       "al Ansari",
+       "al Ansary"
+      ],
+      "english_used": "Al Ansari"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     11,
+     29
+    ],
+    "token_ids": [
+     23,
+     24,
+     25
+    ],
+    "arabic_full": "علياء مازن القاسمي",
+    "english_full": "Alia Mazen Al Qassemi",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "علياء",
+      "position": "given",
+      "english_variants": [
+       "Alia",
+       "Alyaa",
+       "Alya"
+      ],
+      "english_used": "Alia"
+     },
+     {
+      "token_id": 24,
+      "arabic": "مازن",
+      "position": "middle",
+      "english_variants": [
+       "Mazen",
+       "Mazin"
+      ],
+      "english_used": "Mazen"
+     },
+     {
+      "token_id": 25,
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qassemi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     36
+    ],
+    "token_ids": [
+     54,
+     55,
+     56,
+     57
+    ],
+    "arabic_full": "حسن بن يوسف الجابري",
+    "english_full": "Hassan bin Yousef Al Jabri",
+    "tokens": [
+     {
+      "token_id": 54,
+      "arabic": "حسن",
+      "position": "given",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 56,
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 57,
+      "arabic": "الجابري",
+      "position": "family",
+      "english_variants": [
+       "Al Jabri",
+       "Al Gabri"
+      ],
+      "english_used": "Al Jabri"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

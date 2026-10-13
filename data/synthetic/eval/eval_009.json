@@ -1,0 +1,352 @@
+{
+ "doc_id": "eval_009",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 10/06/2026 حضر أمام الكاتب العدل السيد ضياء بن مكي النجعي، عماني الجنسية، ويحمل جواز سفر رقم W4157336."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفته مديرًا لشركة السحيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 978759، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقرر أنه وكّل السيدة صفية بنت رضي بن فهد القحطاني، قطرية الجنسية، وتحمل بطاقة هوية رقم 69228713."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكل: ضياء بن مكي النجعي"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيلة: صفية بنت رضي بن فهد القحطاني"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 9,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     68
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "ضياء بن مكي النجعي",
+    "english_full": "Dia Bin Makki Al Najei",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "ضياء",
+      "position": "given",
+      "english_variants": [
+       "Dia",
+       "Dhaya",
+       "Diya",
+       "Dhia",
+       "Diaa",
+       "Dhiyaa"
+      ],
+      "english_used": "Dia"
+     },
+     {
+      "token_id": 13,
+      "arabic": "مكي",
+      "position": "middle",
+      "english_variants": [
+       "Makki",
+       "Macki",
+       "Mackie",
+       "Maki"
+      ],
+      "english_used": "Makki"
+     },
+     {
+      "token_id": 14,
+      "arabic": "النجعي",
+      "position": "family",
+      "english_variants": [
+       "Al Najei",
+       "Al Najai",
+       "Naji",
+       "Al Naje"
+      ],
+      "english_used": "Al Najei"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     27
+    ],
+    "arabic_full": "السحيمي",
+    "english_full": "Al Suhaimi",
+    "tokens": [
+     {
+      "token_id": 27,
+      "arabic": "السحيمي",
+      "position": "family",
+      "english_variants": [
+       "Al Suhaimi",
+       "al Suhaymi",
+       "Al Sohaymi",
+       "Al Souhaimi",
+       "Al Sehimai"
+      ],
+      "english_used": "Al Suhaimi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     21,
+     49
+    ],
+    "token_ids": [
+     49,
+     50,
+     51,
+     52,
+     53,
+     54
+    ],
+    "arabic_full": "صفية بنت رضي بن فهد القحطاني",
+    "english_full": "Safiya Bint Razi Bin Fahd Al Qahtani",
+    "tokens": [
+     {
+      "token_id": 49,
+      "arabic": "صفية",
+      "position": "given",
+      "english_variants": [
+       "Safia",
+       "Safiya"
+      ],
+      "english_used": "Safiya"
+     },
+     {
+      "token_id": 51,
+      "arabic": "رضي",
+      "position": "middle",
+      "english_variants": [
+       "Radhi",
+       "Radi",
+       "Razi"
+      ],
+      "english_used": "Razi"
+     },
+     {
+      "token_id": 53,
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahd"
+     },
+     {
+      "token_id": 54,
+      "arabic": "القحطاني",
+      "position": "family",
+      "english_variants": [
+       "Al Qahtani",
+       "al Qahtani",
+       "al Kahtani"
+      ],
+      "english_used": "Al Qahtani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     8,
+     26
+    ],
+    "token_ids": [
+     78,
+     79,
+     80,
+     81
+    ],
+    "arabic_full": "ضياء بن مكي النجعي",
+    "english_full": "Dia Bin Makki Al Najei",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "ضياء",
+      "position": "given",
+      "english_variants": [
+       "Dia",
+       "Dhaya",
+       "Diya",
+       "Dhia",
+       "Diaa",
+       "Dhiyaa"
+      ],
+      "english_used": "Dia"
+     },
+     {
+      "token_id": 80,
+      "arabic": "مكي",
+      "position": "middle",
+      "english_variants": [
+       "Makki",
+       "Macki",
+       "Mackie",
+       "Maki"
+      ],
+      "english_used": "Makki"
+     },
+     {
+      "token_id": 81,
+      "arabic": "النجعي",
+      "position": "family",
+      "english_variants": [
+       "Al Najei",
+       "Al Najai",
+       "Naji",
+       "Al Naje"
+      ],
+      "english_used": "Al Najei"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     9,
+     37
+    ],
+    "token_ids": [
+     83,
+     84,
+     85,
+     86,
+     87,
+     88
+    ],
+    "arabic_full": "صفية بنت رضي بن فهد القحطاني",
+    "english_full": "Safiya Bint Razi Bin Fahd Al Qahtani",
+    "tokens": [
+     {
+      "token_id": 83,
+      "arabic": "صفية",
+      "position": "given",
+      "english_variants": [
+       "Safia",
+       "Safiya"
+      ],
+      "english_used": "Safiya"
+     },
+     {
+      "token_id": 85,
+      "arabic": "رضي",
+      "position": "middle",
+      "english_variants": [
+       "Radhi",
+       "Radi",
+       "Razi"
+      ],
+      "english_used": "Razi"
+     },
+     {
+      "token_id": 87,
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahd"
+     },
+     {
+      "token_id": 88,
+      "arabic": "القحطاني",
+      "position": "family",
+      "english_variants": [
+       "Al Qahtani",
+       "al Qahtani",
+       "al Kahtani"
+      ],
+      "english_used": "Al Qahtani"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   30,
+   31,
+   32,
+   35,
+   36,
+   37,
+   41,
+   42,
+   43,
+   44
+  ]
+ }
+}

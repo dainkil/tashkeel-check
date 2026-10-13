@@ -1,0 +1,370 @@
+{
+ "doc_id": "eval_025",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 21/03/2026 حضر أمام الكاتب العدل السيد ماجد محمد اليافعي، كويتي الجنسية، ويحمل جواز سفر رقم G8948225."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Majed Mohammed El Yafi, Passport No. G8948225"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الدربي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 173302، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Derbi General Trading L.L.C., Registration No. 173302"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيدة فاطمة بنت فهد الموسوي، كويتية الجنسية، وتحمل بطاقة هوية رقم 57261907."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Fatima bint Fahad Al Mosawi, ID No. 57261907"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: ماجد محمد اليافعي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: فاطمة بنت فهد الموسوي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 25,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     67
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "ماجد محمد اليافعي",
+    "english_full": "Majed Mohammed El Yafi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "ماجد",
+      "position": "given",
+      "english_variants": [
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
+      ],
+      "english_used": "Majed"
+     },
+     {
+      "token_id": 12,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 13,
+      "arabic": "اليافعي",
+      "position": "family",
+      "english_variants": [
+       "El Yafi",
+       "Al Yafei"
+      ],
+      "english_used": "El Yafi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Majed Mohammed El Yafi"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     35
+    ],
+    "arabic_full": "الدربي",
+    "english_full": "Al Derbi",
+    "tokens": [
+     {
+      "token_id": 35,
+      "arabic": "الدربي",
+      "position": "family",
+      "english_variants": [
+       "Al Derbi",
+       "al Darbi"
+      ],
+      "english_used": "Al Derbi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Derbi General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     21,
+     42
+    ],
+    "token_ids": [
+     66,
+     67,
+     68,
+     69
+    ],
+    "arabic_full": "فاطمة بنت فهد الموسوي",
+    "english_full": "Fatima bint Fahad Al Mosawi",
+    "tokens": [
+     {
+      "token_id": 66,
+      "arabic": "فاطمة",
+      "position": "given",
+      "english_variants": [
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
+      ],
+      "english_used": "Fatima"
+     },
+     {
+      "token_id": 68,
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad"
+     },
+     {
+      "token_id": 69,
+      "arabic": "الموسوي",
+      "position": "family",
+      "english_variants": [
+       "Al Musawi",
+       "Al Mosawi",
+       "al Musawi",
+       "Al Moussawi",
+       "Al Mousawi"
+      ],
+      "english_used": "Al Mosawi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Fatima bint Fahad Al Mosawi"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     25
+    ],
+    "token_ids": [
+     102,
+     103,
+     104
+    ],
+    "arabic_full": "ماجد محمد اليافعي",
+    "english_full": "Majed Mohammed El Yafi",
+    "tokens": [
+     {
+      "token_id": 102,
+      "arabic": "ماجد",
+      "position": "given",
+      "english_variants": [
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
+      ],
+      "english_used": "Majed"
+     },
+     {
+      "token_id": 103,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 104,
+      "arabic": "اليافعي",
+      "position": "family",
+      "english_variants": [
+       "El Yafi",
+       "Al Yafei"
+      ],
+      "english_used": "El Yafi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Majed Mohammed El Yafi"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     9,
+     30
+    ],
+    "token_ids": [
+     106,
+     107,
+     108,
+     109
+    ],
+    "arabic_full": "فاطمة بنت فهد الموسوي",
+    "english_full": "Fatima bint Fahad Al Mosawi",
+    "tokens": [
+     {
+      "token_id": 106,
+      "arabic": "فاطمة",
+      "position": "given",
+      "english_variants": [
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
+      ],
+      "english_used": "Fatima"
+     },
+     {
+      "token_id": 108,
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad"
+     },
+     {
+      "token_id": 109,
+      "arabic": "الموسوي",
+      "position": "family",
+      "english_variants": [
+       "Al Musawi",
+       "Al Mosawi",
+       "al Musawi",
+       "Al Moussawi",
+       "Al Mousawi"
+      ],
+      "english_used": "Al Mosawi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Fatima bint Fahad Al Mosawi"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   38,
+   39,
+   40,
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
+  ]
+ }
+}

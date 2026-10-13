@@ -1,0 +1,364 @@
+{
+ "doc_id": "eval_011",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 26/12/2026 حضر أمام الكاتب العدل السيدة طراد كاظم الشعيبي، بحرينية الجنسية، وتحمل جواز سفر رقم C4626369."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Trad Kazem al Shuebi, Passport No. C4626369"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفتها مديرة لشركة القرني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 206894، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Qarni General Trading L.L.C., Registration No. 206894"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقررت أنها وكّلت السيدة نوف محمد المطيري، عمانية الجنسية، وتحمل بطاقة هوية رقم 24388053."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Nouf Muhammad Al Mutairi, ID No. 24388053"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: طراد كاظم الشعيبي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: نوف محمد المطيري"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 11,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     68
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "طراد كاظم الشعيبي",
+    "english_full": "Trad Kazem al Shuebi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "طراد",
+      "position": "given",
+      "english_variants": [
+       "Trad"
+      ],
+      "english_used": "Trad"
+     },
+     {
+      "token_id": 12,
+      "arabic": "كاظم",
+      "position": "middle",
+      "english_variants": [
+       "Kazem",
+       "Kathem",
+       "Kadim",
+       "Kazim",
+       "Kadhim",
+       "Kadhem"
+      ],
+      "english_used": "Kazem"
+     },
+     {
+      "token_id": 13,
+      "arabic": "الشعيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Shuaibi",
+       "al Shuebi",
+       "Al Shuaiby",
+       "Al Shoaibi"
+      ],
+      "english_used": "al Shuebi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Trad Kazem al Shuebi"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     35
+    ],
+    "arabic_full": "القرني",
+    "english_full": "Al Qarni",
+    "tokens": [
+     {
+      "token_id": 35,
+      "arabic": "القرني",
+      "position": "family",
+      "english_variants": [
+       "Al Qarni",
+       "Al Garni",
+       "al Qarni",
+       "Al Karni"
+      ],
+      "english_used": "Al Qarni"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Qarni General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     24,
+     40
+    ],
+    "token_ids": [
+     66,
+     67,
+     68
+    ],
+    "arabic_full": "نوف محمد المطيري",
+    "english_full": "Nouf Muhammad Al Mutairi",
+    "tokens": [
+     {
+      "token_id": 66,
+      "arabic": "نوف",
+      "position": "given",
+      "english_variants": [
+       "Nouf",
+       "Noof"
+      ],
+      "english_used": "Nouf"
+     },
+     {
+      "token_id": 67,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
+     },
+     {
+      "token_id": 68,
+      "arabic": "المطيري",
+      "position": "family",
+      "english_variants": [
+       "Al Mutairi",
+       "Mansor",
+       "Al Mutairy",
+       "al Mutairi",
+       "al Mutayri"
+      ],
+      "english_used": "Al Mutairi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Nouf Muhammad Al Mutairi"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     9,
+     26
+    ],
+    "token_ids": [
+     100,
+     101,
+     102
+    ],
+    "arabic_full": "طراد كاظم الشعيبي",
+    "english_full": "Trad Kazem al Shuebi",
+    "tokens": [
+     {
+      "token_id": 100,
+      "arabic": "طراد",
+      "position": "given",
+      "english_variants": [
+       "Trad"
+      ],
+      "english_used": "Trad"
+     },
+     {
+      "token_id": 101,
+      "arabic": "كاظم",
+      "position": "middle",
+      "english_variants": [
+       "Kazem",
+       "Kathem",
+       "Kadim",
+       "Kazim",
+       "Kadhim",
+       "Kadhem"
+      ],
+      "english_used": "Kazem"
+     },
+     {
+      "token_id": 102,
+      "arabic": "الشعيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Shuaibi",
+       "al Shuebi",
+       "Al Shuaiby",
+       "Al Shoaibi"
+      ],
+      "english_used": "al Shuebi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Trad Kazem al Shuebi"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     9,
+     25
+    ],
+    "token_ids": [
+     104,
+     105,
+     106
+    ],
+    "arabic_full": "نوف محمد المطيري",
+    "english_full": "Nouf Muhammad Al Mutairi",
+    "tokens": [
+     {
+      "token_id": 104,
+      "arabic": "نوف",
+      "position": "given",
+      "english_variants": [
+       "Nouf",
+       "Noof"
+      ],
+      "english_used": "Nouf"
+     },
+     {
+      "token_id": 105,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
+     },
+     {
+      "token_id": 106,
+      "arabic": "المطيري",
+      "position": "family",
+      "english_variants": [
+       "Al Mutairi",
+       "Mansor",
+       "Al Mutairy",
+       "al Mutairi",
+       "al Mutayri"
+      ],
+      "english_used": "Al Mutairi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Nouf Muhammad Al Mutairi"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   38,
+   39,
+   40,
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
+  ]
+ }
+}

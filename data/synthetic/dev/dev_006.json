@@ -1,0 +1,202 @@
+{
+ "doc_id": "dev_006",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الشنقيطي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 476816، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيد عمر فيحان الشمراني، بحريني الجنسية، ويحمل جواز سفر رقم G8089514، يعمل لديها بوظيفة مهندس منذ 24/08/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: ماجد سلمان السليطين"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 04/10/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 6,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     17
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الشنقيطي",
+    "english_full": "Shenqeeti",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الشنقيطي",
+      "position": "family",
+      "english_variants": [
+       "Al Shanqiti",
+       "Al Shanqeeti",
+       "Shenqeeti",
+       "Shengeeti",
+       "Al Shengeeti",
+       "Al Shangeati",
+       "Al Shankiti",
+       "Shanqeeti"
+      ],
+      "english_used": "Shenqeeti"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     10,
+     28
+    ],
+    "token_ids": [
+     23,
+     24,
+     25
+    ],
+    "arabic_full": "عمر فيحان الشمراني",
+    "english_full": "Omar Fayhan Al Shamrani",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "عمر",
+      "position": "given",
+      "english_variants": [
+       "Omar",
+       "Omer",
+       "Umar",
+       "Amr",
+       "Ismaeel",
+       "Umer"
+      ],
+      "english_used": "Omar"
+     },
+     {
+      "token_id": 24,
+      "arabic": "فيحان",
+      "position": "middle",
+      "english_variants": [
+       "Fayhan"
+      ],
+      "english_used": "Fayhan"
+     },
+     {
+      "token_id": 25,
+      "arabic": "الشمراني",
+      "position": "family",
+      "english_variants": [
+       "Al Shamrani"
+      ],
+      "english_used": "Al Shamrani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     36
+    ],
+    "token_ids": [
+     54,
+     55,
+     56
+    ],
+    "arabic_full": "ماجد سلمان السليطين",
+    "english_full": "Majed Salman Al Sulaitin",
+    "tokens": [
+     {
+      "token_id": 54,
+      "arabic": "ماجد",
+      "position": "given",
+      "english_variants": [
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
+      ],
+      "english_used": "Majed"
+     },
+     {
+      "token_id": 55,
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman"
+     },
+     {
+      "token_id": 56,
+      "arabic": "السليطين",
+      "position": "family",
+      "english_variants": [
+       "Al Sulaitin"
+      ],
+      "english_used": "Al Sulaitin"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

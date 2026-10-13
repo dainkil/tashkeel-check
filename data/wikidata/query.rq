@@ -1,0 +1,10 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT ?p ?ar ?en ?gender (GROUP_CONCAT(DISTINCT ?al; separator="|") AS ?aliases) WHERE {
+  ?p wdt:P31 wd:Q5; wdt:P27 wd:%s; rdfs:label ?ar. FILTER(LANG(?ar)="ar")
+  ?p rdfs:label ?en. FILTER(LANG(?en)="en")
+  OPTIONAL { ?p wdt:P21 ?gender }
+  OPTIONAL { ?p skos:altLabel ?al. FILTER(LANG(?al)="en") }
+} GROUP BY ?p ?ar ?en ?gender

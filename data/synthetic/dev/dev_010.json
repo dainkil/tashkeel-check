@@ -1,0 +1,202 @@
+{
+ "doc_id": "dev_010",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الوحداني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 825024، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيدة سمية حمد القصبي، بحرينية الجنسية، وتحمل جواز سفر رقم F4235914، تعمل لديها بوظيفة مندوبة مبيعات منذ 05/04/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوضة بالتوقيع: شما بنت علي الذيابي"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 17/05/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 10,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     17
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الوحداني",
+    "english_full": "Al Wahdani",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الوحداني",
+      "position": "family",
+      "english_variants": [
+       "Al Wahdani"
+      ],
+      "english_used": "Al Wahdani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     11,
+     26
+    ],
+    "token_ids": [
+     23,
+     24,
+     25
+    ],
+    "arabic_full": "سمية حمد القصبي",
+    "english_full": "Somayya Hamad Al Qasabi",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "سمية",
+      "position": "given",
+      "english_variants": [
+       "Somaya",
+       "Sumayyah",
+       "Somayya",
+       "Sumaya"
+      ],
+      "english_used": "Somayya"
+     },
+     {
+      "token_id": 24,
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad"
+     },
+     {
+      "token_id": 25,
+      "arabic": "القصبي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasabi",
+       "Al Kasabi",
+       "al Qasabi"
+      ],
+      "english_used": "Al Qasabi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     18,
+     37
+    ],
+    "token_ids": [
+     55,
+     56,
+     57,
+     58
+    ],
+    "arabic_full": "شما بنت علي الذيابي",
+    "english_full": "Shamma bint Ali Al Thiabi",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "شما",
+      "position": "given",
+      "english_variants": [
+       "Shamma",
+       "Shammah"
+      ],
+      "english_used": "Shamma"
+     },
+     {
+      "token_id": 57,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 58,
+      "arabic": "الذيابي",
+      "position": "family",
+      "english_variants": [
+       "Al Dhiyabi",
+       "Al Thiabi"
+      ],
+      "english_used": "Al Thiabi"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

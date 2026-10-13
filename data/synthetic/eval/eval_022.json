@@ -1,0 +1,251 @@
+{
+ "doc_id": "eval_022",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة المري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 213464، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Marri General Trading L.L.C., Registration No. 213464"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيد منذر خالد إسماعيل الغيص، كويتي الجنسية، ويحمل جواز سفر رقم S2807739، يعمل لديها بوظيفة مهندس منذ 25/01/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Mondher Khalid Ismail al Ghais, Passport No. S2807739"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوضة بالتوقيع: زينب بنت عبيد بن حسن السويدي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Zainab Bint Obaid Bin Hassan Al Sowaidi"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 26/02/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 22,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     14
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "المري",
+    "english_full": "Al Marri",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "المري",
+      "position": "family",
+      "english_variants": [
+       "Al Marri",
+       "Al MARI"
+      ],
+      "english_used": "Al Marri"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Marri General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     10,
+     33
+    ],
+    "token_ids": [
+     32,
+     33,
+     34,
+     35
+    ],
+    "arabic_full": "منذر خالد إسماعيل الغيص",
+    "english_full": "Mondher Khalid Ismail al Ghais",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "منذر",
+      "position": "given",
+      "english_variants": [
+       "Munther",
+       "Mondher"
+      ],
+      "english_used": "Mondher"
+     },
+     {
+      "token_id": 33,
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid"
+     },
+     {
+      "token_id": 34,
+      "arabic": "إسماعيل",
+      "position": "middle",
+      "english_variants": [
+       "Ismail",
+       "Ismael",
+       "Ismaeel",
+       "Esmail",
+       "Esmaeel"
+      ],
+      "english_used": "Ismail"
+     },
+     {
+      "token_id": 35,
+      "arabic": "الغيص",
+      "position": "family",
+      "english_variants": [
+       "al Ghais",
+       "Al Ghais"
+      ],
+      "english_used": "al Ghais"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Mondher Khalid Ismail al Ghais"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     18,
+     46
+    ],
+    "token_ids": [
+     74,
+     75,
+     76,
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "زينب بنت عبيد بن حسن السويدي",
+    "english_full": "Zainab Bint Obaid Bin Hassan Al Sowaidi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "زينب",
+      "position": "given",
+      "english_variants": [
+       "Zainab",
+       "Zaynab",
+       "Zeinab"
+      ],
+      "english_used": "Zainab"
+     },
+     {
+      "token_id": 76,
+      "arabic": "عبيد",
+      "position": "middle",
+      "english_variants": [
+       "Obaid",
+       "Obeid",
+       "Ubayd",
+       "Amer",
+       "Abid",
+       "Obied",
+       "Abdulla",
+       "Ubaid"
+      ],
+      "english_used": "Obaid"
+     },
+     {
+      "token_id": 78,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 79,
+      "arabic": "السويدي",
+      "position": "family",
+      "english_variants": [
+       "Al Suwaidi",
+       "Al Sowaidi"
+      ],
+      "english_used": "Al Sowaidi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Zainab Bint Obaid Bin Hassan Al Sowaidi"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

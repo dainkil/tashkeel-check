@@ -1,0 +1,375 @@
+{
+ "doc_id": "eval_023",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيدة سعاد بنت حمدي بن ناصر الجودر، عمانية الجنسية، وتحمل جواز سفر رقم P3246144."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفتها مديرة لشركة النعيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 358845، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقررت أنها وكّلت السيد جمال مسفر منصور الرميحي، بحريني الجنسية، ويحمل بطاقة هوية رقم 40678426."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكلة: سعاد بنت حمدي بن ناصر الجودر"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيل: جمال مسفر منصور الرميحي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 23,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     79
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
+    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "سعاد",
+      "position": "given",
+      "english_variants": [
+       "Souad",
+       "Suad",
+       "Soad",
+       "Suaad",
+       "Su'ad"
+      ],
+      "english_used": "Suad"
+     },
+     {
+      "token_id": 13,
+      "arabic": "حمدي",
+      "position": "middle",
+      "english_variants": [
+       "Hamdi"
+      ],
+      "english_used": "Hamdi"
+     },
+     {
+      "token_id": 15,
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nasser"
+     },
+     {
+      "token_id": 16,
+      "arabic": "الجودر",
+      "position": "family",
+      "english_variants": [
+       "al Jowder",
+       "Al Jowder",
+       "al Jodar"
+      ],
+      "english_used": "al Jowder"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     29
+    ],
+    "arabic_full": "النعيمي",
+    "english_full": "Al Nuaimi",
+    "tokens": [
+     {
+      "token_id": 29,
+      "arabic": "النعيمي",
+      "position": "family",
+      "english_variants": [
+       "Al Nuaimi",
+       "Al Naimi",
+       "Al Noaimi",
+       "al Naimi"
+      ],
+      "english_used": "Al Nuaimi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     23,
+     46
+    ],
+    "token_ids": [
+     51,
+     52,
+     53,
+     54
+    ],
+    "arabic_full": "جمال مسفر منصور الرميحي",
+    "english_full": "Jamal Mesfer Mansour Al Rumaihi",
+    "tokens": [
+     {
+      "token_id": 51,
+      "arabic": "جمال",
+      "position": "given",
+      "english_variants": [
+       "Jamal"
+      ],
+      "english_used": "Jamal"
+     },
+     {
+      "token_id": 52,
+      "arabic": "مسفر",
+      "position": "middle",
+      "english_variants": [
+       "Mesfer",
+       "Misfer",
+       "Musaffar",
+       "Musfir",
+       "Musfar"
+      ],
+      "english_used": "Mesfer"
+     },
+     {
+      "token_id": 53,
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour"
+     },
+     {
+      "token_id": 54,
+      "arabic": "الرميحي",
+      "position": "family",
+      "english_variants": [
+       "Al Rumaihi",
+       "Al Romaihi"
+      ],
+      "english_used": "Al Rumaihi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     9,
+     37
+    ],
+    "token_ids": [
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
+    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "سعاد",
+      "position": "given",
+      "english_variants": [
+       "Souad",
+       "Suad",
+       "Soad",
+       "Suaad",
+       "Su'ad"
+      ],
+      "english_used": "Suad"
+     },
+     {
+      "token_id": 80,
+      "arabic": "حمدي",
+      "position": "middle",
+      "english_variants": [
+       "Hamdi"
+      ],
+      "english_used": "Hamdi"
+     },
+     {
+      "token_id": 82,
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nasser"
+     },
+     {
+      "token_id": 83,
+      "arabic": "الجودر",
+      "position": "family",
+      "english_variants": [
+       "al Jowder",
+       "Al Jowder",
+       "al Jodar"
+      ],
+      "english_used": "al Jowder"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     8,
+     31
+    ],
+    "token_ids": [
+     85,
+     86,
+     87,
+     88
+    ],
+    "arabic_full": "جمال مسفر منصور الرميحي",
+    "english_full": "Jamal Mesfer Mansour Al Rumaihi",
+    "tokens": [
+     {
+      "token_id": 85,
+      "arabic": "جمال",
+      "position": "given",
+      "english_variants": [
+       "Jamal"
+      ],
+      "english_used": "Jamal"
+     },
+     {
+      "token_id": 86,
+      "arabic": "مسفر",
+      "position": "middle",
+      "english_variants": [
+       "Mesfer",
+       "Misfer",
+       "Musaffar",
+       "Musfir",
+       "Musfar"
+      ],
+      "english_used": "Mesfer"
+     },
+     {
+      "token_id": 87,
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour"
+     },
+     {
+      "token_id": 88,
+      "arabic": "الرميحي",
+      "position": "family",
+      "english_variants": [
+       "Al Rumaihi",
+       "Al Romaihi"
+      ],
+      "english_used": "Al Rumaihi"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   32,
+   33,
+   34,
+   37,
+   38,
+   39,
+   43,
+   44,
+   45,
+   46
+  ]
+ }
+}

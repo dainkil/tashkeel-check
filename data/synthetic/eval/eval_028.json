@@ -1,0 +1,239 @@
+{
+ "doc_id": "eval_028",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة السليم للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 655170، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Saleem General Trading L.L.C., Registration No. 655170"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيدة أسماء بنت جاذوب البراشدي، سعودية الجنسية، وتحمل جواز سفر رقم F4276672، تعمل لديها بوظيفة مهندسة منذ 21/11/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Asma bint Jathob Al Barashdy, Passport No. F4276672"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوضة بالتوقيع: مرام بنت ناصر بن فيصل الزعابي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Maram Bint Naser Bin Faisel Al Zaabi"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 12/11/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 28,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "السليم",
+    "english_full": "Al Saleem",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "السليم",
+      "position": "family",
+      "english_variants": [
+       "al Salim",
+       "Al Saleem",
+       "al Saleem",
+       "Al Selim",
+       "Al Sulim",
+       "Al Sulaim"
+      ],
+      "english_used": "Al Saleem"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Saleem General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     11,
+     35
+    ],
+    "token_ids": [
+     32,
+     33,
+     34,
+     35
+    ],
+    "arabic_full": "أسماء بنت جاذوب البراشدي",
+    "english_full": "Asma bint Jathob Al Barashdy",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "أسماء",
+      "position": "given",
+      "english_variants": [
+       "Asma",
+       "Asmaa"
+      ],
+      "english_used": "Asma"
+     },
+     {
+      "token_id": 34,
+      "arabic": "جاذوب",
+      "position": "middle",
+      "english_variants": [
+       "Jathob"
+      ],
+      "english_used": "Jathob"
+     },
+     {
+      "token_id": 35,
+      "arabic": "البراشدي",
+      "position": "family",
+      "english_variants": [
+       "Al Barashdy"
+      ],
+      "english_used": "Al Barashdy"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Asma bint Jathob Al Barashdy"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     18,
+     47
+    ],
+    "token_ids": [
+     74,
+     75,
+     76,
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "مرام بنت ناصر بن فيصل الزعابي",
+    "english_full": "Maram Bint Naser Bin Faisel Al Zaabi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "مرام",
+      "position": "given",
+      "english_variants": [
+       "Maram"
+      ],
+      "english_used": "Maram"
+     },
+     {
+      "token_id": 76,
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Naser"
+     },
+     {
+      "token_id": 78,
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisel"
+     },
+     {
+      "token_id": 79,
+      "arabic": "الزعابي",
+      "position": "family",
+      "english_variants": [
+       "Al Zaabi"
+      ],
+      "english_used": "Al Zaabi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Maram Bint Naser Bin Faisel Al Zaabi"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

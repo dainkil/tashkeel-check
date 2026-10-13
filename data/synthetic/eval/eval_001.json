@@ -1,0 +1,342 @@
+{
+ "doc_id": "eval_001",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 12/08/2026 حضر أمام الكاتب العدل السيدة نهلة بنت منذر بن رضا العطاوي، كويتية الجنسية، وتحمل جواز سفر رقم A6476202."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفتها مديرة لشركة القحطاني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 503136، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقررت أنها وكّلت السيد إبراهيم بن حسن السلوم، بحريني الجنسية، ويحمل بطاقة هوية رقم 45117557."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكلة: نهلة بنت منذر بن رضا العطاوي"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيل: إبراهيم بن حسن السلوم"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 1,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     79
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "نهلة بنت منذر بن رضا العطاوي",
+    "english_full": "Nahla Bint Munther Bin Reza Al Attawi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "نهلة",
+      "position": "given",
+      "english_variants": [
+       "Nahla"
+      ],
+      "english_used": "Nahla"
+     },
+     {
+      "token_id": 13,
+      "arabic": "منذر",
+      "position": "middle",
+      "english_variants": [
+       "Munther",
+       "Mondher"
+      ],
+      "english_used": "Munther"
+     },
+     {
+      "token_id": 15,
+      "arabic": "رضا",
+      "position": "middle",
+      "english_variants": [
+       "Redha",
+       "Rida",
+       "Reda",
+       "Reza",
+       "Ridha"
+      ],
+      "english_used": "Reza"
+     },
+     {
+      "token_id": 16,
+      "arabic": "العطاوي",
+      "position": "family",
+      "english_variants": [
+       "Al Attawi",
+       "Al Atawi"
+      ],
+      "english_used": "Al Attawi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     32
+    ],
+    "token_ids": [
+     29
+    ],
+    "arabic_full": "القحطاني",
+    "english_full": "Al Qahtani",
+    "tokens": [
+     {
+      "token_id": 29,
+      "arabic": "القحطاني",
+      "position": "family",
+      "english_variants": [
+       "Al Qahtani",
+       "al Qahtani",
+       "al Kahtani"
+      ],
+      "english_used": "Al Qahtani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     23,
+     44
+    ],
+    "token_ids": [
+     51,
+     52,
+     53,
+     54
+    ],
+    "arabic_full": "إبراهيم بن حسن السلوم",
+    "english_full": "Ibrahim Bin Hassan Al Salloum",
+    "tokens": [
+     {
+      "token_id": 51,
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim",
+       "Abu Aws"
+      ],
+      "english_used": "Ibrahim"
+     },
+     {
+      "token_id": 53,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 54,
+      "arabic": "السلوم",
+      "position": "family",
+      "english_variants": [
+       "Al Salloum"
+      ],
+      "english_used": "Al Salloum"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     9,
+     37
+    ],
+    "token_ids": [
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "arabic_full": "نهلة بنت منذر بن رضا العطاوي",
+    "english_full": "Nahla Bint Munther Bin Reza Al Attawi",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "نهلة",
+      "position": "given",
+      "english_variants": [
+       "Nahla"
+      ],
+      "english_used": "Nahla"
+     },
+     {
+      "token_id": 80,
+      "arabic": "منذر",
+      "position": "middle",
+      "english_variants": [
+       "Munther",
+       "Mondher"
+      ],
+      "english_used": "Munther"
+     },
+     {
+      "token_id": 82,
+      "arabic": "رضا",
+      "position": "middle",
+      "english_variants": [
+       "Redha",
+       "Rida",
+       "Reda",
+       "Reza",
+       "Ridha"
+      ],
+      "english_used": "Reza"
+     },
+     {
+      "token_id": 83,
+      "arabic": "العطاوي",
+      "position": "family",
+      "english_variants": [
+       "Al Attawi",
+       "Al Atawi"
+      ],
+      "english_used": "Al Attawi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     8,
+     29
+    ],
+    "token_ids": [
+     85,
+     86,
+     87,
+     88
+    ],
+    "arabic_full": "إبراهيم بن حسن السلوم",
+    "english_full": "Ibrahim Bin Hassan Al Salloum",
+    "tokens": [
+     {
+      "token_id": 85,
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim",
+       "Abu Aws"
+      ],
+      "english_used": "Ibrahim"
+     },
+     {
+      "token_id": 87,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 88,
+      "arabic": "السلوم",
+      "position": "family",
+      "english_variants": [
+       "Al Salloum"
+      ],
+      "english_used": "Al Salloum"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   32,
+   33,
+   34,
+   37,
+   38,
+   39,
+   43,
+   44,
+   45,
+   46
+  ]
+ }
+}

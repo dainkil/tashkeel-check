@@ -1,0 +1,218 @@
+{
+ "doc_id": "eval_006",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الحبسية للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 656036، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيد علي بن حسين الماس، عماني الجنسية، ويحمل جواز سفر رقم C7571007، يعمل لديها بوظيفة محاسب منذ 12/03/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: أحمد بن إبراهيم القوس"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 24/10/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 6,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     16
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الحبسية",
+    "english_full": "Al Habsi",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الحبسية",
+      "position": "family",
+      "english_variants": [
+       "Al Habsi"
+      ],
+      "english_used": "Al Habsi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     10,
+     27
+    ],
+    "token_ids": [
+     23,
+     24,
+     25,
+     26
+    ],
+    "arabic_full": "علي بن حسين الماس",
+    "english_full": "Ali Bin hussein Al Mas",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "علي",
+      "position": "given",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 25,
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "hussein"
+     },
+     {
+      "token_id": 26,
+      "arabic": "الماس",
+      "position": "family",
+      "english_variants": [
+       "Al Mas"
+      ],
+      "english_used": "Al Mas"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     38
+    ],
+    "token_ids": [
+     55,
+     56,
+     57,
+     58
+    ],
+    "arabic_full": "أحمد بن إبراهيم القوس",
+    "english_full": "Ahmed bin Ibrahim Al Goos",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "أحمد",
+      "position": "given",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 57,
+      "arabic": "إبراهيم",
+      "position": "middle",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim",
+       "Abu Aws"
+      ],
+      "english_used": "Ibrahim"
+     },
+     {
+      "token_id": 58,
+      "arabic": "القوس",
+      "position": "family",
+      "english_variants": [
+       "Al Goos"
+      ],
+      "english_used": "Al Goos"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

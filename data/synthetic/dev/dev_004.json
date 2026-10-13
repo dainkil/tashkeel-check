@@ -1,0 +1,245 @@
+{
+ "doc_id": "dev_004",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة البراشدي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 852220، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Barashdy General Trading L.L.C., Registration No. 852220"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيد محمد كمال معمر الداهي، إماراتي الجنسية، ويحمل جواز سفر رقم R5041084، يعمل لديها بوظيفة محاسب منذ 24/11/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Mohammed Kamal Muammar Al Dahi, Passport No. R5041084"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوض بالتوقيع: موسى حاتم الشنقيطي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Mousa Hatem Shenqeeti"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 22/08/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 4,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     17
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "البراشدي",
+    "english_full": "Al Barashdy",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "البراشدي",
+      "position": "family",
+      "english_variants": [
+       "Al Barashdy"
+      ],
+      "english_used": "Al Barashdy"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Barashdy General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     10,
+     31
+    ],
+    "token_ids": [
+     32,
+     33,
+     34,
+     35
+    ],
+    "arabic_full": "محمد كمال معمر الداهي",
+    "english_full": "Mohammed Kamal Muammar Al Dahi",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 33,
+      "arabic": "كمال",
+      "position": "middle",
+      "english_variants": [
+       "Kamal"
+      ],
+      "english_used": "Kamal"
+     },
+     {
+      "token_id": 34,
+      "arabic": "معمر",
+      "position": "middle",
+      "english_variants": [
+       "Muamer",
+       "Moamar",
+       "Muaammar",
+       "Al Muaammar",
+       "Muammar"
+      ],
+      "english_used": "Muammar"
+     },
+     {
+      "token_id": 35,
+      "arabic": "الداهي",
+      "position": "family",
+      "english_variants": [
+       "Al Dahi"
+      ],
+      "english_used": "Al Dahi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Mohammed Kamal Muammar Al Dahi"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     17,
+     35
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "موسى حاتم الشنقيطي",
+    "english_full": "Mousa Hatem Shenqeeti",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "موسى",
+      "position": "given",
+      "english_variants": [
+       "Musa",
+       "Mousa",
+       "Moosa",
+       "Moussa"
+      ],
+      "english_used": "Mousa"
+     },
+     {
+      "token_id": 75,
+      "arabic": "حاتم",
+      "position": "middle",
+      "english_variants": [
+       "Hatem",
+       "Hatim"
+      ],
+      "english_used": "Hatem"
+     },
+     {
+      "token_id": 76,
+      "arabic": "الشنقيطي",
+      "position": "family",
+      "english_variants": [
+       "Al Shanqiti",
+       "Al Shanqeeti",
+       "Shenqeeti",
+       "Shengeeti",
+       "Al Shengeeti",
+       "Al Shangeati",
+       "Al Shankiti",
+       "Shanqeeti"
+      ],
+      "english_used": "Shenqeeti"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Mousa Hatem Shenqeeti"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

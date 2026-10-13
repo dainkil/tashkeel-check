@@ -1,0 +1,222 @@
+{
+ "doc_id": "eval_008",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الخراشي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 755786، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Kharashi General Trading L.L.C., Registration No. 755786"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيدة صيتة بنت سليمان المعلمي، إماراتية الجنسية، وتحمل جواز سفر رقم A1111102، تعمل لديها بوظيفة مهندسة منذ 15/04/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Sita bint Sulaiman Al Moallimi, Passport No. A1111102"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوضة بالتوقيع: ناديا أحمد المبدل"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Nadia Ahmed Al Mubadil"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 16/02/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 8,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     16
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الخراشي",
+    "english_full": "Al Kharashi",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الخراشي",
+      "position": "family",
+      "english_variants": [
+       "Al Kharashi",
+       "Al Kharashy"
+      ],
+      "english_used": "Al Kharashi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Kharashi General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     11,
+     34
+    ],
+    "token_ids": [
+     32,
+     33,
+     34,
+     35
+    ],
+    "arabic_full": "صيتة بنت سليمان المعلمي",
+    "english_full": "Sita bint Sulaiman Al Moallimi",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "صيتة",
+      "position": "given",
+      "english_variants": [
+       "Seeta",
+       "Sita"
+      ],
+      "english_used": "Sita"
+     },
+     {
+      "token_id": 34,
+      "arabic": "سليمان",
+      "position": "middle",
+      "english_variants": [
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
+      ],
+      "english_used": "Sulaiman"
+     },
+     {
+      "token_id": 35,
+      "arabic": "المعلمي",
+      "position": "family",
+      "english_variants": [
+       "al Moallimi",
+       "Al Moallimi"
+      ],
+      "english_used": "Al Moallimi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Sita bint Sulaiman Al Moallimi"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     18,
+     35
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "ناديا أحمد المبدل",
+    "english_full": "Nadia Ahmed Al Mubadil",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "ناديا",
+      "position": "given",
+      "english_variants": [
+       "Nadia"
+      ],
+      "english_used": "Nadia"
+     },
+     {
+      "token_id": 75,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 76,
+      "arabic": "المبدل",
+      "position": "family",
+      "english_variants": [
+       "Al Mubadil"
+      ],
+      "english_used": "Al Mubadil"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Nadia Ahmed Al Mubadil"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

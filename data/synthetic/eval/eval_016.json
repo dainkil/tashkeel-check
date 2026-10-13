@@ -1,0 +1,204 @@
+{
+ "doc_id": "eval_016",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة العبدلي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 550292، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيدة لولوة بنت ماجد المنوري، بحرينية الجنسية، وتحمل جواز سفر رقم K4943260، تعمل لديها بوظيفة مهندسة منذ 03/06/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوضة بالتوقيع: حميدة متعب المهدي"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 18/10/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 16,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     16
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "العبدلي",
+    "english_full": "Al Abdeli",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "العبدلي",
+      "position": "family",
+      "english_variants": [
+       "Al Abdali",
+       "Al Abdeli"
+      ],
+      "english_used": "Al Abdeli"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     11,
+     33
+    ],
+    "token_ids": [
+     23,
+     24,
+     25,
+     26
+    ],
+    "arabic_full": "لولوة بنت ماجد المنوري",
+    "english_full": "Lulwah bint Majed Al Manwari",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "لولوة",
+      "position": "given",
+      "english_variants": [
+       "Lulwa",
+       "Lulwah",
+       "Lolwah",
+       "Lola",
+       "Lulowa",
+       "Lolwa",
+       "Luluwah"
+      ],
+      "english_used": "Lulwah"
+     },
+     {
+      "token_id": 25,
+      "arabic": "ماجد",
+      "position": "middle",
+      "english_variants": [
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
+      ],
+      "english_used": "Majed"
+     },
+     {
+      "token_id": 26,
+      "arabic": "المنوري",
+      "position": "family",
+      "english_variants": [
+       "Al Manwari"
+      ],
+      "english_used": "Al Manwari"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     18,
+     35
+    ],
+    "token_ids": [
+     55,
+     56,
+     57
+    ],
+    "arabic_full": "حميدة متعب المهدي",
+    "english_full": "Hemida Mutaeb Al Mahdi",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "حميدة",
+      "position": "given",
+      "english_variants": [
+       "Hamida",
+       "Hemida",
+       "Hemeida"
+      ],
+      "english_used": "Hemida"
+     },
+     {
+      "token_id": 56,
+      "arabic": "متعب",
+      "position": "middle",
+      "english_variants": [
+       "Muteb",
+       "Mutaeb",
+       "Mutab",
+       "Moteb",
+       "Mutaib"
+      ],
+      "english_used": "Mutaeb"
+     },
+     {
+      "token_id": 57,
+      "arabic": "المهدي",
+      "position": "family",
+      "english_variants": [
+       "Al Mahdi",
+       "Mahdi"
+      ],
+      "english_used": "Al Mahdi"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

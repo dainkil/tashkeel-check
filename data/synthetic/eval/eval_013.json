@@ -1,0 +1,431 @@
+{
+ "doc_id": "eval_013",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 18/07/2026 حضر أمام الكاتب العدل السيد محمد بن علي بن حسن القرني، كويتي الجنسية، ويحمل جواز سفر رقم P3487654."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Mohamed bin Ali bin Hassan Al Garni, Passport No. P3487654"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الشماسي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 910623، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: al Shammasi General Trading L.L.C., Registration No. 910623"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد فيصل بن حمود بن قرينيس العطار، بحريني الجنسية، ويحمل بطاقة هوية رقم 19841490."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Faisal Bin Hamoud Bin Quraines Alattar, ID No. 19841490"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: محمد بن علي بن حسن القرني"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: فيصل بن حمود بن قرينيس العطار"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 13,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     75
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "محمد بن علي بن حسن القرني",
+    "english_full": "Mohamed bin Ali bin Hassan Al Garni",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed"
+     },
+     {
+      "token_id": 13,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 15,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 16,
+      "arabic": "القرني",
+      "position": "family",
+      "english_variants": [
+       "Al Qarni",
+       "Al Garni",
+       "al Qarni",
+       "Al Karni"
+      ],
+      "english_used": "Al Garni"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mohamed bin Ali bin Hassan Al Garni"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     41
+    ],
+    "arabic_full": "الشماسي",
+    "english_full": "al Shammasi",
+    "tokens": [
+     {
+      "token_id": 41,
+      "arabic": "الشماسي",
+      "position": "family",
+      "english_variants": [
+       "al Shammasi"
+      ],
+      "english_used": "al Shammasi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "al Shammasi General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     20,
+     49
+    ],
+    "token_ids": [
+     72,
+     73,
+     74,
+     75,
+     76,
+     77
+    ],
+    "arabic_full": "فيصل بن حمود بن قرينيس العطار",
+    "english_full": "Faisal Bin Hamoud Bin Quraines Alattar",
+    "tokens": [
+     {
+      "token_id": 72,
+      "arabic": "فيصل",
+      "position": "given",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal"
+     },
+     {
+      "token_id": 74,
+      "arabic": "حمود",
+      "position": "middle",
+      "english_variants": [
+       "Hamoud",
+       "Hamood",
+       "Hammoud",
+       "Hmoud",
+       "Humoud",
+       "Humood"
+      ],
+      "english_used": "Hamoud"
+     },
+     {
+      "token_id": 76,
+      "arabic": "قرينيس",
+      "position": "middle",
+      "english_variants": [
+       "Quraines"
+      ],
+      "english_used": "Quraines"
+     },
+     {
+      "token_id": 77,
+      "arabic": "العطار",
+      "position": "family",
+      "english_variants": [
+       "al Attar",
+       "Alattar"
+      ],
+      "english_used": "Alattar"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Faisal Bin Hamoud Bin Quraines Alattar"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     33
+    ],
+    "token_ids": [
+     111,
+     112,
+     113,
+     114,
+     115,
+     116
+    ],
+    "arabic_full": "محمد بن علي بن حسن القرني",
+    "english_full": "Mohamed bin Ali bin Hassan Al Garni",
+    "tokens": [
+     {
+      "token_id": 111,
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed"
+     },
+     {
+      "token_id": 113,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 115,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 116,
+      "arabic": "القرني",
+      "position": "family",
+      "english_variants": [
+       "Al Qarni",
+       "Al Garni",
+       "al Qarni",
+       "Al Karni"
+      ],
+      "english_used": "Al Garni"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mohamed bin Ali bin Hassan Al Garni"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     8,
+     37
+    ],
+    "token_ids": [
+     118,
+     119,
+     120,
+     121,
+     122,
+     123
+    ],
+    "arabic_full": "فيصل بن حمود بن قرينيس العطار",
+    "english_full": "Faisal Bin Hamoud Bin Quraines Alattar",
+    "tokens": [
+     {
+      "token_id": 118,
+      "arabic": "فيصل",
+      "position": "given",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal"
+     },
+     {
+      "token_id": 120,
+      "arabic": "حمود",
+      "position": "middle",
+      "english_variants": [
+       "Hamoud",
+       "Hamood",
+       "Hammoud",
+       "Hmoud",
+       "Humoud",
+       "Humood"
+      ],
+      "english_used": "Hamoud"
+     },
+     {
+      "token_id": 122,
+      "arabic": "قرينيس",
+      "position": "middle",
+      "english_variants": [
+       "Quraines"
+      ],
+      "english_used": "Quraines"
+     },
+     {
+      "token_id": 123,
+      "arabic": "العطار",
+      "position": "family",
+      "english_variants": [
+       "al Attar",
+       "Alattar"
+      ],
+      "english_used": "Alattar"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Faisal Bin Hamoud Bin Quraines Alattar"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   44,
+   45,
+   46,
+   49,
+   50,
+   51,
+   55,
+   56,
+   57,
+   58
+  ]
+ }
+}

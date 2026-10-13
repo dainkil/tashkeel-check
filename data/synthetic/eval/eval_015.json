@@ -1,0 +1,334 @@
+{
+ "doc_id": "eval_015",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 17/04/2026 حضر أمام الكاتب العدل السيد تقي بن إبراهيم العمير، عماني الجنسية، ويحمل جواز سفر رقم Y1320363."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Taqi bin Ebrahim Al Omair, Passport No. Y1320363"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الشهراني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 334320، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Shahrani General Trading L.L.C., Registration No. 334320"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيدة ايف صالح الغسرة، قطرية الجنسية، وتحمل بطاقة هوية رقم 28650969."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Eve Saleh Al Gassra, ID No. 28650969"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: تقي بن إبراهيم العمير"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: ايف صالح الغسرة"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 15,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     71
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "تقي بن إبراهيم العمير",
+    "english_full": "Taqi bin Ebrahim Al Omair",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "تقي",
+      "position": "given",
+      "english_variants": [
+       "Taqi"
+      ],
+      "english_used": "Taqi"
+     },
+     {
+      "token_id": 13,
+      "arabic": "إبراهيم",
+      "position": "middle",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim",
+       "Abu Aws"
+      ],
+      "english_used": "Ebrahim"
+     },
+     {
+      "token_id": 14,
+      "arabic": "العمير",
+      "position": "family",
+      "english_variants": [
+       "Al Omair",
+       "Al Omeir"
+      ],
+      "english_used": "Al Omair"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Taqi bin Ebrahim Al Omair"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     32
+    ],
+    "token_ids": [
+     37
+    ],
+    "arabic_full": "الشهراني",
+    "english_full": "Al Shahrani",
+    "tokens": [
+     {
+      "token_id": 37,
+      "arabic": "الشهراني",
+      "position": "family",
+      "english_variants": [
+       "Al Shahrani",
+       "Al Shahaaan"
+      ],
+      "english_used": "Al Shahrani"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Shahrani General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     21,
+     36
+    ],
+    "token_ids": [
+     68,
+     69,
+     70
+    ],
+    "arabic_full": "ايف صالح الغسرة",
+    "english_full": "Eve Saleh Al Gassra",
+    "tokens": [
+     {
+      "token_id": 68,
+      "arabic": "ايف",
+      "position": "given",
+      "english_variants": [
+       "Eve"
+      ],
+      "english_used": "Eve"
+     },
+     {
+      "token_id": 69,
+      "arabic": "صالح",
+      "position": "middle",
+      "english_variants": [
+       "Saleh",
+       "Salih",
+       "Salem"
+      ],
+      "english_used": "Saleh"
+     },
+     {
+      "token_id": 70,
+      "arabic": "الغسرة",
+      "position": "family",
+      "english_variants": [
+       "Al Ghasra",
+       "Al Gassra"
+      ],
+      "english_used": "Al Gassra"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Eve Saleh Al Gassra"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     29
+    ],
+    "token_ids": [
+     102,
+     103,
+     104,
+     105
+    ],
+    "arabic_full": "تقي بن إبراهيم العمير",
+    "english_full": "Taqi bin Ebrahim Al Omair",
+    "tokens": [
+     {
+      "token_id": 102,
+      "arabic": "تقي",
+      "position": "given",
+      "english_variants": [
+       "Taqi"
+      ],
+      "english_used": "Taqi"
+     },
+     {
+      "token_id": 104,
+      "arabic": "إبراهيم",
+      "position": "middle",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim",
+       "Abu Aws"
+      ],
+      "english_used": "Ebrahim"
+     },
+     {
+      "token_id": 105,
+      "arabic": "العمير",
+      "position": "family",
+      "english_variants": [
+       "Al Omair",
+       "Al Omeir"
+      ],
+      "english_used": "Al Omair"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Taqi bin Ebrahim Al Omair"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     9,
+     24
+    ],
+    "token_ids": [
+     107,
+     108,
+     109
+    ],
+    "arabic_full": "ايف صالح الغسرة",
+    "english_full": "Eve Saleh Al Gassra",
+    "tokens": [
+     {
+      "token_id": 107,
+      "arabic": "ايف",
+      "position": "given",
+      "english_variants": [
+       "Eve"
+      ],
+      "english_used": "Eve"
+     },
+     {
+      "token_id": 108,
+      "arabic": "صالح",
+      "position": "middle",
+      "english_variants": [
+       "Saleh",
+       "Salih",
+       "Salem"
+      ],
+      "english_used": "Saleh"
+     },
+     {
+      "token_id": 109,
+      "arabic": "الغسرة",
+      "position": "family",
+      "english_variants": [
+       "Al Ghasra",
+       "Al Gassra"
+      ],
+      "english_used": "Al Gassra"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Eve Saleh Al Gassra"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   40,
+   41,
+   42,
+   45,
+   46,
+   47,
+   51,
+   52,
+   53,
+   54
+  ]
+ }
+}

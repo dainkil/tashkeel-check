@@ -1,0 +1,203 @@
+{
+ "doc_id": "dev_008",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة العلياني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 676369، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيد تركي بن طارق المسلمي، قطري الجنسية، ويحمل جواز سفر رقم P1231424، يعمل لديها بوظيفة مندوب مبيعات منذ 17/11/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوضة بالتوقيع: خديجة بنت فيصل العبيدان"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 25/04/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 8,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     17
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "العلياني",
+    "english_full": "Al Olayani",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "العلياني",
+      "position": "family",
+      "english_variants": [
+       "Al Olayani",
+       "Al Aliany"
+      ],
+      "english_used": "Al Olayani"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     10,
+     30
+    ],
+    "token_ids": [
+     23,
+     24,
+     25,
+     26
+    ],
+    "arabic_full": "تركي بن طارق المسلمي",
+    "english_full": "Turki Bin Tarek Al Maslami",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "تركي",
+      "position": "given",
+      "english_variants": [
+       "Turki",
+       "Turky",
+       "Turkee"
+      ],
+      "english_used": "Turki"
+     },
+     {
+      "token_id": 25,
+      "arabic": "طارق",
+      "position": "middle",
+      "english_variants": [
+       "Tariq",
+       "Tareq",
+       "Tarek",
+       "Tarik",
+       "Tareg"
+      ],
+      "english_used": "Tarek"
+     },
+     {
+      "token_id": 26,
+      "arabic": "المسلمي",
+      "position": "family",
+      "english_variants": [
+       "Al Maslami"
+      ],
+      "english_used": "Al Maslami"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     18,
+     41
+    ],
+    "token_ids": [
+     56,
+     57,
+     58,
+     59
+    ],
+    "arabic_full": "خديجة بنت فيصل العبيدان",
+    "english_full": "Khadija bint Fesal Al Obaidan",
+    "tokens": [
+     {
+      "token_id": 56,
+      "arabic": "خديجة",
+      "position": "given",
+      "english_variants": [
+       "Khadija",
+       "Khadeeja",
+       "Kadeeja",
+       "Khadijah"
+      ],
+      "english_used": "Khadija"
+     },
+     {
+      "token_id": 58,
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Fesal"
+     },
+     {
+      "token_id": 59,
+      "arabic": "العبيدان",
+      "position": "family",
+      "english_variants": [
+       "Al Obaidan"
+      ],
+      "english_used": "Al Obaidan"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

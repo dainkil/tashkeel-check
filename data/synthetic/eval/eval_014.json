@@ -1,0 +1,254 @@
+{
+ "doc_id": "eval_014",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الأحمد للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 311131، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Ahmad General Trading L.L.C., Registration No. 311131"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيد فريد ناصر باسل الحربي، عماني الجنسية، ويحمل جواز سفر رقم D6877356، يعمل لديها بوظيفة محاسب منذ 14/07/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Farid Nasser Basil Al Harbi, Passport No. D6877356"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوض بالتوقيع: يوسف راشد البلوشي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Yusuf Rashed Al Beloushi"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 02/11/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 14,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الأحمد",
+    "english_full": "Al Ahmad",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الأحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Ahmad",
+       "Al Ahmed",
+       "Ahmad",
+       "al Ahmad"
+      ],
+      "english_used": "Al Ahmad"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Ahmad General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     10,
+     31
+    ],
+    "token_ids": [
+     32,
+     33,
+     34,
+     35
+    ],
+    "arabic_full": "فريد ناصر باسل الحربي",
+    "english_full": "Farid Nasser Basil Al Harbi",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "فريد",
+      "position": "given",
+      "english_variants": [
+       "Farid",
+       "Fareed"
+      ],
+      "english_used": "Farid"
+     },
+     {
+      "token_id": 33,
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nasser"
+     },
+     {
+      "token_id": 34,
+      "arabic": "باسل",
+      "position": "middle",
+      "english_variants": [
+       "Basil",
+       "Basel"
+      ],
+      "english_used": "Basil"
+     },
+     {
+      "token_id": 35,
+      "arabic": "الحربي",
+      "position": "family",
+      "english_variants": [
+       "Al Harbi",
+       "al Harbi",
+       "Al Harby",
+       "El Harby",
+       "El Harbi"
+      ],
+      "english_used": "Al Harbi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Farid Nasser Basil Al Harbi"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     17,
+     34
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "يوسف راشد البلوشي",
+    "english_full": "Yusuf Rashed Al Beloushi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "يوسف",
+      "position": "given",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yusuf"
+     },
+     {
+      "token_id": 75,
+      "arabic": "راشد",
+      "position": "middle",
+      "english_variants": [
+       "Rashid",
+       "Rashed",
+       "Rasheed"
+      ],
+      "english_used": "Rashed"
+     },
+     {
+      "token_id": 76,
+      "arabic": "البلوشي",
+      "position": "family",
+      "english_variants": [
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
+      ],
+      "english_used": "Al Beloushi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Yusuf Rashed Al Beloushi"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

@@ -1,0 +1,384 @@
+{
+ "doc_id": "eval_029",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 04/11/2026 حضر أمام الكاتب العدل السيدة فاطمة محمد الرفاعي، سعودية الجنسية، وتحمل جواز سفر رقم T2211885."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Fatima Muhammad al Rifa'i, Passport No. T2211885"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفتها مديرة لشركة العامر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 620546، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Amer General Trading L.L.C., Registration No. 620546"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقررت أنها وكّلت السيدة لورا بنت حمد بن أحمد اليحيى، قطرية الجنسية، وتحمل بطاقة هوية رقم 91554655."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Laura bint Hamad bin Ahmed Al Yahya, ID No. 91554655"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: فاطمة محمد الرفاعي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: لورا بنت حمد بن أحمد اليحيى"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 29,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     51,
+     69
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "فاطمة محمد الرفاعي",
+    "english_full": "Fatima Muhammad al Rifa'i",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "فاطمة",
+      "position": "given",
+      "english_variants": [
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
+      ],
+      "english_used": "Fatima"
+     },
+     {
+      "token_id": 12,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
+     },
+     {
+      "token_id": 13,
+      "arabic": "الرفاعي",
+      "position": "family",
+      "english_variants": [
+       "Al Rifaie",
+       "al Rifa'i"
+      ],
+      "english_used": "al Rifa'i"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Fatima Muhammad al Rifa'i"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     35
+    ],
+    "arabic_full": "العامر",
+    "english_full": "Al Amer",
+    "tokens": [
+     {
+      "token_id": 35,
+      "arabic": "العامر",
+      "position": "family",
+      "english_variants": [
+       "Al Amer",
+       "Amer"
+      ],
+      "english_used": "Al Amer"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Amer General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     24,
+     51
+    ],
+    "token_ids": [
+     66,
+     67,
+     68,
+     69,
+     70,
+     71
+    ],
+    "arabic_full": "لورا بنت حمد بن أحمد اليحيى",
+    "english_full": "Laura bint Hamad bin Ahmed Al Yahya",
+    "tokens": [
+     {
+      "token_id": 66,
+      "arabic": "لورا",
+      "position": "given",
+      "english_variants": [
+       "Laura"
+      ],
+      "english_used": "Laura"
+     },
+     {
+      "token_id": 68,
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad"
+     },
+     {
+      "token_id": 70,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 71,
+      "arabic": "اليحيى",
+      "position": "family",
+      "english_variants": [
+       "Al Yahya"
+      ],
+      "english_used": "Al Yahya"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Laura bint Hamad bin Ahmed Al Yahya"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     9,
+     27
+    ],
+    "token_ids": [
+     106,
+     107,
+     108
+    ],
+    "arabic_full": "فاطمة محمد الرفاعي",
+    "english_full": "Fatima Muhammad al Rifa'i",
+    "tokens": [
+     {
+      "token_id": 106,
+      "arabic": "فاطمة",
+      "position": "given",
+      "english_variants": [
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
+      ],
+      "english_used": "Fatima"
+     },
+     {
+      "token_id": 107,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
+     },
+     {
+      "token_id": 108,
+      "arabic": "الرفاعي",
+      "position": "family",
+      "english_variants": [
+       "Al Rifaie",
+       "al Rifa'i"
+      ],
+      "english_used": "al Rifa'i"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Fatima Muhammad al Rifa'i"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     9,
+     36
+    ],
+    "token_ids": [
+     110,
+     111,
+     112,
+     113,
+     114,
+     115
+    ],
+    "arabic_full": "لورا بنت حمد بن أحمد اليحيى",
+    "english_full": "Laura bint Hamad bin Ahmed Al Yahya",
+    "tokens": [
+     {
+      "token_id": 110,
+      "arabic": "لورا",
+      "position": "given",
+      "english_variants": [
+       "Laura"
+      ],
+      "english_used": "Laura"
+     },
+     {
+      "token_id": 112,
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad"
+     },
+     {
+      "token_id": 114,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 115,
+      "arabic": "اليحيى",
+      "position": "family",
+      "english_variants": [
+       "Al Yahya"
+      ],
+      "english_used": "Al Yahya"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Laura bint Hamad bin Ahmed Al Yahya"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   38,
+   39,
+   40,
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
+  ]
+ }
+}

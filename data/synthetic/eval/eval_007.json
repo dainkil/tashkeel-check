@@ -1,0 +1,415 @@
+{
+ "doc_id": "eval_007",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 24/09/2026 حضر أمام الكاتب العدل السيد مشاري بن سعيد البلوشي، كويتي الجنسية، ويحمل جواز سفر رقم T2807572."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Mashari Bin Saeed Al Balooshi, Passport No. T2807572"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة العلي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 293577، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: al Ali General Trading L.L.C., Registration No. 293577"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيدة شهد بنت أحمد بن سعود الفيصل، قطرية الجنسية، وتحمل بطاقة هوية رقم 60415240."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Shahad bint Ahmed bin Saud Al Faisal, ID No. 60415240"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: مشاري بن سعيد البلوشي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: شهد بنت أحمد بن سعود الفيصل"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 7,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     71
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "مشاري بن سعيد البلوشي",
+    "english_full": "Mashari Bin Saeed Al Balooshi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "مشاري",
+      "position": "given",
+      "english_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "english_used": "Mashari"
+     },
+     {
+      "token_id": 13,
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Saeed"
+     },
+     {
+      "token_id": 14,
+      "arabic": "البلوشي",
+      "position": "family",
+      "english_variants": [
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
+      ],
+      "english_used": "Al Balooshi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mashari Bin Saeed Al Balooshi"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     29
+    ],
+    "token_ids": [
+     37
+    ],
+    "arabic_full": "العلي",
+    "english_full": "al Ali",
+    "tokens": [
+     {
+      "token_id": 37,
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "al Ali"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "al Ali General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     21,
+     48
+    ],
+    "token_ids": [
+     68,
+     69,
+     70,
+     71,
+     72,
+     73
+    ],
+    "arabic_full": "شهد بنت أحمد بن سعود الفيصل",
+    "english_full": "Shahad bint Ahmed bin Saud Al Faisal",
+    "tokens": [
+     {
+      "token_id": 68,
+      "arabic": "شهد",
+      "position": "given",
+      "english_variants": [
+       "Shahad",
+       "Shammari"
+      ],
+      "english_used": "Shahad"
+     },
+     {
+      "token_id": 70,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 72,
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud"
+     },
+     {
+      "token_id": 73,
+      "arabic": "الفيصل",
+      "position": "family",
+      "english_variants": [
+       "Al Faisal",
+       "al Faisal"
+      ],
+      "english_used": "Al Faisal"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Shahad bint Ahmed bin Saud Al Faisal"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     29
+    ],
+    "token_ids": [
+     108,
+     109,
+     110,
+     111
+    ],
+    "arabic_full": "مشاري بن سعيد البلوشي",
+    "english_full": "Mashari Bin Saeed Al Balooshi",
+    "tokens": [
+     {
+      "token_id": 108,
+      "arabic": "مشاري",
+      "position": "given",
+      "english_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "english_used": "Mashari"
+     },
+     {
+      "token_id": 110,
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Saeed"
+     },
+     {
+      "token_id": 111,
+      "arabic": "البلوشي",
+      "position": "family",
+      "english_variants": [
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
+      ],
+      "english_used": "Al Balooshi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mashari Bin Saeed Al Balooshi"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     9,
+     36
+    ],
+    "token_ids": [
+     113,
+     114,
+     115,
+     116,
+     117,
+     118
+    ],
+    "arabic_full": "شهد بنت أحمد بن سعود الفيصل",
+    "english_full": "Shahad bint Ahmed bin Saud Al Faisal",
+    "tokens": [
+     {
+      "token_id": 113,
+      "arabic": "شهد",
+      "position": "given",
+      "english_variants": [
+       "Shahad",
+       "Shammari"
+      ],
+      "english_used": "Shahad"
+     },
+     {
+      "token_id": 115,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
+     },
+     {
+      "token_id": 117,
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud"
+     },
+     {
+      "token_id": 118,
+      "arabic": "الفيصل",
+      "position": "family",
+      "english_variants": [
+       "Al Faisal",
+       "al Faisal"
+      ],
+      "english_used": "Al Faisal"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Shahad bint Ahmed bin Saud Al Faisal"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   40,
+   41,
+   42,
+   45,
+   46,
+   47,
+   51,
+   52,
+   53,
+   54
+  ]
+ }
+}

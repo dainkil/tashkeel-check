@@ -1,0 +1,360 @@
+{
+ "doc_id": "eval_027",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 19/02/2026 حضر أمام الكاتب العدل السيد صالح بن سعيد العواجي، إماراتي الجنسية، ويحمل جواز سفر رقم U2097607."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Salih bin Said Al Awaji, Passport No. U2097607"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة البيشي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 829401، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Bishi General Trading L.L.C., Registration No. 829401"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد يونس بن علي الحريري، سعودي الجنسية، ويحمل بطاقة هوية رقم 40605455."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Younis Bin Ali al Hariri, ID No. 40605455"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: صالح بن سعيد العواجي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: يونس بن علي الحريري"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 27,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     70
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "صالح بن سعيد العواجي",
+    "english_full": "Salih bin Said Al Awaji",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "صالح",
+      "position": "given",
+      "english_variants": [
+       "Saleh",
+       "Salih",
+       "Salem"
+      ],
+      "english_used": "Salih"
+     },
+     {
+      "token_id": 13,
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Said"
+     },
+     {
+      "token_id": 14,
+      "arabic": "العواجي",
+      "position": "family",
+      "english_variants": [
+       "Al Awaji",
+       "al Awaji"
+      ],
+      "english_used": "Al Awaji"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Salih bin Said Al Awaji"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     37
+    ],
+    "arabic_full": "البيشي",
+    "english_full": "Al Bishi",
+    "tokens": [
+     {
+      "token_id": 37,
+      "arabic": "البيشي",
+      "position": "family",
+      "english_variants": [
+       "Al Bishi",
+       "Al Bish",
+       "Al Beshe",
+       "al Beshi"
+      ],
+      "english_used": "Al Bishi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Bishi General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     20,
+     39
+    ],
+    "token_ids": [
+     68,
+     69,
+     70,
+     71
+    ],
+    "arabic_full": "يونس بن علي الحريري",
+    "english_full": "Younis Bin Ali al Hariri",
+    "tokens": [
+     {
+      "token_id": 68,
+      "arabic": "يونس",
+      "position": "given",
+      "english_variants": [
+       "Younes",
+       "Younis",
+       "Younousse"
+      ],
+      "english_used": "Younis"
+     },
+     {
+      "token_id": 70,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 71,
+      "arabic": "الحريري",
+      "position": "family",
+      "english_variants": [
+       "Hariri",
+       "Al Hariri",
+       "al Hariri",
+       "el Hariri"
+      ],
+      "english_used": "al Hariri"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Younis Bin Ali al Hariri"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     28
+    ],
+    "token_ids": [
+     104,
+     105,
+     106,
+     107
+    ],
+    "arabic_full": "صالح بن سعيد العواجي",
+    "english_full": "Salih bin Said Al Awaji",
+    "tokens": [
+     {
+      "token_id": 104,
+      "arabic": "صالح",
+      "position": "given",
+      "english_variants": [
+       "Saleh",
+       "Salih",
+       "Salem"
+      ],
+      "english_used": "Salih"
+     },
+     {
+      "token_id": 106,
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Said"
+     },
+     {
+      "token_id": 107,
+      "arabic": "العواجي",
+      "position": "family",
+      "english_variants": [
+       "Al Awaji",
+       "al Awaji"
+      ],
+      "english_used": "Al Awaji"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Salih bin Said Al Awaji"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     8,
+     27
+    ],
+    "token_ids": [
+     109,
+     110,
+     111,
+     112
+    ],
+    "arabic_full": "يونس بن علي الحريري",
+    "english_full": "Younis Bin Ali al Hariri",
+    "tokens": [
+     {
+      "token_id": 109,
+      "arabic": "يونس",
+      "position": "given",
+      "english_variants": [
+       "Younes",
+       "Younis",
+       "Younousse"
+      ],
+      "english_used": "Younis"
+     },
+     {
+      "token_id": 111,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 112,
+      "arabic": "الحريري",
+      "position": "family",
+      "english_variants": [
+       "Hariri",
+       "Al Hariri",
+       "al Hariri",
+       "el Hariri"
+      ],
+      "english_used": "al Hariri"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Younis Bin Ali al Hariri"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   40,
+   41,
+   42,
+   45,
+   46,
+   47,
+   51,
+   52,
+   53,
+   54
+  ]
+ }
+}

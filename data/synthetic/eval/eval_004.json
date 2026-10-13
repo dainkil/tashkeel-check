@@ -1,0 +1,224 @@
+{
+ "doc_id": "eval_004",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الفرحان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 381057، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Farhan General Trading L.L.C., Registration No. 381057"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيدة منيرة حسن الحرمي، كويتية الجنسية، وتحمل جواز سفر رقم A8138380، تعمل لديها بوظيفة مندوبة مبيعات منذ 19/10/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Munira Hassan Al Harmi, Passport No. A8138380"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوض بالتوقيع: جمعة موسى الهدلق"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Jumaa Musa Al Hadlaq"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 25/01/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 4,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     16
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الفرحان",
+    "english_full": "Al Farhan",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Farhan General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     11,
+     27
+    ],
+    "token_ids": [
+     32,
+     33,
+     34
+    ],
+    "arabic_full": "منيرة حسن الحرمي",
+    "english_full": "Munira Hassan Al Harmi",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "منيرة",
+      "position": "given",
+      "english_variants": [
+       "Munira",
+       "Munirah",
+       "Muneera",
+       "Munera",
+       "Monira"
+      ],
+      "english_used": "Munira"
+     },
+     {
+      "token_id": 33,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 34,
+      "arabic": "الحرمي",
+      "position": "family",
+      "english_variants": [
+       "Al Harmi"
+      ],
+      "english_used": "Al Harmi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Munira Hassan Al Harmi"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     17,
+     33
+    ],
+    "token_ids": [
+     73,
+     74,
+     75
+    ],
+    "arabic_full": "جمعة موسى الهدلق",
+    "english_full": "Jumaa Musa Al Hadlaq",
+    "tokens": [
+     {
+      "token_id": 73,
+      "arabic": "جمعة",
+      "position": "given",
+      "english_variants": [
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma",
+       "Juma'a",
+       "Jumah"
+      ],
+      "english_used": "Jumaa"
+     },
+     {
+      "token_id": 74,
+      "arabic": "موسى",
+      "position": "middle",
+      "english_variants": [
+       "Musa",
+       "Mousa",
+       "Moosa",
+       "Moussa"
+      ],
+      "english_used": "Musa"
+     },
+     {
+      "token_id": 75,
+      "arabic": "الهدلق",
+      "position": "family",
+      "english_variants": [
+       "Al Hadlaq"
+      ],
+      "english_used": "Al Hadlaq"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Jumaa Musa Al Hadlaq"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

@@ -1,0 +1,205 @@
+{
+ "doc_id": "eval_020",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة العزما للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 548929، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيدة علياء بنت عيضة الهاشمي، بحرينية الجنسية، وتحمل جواز سفر رقم W5886442، تعمل لديها بوظيفة مهندسة منذ 28/03/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: سليمان بن نايف السبتي"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 24/04/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 20,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "العزما",
+    "english_full": "Al Azma",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "العزما",
+      "position": "family",
+      "english_variants": [
+       "Al Azma"
+      ],
+      "english_used": "Al Azma"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     11,
+     33
+    ],
+    "token_ids": [
+     23,
+     24,
+     25,
+     26
+    ],
+    "arabic_full": "علياء بنت عيضة الهاشمي",
+    "english_full": "Alia Bint Aida Al Hashimi",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "علياء",
+      "position": "given",
+      "english_variants": [
+       "Alia",
+       "Alyaa",
+       "Alya"
+      ],
+      "english_used": "Alia"
+     },
+     {
+      "token_id": 25,
+      "arabic": "عيضة",
+      "position": "middle",
+      "english_variants": [
+       "Eida",
+       "Aida"
+      ],
+      "english_used": "Aida"
+     },
+     {
+      "token_id": 26,
+      "arabic": "الهاشمي",
+      "position": "family",
+      "english_variants": [
+       "Al Hashemi",
+       "Al Hashimi",
+       "Al Hashmi",
+       "Al Hashimy",
+       "al Hashimi",
+       "al Hashemi",
+       "Hashimi"
+      ],
+      "english_used": "Al Hashimi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     38
+    ],
+    "token_ids": [
+     55,
+     56,
+     57,
+     58
+    ],
+    "arabic_full": "سليمان بن نايف السبتي",
+    "english_full": "Suliman bin Nayef Al Sabti",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "سليمان",
+      "position": "given",
+      "english_variants": [
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
+      ],
+      "english_used": "Suliman"
+     },
+     {
+      "token_id": 57,
+      "arabic": "نايف",
+      "position": "middle",
+      "english_variants": [
+       "Nayef",
+       "Naif",
+       "Nayif"
+      ],
+      "english_used": "Nayef"
+     },
+     {
+      "token_id": 58,
+      "arabic": "السبتي",
+      "position": "family",
+      "english_variants": [
+       "al Sabti",
+       "Al Sabti"
+      ],
+      "english_used": "Al Sabti"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

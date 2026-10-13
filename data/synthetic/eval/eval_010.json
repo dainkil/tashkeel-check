@@ -1,0 +1,228 @@
+{
+ "doc_id": "eval_010",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الصالح للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 819524، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Saleh General Trading L.L.C., Registration No. 819524"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيدة سمر علي الزهراني، بحرينية الجنسية، وتحمل جواز سفر رقم M6730529، تعمل لديها بوظيفة مهندسة منذ 15/04/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Samar Ali Al Zahrani, Passport No. M6730529"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المفوض بالتوقيع: أسامة بن خالد الشيباني"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Osama Bin Khaled Al Shaibani"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 10/01/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 10,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الصالح",
+    "english_full": "Al Saleh",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الصالح",
+      "position": "family",
+      "english_variants": [
+       "Al Saleh",
+       "al Saleh",
+       "Salah",
+       "al Salih"
+      ],
+      "english_used": "Al Saleh"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Saleh General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s04",
+    "span": [
+     11,
+     27
+    ],
+    "token_ids": [
+     32,
+     33,
+     34
+    ],
+    "arabic_full": "سمر علي الزهراني",
+    "english_full": "Samar Ali Al Zahrani",
+    "tokens": [
+     {
+      "token_id": 32,
+      "arabic": "سمر",
+      "position": "given",
+      "english_variants": [
+       "Samar",
+       "Summer"
+      ],
+      "english_used": "Samar"
+     },
+     {
+      "token_id": 33,
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali"
+     },
+     {
+      "token_id": 34,
+      "arabic": "الزهراني",
+      "position": "family",
+      "english_variants": [
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
+      ],
+      "english_used": "Al Zahrani"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Samar Ali Al Zahrani"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s07",
+    "span": [
+     17,
+     39
+    ],
+    "token_ids": [
+     72,
+     73,
+     74,
+     75
+    ],
+    "arabic_full": "أسامة بن خالد الشيباني",
+    "english_full": "Osama Bin Khaled Al Shaibani",
+    "tokens": [
+     {
+      "token_id": 72,
+      "arabic": "أسامة",
+      "position": "given",
+      "english_variants": [
+       "Osama",
+       "Osamah",
+       "Ossama",
+       "Usamah"
+      ],
+      "english_used": "Osama"
+     },
+     {
+      "token_id": 74,
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khaled"
+     },
+     {
+      "token_id": 75,
+      "arabic": "الشيباني",
+      "position": "family",
+      "english_variants": [
+       "Al Shaibani"
+      ],
+      "english_used": "Al Shaibani"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Osama Bin Khaled Al Shaibani"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

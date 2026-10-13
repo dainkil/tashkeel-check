@@ -1,0 +1,208 @@
+{
+ "doc_id": "eval_018",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "company_letter",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "إقرار"
+  },
+  {
+   "segment_id": "s02",
+   "text": "تقر شركة الخوار للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 122383، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s03",
+   "text": "بأن السيد جابر محمد الزهير، قطري الجنسية، ويحمل جواز سفر رقم R3530749، يعمل لديها بوظيفة مندوب مبيعات منذ 19/10/2026."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: حسن صقر الصفار"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s07",
+   "text": "التاريخ: 11/07/2026"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 18,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "segment_id": "s02",
+    "span": [
+     9,
+     15
+    ],
+    "token_ids": [
+     3
+    ],
+    "arabic_full": "الخوار",
+    "english_full": "al Khawar",
+    "tokens": [
+     {
+      "token_id": 3,
+      "arabic": "الخوار",
+      "position": "family",
+      "english_variants": [
+       "Al Khawar",
+       "al Khawar"
+      ],
+      "english_used": "al Khawar"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "segment_id": "s03",
+    "span": [
+     10,
+     26
+    ],
+    "token_ids": [
+     23,
+     24,
+     25
+    ],
+    "arabic_full": "جابر محمد الزهير",
+    "english_full": "Jaber Muhammad al Zuhair",
+    "tokens": [
+     {
+      "token_id": 23,
+      "arabic": "جابر",
+      "position": "given",
+      "english_variants": [
+       "Jaber",
+       "Jabir",
+       "Gaber"
+      ],
+      "english_used": "Jaber"
+     },
+     {
+      "token_id": 24,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
+     },
+     {
+      "token_id": 25,
+      "arabic": "الزهير",
+      "position": "family",
+      "english_variants": [
+       "al Zuhair",
+       "Al Zuhair"
+      ],
+      "english_used": "al Zuhair"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "segment_id": "s05",
+    "span": [
+     17,
+     31
+    ],
+    "token_ids": [
+     55,
+     56,
+     57
+    ],
+    "arabic_full": "حسن صقر الصفار",
+    "english_full": "Hassan Saqr Al Saffar",
+    "tokens": [
+     {
+      "token_id": 55,
+      "arabic": "حسن",
+      "position": "given",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 56,
+      "arabic": "صقر",
+      "position": "middle",
+      "english_variants": [
+       "Saqr",
+       "Saqer"
+      ],
+      "english_used": "Saqr"
+     },
+     {
+      "token_id": 57,
+      "arabic": "الصفار",
+      "position": "family",
+      "english_variants": [
+       "Al Saffar",
+       "al Saffar"
+      ],
+      "english_used": "Al Saffar"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   6,
+   7,
+   8,
+   11,
+   12,
+   13,
+   17,
+   18,
+   19,
+   20
+  ]
+ }
+}

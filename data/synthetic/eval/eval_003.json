@@ -1,0 +1,418 @@
+{
+ "doc_id": "eval_003",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 08/10/2026 حضر أمام الكاتب العدل السيد سيف بن رخي بن متعب العليوات، سعودي الجنسية، ويحمل جواز سفر رقم N5125530."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Saif Bin Rakhi Bin Muteb Al Aliwat, Passport No. N5125530"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الرشيدي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 880279، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Rashidi General Trading L.L.C., Registration No. 880279"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد خلف بن يوسف بن حسين النوفلي، سعودي الجنسية، ويحمل بطاقة هوية رقم 73014457."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Khalaf bin Yousef bin Husayin Al Nofali, ID No. 73014457"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: سيف بن رخي بن متعب العليوات"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: خلف بن يوسف بن حسين النوفلي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 2002,
+  "split": "eval",
+  "index": 3,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     77
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "سيف بن رخي بن متعب العليوات",
+    "english_full": "Saif Bin Rakhi Bin Muteb Al Aliwat",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "سيف",
+      "position": "given",
+      "english_variants": [
+       "Saif",
+       "Sayf",
+       "Seif",
+       "Seef"
+      ],
+      "english_used": "Saif"
+     },
+     {
+      "token_id": 13,
+      "arabic": "رخي",
+      "position": "middle",
+      "english_variants": [
+       "Rakhi"
+      ],
+      "english_used": "Rakhi"
+     },
+     {
+      "token_id": 15,
+      "arabic": "متعب",
+      "position": "middle",
+      "english_variants": [
+       "Muteb",
+       "Mutaeb",
+       "Mutab",
+       "Moteb",
+       "Mutaib"
+      ],
+      "english_used": "Muteb"
+     },
+     {
+      "token_id": 16,
+      "arabic": "العليوات",
+      "position": "family",
+      "english_variants": [
+       "Al Aliwat",
+       "Al Awayat",
+       "Al Alawyat",
+       "Al Ewat"
+      ],
+      "english_used": "Al Aliwat"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Saif Bin Rakhi Bin Muteb Al Aliwat"
+    }
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     41
+    ],
+    "arabic_full": "الرشيدي",
+    "english_full": "Al Rashidi",
+    "tokens": [
+     {
+      "token_id": 41,
+      "arabic": "الرشيدي",
+      "position": "family",
+      "english_variants": [
+       "Al Rashidi",
+       "al Rashidi",
+       "Al Rasheedy",
+       "Rashidi",
+       "Al Rasheedi",
+       "Al Rushaidi",
+       "Al Reshedi",
+       "Reshedi"
+      ],
+      "english_used": "Al Rashidi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Rashidi General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     20,
+     47
+    ],
+    "token_ids": [
+     72,
+     73,
+     74,
+     75,
+     76,
+     77
+    ],
+    "arabic_full": "خلف بن يوسف بن حسين النوفلي",
+    "english_full": "Khalaf bin Yousef bin Husayin Al Nofali",
+    "tokens": [
+     {
+      "token_id": 72,
+      "arabic": "خلف",
+      "position": "given",
+      "english_variants": [
+       "Khalaf"
+      ],
+      "english_used": "Khalaf"
+     },
+     {
+      "token_id": 74,
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 76,
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Husayin"
+     },
+     {
+      "token_id": 77,
+      "arabic": "النوفلي",
+      "position": "family",
+      "english_variants": [
+       "Al Nofali"
+      ],
+      "english_used": "Al Nofali"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Khalaf bin Yousef bin Husayin Al Nofali"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     35
+    ],
+    "token_ids": [
+     112,
+     113,
+     114,
+     115,
+     116,
+     117
+    ],
+    "arabic_full": "سيف بن رخي بن متعب العليوات",
+    "english_full": "Saif Bin Rakhi Bin Muteb Al Aliwat",
+    "tokens": [
+     {
+      "token_id": 112,
+      "arabic": "سيف",
+      "position": "given",
+      "english_variants": [
+       "Saif",
+       "Sayf",
+       "Seif",
+       "Seef"
+      ],
+      "english_used": "Saif"
+     },
+     {
+      "token_id": 114,
+      "arabic": "رخي",
+      "position": "middle",
+      "english_variants": [
+       "Rakhi"
+      ],
+      "english_used": "Rakhi"
+     },
+     {
+      "token_id": 116,
+      "arabic": "متعب",
+      "position": "middle",
+      "english_variants": [
+       "Muteb",
+       "Mutaeb",
+       "Mutab",
+       "Moteb",
+       "Mutaib"
+      ],
+      "english_used": "Muteb"
+     },
+     {
+      "token_id": 117,
+      "arabic": "العليوات",
+      "position": "family",
+      "english_variants": [
+       "Al Aliwat",
+       "Al Awayat",
+       "Al Alawyat",
+       "Al Ewat"
+      ],
+      "english_used": "Al Aliwat"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Saif Bin Rakhi Bin Muteb Al Aliwat"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     8,
+     35
+    ],
+    "token_ids": [
+     119,
+     120,
+     121,
+     122,
+     123,
+     124
+    ],
+    "arabic_full": "خلف بن يوسف بن حسين النوفلي",
+    "english_full": "Khalaf bin Yousef bin Husayin Al Nofali",
+    "tokens": [
+     {
+      "token_id": 119,
+      "arabic": "خلف",
+      "position": "given",
+      "english_variants": [
+       "Khalaf"
+      ],
+      "english_used": "Khalaf"
+     },
+     {
+      "token_id": 121,
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 123,
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Husayin"
+     },
+     {
+      "token_id": 124,
+      "arabic": "النوفلي",
+      "position": "family",
+      "english_variants": [
+       "Al Nofali"
+      ],
+      "english_used": "Al Nofali"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Khalaf bin Yousef bin Husayin Al Nofali"
+    }
+   }
+  ],
+  "neutral_token_ids": [
+   44,
+   45,
+   46,
+   49,
+   50,
+   51,
+   55,
+   56,
+   57,
+   58
+  ]
+ }
+}

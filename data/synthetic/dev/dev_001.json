@@ -1,0 +1,305 @@
+{
+ "doc_id": "dev_001",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": false,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيد مشاري أكرم المهدي، سعودي الجنسية، ويحمل جواز سفر رقم V2694428."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفته مديرًا لشركة الصباح للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 526387، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "وقرر أنه وكّل السيد حسن مقرن البدر، إماراتي الجنسية، ويحمل بطاقة هوية رقم 95401729."
+  },
+  {
+   "segment_id": "s05",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s06",
+   "text": "الموكل: مشاري أكرم المهدي"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الوكيل: حسن مقرن البدر"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "meta": {
+  "generator": "synthetic-v0",
+  "seed": 1001,
+  "split": "dev",
+  "index": 1,
+  "rules": [
+   "R1",
+   "R2",
+   "R3",
+   "R4",
+   "R5"
+  ],
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "segment_id": "s02",
+    "span": [
+     50,
+     67
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "مشاري أكرم المهدي",
+    "english_full": "Mishari Akram Mahdi",
+    "tokens": [
+     {
+      "token_id": 11,
+      "arabic": "مشاري",
+      "position": "given",
+      "english_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "english_used": "Mishari"
+     },
+     {
+      "token_id": 12,
+      "arabic": "أكرم",
+      "position": "middle",
+      "english_variants": [
+       "Akram",
+       "al Akram"
+      ],
+      "english_used": "Akram"
+     },
+     {
+      "token_id": 13,
+      "arabic": "المهدي",
+      "position": "family",
+      "english_variants": [
+       "Al Mahdi",
+       "Mahdi"
+      ],
+      "english_used": "Mahdi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "segment_id": "s03",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     26
+    ],
+    "arabic_full": "الصباح",
+    "english_full": "Al Sabah",
+    "tokens": [
+     {
+      "token_id": 26,
+      "arabic": "الصباح",
+      "position": "family",
+      "english_variants": [
+       "Al Sabah",
+       "al Sabah"
+      ],
+      "english_used": "Al Sabah"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s04",
+    "span": [
+     20,
+     34
+    ],
+    "token_ids": [
+     48,
+     49,
+     50
+    ],
+    "arabic_full": "حسن مقرن البدر",
+    "english_full": "Hassan Muqrin El Badr",
+    "tokens": [
+     {
+      "token_id": 48,
+      "arabic": "حسن",
+      "position": "given",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 49,
+      "arabic": "مقرن",
+      "position": "middle",
+      "english_variants": [
+       "Muqrin"
+      ],
+      "english_used": "Muqrin"
+     },
+     {
+      "token_id": 50,
+      "arabic": "البدر",
+      "position": "family",
+      "english_variants": [
+       "El Badr",
+       "al Badr"
+      ],
+      "english_used": "El Badr"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s06",
+    "span": [
+     8,
+     25
+    ],
+    "token_ids": [
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "مشاري أكرم المهدي",
+    "english_full": "Mishari Akram Mahdi",
+    "tokens": [
+     {
+      "token_id": 74,
+      "arabic": "مشاري",
+      "position": "given",
+      "english_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "english_used": "Mishari"
+     },
+     {
+      "token_id": 75,
+      "arabic": "أكرم",
+      "position": "middle",
+      "english_variants": [
+       "Akram",
+       "al Akram"
+      ],
+      "english_used": "Akram"
+     },
+     {
+      "token_id": 76,
+      "arabic": "المهدي",
+      "position": "family",
+      "english_variants": [
+       "Al Mahdi",
+       "Mahdi"
+      ],
+      "english_used": "Mahdi"
+     }
+    ],
+    "evidence": null
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s07",
+    "span": [
+     8,
+     22
+    ],
+    "token_ids": [
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "حسن مقرن البدر",
+    "english_full": "Hassan Muqrin El Badr",
+    "tokens": [
+     {
+      "token_id": 78,
+      "arabic": "حسن",
+      "position": "given",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 79,
+      "arabic": "مقرن",
+      "position": "middle",
+      "english_variants": [
+       "Muqrin"
+      ],
+      "english_used": "Muqrin"
+     },
+     {
+      "token_id": 80,
+      "arabic": "البدر",
+      "position": "family",
+      "english_variants": [
+       "El Badr",
+       "al Badr"
+      ],
+      "english_used": "El Badr"
+     }
+    ],
+    "evidence": null
+   }
+  ],
+  "neutral_token_ids": [
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
+   40,
+   41,
+   42,
+   43
+  ]
+ }
+}
