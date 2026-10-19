@@ -1,0 +1,90 @@
+id,구분,자료,발행처,발행일,URL,등급,확인,쓴 곳
+S01,가격 추세,Nimdzi 100 2026,Nimdzi,2026-04-08,https://www.nimdzi.com/nimdzi-100-2026/,B,직접,1.3
+S02,가격 추세,Language Services and Technology Industry Faces Revenue Decline (보도자료),CSA Research,2024-09-06,https://csa-research.com/l/media/Language-Services-and-Technology-Industry-Faces-Revenue-Decline-but-Remains-Poised-for-Transformation,B,직접,1.3
+S03,가격 추세,RWS FY25 Final Results (RNS),RWS Holdings,2025-12-11,https://www.investegate.co.uk/announcement/rns/rws-holdings--rws/final-results/9289229,A,직접,1.3
+S04,가격 추세,ELIS 2025 Report,European Language Industry Survey,2025-03,https://knowledge-centre-translation-interpretation.ec.europa.eu/sites/default/files/ckeditor5-files/ELIS-2025_Report.pdf,B,대리,1.3
+S05,가격 추세,SoA survey UK AI 2024 (EWC 게재),Society of Authors / European Writers' Council,2024-05-09,https://europeanwriterscouncil.eu/soa-survey-uk-ai-2024/,B,대리,1.3
+S06,비교 가격,Cloud Translation pricing,Google Cloud,확인일 2026-10-16,https://cloud.google.com/translate/pricing,C,직접,1.4
+S07,비교 가격,Amazon Translate pricing,AWS,확인일 2026-10-16,https://aws.amazon.com/translate/pricing/,C,대리,1.4
+S08,비교 가격,Azure Retail Prices API (Translator),Microsoft,적용일 2025-05-01,https://prices.azure.com/api/retail/prices,C,대리,1.4
+S09,비교 가격,TAUS pricing (Wayback 보관본),TAUS,2026-06-12,https://web.archive.org/web/20260612111722/https://www.taus.net/pricing/,C,대리,1.4
+S10,비교 가격,ModelFront pricing,ModelFront,확인일 2026-10-16,https://modelfront.com/pricing,C,대리,1.4
+S11,사우디 가격,How much does certified translation cost (Riyadh),Ruwaaq Al Marifaa,2026-04-16,https://rwaaqalmarifaa.com/how-much-does-certified-translation-cost-a-complete-price-guide-in-riyadh-saudi-arabia/,C,직접,1.1
+S12,사우디 가격,ترجمة معتمدة الرياض,SACT,2026-08-24,https://sact.co/ترجمة-معتمدة-الرياض/,C,직접,1.1
+S13,사우디 가격,Legal translation office,Fast Trans KSA,미표시,https://fast-trans.sa/en/sectors/certified-translation-services/legal-translation-office/,C,대리,1.1
+S14,사우디 가격,سعر ترجمة الصفحة بالريال سعودي,Langvara,2025-05-09 수정,https://langvara.com/ar/سعر-ترجمة-الصفحة-بالريال-سعودي/,C,대리,1.1·1.3
+S15,사우디 가격,ترجمة سجل تجاري,Alsun Riyadh,2026-02-08 수정,https://alsuntranslation-riyadh.com/ترجمة-سجل-تجاري/,C,대리,1.1
+S16,사우디 가격,translation-paper-cost,Alsun Riyadh,2026-08-25 수정,https://alsuntranslation-riyadh.com/translation-paper-cost/,C,대리,1.1·1.3
+S17,사우디 가격,أسعار الترجمة المعتمدة (Wayback 비교 포함),certified-translation-office.com,2026-09-08 수정,https://certified-translation-office.com/blog/أسعار-الترجمة-المعتمدة/,C,대리,1.1·1.3
+S18,사우디 규정,상업등기 영문 출력 무료화 (SPA 인용),Al-Madina,2023-03-15,https://www.al-madina.com/article/831487,C,직접,3
+S20,한국 가격,번역 요율 안내,한국외대 통번역센터,확인일 2026-10-16,https://www.hufscit.com/hufscit/10362/subview.do,C,직접,1.2
+S21,한국 가격,번역 비용,프로번역,확인일 2026-10-16,https://protrans.kr/?page=bunmenu&sub=cost,C,직접,1.2
+S22,한국 가격,아랍어 번역 (영어 경유 명시),크몽 판매자 토킹어바웃,확인일 2026-10-16,https://kmong.com/gig/194919,C,직접,1.2
+S23,한국 가격,번역 요율,서울외대 통역번역센터,확인일 2026-10-16,http://sufsitc.cafe24.com/bbs/content.php?co_id=rate02,C,대리,1.2
+S24,한국 가격,번역 요금,한국국제회의통번역센터,확인일 2026-10-16,https://kcbctrans.co.kr/sub/sub04_02.php,C,대리,1.2
+S25,한국 가격,번역 요금,정상번역원,확인일 2026-10-16,https://toptiertrans.co.kr/sub/sub03_01.php,C,대리,1.2
+S26,한국 가격,번역 요금,글로벌번역원,확인일 2026-10-16,https://glo.co.kr/html/page?sub=sub02_03,C,대리,1.2
+S27,한국 가격,번역 요금,글로벌트랜스,확인일 2026-10-16,https://globaltrans.co.kr/translation/cost,C,대리,1.2
+S28,한국 가격,번역비용,광화문월드번역,확인일 2026-10-16,https://trans114.net/번역비용,C,대리,1.2
+S29,한국 가격,번역 상품 (200단어 1부),올민원,확인일 2026-10-16,https://allminwon.com/main/product_view.php?pro_num=J37001,C,대리,1.2
+S30,한국 가격,번역 요금 (모범번역·충남대·자연번역센터는 경로 미기록),모범번역 외,확인일 2026-10-16,https://mobumtrans.com,C,대리,1.2
+S31,한국 가격,번역 다수공급자계약 공고 20190116681-07 (2026-03-11 정정),조달청 (나라장터),2026-03-11,https://www.g2b.go.kr,A,단일,1.2
+S32,한국 가격,통번역 메뉴 (아랍어 필터·이용 이력),수출바우처,확인일 2026-10-16,https://www.exportvoucher.com,A,단일,1.2
+S40,한국 기업 수,해외투자통계 국가별 (사우디아라비아),한국수출입은행,데이터 2026-06,https://stats.koreaexim.go.kr/sub/countryStatistics.do?code=사우디아라비아,A,단일,2.1
+S41,한국 기업 수,2026 사우디아라비아 진출전략 (KOTRA자료 25-184),KOTRA,2025,https://dl.kotra.or.kr/pyxis-api/2/digital-files/34040e29-1f08-440d-8b99-2d52160cd0ba,B,직접,2.1
+S42,한국 기업 수,해외진출 한국기업 디렉토리 DB (2020-24),KOTRA (공공데이터포털),2026-01-02,https://www.data.go.kr/data/15003297/fileData.do,B,대리,2.1
+S43,한국 기업 수,길 없는 사우디에서 길 만들었던 한국 또다시 길을 놓는다,한국일보,2026-01-13,https://www.hankookilbo.com/news/article/A2026010707560001645,C,직접,2.1
+S44,한국 기업 수,(참고자료) 중동상황 대응 수출 중소기업 긴급지원 본격화,산업통상부,2026-03-05,https://www.korea.kr/briefing/pressReleaseView.do?newsId=156747363,A,직접,2.1·4
+S45,한국 기업 수,대기업집단 중동 해외계열사 분석 (한국CXO연구소),뉴스스페이스,2026-03-04,https://newsspace.kr/news/article.html?no=12930,C,대리,2.1
+S46,한국 기업 수,해외건설 수주 통계 (사우디),해외건설통합정보서비스 (해외건설협회),데이터 2026-09-30,https://www.ocis.go.kr/stat/totalContract,B,대리,2.1
+S47,한국 기업 수,대사우디 수출입 (K-stat),한국무역협회,데이터 2026-08,https://stat.kita.net/stat/kts/ctr/CtrTotalImpExpList.screen,B,대리,2.1
+S50,사우디 기업 수,비즈니스 회보 2025년 2분기 (20쪽 외국인·걸프 등기),사우디 상무부,2025,https://mc.gov.sa/ar/mediacenter/Documents/MCQ2-2025.pdf,A,직접,2.2
+S51,사우디 기업 수,비즈니스 회보 15호 (2026년 3분기),사우디 상무부,2026,https://mc.gov.sa/ar/mediacenter/Documents/MCAQ32026.pdf,A,대리,2.2
+S52,사우디 기업 수,번역업 상업등기 7964건 (보도자료),사우디 상무부,2026-09-30,https://mc.gov.sa/ar/mediacenter/News/Pages/30-09-26-01.aspx,A,직접,2.2
+S53,사우디 기업 수,투자 라이선스 2025년 약 24244건 (투자부 인용),Okaz,2026-02-25,https://www.okaz.com.sa/economy/na/2237516,C,대리,2.2
+S54,사우디 기업 수,지역본부 700곳 이상 (장관 발언),Okaz,2026-01-26,https://www.okaz.com.sa/economy/na/2232934,C,대리,2.2
+S55,사우디 기업 수,등록 외국 기업 52000곳 이상 (장관 발언) — URL 미기록,Okaz,2025-09-04,,C,대리,2.2
+S56,사우디 기업 수,2024년 3분기 투자 라이선스 국가별 — URL 미기록,Sharikat Mubasher,2024-11-21,,C,대리,2.2
+S57,사우디 기업 수,규모별 사업체 수 (출처: 정부 보고서),Okaz,2026-05-18,https://www.okaz.com.sa/economy/na/2249257,C,대리,2.2
+S60,사우디 규정,샤리아 법원 소송절차법과 시행규칙 (제23조),사법학회 (qadha.org.sa),1445H 갱신본,https://qadha.org.sa/files/3/مركز%20البحوث%20والدراسات/نظام%20المرافعات%20الشرعية%20ولوائحه%20التنفيذية%20مع%20الفهارس.pdf,A,대리,3
+S61,사우디 규정,노동법 제9조,사우디 인적자원사회개발부,확인일 2026-10-16,https://www.hrsd.gov.sa/node/5575978,A,대리,3
+S62,사우디 규정,Government Tenders and Procurement Law (제55조),사우디 투자부 게재 공식 영역본,2019,https://misa.gov.sa/app/uploads/2025/08/Government-Tenders-and-Procurement-Law.pdf,A,대리,3
+S63,사우디 규정,Guideline for Tax Invoicing and Records under VAT Provisions v3,ZATCA,2026-05,https://zatca.gov.sa/en/HelpCenter/guidelines/Documents/Guideline-for-Tax-Invoicing-and-Records-under-VAT-Provisions.pdf,A,직접,3
+S70,문제 존재,Arabic proper noun diacritization with GPT-4o (arXiv 2505.02656v3),Bondok·Nassar·Khalifa·Micallef·Habash,2025-06,https://arxiv.org/html/2505.02656v3,B,직접,긍정 1
+S71,문제 존재,A Panoramic Survey of NLP in the Arab World (arXiv 2011.12631),Darwish·Habash 외,2020,https://arxiv.org/abs/2011.12631,B,대리,긍정 1
+S72,문제 존재,CAMeL Tools 분석기 후보 수 (arXiv 2506.18399),Saeed·Habash,2025,https://arxiv.org/html/2506.18399v1,B,대리,긍정 1
+S73,문제 존재,Lexicon-Driven Approach to the Recognition of Arabic Named Entities,Jack Halpern (CJK Dictionary Institute),미표기,https://www.cjki.org/reference/danpaper.pdf,B,직접,긍정 1
+S74,문제 존재,PA/12485/2019 결정,UK Upper Tribunal (IAC),2021-05-13,https://tribunalsdecisions.service.gov.uk/utiac/pa-12485-2019,A,직접,긍정 1
+S75,문제 존재,QFC Court declines jurisdiction ([2023] QIC (F) 16 해설),Reed Smith,2023-05-19,https://www.reedsmith.com/our-insights/blogs/viewpoints/102if3z/qatar-financial-centre-court-declines-jurisdiction-to-appoint-arbitrator-in-an-ar/,C,직접,긍정 1
+S76,문제 존재,Dubai Court of Cassation Case No. 296 of 2024 해설,K&L Gates,2025-02-18,https://www.klgates.com/Dubai-Court-of-Cassation-Holds-Clause-Providing-for-Court-Provisional-Measures-Not-a-Waiver-of-Arbitration-Agreement-2-18-2025,C,직접,긍정 1
+S77,문제 존재,회람 331000007587 (이카마 아랍어·영어 이름 불일치 시 거래 불허),사우디 중앙은행 (SAMA Rulebook),2012-02-11,https://www.rulebook.sama.gov.sa/ar/node/6961,A,직접,긍정 1
+S78,문제 존재,Saudi Arabia's National Arabic Language Policy,CMS,2026-03-24,https://cms.law/en/int/legal-updates/saudi-arabia-s-national-arabic-language-policy-what-businesses-need-to-know,B,직접,긍정 1
+S79,문제 존재,Physician Detection of Clinical Harm in MT (EMNLP 2023),Mehandru 외,2023,https://arxiv.org/abs/2310.16924,A,직접,긍정 1
+S80,인접 시장,LSEG Preliminary results FY2025,LSEG,2026-02-26,https://data.fca.org.uk/artefacts/NSM/DirectUpload/NI-000139719/NI-000139719.pdf,A,대리,긍정 2
+S81,인접 시장,News Corp Q4 FY2025 실적 (EX-99.1),News Corp,2025-08-05,https://www.sec.gov/Archives/edgar/data/1564708/000156470825000416/release-q4fy2025.htm,A,대리,긍정 2
+S82,인접 시장,Sanctions Screening Testing Thematic Review,UAE 중앙은행,2021-01,https://www.centralbank.ae/media/husps4jk/sanctions-screening-testing-thematic-review_2.pdf,A,직접,긍정 2
+S83,인접 시장,World-Check: making the most of the data,Refinitiv (LSEG),2023-04,https://developers.lseg.com/content/dam/devportal/api-families/customer-and-third-party-screening/world-check-data-file/overview/20230426world-check-making-the-most-of-the-data.pdf,C,대리,긍정 2
+S84,인접 시장,The partner opportunity for Babel Street Match,Babel Street,2023-09-26,https://www.babelstreet.com/landing/the-partner-opportunity-for-babel-street-match,C,대리,긍정 2
+S85,인접 시장,Customer Screening,FOCAL by Mozn,확인일 2026-10-16,https://www.getfocal.ai/products/customer-screening,C,대리,긍정 2
+S86,인접 시장,OFAC 합의 (Cobham 2018),미국 재무부 OFAC,2018,https://ofac.treasury.gov/media/13401/download,A,대리,긍정 2
+S87,인접 시장,OFAC 합의 (Payoneer 2021),미국 재무부 OFAC,2021-07-23,https://ofac.treasury.gov/media/911571/download,A,대리,긍정 2
+S88,인접 시장,회람 371000018071 (Yaqeen 신원 조회),사우디 중앙은행 (SAMA Rulebook),2015-11,https://rulebook.sama.gov.sa/en/node/6439,A,대리,긍정 2
+S89,범주 성장,번역업 상업등기 20% 증가 (상무부 발표),Okaz,2026-09-30,https://www.okaz.com.sa/economy/na/2268624,B,직접,긍정 3
+S90,범주 성장,Tarjama secures USD 15 mn in Series A,Enterprise AM,2025-05-22,https://enterpriseam.com/uae/2025/05/22/tarjama-secures-usd-15-mn-in-series-a-round-to-expand-arabic-ai/,B,직접,긍정 3
+S91,범주 성장,Growth in AI translation in 2025,Smartling,2026-01-28,https://www.smartling.com/company-news/growth-in-ai-translation-in-2025,C,대리,긍정 3
+S92,범주 성장,Intella Series A,Middle East AI News,2025-09-03,https://www.middleeastainews.com/p/arabic-speech-pioneer-intella-series-a,C,대리,긍정 3
+S93,한국 고객,코트라 중동 상황 대응 8차 대책회의 (1만4000여개사),헤럴드경제,2026-03-08,https://www.heraldk.com/article/2026030821342030155,B,직접,긍정 4·사우디 4
+S94,한국 고객,중동 수출기업 약 1만4000개사 (KOTRA 사장),한국경제,2026-03-09,https://www.hankyung.com/article/202603098366i,B,직접,긍정 4
+S95,한국 고객,공고 제2026-286호 수출지원기반활용사업 (긴급지원바우처 3차),산업통상부,2026-04-13,https://www.motir.go.kr/attach/down/aa4abe331409819421ff269b271f06a6/1f4394efb1288cd7006bff8e374a4410/778bdbf5db9ced7c8fd52756c00bf0cd,A,직접,긍정 4·6
+S96,한국 고객,중동 긴급바우처 1·2차 689개사,코스인코리아,2026-05-19,https://cosinkorea.com/news/article.html?no=57482,C,대리,긍정 4
+S97,한국 고객,Is it allowed to write food product label in English only (FAQ),SFDA,2024-02-20 (2024-07-18 갱신),https://www.sfda.gov.sa/en/faq/it-allowed-write-food-product-label-english-only,A,직접,긍정 4
+S98,한국 고객,Saudi Arabia imports from South Korea of cosmetics,Trading Economics (UN COMTRADE),2025,https://tradingeconomics.com/saudi-arabia/imports/south-korea/essential-oils-perfumes-cosmetics-toileteries,B,대리,긍정 4
+S99,가격 기준,Lawyer fees in Saudi Arabia,Global Law Experts,2026-08-18,https://globallawexperts.com/lawyer-fees-saudi-arabia/,C,직접,긍정 5
+S100,반대 증거,FY2026 H1 Results (ASX release),Straker Ltd,2025-11-26,https://bulletin.webull.com/qbd/announcement/20251126/499501031/83d2290439c0e307fd0491ee4e85d7b0.pdf,A,직접,긍정 6
+S101,반대 증거,A Comparative Evaluation of Semantic Ambiguity Detection in Two LLMs (NeoLLM 2026),Lili Tamas,2026-05,https://aclanthology.org/2026.neollm-1.7/,A,직접,긍정 6
+S102,반대 증거,Diacritization with off-the-shelf LLMs (LREC 2026),Toyin 외,2026,https://aclanthology.org/2026.lrec-1.40/,A,대리,긍정 6
+S103,반대 증거,무역협회 수출기업 애로 조사 1090개사,헤럴드경제,2026-09-21,https://biz.heraldcorp.com/article/10879858,B,대리,긍정 6
+S104,반대 증거,2026 수출기업 외국어 통번역 지원 사업 공고 (제2026-47호),충청북도기업진흥원,2026-03-03,https://grant-documents.thevc.kr/291737_%EB%B6%99%EC%9E%84.+2026+%EC%88%98%EC%B6%9C%EA%B8%B0%EC%97%85+%EC%99%B8%EA%B5%AD%EC%96%B4+%ED%86%B5_%EB%B2%88%EC%97%AD+%EC%A7%80%EC%9B%90+%EC%82%AC%EC%97%85+%EB%AA%A8%EC%A7%91_%ED%86%B5%EB%B2%88%EC%97%AD+%EA%B8%B0%EC%97%85+%EB%AA%A8%EC%A7%91+%EA%B3%B5%EA%B3%A0%EB%AC%B8.pdf,A,대리,긍정 6
+S105,반대 증거,수출바우처사업 관리지침 (2018.4판),수출바우처,2018-04,https://www.exportvoucher.com/static/pdf/수출바우처사업_관리지침.pdf,A,대리,긍정 6
+S106,반대 증거,NGTV 회원 배상책임보험,Schouten Zekerheid,미표기,https://www.schoutenzekerheid.nl/en/especially-for-entrepreneurs/ngtv/liability-insurance,C,대리,긍정 6
+S107,반대 증거,해외진출기업 국제법무지원 안내,법무부,2024-10-11,https://moj.go.kr/bbs/moj/85/588403/artclView.do,A,대리,긍정 6
