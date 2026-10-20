@@ -151,6 +151,101 @@ def _primary(items: list[dict]) -> dict:
     return next((it for it in items if it.get("type") == "proper_noun"), items[0])
 
 
+def _coverage(items: list[dict]) -> dict[int, list[dict]]:
+    """토큰 ID → 그 토큰을 덮는 유효 항목들."""
+    cover: dict[int, list[dict]] = defaultdict(list)
+    for it in items:
+        if it["valid"]:
+            for i in it["token_ids"]:
+                cover[i].append(it)
+    return cover
+
+
+def _is_unsupported(it: dict, gold_ids: set[int]) -> bool:
+    """근거 없는 확정. 정답 이름을 일반 단어로 adopt한 것도 센다."""
+    return it["final_decision"] == "adopt_unsupported" or (
+        it.get("type") == "word" and it["final_decision"] == "adopt" and bool(set(it["token_ids"]) & gold_ids)
+    )
+
+
+def _gold_statuses(gtok: dict[int, dict], cover: dict[int, list[dict]]) -> dict[int, str]:
+    """정답 이름 토큰마다 처분 상태."""
+    statuses: dict[int, str] = {}
+    for tid, info in gtok.items():
+        if tid not in cover:
+            statuses[tid] = "silent"
+            continue
+        it = _primary(cover[tid])
+        fin = it["final_decision"]
+        if _is_unsupported(it, set(gtok)):
+            statuses[tid] = "unsupported_adopt"
+        elif fin == "evidence_adopt":
+            if info["has_evidence"]:
+                used = info.get("english_used") or ""
+                ok = bool(used) and spelling_in_text(used, it.get("adopted") or "")
+                statuses[tid] = "evidence_correct" if ok else "evidence_wrong_spelling"
+            else:
+                statuses[tid] = "evidence_without_gold_evidence"
+        else:
+            statuses[tid] = "hold"
+    return statuses
+
+
+def _gold_metrics(gtok: dict[int, dict], statuses: dict[int, str], analyses: dict[int, TokenAnalysis]) -> dict:
+    no_ev = [t for t in gtok if not gtok[t]["has_evidence"]]
+    with_ev = [t for t in gtok if gtok[t]["has_evidence"]]
+    return {
+        "n_gold_name_tokens": len(gtok),
+        "n_gold_without_evidence": len(no_ev),
+        "n_gold_with_evidence": len(with_ev),
+        "n_silent": sum(statuses[t] == "silent" for t in no_ev),
+        "n_unsupported_adopt": sum(statuses[t] == "unsupported_adopt" for t in no_ev),
+        "n_hold": sum(statuses[t] == "hold" for t in no_ev),
+        "n_evidence_correct": sum(statuses[t] == "evidence_correct" for t in with_ev),
+        "silent_rate": _rate(sum(statuses[t] == "silent" for t in no_ev), len(no_ev)),
+        "unsupported_adopt_rate": _rate(sum(statuses[t] == "unsupported_adopt" for t in no_ev), len(no_ev)),
+        "hold_rate": _rate(sum(statuses[t] == "hold" for t in no_ev), len(no_ev)),
+        "evidence_without_gold_evidence": sum(statuses[t] == "evidence_without_gold_evidence" for t in no_ev),
+        "evidence_pass_rate": _rate(sum(statuses[t] == "evidence_correct" for t in with_ev), len(with_ev)),
+        "breakdown_without_evidence": _breakdown({t: statuses[t] for t in no_ev}, gtok, analyses),
+    }
+
+
+def _tool_metrics(tool_log: list[dict], ambiguous: set[int], gold_ids: set[int]) -> dict | None:
+    """C2의 analyze_tokens 사용 지표. 호출이 없으면 None."""
+    analyzer_calls = [c for c in tool_log if c.get("tool") == "analyze_tokens"]
+    if not analyzer_calls:
+        return None
+    queried = {i for call in analyzer_calls for i in call.get("token_ids", [])}
+    return {
+        "calls": len(analyzer_calls),
+        "tokens_queried": len(queried),
+        "ambiguous_recall": _rate(len(queried & ambiguous), len(ambiguous)),
+        "ambiguous_precision": _rate(len(queried & ambiguous), len(queried)),
+        "gold_names_queried": _rate(len(queried & gold_ids), len(gold_ids)) if gold_ids else None,
+    }
+
+
+def _name_rows(items: list[dict], unprocessed: list[dict], analyses: dict[int, TokenAnalysis]) -> list[dict]:
+    """확인 대기 목록: 유효한 고유명사 항목, 그다음 어느 항목에도 덮이지 않은 정답 이름."""
+    rows = [_pn_row(it, analyses) for it in items if it["valid"] and it.get("type") == "proper_noun"]
+    for u in unprocessed:
+        if u["reason"] == "gold_name":
+            rows.append(
+                {
+                    "arabic": u["text"],
+                    "token_ids": str(u["token_id"]),
+                    "candidates": "",
+                    "adopted": "",
+                    "decision": "unprocessed",
+                    "evidence": "",
+                    "analyzer_counts": f"{u['token_id']}:{_analysis_count(analyses, u['token_id'], '')}",
+                    "flags": "",
+                }
+            )
+    return rows
+
+
 def _structured(
     segments: list[Segment],
     tokens: list[Token],
@@ -163,16 +258,13 @@ def _structured(
     by_id = {t["id"]: t for t in tokens}
     items = check_items((output or {}).get("items", []), tokens, segments)
     translation = {t["segment_id"]: t["english"] for t in (output or {}).get("translation", [])}
-    cover: dict[int, list[dict]] = defaultdict(list)
-    for it in items:
-        if it["valid"]:
-            for i in it["token_ids"]:
-                cover[i].append(it)
+    cover = _coverage(items)
 
     ambiguous = {tid for tid, a in analyses.items() if a["ambiguous"]}
     gtok = gold_name_tokens(gold)
+    gold_ids = set(gtok)
     neutral = set((gold or {}).get("neutral_token_ids", []))
-    universe = ambiguous | set(gtok)
+    universe = ambiguous | gold_ids
     unprocessed: list[dict[str, Any]] = [
         {
             "token_id": t,
@@ -199,102 +291,36 @@ def _structured(
         if it["valid"] and it["final_decision"] in ADOPTED_FINALS and it.get("adopted"):
             adopted_by_key[normalize_key(it["arabic"])].add(_canon(it["adopted"]))
 
-    def is_unsupported(it: dict) -> bool:
-        return it["final_decision"] == "adopt_unsupported" or (
-            it.get("type") == "word" and it["final_decision"] == "adopt" and bool(set(it["token_ids"]) & set(gtok))
-        )
-
+    valid_items = [it for it in items if it["valid"]]
     metrics: dict[str, Any] = {
         "n_items": len(items),
         "n_invalid_items": sum(not it["valid"] for it in items),
         "n_type_decision_mismatch": sum("type_decision_mismatch" in it["flags"] for it in items),
-        "decisions": dict(Counter(f"{it.get('type')}:{it['final_decision']}" for it in items if it["valid"])),
+        "decisions": dict(Counter(f"{it.get('type')}:{it['final_decision']}" for it in valid_items)),
         "n_ambiguous_tokens": len(ambiguous),
         "n_unprocessed": len(unprocessed),
         "n_unprocessed_names": sum(u["reason"] == "gold_name" for u in unprocessed),
         "n_unprocessed_ambiguous_words": sum(u["reason"] == "ambiguous_word" for u in unprocessed),
         "n_evidence_failed": sum("evidence_failed" in it["flags"] for it in items),
-        "n_unsupported_adopt_items": sum(is_unsupported(it) for it in items if it["valid"]),
+        "n_unsupported_adopt_items": sum(_is_unsupported(it, gold_ids) for it in valid_items),
         "n_high_conf_unsupported": sum(
-            is_unsupported(it) and (it.get("confidence") or 0) >= high_conf for it in items if it["valid"]
+            _is_unsupported(it, gold_ids) and (it.get("confidence") or 0) >= high_conf for it in valid_items
         ),
-        "n_over_flag": sum(over_flag(it) for it in items if it["valid"]),
+        "n_over_flag": sum(over_flag(it) for it in valid_items),
         "n_inconsistent_names": sum(len(v) > 1 for v in adopted_by_key.values()),
         "n_suspected_missed_names": len(suspected_missed),
         "n_proper_noun_tokens_without_analyzer_candidates": sum(
-            _analysis_count(analyses, t, 1) == 0 for t in (set(gtok) or pn_tokens)
+            _analysis_count(analyses, t, 1) == 0 for t in (gold_ids or pn_tokens)
         ),
         "n_segments_translated": sum(1 for s in segments if translation.get(s["segment_id"])),
         "n_segments": len(segments),
     }
-
-    statuses: dict[int, str] = {}
-    for tid, info in gtok.items():
-        if tid not in cover:
-            statuses[tid] = "silent"
-            continue
-        it = _primary(cover[tid])
-        fin = it["final_decision"]
-        if is_unsupported(it):
-            statuses[tid] = "unsupported_adopt"
-        elif fin == "evidence_adopt":
-            if info["has_evidence"]:
-                used = info.get("english_used") or ""
-                ok = bool(used) and spelling_in_text(used, it.get("adopted") or "")
-                statuses[tid] = "evidence_correct" if ok else "evidence_wrong_spelling"
-            else:
-                statuses[tid] = "evidence_without_gold_evidence"
-        else:
-            statuses[tid] = "hold"
+    statuses = _gold_statuses(gtok, cover)
     if gtok:
-        no_ev = [t for t in gtok if not gtok[t]["has_evidence"]]
-        with_ev = [t for t in gtok if gtok[t]["has_evidence"]]
-        metrics.update(
-            {
-                "n_gold_name_tokens": len(gtok),
-                "n_gold_without_evidence": len(no_ev),
-                "n_gold_with_evidence": len(with_ev),
-                "n_silent": sum(statuses[t] == "silent" for t in no_ev),
-                "n_unsupported_adopt": sum(statuses[t] == "unsupported_adopt" for t in no_ev),
-                "n_hold": sum(statuses[t] == "hold" for t in no_ev),
-                "n_evidence_correct": sum(statuses[t] == "evidence_correct" for t in with_ev),
-                "silent_rate": _rate(sum(statuses[t] == "silent" for t in no_ev), len(no_ev)),
-                "unsupported_adopt_rate": _rate(sum(statuses[t] == "unsupported_adopt" for t in no_ev), len(no_ev)),
-                "hold_rate": _rate(sum(statuses[t] == "hold" for t in no_ev), len(no_ev)),
-                "evidence_without_gold_evidence": sum(statuses[t] == "evidence_without_gold_evidence" for t in no_ev),
-                "evidence_pass_rate": _rate(sum(statuses[t] == "evidence_correct" for t in with_ev), len(with_ev)),
-                "breakdown_without_evidence": _breakdown({t: statuses[t] for t in no_ev}, gtok, analyses),
-            }
-        )
-    analyzer_calls = [c for c in tool_log if c.get("tool") == "analyze_tokens"]
-    if analyzer_calls:
-        queried = {i for call in analyzer_calls for i in call.get("token_ids", [])}
-        metrics["tool"] = {
-            "calls": len(analyzer_calls),
-            "tokens_queried": len(queried),
-            "ambiguous_recall": _rate(len(queried & ambiguous), len(ambiguous)),
-            "ambiguous_precision": _rate(len(queried & ambiguous), len(queried)),
-            "gold_names_queried": _rate(len(queried & set(gtok)), len(gtok)) if gtok else None,
-        }
-
-    rows = []
-    for it in items:
-        if it["valid"] and it.get("type") == "proper_noun":
-            rows.append(_pn_row(it, analyses))
-    for u in unprocessed:
-        if u["reason"] == "gold_name":
-            rows.append(
-                {
-                    "arabic": u["text"],
-                    "token_ids": str(u["token_id"]),
-                    "candidates": "",
-                    "adopted": "",
-                    "decision": "unprocessed",
-                    "evidence": "",
-                    "analyzer_counts": f"{u['token_id']}:{_analysis_count(analyses, u['token_id'], '')}",
-                    "flags": "",
-                }
-            )
+        metrics.update(_gold_metrics(gtok, statuses, analyses))
+    tool = _tool_metrics(tool_log, ambiguous, gold_ids)
+    if tool is not None:
+        metrics["tool"] = tool
 
     return {
         "items": items,
@@ -302,7 +328,7 @@ def _structured(
         "unprocessed": unprocessed,
         "suspected_missed_names": suspected_missed,
         "gold_status": {str(k): v for k, v in statuses.items()},
-        "proper_nouns": rows,
+        "proper_nouns": _name_rows(items, unprocessed, analyses),
         "metrics": metrics,
     }
 
