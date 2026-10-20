@@ -66,7 +66,14 @@ class BundleHit:
 
 
 class BundleIndex:
-    def __init__(self, parent_size: int = 800, child_size: int = 200, child_overlap: int = 30, embeddings: Embeddings | None = None, embedding_label: str | None = None):
+    def __init__(
+        self,
+        parent_size: int = 800,
+        child_size: int = 200,
+        child_overlap: int = 30,
+        embeddings: Embeddings | None = None,
+        embedding_label: str | None = None,
+    ):
         self.parent_splitter = RecursiveCharacterTextSplitter(chunk_size=parent_size, chunk_overlap=0)
         self.child_splitter = RecursiveCharacterTextSplitter(chunk_size=child_size, chunk_overlap=child_overlap)
         if embeddings is None:
@@ -131,7 +138,9 @@ class BundleIndex:
                     continue
                 seen.add(pid)
                 parent = self.parents[pid]
-                hits.append(BundleHit("vector", parent.metadata["source"], pid, None, parent.page_content, [], float(score)))
+                hits.append(
+                    BundleHit("vector", parent.metadata["source"], pid, None, parent.page_content, [], float(score))
+                )
         return hits
 
 

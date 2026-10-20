@@ -51,7 +51,9 @@ class VariedResponder:
         if OUTPUT_TOOL not in bound:  # C0: 문서의 라틴 문자 단어를 구간마다 늘어놓고, 짝수 구간은 "/"로 잇는다
             self.final_calls += 1
             words = [w for _, line in segs for w in LATIN_WORD_RE.findall(line)]
-            lines = [f"[{sid}] " + ((" / " if i % 2 == 0 else " ").join(words) or "text") for i, sid in enumerate(seg_ids)]
+            lines = [
+                f"[{sid}] " + ((" / " if i % 2 == 0 else " ").join(words) or "text") for i, sid in enumerate(seg_ids)
+            ]
             return AIMessage(content="\n".join(lines), usage_metadata=usage)
 
         table = text.split("TOKENS", 1)[1].split("ANALYZER", 1)[0]

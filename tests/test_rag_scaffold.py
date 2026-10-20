@@ -6,8 +6,12 @@ from tashkeel_check.text import segment_text, tokenize
 
 
 def _index(tmp_path):
-    (tmp_path / "id_excerpt.txt").write_text("SYNTHETIC\nالاسم: راشد مسلم الكعبي\nName: Rashid Musallam Al Kaabi\n", encoding="utf-8")
-    (tmp_path / "letter.txt").write_text("SYNTHETIC\nDear Mr. Rashid Musallam Al Kaabi,\nThank you.\n", encoding="utf-8")
+    (tmp_path / "id_excerpt.txt").write_text(
+        "SYNTHETIC\nالاسم: راشد مسلم الكعبي\nName: Rashid Musallam Al Kaabi\n", encoding="utf-8"
+    )
+    (tmp_path / "letter.txt").write_text(
+        "SYNTHETIC\nDear Mr. Rashid Musallam Al Kaabi,\nThank you.\n", encoding="utf-8"
+    )
     return BundleIndex.from_dir(tmp_path, embeddings=PracticeEmbeddings(), embedding_label="practice")
 
 

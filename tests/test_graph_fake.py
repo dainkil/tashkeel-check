@@ -44,10 +44,21 @@ def _run(doc, condition, recorder, tmp_path=None):
 
 def test_c1_structured_output_writes_all_artifacts(mini_doc, mini_tokens, tmp_path):
     agent = ids_of(mini_tokens, "s04", ["راشد", "مسلم", "الكعبي"])
-    out = {"translation": _translation(mini_doc), "items": [{
-        "token_ids": agent, "type": "proper_noun",
-        "candidates": [{"reading": None, "romanized": "Musallam", "source": "llm"}],
-        "decision": "hold", "adopted": None, "reason": "no evidence", "confidence": None, "evidence": None}]}
+    out = {
+        "translation": _translation(mini_doc),
+        "items": [
+            {
+                "token_ids": agent,
+                "type": "proper_noun",
+                "candidates": [{"reading": None, "romanized": "Musallam", "source": "llm"}],
+                "decision": "hold",
+                "adopted": None,
+                "reason": "no evidence",
+                "confidence": None,
+                "evidence": None,
+            }
+        ],
+    }
     rec = Recorder(tool_call("AgentOutput", out))
     result = _run(mini_doc, "C1", rec, tmp_path)
     m = result["metrics"]

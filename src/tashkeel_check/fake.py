@@ -70,7 +70,10 @@ def practice_responder(messages: list[BaseMessage], bound: list[str]) -> AIMessa
     ]
     return tool_call(
         OUTPUT_TOOL,
-        {"translation": [{"segment_id": s, "english": "[practice mode: no LLM call]"} for s in seg_ids], "items": items},
+        {
+            "translation": [{"segment_id": s, "english": "[practice mode: no LLM call]"} for s in seg_ids],
+            "items": items,
+        },
     )
 
 
@@ -83,7 +86,9 @@ class FakeAgentModel(BaseChatModel):
     def _llm_type(self) -> str:
         return "fake-agent"
 
-    def _generate(self, messages: list[BaseMessage], stop: Any = None, run_manager: Any = None, **kwargs: Any) -> ChatResult:
+    def _generate(
+        self, messages: list[BaseMessage], stop: Any = None, run_manager: Any = None, **kwargs: Any
+    ) -> ChatResult:
         fn = self.responder or practice_responder
         return ChatResult(generations=[ChatGeneration(message=fn(list(messages), list(self.bound_tools)))])
 

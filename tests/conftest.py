@@ -87,10 +87,21 @@ def mini_doc() -> dict:
     principal_vars = [["Salem", "Salim"], ["Hamad"], ["Al Muslim"]]
     gold = {
         "names": [
-            occ("n1", "principal", "s02", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev),
-            occ("n2", "agent", "s04", ["راشد", "مسلم", "الكعبي"], ["Rashid", "Musallam", "Al Kaabi"],
-                [["Rashid", "Rashed"], ["Musallam", "Muslim"], ["Al Kaabi", "Al Ka'abi"]], None),
-            occ("n3", "principal", "s05", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev),
+            occ(
+                "n1", "principal", "s02", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev
+            ),
+            occ(
+                "n2",
+                "agent",
+                "s04",
+                ["راشد", "مسلم", "الكعبي"],
+                ["Rashid", "Musallam", "Al Kaabi"],
+                [["Rashid", "Rashed"], ["Musallam", "Muslim"], ["Al Kaabi", "Al Ka'abi"]],
+                None,
+            ),
+            occ(
+                "n3", "principal", "s05", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev
+            ),
         ],
         "neutral_token_ids": [],
     }

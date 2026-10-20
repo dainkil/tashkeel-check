@@ -33,19 +33,32 @@ def _cmd_run(args: argparse.Namespace) -> int:
         out = Path(args.out) if args.out else RESULTS / "debug" / doc["doc_id"] / cond
         if args.out and len(conditions) > 1:
             out = out / cond
-        result = run_document(doc, cond, make_model(settings, fake=args.fake), settings, out_dir=out, repeat=args.repeat, extra_tool_factories=factories)
+        result = run_document(
+            doc,
+            cond,
+            make_model(settings, fake=args.fake),
+            settings,
+            out_dir=out,
+            repeat=args.repeat,
+            extra_tool_factories=factories,
+        )
         m = result["metrics"]
-        print(json.dumps({
-            "condition": cond,
-            "out": str(out),
-            "valid_output": m["valid_output"],
-            "attempts": m["attempts"],
-            "n_ambiguous_tokens": m.get("n_ambiguous_tokens"),
-            "n_unprocessed": m.get("n_unprocessed"),
-            "silent_rate": m.get("silent_rate"),
-            "tracing": tracing,
-            "mode": "practice (fake model)" if args.fake else settings.model,
-        }, ensure_ascii=False))
+        print(
+            json.dumps(
+                {
+                    "condition": cond,
+                    "out": str(out),
+                    "valid_output": m["valid_output"],
+                    "attempts": m["attempts"],
+                    "n_ambiguous_tokens": m.get("n_ambiguous_tokens"),
+                    "n_unprocessed": m.get("n_unprocessed"),
+                    "silent_rate": m.get("silent_rate"),
+                    "tracing": tracing,
+                    "mode": "practice (fake model)" if args.fake else settings.model,
+                },
+                ensure_ascii=False,
+            )
+        )
     return 0
 
 
@@ -102,11 +115,19 @@ def _cmd_exp002(args: argparse.Namespace) -> int:
         print("연습 모드(--fake)는 dev 문서에만 씁니다. 평가 문서는 실제 실행에 한 번만 씁니다.", file=sys.stderr)
         return 2
     if not args.fake and not args.yes:
-        print(f"실행 계획: 조건 {len(CONDITIONS)} × 문서 {n_docs} × 반복 {repeats} = {n_runs}회, 모델 {settings.model}.\n"
-              "비용이 듭니다. 실행하려면 --yes를 붙이세요.")
+        print(
+            f"실행 계획: 조건 {len(CONDITIONS)} × 문서 {n_docs} × 반복 {repeats} = {n_runs}회, 모델 {settings.model}.\n"
+            "비용이 듭니다. 실행하려면 --yes를 붙이세요."
+        )
         return 1
-    path = exp002.run(docs_dir, RESULTS / "exp002" / args.split, lambda: make_model(settings, fake=args.fake), settings,
-                      repeats=repeats, limit=args.limit)
+    path = exp002.run(
+        docs_dir,
+        RESULTS / "exp002" / args.split,
+        lambda: make_model(settings, fake=args.fake),
+        settings,
+        repeats=repeats,
+        limit=args.limit,
+    )
     print(path)
     return 0
 
@@ -126,7 +147,9 @@ def main(argv: list[str] | None = None) -> int:
 
     p = sub.add_parser("fetch-wikidata", help="Wikidata 걸프 인명 스냅숏과 이름 풀을 만든다")
     p.add_argument("--out", default=str(DATA / "wikidata"))
-    p.add_argument("--endpoint", choices=["wdqs", "qlever"], default="wdqs", help="wdqs: Wikidata 공식, qlever: 공개 미러")
+    p.add_argument(
+        "--endpoint", choices=["wdqs", "qlever"], default="wdqs", help="wdqs: Wikidata 공식, qlever: 공개 미러"
+    )
     p.set_defaults(func=_cmd_fetch)
 
     p = sub.add_parser("make-synthetic", help="합성 문서(dev·eval)와 샘플 묶음을 만든다")

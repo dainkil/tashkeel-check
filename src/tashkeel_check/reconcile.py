@@ -60,8 +60,10 @@ def check_items(raw_items: list[dict], tokens: list[Token], segments: list[Segme
     checked = []
     for idx, raw in enumerate(raw_items):
         ids = [i for i in (raw.get("token_ids") or []) if isinstance(i, int)]
-        valid = bool(ids) and len(ids) == len(raw.get("token_ids") or []) and all(
-            i in by_id and by_id[i]["script"] == "ar" for i in ids
+        valid = (
+            bool(ids)
+            and len(ids) == len(raw.get("token_ids") or [])
+            and all(i in by_id and by_id[i]["script"] == "ar" for i in ids)
         )
         typ, dec = raw.get("type"), raw.get("decision")
         final, flags, failure = dec, [], None

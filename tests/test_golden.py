@@ -19,8 +19,14 @@ def _golden(analyzer: str, responder: str) -> dict[str, Any]:
 
 
 CASES = [
-    pytest.param(analyzer, responder, i, cond, marks=[pytest.mark.camel] if analyzer == "camel" else [],
-                 id=f"{analyzer}-{responder}-{path.stem}-{cond}")
+    pytest.param(
+        analyzer,
+        responder,
+        i,
+        cond,
+        marks=[pytest.mark.camel] if analyzer == "camel" else [],
+        id=f"{analyzer}-{responder}-{path.stem}-{cond}",
+    )
     for analyzer in ANALYZERS
     for responder in RESPONDERS
     for i, path in enumerate(DEV_DOCS)

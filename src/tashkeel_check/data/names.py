@@ -12,10 +12,33 @@ from ..text import normalize_key
 
 ALIGN_VERSION = "v0"
 
-AR_HONORIFICS = {normalize_key(w) for w in ["الشيخ", "الشيخة", "الأمير", "الأميرة", "الدكتور", "الدكتورة", "د", "سمو", "معالي", "السيد", "السيدة"]}
+AR_HONORIFICS = {
+    normalize_key(w)
+    for w in ["الشيخ", "الشيخة", "الأمير", "الأميرة", "الدكتور", "الدكتورة", "د", "سمو", "معالي", "السيد", "السيدة"]
+}
 AR_CONNECTORS = {normalize_key(w) for w in ["بن", "بنت", "ابن"]}
 AR_JOIN_NEXT = {normalize_key(w) for w in ["عبد", "أبو", "آل"]}
-EN_HONORIFICS = {"he", "hh", "hrh", "dr", "sheikh", "shaikh", "sheikha", "shaikha", "prince", "princess", "mr", "mrs", "ms", "eng", "his", "her", "highness", "excellency", "sir"}
+EN_HONORIFICS = {
+    "he",
+    "hh",
+    "hrh",
+    "dr",
+    "sheikh",
+    "shaikh",
+    "sheikha",
+    "shaikha",
+    "prince",
+    "princess",
+    "mr",
+    "mrs",
+    "ms",
+    "eng",
+    "his",
+    "her",
+    "highness",
+    "excellency",
+    "sir",
+}
 EN_CONNECTORS = {"bin", "bint", "ibn", "bent", "ben"}
 EN_ARTICLES = {"al", "el", "ul"}
 EN_JOIN_NEXT = {"abdul", "abdel", "abd", "abdal", "abu", "abou"} | EN_ARTICLES
@@ -65,11 +88,38 @@ def en_units(full: str) -> list[tuple[str, str]]:
 ASCII_NAME_RE = re.compile(r"^[A-Za-z][A-Za-z' ]*$")
 # 첫 글자 대응: 아랍어 첫 글자(관사 뒤)를 나타낼 수 있는 라틴 첫 글자. 별칭이 부분 이름일 때 생기는 엉뚱한 짝을 거른다.
 FIRST_LETTER = {
-    "ا": "aeiou", "أ": "aeiou", "إ": "aeiou", "آ": "aeiou", "ع": "aeiou", "ء": "aeiou",
-    "ب": "bp", "ت": "t", "ث": "tsd", "ج": "jgy", "ح": "h", "خ": "kh", "د": "d", "ذ": "dtz",
-    "ر": "r", "ز": "z", "س": "sc", "ش": "sc", "ص": "s", "ض": "d", "ط": "t", "ظ": "zdt",
-    "غ": "g", "ف": "f", "ق": "qkg", "ك": "kc", "ل": "l", "م": "m", "ن": "n", "ه": "h",
-    "و": "wou", "ي": "yie",
+    "ا": "aeiou",
+    "أ": "aeiou",
+    "إ": "aeiou",
+    "آ": "aeiou",
+    "ع": "aeiou",
+    "ء": "aeiou",
+    "ب": "bp",
+    "ت": "t",
+    "ث": "tsd",
+    "ج": "jgy",
+    "ح": "h",
+    "خ": "kh",
+    "د": "d",
+    "ذ": "dtz",
+    "ر": "r",
+    "ز": "z",
+    "س": "sc",
+    "ش": "sc",
+    "ص": "s",
+    "ض": "d",
+    "ط": "t",
+    "ظ": "zdt",
+    "غ": "g",
+    "ف": "f",
+    "ق": "qkg",
+    "ك": "kc",
+    "ل": "l",
+    "م": "m",
+    "ن": "n",
+    "ه": "h",
+    "و": "wou",
+    "ي": "yie",
 }
 
 
@@ -77,7 +127,7 @@ def _strip_article_ar(unit: str) -> str:
     key = normalize_key(unit)
     for prefix in ("ال ", "ال"):  # "آل X"는 normalize_key에서 "ال X"가 된다
         if key.startswith(prefix) and len(key) > len(prefix) + 1:
-            return key[len(prefix):]
+            return key[len(prefix) :]
     return key
 
 

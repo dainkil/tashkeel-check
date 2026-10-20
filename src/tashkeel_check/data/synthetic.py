@@ -25,8 +25,12 @@ RULES = {
     "R5": "같은 아랍어 이름에 영문 표기가 여럿 있다 (Wikidata 별칭)",
 }
 NATIONALITIES = [
-    ("إماراتي", "إماراتية"), ("سعودي", "سعودية"), ("قطري", "قطرية"),
-    ("كويتي", "كويتية"), ("بحريني", "بحرينية"), ("عماني", "عمانية"),
+    ("إماراتي", "إماراتية"),
+    ("سعودي", "سعودية"),
+    ("قطري", "قطرية"),
+    ("كويتي", "كويتية"),
+    ("بحريني", "بحرينية"),
+    ("عماني", "عمانية"),
 ]
 CITIES = ["دبي", "أبوظبي", "الشارقة"]
 JOBS = [("محاسب", "محاسبة"), ("مهندس", "مهندسة"), ("مندوب مبيعات", "مندوبة مبيعات")]
@@ -76,7 +80,11 @@ class NamePool:
                     self.middle.append((key, t))
                 elif female > male:
                     self.given["female"].append((key, t))
-        for name, lst in [("male given", self.given["male"]), ("female given", self.given["female"]), ("family", self.family)]:
+        for name, lst in [
+            ("male given", self.given["male"]),
+            ("female given", self.given["female"]),
+            ("family", self.family),
+        ]:
             if not lst:
                 raise ValueError(f"name pool has no {name} names")
 
@@ -157,7 +165,9 @@ class _Builder:
                 start = len(text)
                 if p.kind == "name":
                     text += p.value.arabic
-                    self.name_spans.append({"role": p.role, "name": p.value, "segment_id": sid, "span": (start, len(text))})
+                    self.name_spans.append(
+                        {"role": p.role, "name": p.value, "segment_id": sid, "span": (start, len(text))}
+                    )
                 elif p.kind == "en_name":
                     quote = p.value.english + p.suffix
                     text += quote
@@ -191,21 +201,59 @@ def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
     ids = _placeholder_ids(rng)
     b = _Builder()
     b.seg("وكالة خاصة")
-    b.seg("إنه في يوم ", ids["date"], " حضر أمام الكاتب العدل ", "السيد " if mp else "السيدة ", _name("principal", P),
-          "، ", natp[0 if mp else 1], " الجنسية، ", "ويحمل" if mp else "وتحمل", " جواز سفر رقم ", ids["passport"], ".")
+    b.seg(
+        "إنه في يوم ",
+        ids["date"],
+        " حضر أمام الكاتب العدل ",
+        "السيد " if mp else "السيدة ",
+        _name("principal", P),
+        "، ",
+        natp[0 if mp else 1],
+        " الجنسية، ",
+        "ويحمل" if mp else "وتحمل",
+        " جواز سفر رقم ",
+        ids["passport"],
+        ".",
+    )
     if bilingual:
         b.seg("Principal: ", _en("principal", P), ", Passport No. ", ids["passport"])
-    b.seg("وذلك بصفته مديرًا" if mp else "وذلك بصفتها مديرة", " لشركة ", _name("company", C), " للتجارة العامة ",
-          _neutral(LLC), "، المرخصة من ", _neutral(AUTHORITY), " برقم ", ids["reg"], "، وعنوانها ",
-          _neutral(rng.choice(CITIES)), "، ", _neutral(COUNTRY), ".")
+    b.seg(
+        "وذلك بصفته مديرًا" if mp else "وذلك بصفتها مديرة",
+        " لشركة ",
+        _name("company", C),
+        " للتجارة العامة ",
+        _neutral(LLC),
+        "، المرخصة من ",
+        _neutral(AUTHORITY),
+        " برقم ",
+        ids["reg"],
+        "، وعنوانها ",
+        _neutral(rng.choice(CITIES)),
+        "، ",
+        _neutral(COUNTRY),
+        ".",
+    )
     if bilingual:
         b.seg("Company: ", _en("company", C, " General Trading"), " L.L.C., Registration No. ", ids["reg"])
-    b.seg("وقرر أنه وكّل " if mp else "وقررت أنها وكّلت ", "السيد " if ma else "السيدة ", _name("agent", A), "، ",
-          nata[0 if ma else 1], " الجنسية، ", "ويحمل" if ma else "وتحمل", " بطاقة هوية رقم ", ids["id"], ".")
+    b.seg(
+        "وقرر أنه وكّل " if mp else "وقررت أنها وكّلت ",
+        "السيد " if ma else "السيدة ",
+        _name("agent", A),
+        "، ",
+        nata[0 if ma else 1],
+        " الجنسية، ",
+        "ويحمل" if ma else "وتحمل",
+        " بطاقة هوية رقم ",
+        ids["id"],
+        ".",
+    )
     if bilingual:
         b.seg("Attorney: ", _en("agent", A), ", ID No. ", ids["id"])
-    b.seg("للقيام نيابة ", "عنه" if mp else "عنها",
-          " بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص.")
+    b.seg(
+        "للقيام نيابة ",
+        "عنه" if mp else "عنها",
+        " بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص.",
+    )
     b.seg("الموكل: " if mp else "الموكلة: ", _name("principal", P))
     b.seg("الوكيل: " if ma else "الوكيلة: ", _name("agent", A))
     b.seg("التوقيع: ____________")
@@ -222,13 +270,41 @@ def _letter(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
     ids = _placeholder_ids(rng)
     b = _Builder()
     b.seg("إقرار")
-    b.seg("تقر شركة ", _name("company", C), " للتجارة العامة ", _neutral(LLC), "، المرخصة من ", _neutral(AUTHORITY),
-          " برقم ", ids["reg"], "، وعنوانها ", _neutral(rng.choice(CITIES)), "، ", _neutral(COUNTRY), "،")
+    b.seg(
+        "تقر شركة ",
+        _name("company", C),
+        " للتجارة العامة ",
+        _neutral(LLC),
+        "، المرخصة من ",
+        _neutral(AUTHORITY),
+        " برقم ",
+        ids["reg"],
+        "، وعنوانها ",
+        _neutral(rng.choice(CITIES)),
+        "، ",
+        _neutral(COUNTRY),
+        "،",
+    )
     if bilingual:
         b.seg("Company: ", _en("company", C, " General Trading"), " L.L.C., Registration No. ", ids["reg"])
-    b.seg("بأن ", "السيد " if mx else "السيدة ", _name("employee", X), "، ", nat[0 if mx else 1], " الجنسية، ",
-          "ويحمل" if mx else "وتحمل", " جواز سفر رقم ", ids["passport"], "، ", "يعمل" if mx else "تعمل",
-          " لديها بوظيفة ", job[0 if mx else 1], " منذ ", ids["date"], ".")
+    b.seg(
+        "بأن ",
+        "السيد " if mx else "السيدة ",
+        _name("employee", X),
+        "، ",
+        nat[0 if mx else 1],
+        " الجنسية، ",
+        "ويحمل" if mx else "وتحمل",
+        " جواز سفر رقم ",
+        ids["passport"],
+        "، ",
+        "يعمل" if mx else "تعمل",
+        " لديها بوظيفة ",
+        job[0 if mx else 1],
+        " منذ ",
+        ids["date"],
+        ".",
+    )
     if bilingual:
         b.seg("Employee: ", _en("employee", X), ", Passport No. ", ids["passport"])
     b.seg("وقد أعطي هذا الإقرار بناءً على ", "طلبه" if mx else "طلبها", " دون أدنى مسؤولية على الشركة.")
@@ -276,7 +352,9 @@ def _gold(b: _Builder) -> dict:
     return {"names": names, "neutral_token_ids": neutral}
 
 
-def generate(pool_path: str | Path, out_dir: str | Path, split: str, n: int, seed: int, bilingual_ratio: float = 0.5) -> list[Path]:
+def generate(
+    pool_path: str | Path, out_dir: str | Path, split: str, n: int, seed: int, bilingual_ratio: float = 0.5
+) -> list[Path]:
     pool = NamePool(json.loads(Path(pool_path).read_text(encoding="utf-8")))
     rng = random.Random(seed)
     out = Path(out_dir) / split

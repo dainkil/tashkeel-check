@@ -54,14 +54,12 @@ def system_prompt(condition: str) -> str:
 
 def analyzer_block(analyses: dict[int, TokenAnalysis], max_candidates: int) -> str:
     """C3용. 모호 토큰과 분석 0개 토큰만 싣는다. 나머지는 후보가 하나뿐이라 개수만 알린다."""
-    rows = [
-        view_for_llm(a, max_candidates)
-        for a in analyses.values()
-        if a["ambiguous"] or a["analysis_count"] == 0
-    ]
+    rows = [view_for_llm(a, max_candidates) for a in analyses.values() if a["ambiguous"] or a["analysis_count"] == 0]
     others = len(analyses) - len(rows)
-    return "ANALYZER\n" + "\n".join(json.dumps(r, ensure_ascii=False) for r in rows) + (
-        f"\n({others} other tokens have exactly one reading)" if others else ""
+    return (
+        "ANALYZER\n"
+        + "\n".join(json.dumps(r, ensure_ascii=False) for r in rows)
+        + (f"\n({others} other tokens have exactly one reading)" if others else "")
     )
 
 

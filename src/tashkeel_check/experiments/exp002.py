@@ -25,9 +25,16 @@ RATE_DEFS = {
     "evidence_pass_rate": ("n_evidence_correct", "n_gold_with_evidence"),
 }
 SUM_KEYS = [
-    "n_unprocessed", "n_unprocessed_names", "n_unprocessed_ambiguous_words", "n_evidence_failed",
-    "n_over_flag", "n_high_conf_unsupported", "n_inconsistent_names", "n_suspected_missed_names",
-    "n_invalid_items", "n_items",
+    "n_unprocessed",
+    "n_unprocessed_names",
+    "n_unprocessed_ambiguous_words",
+    "n_evidence_failed",
+    "n_over_flag",
+    "n_high_conf_unsupported",
+    "n_inconsistent_names",
+    "n_suspected_missed_names",
+    "n_invalid_items",
+    "n_items",
 ]
 
 
@@ -99,7 +106,9 @@ def run(
         for path in doc_paths:
             doc = load_doc(path)
             for rep in range(repeats):
-                result = run_document(doc, cond, model_factory(), settings, out_dir=out / cond / doc["doc_id"] / f"r{rep}", repeat=rep)
+                result = run_document(
+                    doc, cond, model_factory(), settings, out_dir=out / cond / doc["doc_id"] / f"r{rep}", repeat=rep
+                )
                 runs_by_condition[cond].append({**result["metrics"], "_doc_id": doc["doc_id"], "_repeat": rep})
     report = {
         "experiment": "EXP-002",

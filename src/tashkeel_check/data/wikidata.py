@@ -23,7 +23,14 @@ ENDPOINTS = {
     "wdqs": "https://query.wikidata.org/sparql",  # Wikidata 공식
     "qlever": "https://qlever.dev/api/wikidata",  # Freiburg 대학의 공개 Wikidata 미러(같은 CC0 데이터)
 }
-COUNTRIES = {"Q878": "UAE", "Q851": "Saudi Arabia", "Q846": "Qatar", "Q817": "Kuwait", "Q398": "Bahrain", "Q842": "Oman"}
+COUNTRIES = {
+    "Q878": "UAE",
+    "Q851": "Saudi Arabia",
+    "Q846": "Qatar",
+    "Q817": "Kuwait",
+    "Q398": "Bahrain",
+    "Q842": "Oman",
+}
 GENDERS = {"http://www.wikidata.org/entity/Q6581097": "male", "http://www.wikidata.org/entity/Q6581072": "female"}
 
 PREFIXES = """PREFIX wd: <http://www.wikidata.org/entity/>
@@ -31,12 +38,15 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 """
-QUERY = PREFIXES + """SELECT ?p ?ar ?en ?gender (GROUP_CONCAT(DISTINCT ?al; separator="|") AS ?aliases) WHERE {
+QUERY = (
+    PREFIXES
+    + """SELECT ?p ?ar ?en ?gender (GROUP_CONCAT(DISTINCT ?al; separator="|") AS ?aliases) WHERE {
   ?p wdt:P31 wd:Q5; wdt:P27 wd:%s; rdfs:label ?ar. FILTER(LANG(?ar)="ar")
   ?p rdfs:label ?en. FILTER(LANG(?en)="en")
   OPTIONAL { ?p wdt:P21 ?gender }
   OPTIONAL { ?p skos:altLabel ?al. FILTER(LANG(?al)="en") }
 } GROUP BY ?p ?ar ?en ?gender"""
+)
 
 
 def _user_agent() -> str:
@@ -48,11 +58,15 @@ def _log(msg: str) -> None:
     print(f"[wikidata {datetime.now().strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
 
 
-def _sparql(query: str, endpoint: str = "wdqs", attempts: int = 6, wait_s: float = 65.0, max_wait_s: float = 180.0) -> list[dict]:
+def _sparql(
+    query: str, endpoint: str = "wdqs", attempts: int = 6, wait_s: float = 65.0, max_wait_s: float = 180.0
+) -> list[dict]:
     """429(요청 제한)·5xx면 기다렸다가 다시 보낸다. 2026-10-13에는 분당 1회로 제한됐다(TS-002).
     Retry-After가 길어도 max_wait_s까지만 기다린다."""
     url = ENDPOINTS[endpoint] + "?" + urllib.parse.urlencode({"query": query})
-    req = urllib.request.Request(url, headers={"User-Agent": _user_agent(), "Accept": "application/sparql-results+json"})
+    req = urllib.request.Request(
+        url, headers={"User-Agent": _user_agent(), "Accept": "application/sparql-results+json"}
+    )
     for attempt in range(1, attempts + 1):
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
@@ -97,7 +111,14 @@ def fetch(out_dir: str | Path, endpoint: str = "wdqs") -> Path:
             aliases = [a for a in b.get("aliases", {}).get("value", "").split("|") if a]
             row = rows.setdefault(
                 pid,
-                {"qid": pid, "ar": b["ar"]["value"], "en": b["en"]["value"], "aliases": [], "gender": None, "countries": []},
+                {
+                    "qid": pid,
+                    "ar": b["ar"]["value"],
+                    "en": b["en"]["value"],
+                    "aliases": [],
+                    "gender": None,
+                    "countries": [],
+                },
             )
             row["aliases"] = sorted(set(row["aliases"]) | set(aliases))
             row["gender"] = row["gender"] or GENDERS.get(b.get("gender", {}).get("value", ""))
@@ -129,7 +150,8 @@ def build_name_pool(snapshot_path: str | Path, out_path: str | Path) -> Path:
             pairs = primary if en == r["en"] else align(r["ar"], en)
             for ar_u, en_u, pos in pairs or []:
                 e = pool.setdefault(
-                    normalize_key(ar_u), {"arabic": Counter(), "english": Counter(), "positions": Counter(), "genders": Counter()}
+                    normalize_key(ar_u),
+                    {"arabic": Counter(), "english": Counter(), "positions": Counter(), "genders": Counter()},
                 )
                 e["english"][en_u] += 1
                 if en == r["en"]:

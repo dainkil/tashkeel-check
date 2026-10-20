@@ -102,10 +102,16 @@ def build_graph(
             else:
                 tools: list[BaseTool] = []
                 if condition == "C2":
-                    tools.append(make_analyze_tool(state["tokens"], state["analyses"], tool_log, settings.max_candidates))
+                    tools.append(
+                        make_analyze_tool(state["tokens"], state["analyses"], tool_log, settings.max_candidates)
+                    )
                 tools.extend(factory(state["tokens"], tool_log) for factory in extra_tool_factories)
-                runner = create_agent(model, tools=tools, system_prompt=system, response_format=ToolStrategy(AgentOutput))
-                res = runner.invoke({"messages": [HumanMessage(user)]}, config={"recursion_limit": settings.recursion_limit})
+                runner = create_agent(
+                    model, tools=tools, system_prompt=system, response_format=ToolStrategy(AgentOutput)
+                )
+                res = runner.invoke(
+                    {"messages": [HumanMessage(user)]}, config={"recursion_limit": settings.recursion_limit}
+                )
                 for m in res["messages"]:
                     if isinstance(m, AIMessage):
                         _add_usage(usage, m)
