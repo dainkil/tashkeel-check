@@ -1,7 +1,8 @@
 """아랍어 전체 이름과 영문 표기를 이름 단위로 정렬한다. EXP-001과 합성 문서 생성기가 같이 쓴다.
 
-정렬 규칙 v0(계획 6.1절): بن/بنت ↔ bin/bint, ال+X ↔ Al X, عبد/أبو/آل + X는 한 단위.
+정렬 규칙(계획 6.1절): بن/بنت ↔ bin/bint, ال+X ↔ Al X, عبد/أبو/آل + X는 한 단위.
 단위 수나 연결어 위치가 다르면 정렬하지 않고 None을 돌려준다.
+v1(EXP-001 개발용 표본에서 고침, ADR-015): 아랍어 단위는 아랍 문자만, عبد·أبو 접두는 양쪽이 같이 있어야 한다.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ import re
 
 from ..text import normalize_key
 
-ALIGN_VERSION = "v0"
+ALIGN_VERSION = "v1"
 
 AR_HONORIFICS = {
     normalize_key(w)
@@ -86,6 +87,10 @@ def en_units(full: str) -> list[tuple[str, str]]:
 
 
 ASCII_NAME_RE = re.compile(r"^[A-Za-z][A-Za-z' ]*$")
+# Wikidata 아랍어 레이블에 라틴 문자가 섞인 경우(Khaleghian)를 거른다
+ARABIC_UNIT_RE = re.compile(r"^[\u0600-\u06FF ]+$")
+AR_ABD, AR_ABU = normalize_key("عبد"), normalize_key("أبو")
+EN_ABD, EN_ABU = {"abd", "abdul", "abdel", "abdal"}, {"abu", "abou"}
 # 첫 글자 대응: 아랍어 첫 글자(관사 뒤)를 나타낼 수 있는 라틴 첫 글자. 별칭이 부분 이름일 때 생기는 엉뚱한 짝을 거른다.
 FIRST_LETTER = {
     "ا": "aeiou",
@@ -138,9 +143,24 @@ def _strip_article_en(unit: str) -> str:
     return " ".join(words)
 
 
+def _prefix_consistent(ar_unit: str, en_unit: str) -> bool:
+    """عبد X ↔ Abdul X, أبو X ↔ Abu X처럼 접두가 양쪽에 같이 있는지.
+
+    별칭이 접두를 빼거나(Aziz) 다른 이름(Abu Aws)일 때를 거른다."""
+    ar_key, en_low = normalize_key(ar_unit), en_unit.lower()
+    ar_first, en_first = ar_key.split()[0], en_low.split()[0]
+    if ar_first == AR_ABD or en_first in EN_ABD:  # 아랍어는 عبدالنبي처럼 붙여 쓰기도 한다
+        return ar_key.startswith(AR_ABD) and en_low.startswith("abd")
+    if ar_first == AR_ABU or en_first in EN_ABU:
+        return ar_key.startswith(AR_ABU) and en_low.startswith(("ab", "bu", "bo"))
+    return True
+
+
 def plausible_pair(ar_unit: str, en_unit: str) -> bool:
-    """영문 단위가 두 글자 이상의 ASCII 이름이고, 첫 글자가 아랍어 첫 글자와 대응하는지."""
-    if not ASCII_NAME_RE.match(en_unit):
+    """아랍어 단위가 아랍 문자이고, 영문 단위가 두 글자 이상의 ASCII 이름이며, 첫 글자와 접두가 대응하는지."""
+    if not ARABIC_UNIT_RE.match(ar_unit) or not ASCII_NAME_RE.match(en_unit):
+        return False
+    if not _prefix_consistent(ar_unit, en_unit):
         return False
     ar, en = _strip_article_ar(ar_unit), _strip_article_en(en_unit).lower()
     if not ar or len(en.replace(" ", "").replace("'", "")) < 2:  # 머리글자(M 등)는 표기가 아니다

@@ -1,16 +1,17 @@
 """모음 표기된 아랍어를 ASCII 로마자로 옮기고, 영문 표기끼리 같은 이름인지 판정한다.
 
-규칙 버전은 MATCHER_VERSION으로 기록한다. v0는 EXP-001 개발용 표본에서 고친 뒤 고정할 초안이다.
+규칙 버전은 MATCHER_VERSION으로 기록한다. v1은 EXP-001 개발용 표본에서 고쳐 고정한 규칙이다(ADR-015).
 모음을 살려 비교한다. 자음만 비교하면 Muslim과 Musallam이 같아진다.
 """
 
 from __future__ import annotations
 
 import re
+from functools import lru_cache
 
 from .text import dediac, nfc
 
-MATCHER_VERSION = "v0"
+MATCHER_VERSION = "v1"
 
 FATHA, DAMMA, KASRA, SUKUN, SHADDA, DAGGER = "َ", "ُ", "ِ", "ْ", "ّ", "ٰ"
 TANWEEN = {"ً": "an", "ٌ": "un", "ٍ": "in"}
@@ -137,50 +138,112 @@ def romanize_display(diac: str) -> str:
     return " ".join(words)
 
 
-_FOLDS = [("ou", "u"), ("oo", "u"), ("ee", "i"), ("ei", "i"), ("ay", "ai"), ("ey", "ai"), ("e", "i"), ("o", "u")]
+ARTICLES = {"al", "el", "ul", "aal"}
+VOWELS = set("aiu")
+# 영문 표기에만 나오는 모음 글자(아랍어 로마자는 a·i·u만 쓴다). 첫 값이 대표형이다
+EN_VOWELS = {"E": ("i", "a", "u"), "O": ("u", "aw")}  # Rashed·Ahmed·Yousef, Omar·Nofal
+MAX_VARIANTS = 256
+MIN_TOLERANT_LEN = 4
+SEMIVOWEL_SUBS = {frozenset("yi"), frozenset("wu")}
+
+
+def _abd(word: str) -> str:
+    """붙여 쓴 Abdul·Abdel·Abdur 등을 abd로 줄인다. 아랍어 로마자는 'abd al-X로 단어가 나뉘어 해당하지 않는다."""
+    if not word.startswith("abd") or len(word) <= 3:
+        return word
+    rest = re.sub(r"^(?:ou|oo|[aeiou])l", "", word[3:], count=1)
+    if rest == word[3:]:  # 태양 문자 동화: Abdur Rahman, Abdurrahman
+        rest = re.sub(r"^[aeiou](?=sh|th|dh|[rsntdz])", "", rest, count=1)
+    return "abd" + rest
+
+
+def _base(spelling: str) -> str:
+    # 함자·아인(')은 지운다. 영문은 Zaabi·Saad처럼 아인 양옆 모음을 aa로 쓰는 일이 많다
+    s = re.sub(r"[’'`ʿʾ.]", "", spelling.lower())
+    words = [w for w in re.split(r"[\s\-]+", s) if w and w not in ARTICLES]
+    out: list[str] = []
+    for w in words:
+        w = _abd(w)
+        if out and out[-1] == "abd" and re.match(r"(?:al|el|ul)..", w):  # Abd Elrahman
+            w = w[2:]
+        out.append(w)
+    s = "".join(out)
+    return s.replace("ee", "i").replace("oo", "u").replace("ou", "O").replace("o", "O").replace("e", "E")
+
+
+def _expand(s: str) -> list[str]:
+    """E·O 자리마다 가능한 모음을 넣은 변형들. 첫 변형이 대표형이다."""
+    out = [""]
+    for ch in s:
+        choices = EN_VOWELS.get(ch, (ch,))
+        out = [o + c for o in out for c in choices][:MAX_VARIANTS]
+    return out
 
 
 def _fold(s: str) -> str:
-    for a, b in _FOLDS:
-        s = s.replace(a, b)
-    s = re.sub(r"iy+$", "i", s)
+    s = s.replace("dh", "d").replace("th", "d").replace("z", "d")  # ث·ذ·ظ·ض·ز의 영문 표기(th·dh·z·d)를 한 부류로
+    s = re.sub(r"(.)\1+", r"\1", s)  # 겹자음·장모음(Sayyah·Sayah)을 먼저 접고 이중모음을 맞춘다
+    s = re.sub(r"iy+$", "i", s.replace("ay", "ai"))
+    s = re.sub(r"ah$", "a", s)  # 타 마르부타의 영문 표기(Lujainah·Lujaina, Hamadeh)
     return re.sub(r"(.)\1+", r"\1", s)
 
 
+def _with_q(forms: list[str], dialect: bool) -> list[str]:
+    out = list(forms)
+    for v in forms:
+        out.append(v.replace("q", "k"))  # Tariq·Tarek, Qasim·Kassim
+        if dialect:  # 걸프 방언에서 ق를 g로 읽는 표기(예: Gurg)
+            out.append(v.replace("q", "g"))
+    return list(dict.fromkeys(out))
+
+
+@lru_cache(maxsize=65536)
+def _variants(spelling: str, dialect: bool) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """(전체 정규형, 대표형). 대표형은 e→i, o→u로만 펼친 것이고 한 글자 허용은 대표형끼리만 쓴다."""
+    base = _base(spelling)
+    if not base:
+        return (), ()
+    bases = [base]
+    if base.startswith("al") and len(base) > 5:  # AlQubaisi처럼 붙여 쓴 관사
+        bases.append(base[2:])
+    expanded = [_expand(b) for b in bases]
+    full = _with_q([_fold(v) for vs in expanded for v in vs], dialect)
+    core = _with_q([_fold(vs[0]) for vs in expanded], dialect)
+    return tuple(full), tuple(core)
+
+
 def normalize_latin(spelling: str, dialect: bool = False) -> set[str]:
-    """비교용 정규형 집합. 관사(Al/El)·하이픈·아포스트로피를 걷고 모음 표기 차이를 접는다."""
-    s = re.sub(r"[’'`ʿʾ.]", "", spelling.lower())
-    words = [w for w in re.split(r"[\s\-]+", s) if w and w not in ("al", "el", "ul")]
-    joined = "".join(words)
-    if not joined:
-        return set()
-    variants = {_fold(joined)}
-    if joined.startswith("al") and len(joined) > 5:  # AlQubaisi처럼 붙여 쓴 관사
-        variants.add(_fold(joined[2:]))
-    if dialect:  # 걸프 방언에서 ق를 g로 읽는 표기(예: Gurg)
-        variants |= {v.replace("q", "g") for v in variants}
-    return variants
+    """비교용 정규형 집합. 관사·하이픈·Abdul 붙임을 걷고, 영문 모음 e·o는 가능한 아랍어 모음으로 펼친다."""
+    return set(_variants(spelling, dialect)[0])
 
 
-def _levenshtein(a: str, b: str) -> int:
-    prev = list(range(len(b) + 1))
-    for i, ca in enumerate(a, start=1):
-        cur = [i]
-        for j, cb in enumerate(b, start=1):
-            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (ca != cb)))
-        prev = cur
-    return prev[-1]
+def canonical_latin(spelling: str) -> str:
+    """대표 정규형 하나(e→i, o→u). 같은 이름을 같은 값으로 묶을 때 쓴다."""
+    core = _variants(spelling, False)[1]
+    return core[0] if core else ""
+
+
+def _one_edit_ok(x: str, y: str) -> bool:
+    """모음(a·i·u)은 그대로 두고 자음 하나를 더하거나 빼거나, y↔i·w↔u 하나만 바꾼 차이인지."""
+    if abs(len(x) - len(y)) > 1 or min(len(x), len(y)) < MIN_TOLERANT_LEN:
+        return False
+    if len(x) == len(y):
+        diffs = [frozenset(p) for p in zip(x, y, strict=True) if p[0] != p[1]]
+        return len(diffs) == 1 and diffs[0] in SEMIVOWEL_SUBS
+    short, long_ = sorted((x, y), key=len)
+    return any(long_[i] not in VOWELS and long_[:i] + long_[i + 1 :] == short for i in range(len(long_)))
 
 
 def match_spelling(a: str, b: str, dialect: bool = False) -> bool:
-    """두 표기가 같은 이름의 표기 변이인지. 정규형이 같거나, 5자 이상에서 편집 거리 1 이하."""
-    for x in normalize_latin(a, dialect):
-        for y in normalize_latin(b, dialect):
-            if x == y:
-                return True
-            if min(len(x), len(y)) >= 5 and _levenshtein(x, y) <= 1:
-                return True
-    return False
+    """두 표기가 같은 독법의 표기 변이인지. 정규형이 같거나 자음 쪽 한 글자 차이만 허용한다.
+
+    모음이 다르면(Harab·Harib, Hamad·Hamd, Muslim·Musallam) 다른 독법이다. v0의 편집 거리 1은 이런 쌍을 같다고 봤다.
+    """
+    (xs, xcore), (ys, ycore) = _variants(a, dialect), _variants(b, dialect)
+    if set(xs) & set(ys):
+        return True
+    # 펼친 변형(o→aw 등)에 한 글자 허용을 겹치면 모음이 바뀐다(Obadah가 'Abbadah와 맞음)
+    return any(_one_edit_ok(x, y) for x in xcore for y in ycore)
 
 
 def spelling_in_text(spelling: str, text: str, dialect: bool = False) -> bool:

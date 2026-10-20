@@ -36,6 +36,12 @@ def test_exp001_split_is_deterministic_and_disjoint():
     assert a == b and len(a["dev"]) == 5 and not ({u["key"] for u in a["dev"]} & {u["key"] for u in a["main"]})
 
 
+def test_exp001_split_by_keys_keeps_dev_fixed_when_units_drop():
+    units = [{"key": str(i)} for i in range(20)]
+    parts = exp001.split_by_keys([u for u in units if u["key"] != "3"], {"1", "3", "5"})
+    assert [u["key"] for u in parts["dev"]] == ["1", "5"] and len(parts["main"]) == 17
+
+
 def test_exp002_pools_counts_and_reports_repeat_range():
     runs = []
     for doc in ("d1", "d2"):

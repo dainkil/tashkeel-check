@@ -29,3 +29,10 @@ def test_align_rejects_implausible_pairs_and_non_ascii_spellings():
     assert align("حسن مقبول", "Hassan Makabūla") is None  # 여권 MRZ는 A~Z만 쓴다
     assert align("رجاء القرق", "Raja Al Gurg") == [("رجاء", "Raja", "given"), ("القرق", "Al Gurg", "family")]
     assert align("محمد مقبول", "M Maqbool") is None  # 머리글자
+
+
+def test_align_v1_requires_arabic_script_and_matching_prefixes():
+    assert align("Khaleghian", "Manager") is None  # Wikidata 아랍어 레이블이 라틴 문자인 경우
+    assert align("إبراهيم الحمادي", "Abu Aws Al Hammadi") is None  # أبو 없는 이름 ↔ Abu 별칭
+    assert align("عبد العزيز الحمادي", "Aziz Al Hammadi") is None  # Abdul을 뺀 별칭
+    assert align("حبيب عبدالنبي مكي", "Habib Abdul Nabi Macki")[1] == ("عبدالنبي", "Abdul Nabi", "middle")

@@ -45,6 +45,33 @@ def test_match_spelling_variants_and_distinctions():
     assert match_spelling("Gurg", romanize("القُرْق"), dialect=True)
 
 
+def test_match_spelling_v1_spelling_conventions():
+    # EXP-001 dev에서 v0가 놓친 영문 표기 관례 (ADR-015)
+    assert match_spelling("Abdul Aziz", "'abd al-'aziiz")
+    assert match_spelling("Abdelaziz", "'abd al-'aziiz")
+    assert match_spelling("Abdurrahman", "'abd al-rahman")
+    assert match_spelling("Abdullah", romanize("عَبْد اللّٰه"))
+    assert match_spelling("Al Hafith", "al-hafiz")  # ظ·ذ·ث·ض·ز의 th·dh·z·d
+    assert match_spelling("Dhaif", "dayf")
+    assert match_spelling("Tarek", "tariq")  # q·k는 엄격 일치에서도 같다
+    assert match_spelling("Ahmed", "ahmad") and match_spelling("Yousef", "yuusuf")  # 영문 e는 a·i·u 어느 것도 된다
+    assert match_spelling("Al Touqi", "al-tawqiyy")  # 영문 o·ou는 u 또는 aw
+    assert match_spelling("Hamadeh", "hamada") and match_spelling("Lujaina", "lujaynah")
+    assert match_spelling("Al Sayah", "al-sayyah") and match_spelling("Bakry", "bakrii")
+    assert match_spelling("Al Zaabi", "al-za'abiyy")
+
+
+def test_match_spelling_v1_rejects_vowel_differences():
+    # v0는 5자 이상이면 편집 거리 1을 같은 이름으로 봐서 다른 독법을 일치로 셌다 (ADR-015)
+    assert not match_spelling("Hajjaj", "hujaj")
+    assert not match_spelling("Al Bashri", "al-bashariyy")
+    assert not match_spelling("Rostam", "rustum")
+    assert not match_spelling("Jamaan", "jum'an")
+    assert not match_spelling("Obadah", "'abbadah")  # o→aw에 자음 한 글자 허용을 겹치지 않는다
+    assert not match_spelling("Gazzaz", "qazzaz")
+    assert match_spelling("Gazzaz", "qazzaz", dialect=True)
+
+
 def test_spelling_in_text_finds_multiword_span():
     assert spelling_in_text("Hamad Al Muslim", "Principal: Salem bin Hamad Al Muslim")
     assert not spelling_in_text("Musallam", "Principal: Salem bin Hamad Al Muslim")

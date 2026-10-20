@@ -11,7 +11,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from .analyzer import TokenAnalysis
-from .romanize import match_spelling, normalize_latin, spelling_in_text
+from .romanize import canonical_latin, match_spelling, spelling_in_text
 from .text import Segment, Token, has_latin, normalize_key
 
 MARKER_RE = re.compile(r"\[\?\]|\(\?\)|\?|/|\bor\b|\bunclear\b|\buncertain\b", re.I)
@@ -25,8 +25,7 @@ def _squash(s: str) -> str:
 
 
 def _canon(spelling: str) -> str:
-    forms = normalize_latin(spelling)
-    return min(forms) if forms else spelling.lower()
+    return canonical_latin(spelling) or spelling.lower()
 
 
 def _rate(n: int, d: int) -> float | None:

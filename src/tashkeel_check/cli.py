@@ -69,7 +69,8 @@ def _cmd_run(args: argparse.Namespace, settings: Settings) -> int:
 def _cmd_fetch(args: argparse.Namespace, settings: Settings) -> int:
     from .data.wikidata import build_name_pool, fetch
 
-    snap = fetch(args.out, endpoint=args.endpoint)
+    # --pool-only: 저장된 스냅숏으로 이름 풀만 다시 만든다(정렬 규칙이 바뀌었을 때, 재조회 없이)
+    snap = Path(args.out) / "gcc_persons.json" if args.pool_only else fetch(args.out, endpoint=args.endpoint)
     pool = build_name_pool(snap, Path(args.out) / "name_tokens.json")
     print(f"snapshot: {snap}\nname pool: {pool}")
     return 0
@@ -98,7 +99,13 @@ def _cmd_bundle_search(args: argparse.Namespace, settings: Settings) -> int:
 def _cmd_exp001(args: argparse.Namespace, settings: Settings) -> int:
     from .experiments import exp001
 
-    path = exp001.run(args.snapshot, args.split, args.out, coverage_threshold=settings.coverage_threshold)
+    path = exp001.run(
+        args.snapshot,
+        args.split,
+        args.out,
+        coverage_threshold=settings.coverage_threshold,
+        dev_keys_path=args.dev_keys or None,
+    )
     print(path)
     return 0
 
@@ -155,6 +162,7 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument(
         "--endpoint", choices=["wdqs", "qlever"], default="wdqs", help="wdqs: Wikidata 공식, qlever: 공개 미러"
     )
+    p.add_argument("--pool-only", action="store_true", help="조회하지 않고 저장된 스냅숏으로 이름 풀만 다시 만든다")
     p.set_defaults(func=_cmd_fetch)
 
     p = sub.add_parser("make-synthetic", help="합성 문서(dev·eval)와 샘플 묶음을 만든다")
@@ -173,6 +181,7 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p = sub.add_parser("exp001", help="EXP-001 분석기 실측 (dev로 규칙을 고정한 뒤 main 한 번)")
     p.add_argument("--snapshot", default=str(data / "wikidata" / "gcc_persons.json"))
     p.add_argument("--split", choices=["dev", "main"], default="dev")
+    p.add_argument("--dev-keys", default=str(data / "wikidata" / "exp001_dev_keys.json"), help="고정한 dev 키 목록")
     p.add_argument("--out", default=str(results / "exp001"))
     p.set_defaults(func=_cmd_exp001)
 
