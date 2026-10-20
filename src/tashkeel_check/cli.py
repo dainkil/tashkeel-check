@@ -129,7 +129,9 @@ def _cmd_exp002(args: argparse.Namespace, settings: Settings) -> int:
         repeats=repeats,
         limit=args.limit,
     )
+    verdict = json.loads(path.read_text(encoding="utf-8"))["verdict"]
     print(path)
+    print(json.dumps({k: verdict.get(k) for k in ("decision", "reason")}, ensure_ascii=False))
     return 0
 
 

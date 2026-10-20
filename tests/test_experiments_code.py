@@ -71,3 +71,50 @@ def test_exp002_reports_none_for_rates_a_condition_does_not_have():
     assert s["silent_rate"]["pooled"] == 0.5
     assert s["hold_rate"] == {"pooled": None, "repeat_range": None, "doc_bootstrap_95": None}
     assert s["evidence_pass_rate"]["pooled"] is None
+
+
+def _runs(hidden: int, unsupported: int = 0, evidence_ok: int = 4, docs: int = 6) -> list[dict]:
+    """문서마다 근거 없는 이름 10개, 근거 있는 이름 4개인 실행 기록(반복 2회, 모든 문서·회차가 같은 값)."""
+    return [
+        {
+            "_doc_id": f"d{i}",
+            "_repeat": rep,
+            "n_gold_without_evidence": 10,
+            "n_hidden_pick": hidden,
+            "n_silent": hidden - unsupported,
+            "n_unsupported_adopt": unsupported,
+            "n_hold": 10 - hidden,
+            "n_gold_with_evidence": 4,
+            "n_evidence_correct": evidence_ok,
+        }
+        for i in range(docs)
+        for rep in range(2)
+    ]
+
+
+def _judge(**runs_by_condition):
+    return exp002.judge(exp002.aggregate(runs_by_condition), exp002.compare(runs_by_condition))
+
+
+def test_exp002_stops_when_instructions_alone_pass_the_bar():
+    v = _judge(C0=_runs(8), C1=_runs(1), C2=_runs(0), C3=_runs(0))
+    assert v["decision"] == "stop"
+
+
+def test_exp002_passes_when_a_tool_condition_fixes_what_c1_failed():
+    v = _judge(C0=_runs(8), C1=_runs(5), C2=_runs(1), C3=_runs(3))
+    assert v["decision"] == "pass" and v["passing"] == ["C2"]
+    # C1이 근거 있는 이름을 보류만 하다가(통과율 0.5) 떨어지고, C3가 그것을 고친 경우
+    v = _judge(C1=_runs(0, evidence_ok=2), C2=_runs(0, evidence_ok=2), C3=_runs(0))
+    assert v["decision"] == "pass" and v["passing"] == ["C3"]
+
+
+def test_exp002_fails_when_no_condition_passes_or_unsupported_adopts_are_too_many():
+    assert _judge(C1=_runs(5), C2=_runs(4), C3=_runs(3))["decision"] == "fail"
+    # 몰래 정함은 0.1 이하지만 그중 근거 없는 확정이 0.1이라 0.02를 넘는다
+    assert _judge(C1=_runs(5), C2=_runs(1, unsupported=1), C3=_runs(5))["decision"] == "fail"
+
+
+def test_exp002_paired_difference_uses_the_same_documents_for_both_conditions():
+    d = exp002.compare({"C1": _runs(5), "C2": _runs(1)})["C1-C2"]["hidden_pick_rate"]
+    assert d == {"diff": 0.4, "doc_bootstrap_95": [0.4, 0.4]}  # 문서마다 차이가 같으면 구간 폭이 0이다

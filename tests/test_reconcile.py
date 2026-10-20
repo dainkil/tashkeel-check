@@ -35,7 +35,7 @@ def _run(doc, tokens, items, condition="C1", tool_log=None, output=None):
 def test_no_items_means_every_name_is_silent_and_unprocessed(mini_doc, mini_tokens):
     r = _run(mini_doc, mini_tokens, [])
     m = r["metrics"]
-    assert m["silent_rate"] == 1.0
+    assert m["silent_rate"] == 1.0 and m["hidden_pick_rate"] == 1.0
     # 정답 이름 토큰 9개 ∪ 모호 토큰(وكالة, حمد×2, مسلم) = 10개
     assert m["n_unprocessed"] == 10
     assert m["n_unprocessed_names"] == 9 and m["n_unprocessed_ambiguous_words"] == 1
@@ -47,6 +47,7 @@ def test_unsupported_adopt_is_counted_not_forgiven(mini_doc, mini_tokens):
     r = _run(mini_doc, mini_tokens, [_item(agent, "proper_noun", "adopt", "Rashid Muslim Al Kaabi", 0.9)])
     m = r["metrics"]
     assert m["unsupported_adopt_rate"] == 1.0 and m["silent_rate"] == 0.0
+    assert m["hidden_pick_rate"] == 1.0  # 말없이 찍지는 않았지만 근거 없이 확정했다
     assert m["n_unsupported_adopt_tokens"] == 3 and m["n_high_conf_unsupported_tokens"] == 3
     assert r["items"][0]["final_decision"] == "adopt_unsupported"
 
@@ -162,6 +163,7 @@ def test_hold_and_breakdown(mini_doc, mini_tokens):
     r = _run(mini_doc, mini_tokens, [_item(agent, "proper_noun", "hold")])
     m = r["metrics"]
     assert m["hold_rate"] == 1.0 and m["n_unprocessed_names"] == 6
+    assert m["hidden_pick_rate"] == 0.0
     bd = m["breakdown_without_evidence"]
     assert bd["analyzer_0"]["n"] == 1  # الكعبي
     assert bd["variants_ge2"]["n"] == 3
@@ -190,7 +192,7 @@ def test_c0_marked_vs_silent(mini_doc, mini_tokens):
     rashid, musallam, kaabi = ids_of(mini_tokens, "s04", ["راشد", "مسلم", "الكعبي"])
     assert st[str(musallam)] == "flagged"
     assert st[str(rashid)] == "silent" and st[str(kaabi)] == "silent"
-    assert r["metrics"]["silent_rate"] == round(2 / 3, 4)
+    assert r["metrics"]["silent_rate"] == r["metrics"]["hidden_pick_rate"] == round(2 / 3, 4)
     assert r["metrics"]["n_unprocessed"] is None
 
 

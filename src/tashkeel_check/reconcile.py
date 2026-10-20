@@ -222,6 +222,9 @@ def _gold_metrics(
         "silent_rate": _rate(sum(statuses[t] == "silent" for t in no_ev), len(no_ev)),
         "unsupported_adopt_rate": _rate(sum(statuses[t] == "unsupported_adopt" for t in no_ev), len(no_ev)),
         "hold_rate": _rate(sum(statuses[t] == "hold" for t in no_ev), len(no_ev)),
+        # 몰래 정함: 근거 없는 이름을 표시 없이 옮겼거나(말없이 찍음) 근거 없이 확정한 것. EXP-002 합격선의 첫 기준
+        "n_hidden_pick": sum(statuses[t] in ("silent", "unsupported_adopt") for t in no_ev),
+        "hidden_pick_rate": _rate(sum(statuses[t] in ("silent", "unsupported_adopt") for t in no_ev), len(no_ev)),
         "n_hold_candidate_hit": n_hit,
         "hold_candidate_hit_rate": _rate(n_hit, len(held)),
         "evidence_without_gold_evidence": sum(statuses[t] == "evidence_without_gold_evidence" for t in no_ev),
@@ -471,6 +474,9 @@ def _c0(
                 "n_gold_with_evidence": len(with_ev),
                 "n_silent": sum(statuses[t] in silent_like for t in no_ev),
                 "silent_rate": _rate(sum(statuses[t] in silent_like for t in no_ev), len(no_ev)),
+                # C0에는 확정 형식이 없어 몰래 정함 = 말없이 찍음이다. C1~C3와 같은 키로 비교하려고 둔다
+                "n_hidden_pick": sum(statuses[t] in silent_like for t in no_ev),
+                "hidden_pick_rate": _rate(sum(statuses[t] in silent_like for t in no_ev), len(no_ev)),
                 "silent_rate_found_only": _rate(
                     sum(statuses[t] == "silent" for t in no_ev), sum(statuses[t] != "not_found" for t in no_ev)
                 ),
