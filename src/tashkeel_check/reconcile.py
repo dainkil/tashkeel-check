@@ -33,6 +33,12 @@ def _rate(n: int, d: int) -> float | None:
     return round(n / d, 4) if d else None
 
 
+def _analysis_count(analyses: dict[int, TokenAnalysis], tid: int, default: int | str) -> int | str:
+    """분석 수. 아랍어 토큰이 아니어서 분석이 없으면 default."""
+    a = analyses.get(tid)
+    return a["analysis_count"] if a is not None else default
+
+
 # ---------- 항목 검사 ----------
 
 
@@ -126,7 +132,7 @@ def _breakdown(statuses: dict[int, str], info: dict[int, dict], analyses: dict[i
     groups: dict[str, list[int]] = defaultdict(list)
     for tid in statuses:
         groups["variants_ge2" if len(info[tid].get("english_variants", [])) >= 2 else "variants_1"].append(tid)
-        count = analyses.get(tid, {}).get("analysis_count", 0)
+        count = _analysis_count(analyses, tid, 0)
         groups["analyzer_0" if count == 0 else "analyzer_ge1"].append(tid)
     return {
         g: {
@@ -145,7 +151,15 @@ def _primary(items: list[dict]) -> dict:
     return next((it for it in items if it.get("type") == "proper_noun"), items[0])
 
 
-def _structured(segments, tokens, analyses, output, gold, tool_log, high_conf) -> dict:
+def _structured(
+    segments: list[Segment],
+    tokens: list[Token],
+    analyses: dict[int, TokenAnalysis],
+    output: dict | None,
+    gold: dict | None,
+    tool_log: list[dict],
+    high_conf: float,
+) -> dict:
     by_id = {t["id"]: t for t in tokens}
     items = check_items((output or {}).get("items", []), tokens, segments)
     translation = {t["segment_id"]: t["english"] for t in (output or {}).get("translation", [])}
@@ -159,7 +173,7 @@ def _structured(segments, tokens, analyses, output, gold, tool_log, high_conf) -
     gtok = gold_name_tokens(gold)
     neutral = set((gold or {}).get("neutral_token_ids", []))
     universe = ambiguous | set(gtok)
-    unprocessed = [
+    unprocessed: list[dict[str, Any]] = [
         {
             "token_id": t,
             "text": by_id[t]["text"],
@@ -208,7 +222,7 @@ def _structured(segments, tokens, analyses, output, gold, tool_log, high_conf) -
         "n_inconsistent_names": sum(len(v) > 1 for v in adopted_by_key.values()),
         "n_suspected_missed_names": len(suspected_missed),
         "n_proper_noun_tokens_without_analyzer_candidates": sum(
-            analyses.get(t, {}).get("analysis_count", 1) == 0 for t in (set(gtok) or pn_tokens)
+            _analysis_count(analyses, t, 1) == 0 for t in (set(gtok) or pn_tokens)
         ),
         "n_segments_translated": sum(1 for s in segments if translation.get(s["segment_id"])),
         "n_segments": len(segments),
@@ -277,7 +291,7 @@ def _structured(segments, tokens, analyses, output, gold, tool_log, high_conf) -
                     "adopted": "",
                     "decision": "unprocessed",
                     "evidence": "",
-                    "analyzer_counts": f"{u['token_id']}:{analyses.get(u['token_id'], {}).get('analysis_count', '')}",
+                    "analyzer_counts": f"{u['token_id']}:{_analysis_count(analyses, u['token_id'], '')}",
                     "flags": "",
                 }
             )
@@ -302,7 +316,7 @@ def _pn_row(it: dict, analyses: dict[int, TokenAnalysis]) -> dict:
         "adopted": it.get("adopted") or "",
         "decision": it["final_decision"],
         "evidence": f"{ev.get('segment_id')}: {ev.get('quote')}" if ev else "",
-        "analyzer_counts": " ".join(f"{t}:{analyses.get(t, {}).get('analysis_count', '')}" for t in it["token_ids"]),
+        "analyzer_counts": " ".join(f"{t}:{_analysis_count(analyses, t, '')}" for t in it["token_ids"]),
         "flags": " ".join(it["flags"]),
     }
 
@@ -325,7 +339,7 @@ def find_spellings(candidates: set[str], text: str) -> list[tuple[int, int, str]
     정규형은 번역문에 실제로 쓰인 단어열에서 만든다. 후보에서 만들면 한 단어열에 여러 후보가 맞을 때
     집합 순회 순서(PYTHONHASHSEED)에 따라 값이 바뀐다(TS-003)."""
     words = list(WORD_RE.finditer(text))
-    hits = []
+    hits: list[tuple[int, int, str]] = []
     for n in (3, 2, 1):
         for i in range(len(words) - n + 1):
             start, end = words[i].start(), words[i + n - 1].end()
@@ -351,7 +365,13 @@ def _marked(text: str, start: int, end: int) -> bool:
     return False
 
 
-def _c0(segments, tokens, analyses, output, gold) -> dict:
+def _c0(
+    segments: list[Segment],
+    tokens: list[Token],
+    analyses: dict[int, TokenAnalysis],
+    output: str | None,
+    gold: dict | None,
+) -> dict:
     translation = parse_c0(output if isinstance(output, str) else "")
     gtok = gold_name_tokens(gold)
     statuses: dict[int, str] = {}
@@ -359,7 +379,7 @@ def _c0(segments, tokens, analyses, output, gold) -> dict:
     rows = []
     for tid, info in gtok.items():
         cands = set(info.get("english_variants", []))
-        cands |= {c["display"] for c in analyses.get(tid, {}).get("candidates", [])}
+        cands |= {c["display"] for c in analyses[tid]["candidates"]} if tid in analyses else set()
         text = translation.get(info["segment_id"], "")
         hits = find_spellings(cands, text)
         distinct = {h[2] for h in hits}
@@ -379,7 +399,7 @@ def _c0(segments, tokens, analyses, output, gold) -> dict:
                 "adopted": text[hits[0][0] : hits[0][1]] if hits else "",
                 "decision": f"c0:{status}",
                 "evidence": "",
-                "analyzer_counts": f"{tid}:{analyses.get(tid, {}).get('analysis_count', '')}",
+                "analyzer_counts": f"{tid}:{_analysis_count(analyses, tid, '')}",
                 "flags": "",
             }
         )

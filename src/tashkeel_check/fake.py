@@ -5,10 +5,12 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 import re
 import uuid
-from typing import Any, Callable, Sequence
+from collections.abc import Callable, Sequence
+from typing import Any
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
@@ -46,10 +48,8 @@ def practice_responder(messages: list[BaseMessage], bound: list[str]) -> AIMessa
         return tool_call("analyze_tokens", {"token_ids": ids})
     for m in messages:
         if isinstance(m, ToolMessage):
-            try:
-                analyzer_rows.extend(json.loads(m.content))
-            except (TypeError, ValueError):
-                pass
+            with contextlib.suppress(TypeError, ValueError):
+                analyzer_rows.extend(json.loads(str(m.content)))
     if "ANALYZER" in text:
         for line in text.split("ANALYZER", 1)[1].splitlines():
             if line.startswith("{"):
@@ -92,6 +92,6 @@ class FakeAgentModel(BaseChatModel):
         fn = self.responder or practice_responder
         return ChatResult(generations=[ChatGeneration(message=fn(list(messages), list(self.bound_tools)))])
 
-    def bind_tools(self, tools: Sequence[Any], **kwargs: Any) -> "FakeAgentModel":
+    def bind_tools(self, tools: Sequence[Any], **kwargs: Any) -> FakeAgentModel:
         names = [convert_to_openai_tool(t)["function"]["name"] for t in tools]
         return self.model_copy(update={"bound_tools": names})

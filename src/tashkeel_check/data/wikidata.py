@@ -13,7 +13,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ..text import normalize_key
@@ -77,7 +77,8 @@ def _sparql(
                 raise
             if retry_after and retry_after.isdigit() and float(retry_after) > max_wait_s:
                 raise RuntimeError(
-                    f"{endpoint}가 Retry-After={retry_after}s를 요구합니다. 나중에 다시 실행하거나 --endpoint qlever를 쓰세요."
+                    f"{endpoint}가 Retry-After={retry_after}s를 요구합니다. "
+                    "나중에 다시 실행하거나 --endpoint qlever를 쓰세요."
                 ) from exc
             wait = float(retry_after) if retry_after and retry_after.isdigit() else wait_s
             wait = min(wait, max_wait_s)
@@ -128,7 +129,7 @@ def fetch(out_dir: str | Path, endpoint: str = "wdqs") -> Path:
     snapshot = {
         "source": "Wikidata SPARQL (CC0)",
         "endpoint": ENDPOINTS[endpoint],
-        "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "countries": COUNTRIES,
         "n_rows": len(rows),
         "rows": sorted(rows.values(), key=lambda r: r["qid"]),

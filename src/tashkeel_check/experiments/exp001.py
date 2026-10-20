@@ -10,7 +10,7 @@ import itertools
 import json
 import random
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ..analyzer import AnalyzeFn, analyzer_version, camel_analyze, summarize
@@ -137,7 +137,7 @@ def run(
     report = {
         "experiment": "EXP-001",
         "split": split,
-        "run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "snapshot": str(snapshot_path),
         "align_version": ALIGN_VERSION,
         "matcher_version": MATCHER_VERSION,

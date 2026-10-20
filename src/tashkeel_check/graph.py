@@ -7,7 +7,8 @@ LLM이 필요 없는 검사와 집계는 일반 함수 노드다.
 from __future__ import annotations
 
 import time
-from typing import Any, Callable, TypedDict
+from collections.abc import Callable
+from typing import Any, TypedDict
 
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
@@ -16,6 +17,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import BaseTool
 from langgraph.graph import END, START, StateGraph
+from langgraph.graph.state import CompiledStateGraph
 
 from .analyzer import AnalyzeFn, TokenAnalysis, analyze_tokens
 from .config import CONDITIONS, Settings
@@ -59,7 +61,7 @@ def build_graph(
     settings: Settings,
     analyze_fn: AnalyzeFn | None = None,
     extra_tool_factories: list[ToolFactory] | None = None,
-):
+) -> CompiledStateGraph:
     extra_tool_factories = extra_tool_factories or []
 
     def load(state: GraphState) -> dict:
@@ -180,8 +182,9 @@ def build_graph(
         meta["usage"] = state.get("usage", {})
         meta["tool_calls"] = len(state.get("tool_log", []))
         result = {**state["result"], "meta": meta}
-        if state.get("out_dir"):
-            write_outputs(state["out_dir"], result, meta)
+        out_dir = state.get("out_dir")
+        if out_dir:
+            write_outputs(out_dir, result, meta)
         return {"result": result, "meta": meta}
 
     builder = StateGraph(GraphState)

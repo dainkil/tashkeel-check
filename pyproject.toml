@@ -51,6 +51,9 @@ extend-exclude = ["all_total_vue_student", "docs/market"]  # 제공 ZIP, 계산 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
 
+[tool.ruff.lint.per-file-ignores]
+"src/tashkeel_check/prompts.py" = ["E501"]  # 프롬프트 원문은 LLM 입력이라 줄을 바꾸지 않는다(ADR-013)
+
 [tool.mypy]
 python_version = "3.11"
 files = ["src"]
@@ -60,7 +63,7 @@ warn_redundant_casts = true
 no_implicit_optional = true
 
 [[tool.mypy.overrides]]
-module = ["camel_tools.*", "qdrant_client.*", "langchain_qdrant.*"]
+module = ["camel_tools.*", "qdrant_client.*", "langchain_qdrant.*", "sklearn.*"]
 ignore_missing_imports = true
 
 [tool.coverage.run]

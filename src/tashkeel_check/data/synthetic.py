@@ -133,9 +133,14 @@ class NamePool:
 @dataclass
 class _Mark:
     kind: str  # name | en_name | neutral
-    value: object
+    value: Name | str
     role: str = ""
     suffix: str = ""
+
+    def name(self) -> Name:
+        if not isinstance(self.value, Name):
+            raise TypeError(f"{self.kind} mark needs a Name, got {type(self.value).__name__}")
+        return self.value
 
 
 def _name(role: str, n: Name) -> _Mark:
@@ -164,12 +169,12 @@ class _Builder:
             if isinstance(p, _Mark):
                 start = len(text)
                 if p.kind == "name":
-                    text += p.value.arabic
+                    text += p.name().arabic
                     self.name_spans.append(
-                        {"role": p.role, "name": p.value, "segment_id": sid, "span": (start, len(text))}
+                        {"role": p.role, "name": p.name(), "segment_id": sid, "span": (start, len(text))}
                     )
                 elif p.kind == "en_name":
-                    quote = p.value.english + p.suffix
+                    quote = p.name().english + p.suffix
                     text += quote
                     self.evidence[p.role] = {"segment_id": sid, "quote": quote}
                 else:
@@ -343,7 +348,7 @@ def _gold(b: _Builder) -> dict:
                         "english_variants": p.variants,
                         "english_used": p.english,
                     }
-                    for tid, p in zip(name_ids, parts)
+                    for tid, p in zip(name_ids, parts, strict=True)
                 ],
                 "evidence": b.evidence.get(ns["role"]),
             }
@@ -396,7 +401,9 @@ def make_sample_bundle(doc_path: str | Path, out_dir: str | Path) -> list[Path]:
     out.mkdir(parents=True, exist_ok=True)
     files = {
         "id_excerpt.txt": f"{NOTICE}\n(예시 서식)\nالاسم: {person['arabic_full']}\nName: {person['english_full']}\n",
-        "previous_letter_en.txt": f"{NOTICE}\nDear {person['english_full']},\nWe confirm receipt of your documents for {doc['doc_id']}.\n",
+        "previous_letter_en.txt": (
+            f"{NOTICE}\nDear {person['english_full']},\nWe confirm receipt of your documents for {doc['doc_id']}.\n"
+        ),
     }
     paths = []
     for name, text in files.items():

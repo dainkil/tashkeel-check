@@ -156,7 +156,7 @@ def align(ar_full: str, en_full: str) -> list[tuple[str, str, str]] | None:
     ar, en = ar_units(ar_full), en_units(en_full)
     if not ar or len(ar) != len(en) or [k for _, k in ar] != [k for _, k in en]:
         return None
-    if not all(plausible_pair(a, e) for (a, k), (e, _) in zip(ar, en) if k == "name"):
+    if not all(plausible_pair(a, e) for (a, k), (e, _) in zip(ar, en, strict=True) if k == "name"):
         return None
     name_idx = [i for i, (_, k) in enumerate(ar) if k == "name"]
     pairs = []

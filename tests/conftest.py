@@ -79,7 +79,7 @@ def mini_doc() -> dict:
             "token_ids": ids,
             "tokens": [
                 {"token_id": i, "arabic": w, "position": p, "english_variants": v, "english_used": e}
-                for i, w, p, v, e in zip(ids, words, ["given", "middle", "family"], variants, english)
+                for i, w, p, v, e in zip(ids, words, ["given", "middle", "family"], variants, english, strict=True)
             ],
             "evidence": evidence,
         }

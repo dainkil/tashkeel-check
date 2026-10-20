@@ -14,8 +14,10 @@ from __future__ import annotations
 import os
 import re
 import uuid
+from collections.abc import Callable, Iterator
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from typing import TYPE_CHECKING, Any
 
 from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
@@ -24,6 +26,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from ..romanize import spelling_in_text
 from ..text import Token, has_latin, normalize_key
+
+if TYPE_CHECKING:
+    from langchain_qdrant import QdrantVectorStore
 
 LATIN_SPAN_RE = re.compile(r"[A-Za-z][A-Za-z'’\- ]*[A-Za-z]")
 
@@ -81,10 +86,10 @@ class BundleIndex:
         self.embeddings = embeddings
         self.embedding_label = embedding_label or type(embeddings).__name__
         self.parents: dict[str, Document] = {}
-        self.store = None
+        self.store: QdrantVectorStore | None = None
 
     @classmethod
-    def from_dir(cls, bundle_dir: str | Path, **kwargs) -> "BundleIndex":
+    def from_dir(cls, bundle_dir: str | Path, **kwargs: Any) -> BundleIndex:
         docs = [
             Document(page_content=p.read_text(encoding="utf-8"), metadata={"source": p.name})
             for p in sorted(Path(bundle_dir).iterdir())
@@ -111,7 +116,7 @@ class BundleIndex:
                 children, self.embeddings, location=":memory:", collection_name=f"bundle_{uuid.uuid4().hex[:6]}"
             )
 
-    def _lines(self):
+    def _lines(self) -> Iterator[tuple[str, str, int, str, list[str]]]:
         for pid, parent in self.parents.items():
             lines = parent.page_content.splitlines()
             for i, line in enumerate(lines):
@@ -144,7 +149,7 @@ class BundleIndex:
         return hits
 
 
-def make_bundle_search_tool(index: BundleIndex):
+def make_bundle_search_tool(index: BundleIndex) -> Callable[[list[Token], list[dict]], BaseTool]:
     """그래프의 extra_tool_factories에 넣는 팩토리를 돌려준다. 문서마다 토큰 표가 달라 팩토리로 만든다."""
 
     def factory(tokens: list[Token], log: list[dict]) -> BaseTool:
