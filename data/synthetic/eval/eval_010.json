@@ -17,7 +17,7 @@
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة ميان فارس الجسمي، كويتية الجنسية، وتحمل جواز سفر رقم L9101751، تعمل لديها بوظيفة محاسبة منذ 25/10/2026."
+   "text": "بأن السيدة ميان فاروق الجسمي، كويتية الجنسية، وتحمل جواز سفر رقم L9101751، تعمل لديها بوظيفة محاسبة منذ 25/10/2026."
   },
   {
    "segment_id": "s04",
@@ -25,7 +25,7 @@
   },
   {
    "segment_id": "s05",
-   "text": "المفوضة بالتوقيع: روان بنت علي الصبياني"
+   "text": "المفوضة بالتوقيع: روتانا بنت علي الصبياني"
   },
   {
    "segment_id": "s06",
@@ -37,7 +37,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 10,
@@ -87,15 +88,15 @@
     "segment_id": "s03",
     "span": [
      11,
-     27
+     28
     ],
     "token_ids": [
      23,
      24,
      25
     ],
-    "arabic_full": "ميان فارس الجسمي",
-    "english_full": "Mian Fares Jesmi",
+    "arabic_full": "ميان فاروق الجسمي",
+    "english_full": "Mian Farouk Jesmi",
     "tokens": [
      {
       "token_id": 23,
@@ -110,13 +111,12 @@
      },
      {
       "token_id": 24,
-      "arabic": "فارس",
+      "arabic": "فاروق",
       "position": "middle",
       "english_variants": [
-       "Fares",
-       "Faris"
+       "Farouk"
       ],
-      "english_used": "Fares"
+      "english_used": "Farouk"
      },
      {
       "token_id": 25,
@@ -138,7 +138,7 @@
     "segment_id": "s05",
     "span": [
      18,
-     39
+     41
     ],
     "token_ids": [
      54,
@@ -146,17 +146,17 @@
      56,
      57
     ],
-    "arabic_full": "روان بنت علي الصبياني",
-    "english_full": "Rawan Bint Ali Al Sebyani",
+    "arabic_full": "روتانا بنت علي الصبياني",
+    "english_full": "Rotana Bint Ali Al Sebyani",
     "tokens": [
      {
       "token_id": 54,
-      "arabic": "روان",
+      "arabic": "روتانا",
       "position": "given",
       "english_variants": [
-       "Rawan"
+       "Rotana"
       ],
-      "english_used": "Rawan"
+      "english_used": "Rotana"
      },
      {
       "token_id": 56,

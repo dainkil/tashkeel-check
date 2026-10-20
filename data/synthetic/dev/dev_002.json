@@ -13,7 +13,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة القعيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 781725، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة القعود للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 781725، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
@@ -37,7 +37,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 2,
@@ -59,22 +60,22 @@
     "segment_id": "s02",
     "span": [
      9,
-     16
+     15
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "القعيمي",
-    "english_full": "al Qu'aymi",
+    "arabic_full": "القعود",
+    "english_full": "Al Gaood",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "القعيمي",
+      "arabic": "القعود",
       "position": "family",
       "english_variants": [
-       "al Qu'aymi"
+       "Al Gaood"
       ],
-      "english_used": "al Qu'aymi"
+      "english_used": "Al Gaood"
      }
     ],
     "evidence": null

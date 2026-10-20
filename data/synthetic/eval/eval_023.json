@@ -17,11 +17,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيدة سعاد بنت حمدي بن ناصر الجودر، عمانية الجنسية، وتحمل جواز سفر رقم P3246144."
+   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيدة سعاد بنت حمزة بن ناصر الجودر، عمانية الجنسية، وتحمل جواز سفر رقم P3246144."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Suad Bint Hamdi Bin Nasser al Jowder, Passport No. P3246144"
+   "text": "Principal: Suad Bint Hamza Bin Nasser al Jowder, Passport No. P3246144"
   },
   {
    "segment_id": "s04",
@@ -45,7 +45,7 @@
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: سعاد بنت حمدي بن ناصر الجودر"
+   "text": "الموكلة: سعاد بنت حمزة بن ناصر الجودر"
   },
   {
    "segment_id": "s10",
@@ -57,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 23,
@@ -89,8 +90,8 @@
      15,
      16
     ],
-    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
-    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "arabic_full": "سعاد بنت حمزة بن ناصر الجودر",
+    "english_full": "Suad Bint Hamza Bin Nasser al Jowder",
     "tokens": [
      {
       "token_id": 11,
@@ -107,12 +108,13 @@
      },
      {
       "token_id": 13,
-      "arabic": "حمدي",
+      "arabic": "حمزة",
       "position": "middle",
       "english_variants": [
-       "Hamdi"
+       "Hamza",
+       "Hamzah"
       ],
-      "english_used": "Hamdi"
+      "english_used": "Hamza"
      },
      {
       "token_id": 15,
@@ -145,7 +147,7 @@
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Suad Bint Hamdi Bin Nasser al Jowder"
+     "quote": "Suad Bint Hamza Bin Nasser al Jowder"
     }
    },
    {
@@ -264,8 +266,8 @@
      112,
      113
     ],
-    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
-    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "arabic_full": "سعاد بنت حمزة بن ناصر الجودر",
+    "english_full": "Suad Bint Hamza Bin Nasser al Jowder",
     "tokens": [
      {
       "token_id": 108,
@@ -282,12 +284,13 @@
      },
      {
       "token_id": 110,
-      "arabic": "حمدي",
+      "arabic": "حمزة",
       "position": "middle",
       "english_variants": [
-       "Hamdi"
+       "Hamza",
+       "Hamzah"
       ],
-      "english_used": "Hamdi"
+      "english_used": "Hamza"
      },
      {
       "token_id": 112,
@@ -320,7 +323,7 @@
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Suad Bint Hamdi Bin Nasser al Jowder"
+     "quote": "Suad Bint Hamza Bin Nasser al Jowder"
     }
    },
    {

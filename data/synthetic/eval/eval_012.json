@@ -24,7 +24,7 @@
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيد عدنان فهد سبيت الحساوي، كويتي الجنسية، ويحمل جواز سفر رقم Z5996660، يعمل لديها بوظيفة مهندس منذ 04/06/2026."
+   "text": "بأن السيد عدنان فهد سبيل الحساوي، كويتي الجنسية، ويحمل جواز سفر رقم Z5996660، يعمل لديها بوظيفة مهندس منذ 04/06/2026."
   },
   {
    "segment_id": "s05",
@@ -32,11 +32,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "المفوضة بالتوقيع: منى فايز الرويلي"
+   "text": "المفوضة بالتوقيع: منى فراس الرويلي"
   },
   {
    "segment_id": "s07",
-   "text": "Authorized signatory: Muna Fayez Al Ruwaili"
+   "text": "Authorized signatory: Muna Firas Al Ruwaili"
   },
   {
    "segment_id": "s08",
@@ -48,7 +48,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 12,
@@ -112,8 +113,8 @@
      34,
      35
     ],
-    "arabic_full": "عدنان فهد سبيت الحساوي",
-    "english_full": "Adnan Fahed Subait Al Hsawi",
+    "arabic_full": "عدنان فهد سبيل الحساوي",
+    "english_full": "Adnan Fahed Sabeel Al Hsawi",
     "tokens": [
      {
       "token_id": 32,
@@ -139,12 +140,13 @@
      },
      {
       "token_id": 34,
-      "arabic": "سبيت",
+      "arabic": "سبيل",
       "position": "middle",
       "english_variants": [
-       "Subait"
+       "Sebil",
+       "Sabeel"
       ],
-      "english_used": "Subait"
+      "english_used": "Sabeel"
      },
      {
       "token_id": 35,
@@ -173,8 +175,8 @@
      65,
      66
     ],
-    "arabic_full": "منى فايز الرويلي",
-    "english_full": "Muna Fayez Al Ruwaili",
+    "arabic_full": "منى فراس الرويلي",
+    "english_full": "Muna Firas Al Ruwaili",
     "tokens": [
      {
       "token_id": 64,
@@ -190,15 +192,13 @@
      },
      {
       "token_id": 65,
-      "arabic": "فايز",
+      "arabic": "فراس",
       "position": "middle",
       "english_variants": [
-       "Fayez",
-       "Faiz",
-       "Fayiz",
-       "Fayz"
+       "Firas",
+       "Feras"
       ],
-      "english_used": "Fayez"
+      "english_used": "Firas"
      },
      {
       "token_id": 66,
@@ -214,7 +214,7 @@
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Muna Fayez Al Ruwaili"
+     "quote": "Muna Firas Al Ruwaili"
     }
    }
   ],

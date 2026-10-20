@@ -48,7 +48,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 6,
@@ -200,8 +201,7 @@
        "Ibrahmi",
        "Ibraheem",
        "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Al Ibrahim"
       ],
       "english_used": "Ibrahim"
      },

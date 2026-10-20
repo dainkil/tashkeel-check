@@ -25,7 +25,7 @@
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: راشد ساري الحازمي"
+   "text": "المفوض بالتوقيع: راشد ساطع الحارثية"
   },
   {
    "segment_id": "s06",
@@ -37,7 +37,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 4,
@@ -156,15 +157,15 @@
     "segment_id": "s05",
     "span": [
      17,
-     34
+     35
     ],
     "token_ids": [
      55,
      56,
      57
     ],
-    "arabic_full": "راشد ساري الحازمي",
-    "english_full": "Rashid Sari Al Hazmi",
+    "arabic_full": "راشد ساطع الحارثية",
+    "english_full": "Rashid Sateh Al Harthy",
     "tokens": [
      {
       "token_id": 55,
@@ -179,23 +180,22 @@
      },
      {
       "token_id": 56,
-      "arabic": "ساري",
+      "arabic": "ساطع",
       "position": "middle",
       "english_variants": [
-       "Sari"
+       "Satea",
+       "Sateh"
       ],
-      "english_used": "Sari"
+      "english_used": "Sateh"
      },
      {
       "token_id": 57,
-      "arabic": "الحازمي",
+      "arabic": "الحارثية",
       "position": "family",
       "english_variants": [
-       "al Hazmi",
-       "al Hazimi",
-       "Al Hazmi"
+       "Al Harthy"
       ],
-      "english_used": "Al Hazmi"
+      "english_used": "Al Harthy"
      }
     ],
     "evidence": null

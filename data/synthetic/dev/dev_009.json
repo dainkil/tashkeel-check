@@ -13,7 +13,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 02/10/2026 حضر أمام الكاتب العدل السيدة ديمة بنت محمد بن عيسى العيبان، كويتية الجنسية، وتحمل جواز سفر رقم H9024904."
+   "text": "إنه في يوم 02/10/2026 حضر أمام الكاتب العدل السيدة ديمة بنت محمد بن عيسى العياف، كويتية الجنسية، وتحمل جواز سفر رقم H9024904."
   },
   {
    "segment_id": "s03",
@@ -21,7 +21,7 @@
   },
   {
    "segment_id": "s04",
-   "text": "وقررت أنها وكّلت السيدة شفيقة بنت سعيد الجاسم، بحرينية الجنسية، وتحمل بطاقة هوية رقم 65179100."
+   "text": "وقررت أنها وكّلت السيدة شما بنت سعيد الجاسم، بحرينية الجنسية، وتحمل بطاقة هوية رقم 65179100."
   },
   {
    "segment_id": "s05",
@@ -29,11 +29,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: ديمة بنت محمد بن عيسى العيبان"
+   "text": "الموكلة: ديمة بنت محمد بن عيسى العياف"
   },
   {
    "segment_id": "s07",
-   "text": "الوكيلة: شفيقة بنت سعيد الجاسم"
+   "text": "الوكيلة: شما بنت سعيد الجاسم"
   },
   {
    "segment_id": "s08",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 9,
@@ -63,7 +64,7 @@
     "segment_id": "s02",
     "span": [
      51,
-     80
+     79
     ],
     "token_ids": [
      11,
@@ -73,8 +74,8 @@
      15,
      16
     ],
-    "arabic_full": "ديمة بنت محمد بن عيسى العيبان",
-    "english_full": "Deema Bint Mohammed bin Essa Al Ayban",
+    "arabic_full": "ديمة بنت محمد بن عيسى العياف",
+    "english_full": "Deema Bint Mohammed bin Essa Al Ayyaf",
     "tokens": [
      {
       "token_id": 11,
@@ -119,20 +120,18 @@
        "Isa",
        "Eissa",
        "Esa",
-       "Eesa",
-       "Abdul Salam"
+       "Eesa"
       ],
       "english_used": "Essa"
      },
      {
       "token_id": 16,
-      "arabic": "العيبان",
+      "arabic": "العياف",
       "position": "family",
       "english_variants": [
-       "Al Aiban",
-       "Al Ayban"
+       "Al Ayyaf"
       ],
-      "english_used": "Al Ayban"
+      "english_used": "Al Ayyaf"
      }
     ],
     "evidence": null
@@ -171,7 +170,7 @@
     "segment_id": "s04",
     "span": [
      24,
-     45
+     43
     ],
     "token_ids": [
      51,
@@ -179,18 +178,18 @@
      53,
      54
     ],
-    "arabic_full": "شفيقة بنت سعيد الجاسم",
-    "english_full": "Shafiqa bint Saeed Al Jassem",
+    "arabic_full": "شما بنت سعيد الجاسم",
+    "english_full": "Shamma bint Saeed Al Jassem",
     "tokens": [
      {
       "token_id": 51,
-      "arabic": "شفيقة",
+      "arabic": "شما",
       "position": "given",
       "english_variants": [
-       "Shafika",
-       "Shafiqa"
+       "Shamma",
+       "Shammah"
       ],
-      "english_used": "Shafiqa"
+      "english_used": "Shamma"
      },
      {
       "token_id": 53,
@@ -231,7 +230,7 @@
     "segment_id": "s06",
     "span": [
      9,
-     38
+     37
     ],
     "token_ids": [
      78,
@@ -241,8 +240,8 @@
      82,
      83
     ],
-    "arabic_full": "ديمة بنت محمد بن عيسى العيبان",
-    "english_full": "Deema Bint Mohammed bin Essa Al Ayban",
+    "arabic_full": "ديمة بنت محمد بن عيسى العياف",
+    "english_full": "Deema Bint Mohammed bin Essa Al Ayyaf",
     "tokens": [
      {
       "token_id": 78,
@@ -287,20 +286,18 @@
        "Isa",
        "Eissa",
        "Esa",
-       "Eesa",
-       "Abdul Salam"
+       "Eesa"
       ],
       "english_used": "Essa"
      },
      {
       "token_id": 83,
-      "arabic": "العيبان",
+      "arabic": "العياف",
       "position": "family",
       "english_variants": [
-       "Al Aiban",
-       "Al Ayban"
+       "Al Ayyaf"
       ],
-      "english_used": "Al Ayban"
+      "english_used": "Al Ayyaf"
      }
     ],
     "evidence": null
@@ -311,7 +308,7 @@
     "segment_id": "s07",
     "span": [
      9,
-     30
+     28
     ],
     "token_ids": [
      85,
@@ -319,18 +316,18 @@
      87,
      88
     ],
-    "arabic_full": "شفيقة بنت سعيد الجاسم",
-    "english_full": "Shafiqa bint Saeed Al Jassem",
+    "arabic_full": "شما بنت سعيد الجاسم",
+    "english_full": "Shamma bint Saeed Al Jassem",
     "tokens": [
      {
       "token_id": 85,
-      "arabic": "شفيقة",
+      "arabic": "شما",
       "position": "given",
       "english_variants": [
-       "Shafika",
-       "Shafiqa"
+       "Shamma",
+       "Shammah"
       ],
-      "english_used": "Shafiqa"
+      "english_used": "Shamma"
      },
      {
       "token_id": 87,

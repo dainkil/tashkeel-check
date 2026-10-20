@@ -17,7 +17,7 @@
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة ليلى سحيم زايد الفايز، بحرينية الجنسية، وتحمل جواز سفر رقم K4943260، تعمل لديها بوظيفة مهندسة منذ 03/06/2026."
+   "text": "بأن السيدة لينا سراج زايد الفايز، بحرينية الجنسية، وتحمل جواز سفر رقم K4943260، تعمل لديها بوظيفة مهندسة منذ 03/06/2026."
   },
   {
    "segment_id": "s04",
@@ -25,7 +25,7 @@
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: حسين محبوب المهدي"
+   "text": "المفوض بالتوقيع: حكيم مبارك المهدي"
   },
   {
    "segment_id": "s06",
@@ -37,7 +37,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 16,
@@ -93,27 +94,28 @@
      25,
      26
     ],
-    "arabic_full": "ليلى سحيم زايد الفايز",
-    "english_full": "Laila Suhaim Zayed Al Fayez",
+    "arabic_full": "لينا سراج زايد الفايز",
+    "english_full": "Lina Siraj Zayed Al Fayez",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "ليلى",
+      "arabic": "لينا",
       "position": "given",
       "english_variants": [
-       "Laila",
-       "Layla"
+       "Lina"
       ],
-      "english_used": "Laila"
+      "english_used": "Lina"
      },
      {
       "token_id": 24,
-      "arabic": "سحيم",
+      "arabic": "سراج",
       "position": "middle",
       "english_variants": [
-       "Suhaim"
+       "Seraj",
+       "Serag",
+       "Siraj"
       ],
-      "english_used": "Suhaim"
+      "english_used": "Siraj"
      },
      {
       "token_id": 25,
@@ -153,37 +155,31 @@
      56,
      57
     ],
-    "arabic_full": "حسين محبوب المهدي",
-    "english_full": "Hussain Mahboob Al Mahdi",
+    "arabic_full": "حكيم مبارك المهدي",
+    "english_full": "Hakeem Mubarak Al Mahdi",
     "tokens": [
      {
       "token_id": 55,
-      "arabic": "حسين",
+      "arabic": "حكيم",
       "position": "given",
       "english_variants": [
-       "Hussain",
-       "Hussein",
-       "Husain",
-       "Hussien",
-       "Husayn",
-       "Husein",
-       "Housain",
-       "hussein",
-       "Hsyn",
-       "Hassan",
-       "Husayin"
+       "Hakeem"
       ],
-      "english_used": "Hussain"
+      "english_used": "Hakeem"
      },
      {
       "token_id": 56,
-      "arabic": "محبوب",
+      "arabic": "مبارك",
       "position": "middle",
       "english_variants": [
-       "Mahboob",
-       "Mahboub"
+       "Mubarak",
+       "Mobarak",
+       "MUBARAK",
+       "MABARAK",
+       "Murbarek",
+       "Al Mubarak"
       ],
-      "english_used": "Mahboob"
+      "english_used": "Mubarak"
      },
      {
       "token_id": 57,

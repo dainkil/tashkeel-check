@@ -25,11 +25,11 @@
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيدة زمزم بنت بندر البشري، إماراتية الجنسية، وتحمل جواز سفر رقم B9737305، تعمل لديها بوظيفة مهندسة منذ 07/10/2026."
+   "text": "بأن السيدة زهرة بنت بندر البشري، إماراتية الجنسية، وتحمل جواز سفر رقم B9737305، تعمل لديها بوظيفة مهندسة منذ 07/10/2026."
   },
   {
    "segment_id": "s05",
-   "text": "Employee: Zamzam bint Bander Al Bishri, Passport No. B9737305"
+   "text": "Employee: Zahrah bint Bander Al Bishri, Passport No. B9737305"
   },
   {
    "segment_id": "s06",
@@ -37,11 +37,11 @@
   },
   {
    "segment_id": "s07",
-   "text": "المفوضة بالتوقيع: فجر حمزة الصفار"
+   "text": "المفوضة بالتوقيع: فدوى حمزة الصفار"
   },
   {
    "segment_id": "s08",
-   "text": "Authorized signatory: Fajr Hamza Al Saffar"
+   "text": "Authorized signatory: Fedwa Hamza Al Saffar"
   },
   {
    "segment_id": "s09",
@@ -53,7 +53,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 6,
@@ -114,17 +115,18 @@
      34,
      35
     ],
-    "arabic_full": "زمزم بنت بندر البشري",
-    "english_full": "Zamzam bint Bander Al Bishri",
+    "arabic_full": "زهرة بنت بندر البشري",
+    "english_full": "Zahrah bint Bander Al Bishri",
     "tokens": [
      {
       "token_id": 32,
-      "arabic": "زمزم",
+      "arabic": "زهرة",
       "position": "given",
       "english_variants": [
-       "Zamzam"
+       "Zahra",
+       "Zahrah"
       ],
-      "english_used": "Zamzam"
+      "english_used": "Zahrah"
      },
      {
       "token_id": 34,
@@ -149,7 +151,7 @@
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "Zamzam bint Bander Al Bishri"
+     "quote": "Zahrah bint Bander Al Bishri"
     }
    },
    {
@@ -158,26 +160,25 @@
     "segment_id": "s07",
     "span": [
      18,
-     33
+     34
     ],
     "token_ids": [
      74,
      75,
      76
     ],
-    "arabic_full": "فجر حمزة الصفار",
-    "english_full": "Fajr Hamza Al Saffar",
+    "arabic_full": "فدوى حمزة الصفار",
+    "english_full": "Fedwa Hamza Al Saffar",
     "tokens": [
      {
       "token_id": 74,
-      "arabic": "فجر",
+      "arabic": "فدوى",
       "position": "given",
       "english_variants": [
-       "Fajer",
-       "Fajar",
-       "Fajr"
+       "Fadwa",
+       "Fedwa"
       ],
-      "english_used": "Fajr"
+      "english_used": "Fedwa"
      },
      {
       "token_id": 75,
@@ -202,7 +203,7 @@
     ],
     "evidence": {
      "segment_id": "s08",
-     "quote": "Fajr Hamza Al Saffar"
+     "quote": "Fedwa Hamza Al Saffar"
     }
    }
   ],

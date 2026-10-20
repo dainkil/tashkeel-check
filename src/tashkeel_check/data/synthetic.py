@@ -17,7 +17,7 @@ from pathlib import Path
 
 from ..text import Segment, normalize_key, tokenize, tokens_in_span
 
-GENERATOR_VERSION = "synthetic-v1"
+GENERATOR_VERSION = "synthetic-v2"  # v2: 이름 풀을 정렬 규칙 v1로 다시 만듦(ADR-015)
 NOTICE = "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
 RULES = {
     "R1": "위임장은 아랍어 또는 아랍어·영어 이중 언어로 쓴다 (Virtuzone, ADGM 공증 FAQ)",
@@ -383,7 +383,8 @@ def _evidence_roles(rng: random.Random, doc_type: str, layout: str) -> set[str]:
 
 
 def generate(pool_path: str | Path, out_dir: str | Path, split: str, n: int, seed: int) -> list[Path]:
-    pool = NamePool(json.loads(Path(pool_path).read_text(encoding="utf-8")))
+    raw_pool = json.loads(Path(pool_path).read_text(encoding="utf-8"))
+    pool = NamePool(raw_pool)
     rng = random.Random(seed)
     out = Path(out_dir) / split
     out.mkdir(parents=True, exist_ok=True)
@@ -404,6 +405,7 @@ def generate(pool_path: str | Path, out_dir: str | Path, split: str, n: int, see
             "segments": b.segments,
             "meta": {
                 "generator": GENERATOR_VERSION,
+                "name_pool_align_version": raw_pool.get("align_version"),
                 "seed": seed,
                 "split": split,
                 "index": i,

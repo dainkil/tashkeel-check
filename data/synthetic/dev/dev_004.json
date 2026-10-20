@@ -15,11 +15,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الربيع للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 531105، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الربيش للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 531105، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Rabiea General Trading L.L.C., Registration No. 531105"
+   "text": "Company: al Roubaich General Trading L.L.C., Registration No. 531105"
   },
   {
    "segment_id": "s04",
@@ -43,7 +43,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 4,
@@ -70,22 +71,23 @@
     "token_ids": [
      3
     ],
-    "arabic_full": "الربيع",
-    "english_full": "Al Rabiea",
+    "arabic_full": "الربيش",
+    "english_full": "al Roubaich",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الربيع",
+      "arabic": "الربيش",
       "position": "family",
       "english_variants": [
-       "Al Rabiea"
+       "al Rubaish",
+       "al Roubaich"
       ],
-      "english_used": "Al Rabiea"
+      "english_used": "al Roubaich"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Al Rabiea General Trading"
+     "quote": "al Roubaich General Trading"
     }
    },
    {

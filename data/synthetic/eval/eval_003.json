@@ -13,7 +13,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 11/04/2026 حضر أمام الكاتب العدل السيدة شعاع محمد حسين العوضي، كويتية الجنسية، وتحمل جواز سفر رقم X3616084."
+   "text": "إنه في يوم 11/04/2026 حضر أمام الكاتب العدل السيدة شفيقة محمد حسين العوضي، كويتية الجنسية، وتحمل جواز سفر رقم X3616084."
   },
   {
    "segment_id": "s03",
@@ -29,7 +29,7 @@
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: شعاع محمد حسين العوضي"
+   "text": "الموكلة: شفيقة محمد حسين العوضي"
   },
   {
    "segment_id": "s07",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 3,
@@ -63,7 +64,7 @@
     "segment_id": "s02",
     "span": [
      51,
-     72
+     73
     ],
     "token_ids": [
      11,
@@ -71,17 +72,18 @@
      13,
      14
     ],
-    "arabic_full": "شعاع محمد حسين العوضي",
-    "english_full": "Shu'a' Mohammed Hussain al Awadi",
+    "arabic_full": "شفيقة محمد حسين العوضي",
+    "english_full": "Shafiqa Mohammed Hussain al Awadi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "شعاع",
+      "arabic": "شفيقة",
       "position": "given",
       "english_variants": [
-       "Shu'a'"
+       "Shafika",
+       "Shafiqa"
       ],
-      "english_used": "Shu'a'"
+      "english_used": "Shafiqa"
      },
      {
       "token_id": 12,
@@ -231,7 +233,7 @@
     "segment_id": "s06",
     "span": [
      9,
-     30
+     31
     ],
     "token_ids": [
      76,
@@ -239,17 +241,18 @@
      78,
      79
     ],
-    "arabic_full": "شعاع محمد حسين العوضي",
-    "english_full": "Shu'a' Mohammed Hussain al Awadi",
+    "arabic_full": "شفيقة محمد حسين العوضي",
+    "english_full": "Shafiqa Mohammed Hussain al Awadi",
     "tokens": [
      {
       "token_id": 76,
-      "arabic": "شعاع",
+      "arabic": "شفيقة",
       "position": "given",
       "english_variants": [
-       "Shu'a'"
+       "Shafika",
+       "Shafiqa"
       ],
-      "english_used": "Shu'a'"
+      "english_used": "Shafiqa"
      },
      {
       "token_id": 77,

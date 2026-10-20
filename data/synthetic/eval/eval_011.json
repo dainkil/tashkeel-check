@@ -20,19 +20,19 @@
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفته مديرًا لشركة القطامي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 206894، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة القضيبي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 206894، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "Company: Al Qatami General Trading L.L.C., Registration No. 206894"
+   "text": "Company: Al Qudaibi General Trading L.L.C., Registration No. 206894"
   },
   {
    "segment_id": "s05",
-   "text": "وقرر أنه وكّل السيدة عهد بنت مطر الجاسر، عمانية الجنسية، وتحمل بطاقة هوية رقم 24388053."
+   "text": "وقرر أنه وكّل السيدة عهدية بنت مطر الجاسر، عمانية الجنسية، وتحمل بطاقة هوية رقم 24388053."
   },
   {
    "segment_id": "s06",
-   "text": "Attorney: Ahad Bint Mattar Al Jassir, ID No. 24388053"
+   "text": "Attorney: Ahdeya Bint Mattar Al Jassir, ID No. 24388053"
   },
   {
    "segment_id": "s07",
@@ -44,7 +44,7 @@
   },
   {
    "segment_id": "s09",
-   "text": "الوكيلة: عهد بنت مطر الجاسر"
+   "text": "الوكيلة: عهدية بنت مطر الجاسر"
   },
   {
    "segment_id": "s10",
@@ -52,7 +52,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 11,
@@ -132,23 +133,22 @@
     "token_ids": [
      26
     ],
-    "arabic_full": "القطامي",
-    "english_full": "Al Qatami",
+    "arabic_full": "القضيبي",
+    "english_full": "Al Qudaibi",
     "tokens": [
      {
       "token_id": 26,
-      "arabic": "القطامي",
+      "arabic": "القضيبي",
       "position": "family",
       "english_variants": [
-       "Al Qatami",
-       "Qatami"
+       "Al Qudaibi"
       ],
-      "english_used": "Al Qatami"
+      "english_used": "Al Qudaibi"
      }
     ],
     "evidence": {
      "segment_id": "s04",
-     "quote": "Al Qatami General Trading"
+     "quote": "Al Qudaibi General Trading"
     }
    },
    {
@@ -157,7 +157,7 @@
     "segment_id": "s05",
     "span": [
      21,
-     39
+     41
     ],
     "token_ids": [
      57,
@@ -165,18 +165,18 @@
      59,
      60
     ],
-    "arabic_full": "عهد بنت مطر الجاسر",
-    "english_full": "Ahad Bint Mattar Al Jassir",
+    "arabic_full": "عهدية بنت مطر الجاسر",
+    "english_full": "Ahdeya Bint Mattar Al Jassir",
     "tokens": [
      {
       "token_id": 57,
-      "arabic": "عهد",
+      "arabic": "عهدية",
       "position": "given",
       "english_variants": [
-       "Ahad",
-       "Ahd"
+       "Ahdeya",
+       "Ahdiya"
       ],
-      "english_used": "Ahad"
+      "english_used": "Ahdeya"
      },
      {
       "token_id": 59,
@@ -202,7 +202,7 @@
     ],
     "evidence": {
      "segment_id": "s06",
-     "quote": "Ahad Bint Mattar Al Jassir"
+     "quote": "Ahdeya Bint Mattar Al Jassir"
     }
    },
    {
@@ -264,7 +264,7 @@
     "segment_id": "s09",
     "span": [
      9,
-     27
+     29
     ],
     "token_ids": [
      97,
@@ -272,18 +272,18 @@
      99,
      100
     ],
-    "arabic_full": "عهد بنت مطر الجاسر",
-    "english_full": "Ahad Bint Mattar Al Jassir",
+    "arabic_full": "عهدية بنت مطر الجاسر",
+    "english_full": "Ahdeya Bint Mattar Al Jassir",
     "tokens": [
      {
       "token_id": 97,
-      "arabic": "عهد",
+      "arabic": "عهدية",
       "position": "given",
       "english_variants": [
-       "Ahad",
-       "Ahd"
+       "Ahdeya",
+       "Ahdiya"
       ],
-      "english_used": "Ahad"
+      "english_used": "Ahdeya"
      },
      {
       "token_id": 99,
@@ -309,7 +309,7 @@
     ],
     "evidence": {
      "segment_id": "s06",
-     "quote": "Ahad Bint Mattar Al Jassir"
+     "quote": "Ahdeya Bint Mattar Al Jassir"
     }
    }
   ],

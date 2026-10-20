@@ -13,15 +13,15 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 08/11/2026 حضر أمام الكاتب العدل السيد عبدالله إبراهيم الزهير، بحريني الجنسية، ويحمل جواز سفر رقم T5756412."
+   "text": "إنه في يوم 08/11/2026 حضر أمام الكاتب العدل السيد عبدالله إبراهيم الزهراني، بحريني الجنسية، ويحمل جواز سفر رقم T5756412."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفته مديرًا لشركة الصبياني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 288611، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الصديقي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 288611، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وقرر أنه وكّل السيدة دانية بنت سعود الشريف، إماراتية الجنسية، وتحمل بطاقة هوية رقم 29607614."
+   "text": "وقرر أنه وكّل السيدة دانية بنت سعود الشعلان، إماراتية الجنسية، وتحمل بطاقة هوية رقم 29607614."
   },
   {
    "segment_id": "s05",
@@ -29,11 +29,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "الموكل: عبدالله إبراهيم الزهير"
+   "text": "الموكل: عبدالله إبراهيم الزهراني"
   },
   {
    "segment_id": "s07",
-   "text": "الوكيلة: دانية بنت سعود الشريف"
+   "text": "الوكيلة: دانية بنت سعود الشعلان"
   },
   {
    "segment_id": "s08",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 1,
@@ -63,15 +64,15 @@
     "segment_id": "s02",
     "span": [
      50,
-     72
+     74
     ],
     "token_ids": [
      11,
      12,
      13
     ],
-    "arabic_full": "عبدالله إبراهيم الزهير",
-    "english_full": "Abdullah Abu Aws al Zuhair",
+    "arabic_full": "عبدالله إبراهيم الزهراني",
+    "english_full": "Abdullah Al Ibrahim Al Zahrani",
     "tokens": [
      {
       "token_id": 11,
@@ -97,20 +98,22 @@
        "Ibrahmi",
        "Ibraheem",
        "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Al Ibrahim"
       ],
-      "english_used": "Abu Aws"
+      "english_used": "Al Ibrahim"
      },
      {
       "token_id": 13,
-      "arabic": "الزهير",
+      "arabic": "الزهراني",
       "position": "family",
       "english_variants": [
-       "al Zuhair",
-       "Al Zuhair"
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
       ],
-      "english_used": "al Zuhair"
+      "english_used": "Al Zahrani"
      }
     ],
     "evidence": null
@@ -121,26 +124,23 @@
     "segment_id": "s03",
     "span": [
      24,
-     32
+     31
     ],
     "token_ids": [
      26
     ],
-    "arabic_full": "الصبياني",
-    "english_full": "Al Sibyani",
+    "arabic_full": "الصديقي",
+    "english_full": "al Saddiqi",
     "tokens": [
      {
       "token_id": 26,
-      "arabic": "الصبياني",
+      "arabic": "الصديقي",
       "position": "family",
       "english_variants": [
-       "Al Sibyani",
-       "Al Subiani",
-       "Al Sabiani",
-       "Al Subyani",
-       "Al Sebyani"
+       "al Saddiqi",
+       "Al Siddiqi"
       ],
-      "english_used": "Al Sibyani"
+      "english_used": "al Saddiqi"
      }
     ],
     "evidence": null
@@ -151,7 +151,7 @@
     "segment_id": "s04",
     "span": [
      21,
-     42
+     43
     ],
     "token_ids": [
      48,
@@ -159,8 +159,8 @@
      50,
      51
     ],
-    "arabic_full": "دانية بنت سعود الشريف",
-    "english_full": "Danial Bint Saud Al Sharif",
+    "arabic_full": "دانية بنت سعود الشعلان",
+    "english_full": "Danial Bint Saud Shaalan",
     "tokens": [
      {
       "token_id": 48,
@@ -190,16 +190,14 @@
      },
      {
       "token_id": 51,
-      "arabic": "الشريف",
+      "arabic": "الشعلان",
       "position": "family",
       "english_variants": [
-       "Al Sherif",
-       "Al Shareef",
-       "al Sharif",
-       "Al Sheriff",
-       "Al Sharif"
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
       ],
-      "english_used": "Al Sharif"
+      "english_used": "Shaalan"
      }
     ],
     "evidence": null
@@ -210,15 +208,15 @@
     "segment_id": "s06",
     "span": [
      8,
-     30
+     32
     ],
     "token_ids": [
      75,
      76,
      77
     ],
-    "arabic_full": "عبدالله إبراهيم الزهير",
-    "english_full": "Abdullah Abu Aws al Zuhair",
+    "arabic_full": "عبدالله إبراهيم الزهراني",
+    "english_full": "Abdullah Al Ibrahim Al Zahrani",
     "tokens": [
      {
       "token_id": 75,
@@ -244,20 +242,22 @@
        "Ibrahmi",
        "Ibraheem",
        "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Al Ibrahim"
       ],
-      "english_used": "Abu Aws"
+      "english_used": "Al Ibrahim"
      },
      {
       "token_id": 77,
-      "arabic": "الزهير",
+      "arabic": "الزهراني",
       "position": "family",
       "english_variants": [
-       "al Zuhair",
-       "Al Zuhair"
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
       ],
-      "english_used": "al Zuhair"
+      "english_used": "Al Zahrani"
      }
     ],
     "evidence": null
@@ -268,7 +268,7 @@
     "segment_id": "s07",
     "span": [
      9,
-     30
+     31
     ],
     "token_ids": [
      79,
@@ -276,8 +276,8 @@
      81,
      82
     ],
-    "arabic_full": "دانية بنت سعود الشريف",
-    "english_full": "Danial Bint Saud Al Sharif",
+    "arabic_full": "دانية بنت سعود الشعلان",
+    "english_full": "Danial Bint Saud Shaalan",
     "tokens": [
      {
       "token_id": 79,
@@ -307,16 +307,14 @@
      },
      {
       "token_id": 82,
-      "arabic": "الشريف",
+      "arabic": "الشعلان",
       "position": "family",
       "english_variants": [
-       "Al Sherif",
-       "Al Shareef",
-       "al Sharif",
-       "Al Sheriff",
-       "Al Sharif"
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
       ],
-      "english_used": "Al Sharif"
+      "english_used": "Shaalan"
      }
     ],
     "evidence": null

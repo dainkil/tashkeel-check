@@ -37,11 +37,11 @@
   },
   {
    "segment_id": "s07",
-   "text": "المفوضة بالتوقيع: شنونة بنت سعيد السماك"
+   "text": "المفوضة بالتوقيع: شهد بنت سعيد السماحي"
   },
   {
    "segment_id": "s08",
-   "text": "Authorized signatory: Shinoona bint Saeed Al Samak"
+   "text": "Authorized signatory: Shahad bint Saeed Al Samahi"
   },
   {
    "segment_id": "s09",
@@ -53,7 +53,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 22,
@@ -162,7 +163,7 @@
     "segment_id": "s07",
     "span": [
      18,
-     39
+     38
     ],
     "token_ids": [
      75,
@@ -170,17 +171,18 @@
      77,
      78
     ],
-    "arabic_full": "شنونة بنت سعيد السماك",
-    "english_full": "Shinoona bint Saeed Al Samak",
+    "arabic_full": "شهد بنت سعيد السماحي",
+    "english_full": "Shahad bint Saeed Al Samahi",
     "tokens": [
      {
       "token_id": 75,
-      "arabic": "شنونة",
+      "arabic": "شهد",
       "position": "given",
       "english_variants": [
-       "Shinoona"
+       "Shahad",
+       "Shammari"
       ],
-      "english_used": "Shinoona"
+      "english_used": "Shahad"
      },
      {
       "token_id": 77,
@@ -200,18 +202,17 @@
      },
      {
       "token_id": 78,
-      "arabic": "السماك",
+      "arabic": "السماحي",
       "position": "family",
       "english_variants": [
-       "Sammak",
-       "Al Samak"
+       "Al Samahi"
       ],
-      "english_used": "Al Samak"
+      "english_used": "Al Samahi"
      }
     ],
     "evidence": {
      "segment_id": "s08",
-     "quote": "Shinoona bint Saeed Al Samak"
+     "quote": "Shahad bint Saeed Al Samahi"
     }
    }
   ],

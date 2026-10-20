@@ -37,7 +37,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 24,
@@ -98,7 +99,7 @@
      26
     ],
     "arabic_full": "توفيق بن عيسى الكبيسي",
-    "english_full": "Tawfeeq Bin Eesa Al Kubaisi",
+    "english_full": "Tawfeeq Bin Esa Al Kubaisi",
     "tokens": [
      {
       "token_id": 23,
@@ -124,10 +125,9 @@
        "Isa",
        "Eissa",
        "Esa",
-       "Eesa",
-       "Abdul Salam"
+       "Eesa"
       ],
-      "english_used": "Eesa"
+      "english_used": "Esa"
      },
      {
       "token_id": 26,
@@ -178,8 +178,7 @@
        "Ibrahmi",
        "Ibraheem",
        "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Al Ibrahim"
       ],
       "english_used": "Ibrahim"
      },

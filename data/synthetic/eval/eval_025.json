@@ -25,11 +25,11 @@
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة الدرمكي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 173302، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الدرعان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 173302، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Darmaki General Trading L.L.C., Registration No. 173302"
+   "text": "Company: al Deraan General Trading L.L.C., Registration No. 173302"
   },
   {
    "segment_id": "s06",
@@ -57,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 25,
@@ -137,22 +138,22 @@
     "token_ids": [
      37
     ],
-    "arabic_full": "الدرمكي",
-    "english_full": "Al Darmaki",
+    "arabic_full": "الدرعان",
+    "english_full": "al Deraan",
     "tokens": [
      {
       "token_id": 37,
-      "arabic": "الدرمكي",
+      "arabic": "الدرعان",
       "position": "family",
       "english_variants": [
-       "Al Darmaki"
+       "al Deraan"
       ],
-      "english_used": "Al Darmaki"
+      "english_used": "al Deraan"
      }
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "Al Darmaki General Trading"
+     "quote": "al Deraan General Trading"
     }
    },
    {
@@ -181,7 +182,6 @@
        "Omer",
        "Umar",
        "Amr",
-       "Ismaeel",
        "Umer"
       ],
       "english_used": "Omar"
@@ -306,7 +306,6 @@
        "Omer",
        "Umar",
        "Amr",
-       "Ismaeel",
        "Umer"
       ],
       "english_used": "Omar"

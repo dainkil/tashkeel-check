@@ -27,7 +27,7 @@
   },
   {
    "segment_id": "s05",
-   "text": "وقررت أنها وكّلت السيد جمان بن جبر بن بسام العابد، بحريني الجنسية، ويحمل بطاقة هوية رقم 34615434."
+   "text": "وقررت أنها وكّلت السيد جمعان بن جبران بن بشار العابد، بحريني الجنسية، ويحمل بطاقة هوية رقم 34615434."
   },
   {
    "segment_id": "s06",
@@ -39,7 +39,7 @@
   },
   {
    "segment_id": "s08",
-   "text": "الوكيل: جمان بن جبر بن بسام العابد"
+   "text": "الوكيل: جمعان بن جبران بن بشار العابد"
   },
   {
    "segment_id": "s09",
@@ -47,7 +47,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 5,
@@ -154,7 +155,7 @@
     "segment_id": "s05",
     "span": [
      23,
-     49
+     52
     ],
     "token_ids": [
      57,
@@ -164,37 +165,37 @@
      61,
      62
     ],
-    "arabic_full": "جمان بن جبر بن بسام العابد",
-    "english_full": "Jaman Bin Jabor Bin Bassam Al Abed",
+    "arabic_full": "جمعان بن جبران بن بشار العابد",
+    "english_full": "Jamaan Bin Jibran Bin Bashar Al Abed",
     "tokens": [
      {
       "token_id": 57,
-      "arabic": "جمان",
+      "arabic": "جمعان",
       "position": "given",
       "english_variants": [
-       "Jaman"
+       "Jamaan"
       ],
-      "english_used": "Jaman"
+      "english_used": "Jamaan"
      },
      {
       "token_id": 59,
-      "arabic": "جبر",
+      "arabic": "جبران",
       "position": "middle",
       "english_variants": [
-       "Jabr",
-       "Jaber",
-       "Jabor"
+       "Jubran",
+       "Jabran",
+       "Jibran"
       ],
-      "english_used": "Jabor"
+      "english_used": "Jibran"
      },
      {
       "token_id": 61,
-      "arabic": "بسام",
+      "arabic": "بشار",
       "position": "middle",
       "english_variants": [
-       "Bassam"
+       "Bashar"
       ],
-      "english_used": "Bassam"
+      "english_used": "Bashar"
      },
      {
       "token_id": 62,
@@ -270,7 +271,7 @@
     "segment_id": "s08",
     "span": [
      8,
-     34
+     37
     ],
     "token_ids": [
      90,
@@ -280,37 +281,37 @@
      94,
      95
     ],
-    "arabic_full": "جمان بن جبر بن بسام العابد",
-    "english_full": "Jaman Bin Jabor Bin Bassam Al Abed",
+    "arabic_full": "جمعان بن جبران بن بشار العابد",
+    "english_full": "Jamaan Bin Jibran Bin Bashar Al Abed",
     "tokens": [
      {
       "token_id": 90,
-      "arabic": "جمان",
+      "arabic": "جمعان",
       "position": "given",
       "english_variants": [
-       "Jaman"
+       "Jamaan"
       ],
-      "english_used": "Jaman"
+      "english_used": "Jamaan"
      },
      {
       "token_id": 92,
-      "arabic": "جبر",
+      "arabic": "جبران",
       "position": "middle",
       "english_variants": [
-       "Jabr",
-       "Jaber",
-       "Jabor"
+       "Jubran",
+       "Jabran",
+       "Jibran"
       ],
-      "english_used": "Jabor"
+      "english_used": "Jibran"
      },
      {
       "token_id": 94,
-      "arabic": "بسام",
+      "arabic": "بشار",
       "position": "middle",
       "english_variants": [
-       "Bassam"
+       "Bashar"
       ],
-      "english_used": "Bassam"
+      "english_used": "Bashar"
      },
      {
       "token_id": 95,

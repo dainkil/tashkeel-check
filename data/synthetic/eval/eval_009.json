@@ -15,7 +15,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 07/08/2026 حضر أمام الكاتب العدل السيد رخي أحمد يوسف الإدريسي، بحريني الجنسية، ويحمل جواز سفر رقم H6462903."
+   "text": "إنه في يوم 07/08/2026 حضر أمام الكاتب العدل السيد رشاد أحمد يوسف الإدريسي، بحريني الجنسية، ويحمل جواز سفر رقم H6462903."
   },
   {
    "segment_id": "s03",
@@ -35,7 +35,7 @@
   },
   {
    "segment_id": "s07",
-   "text": "الموكل: رخي أحمد يوسف الإدريسي"
+   "text": "الموكل: رشاد أحمد يوسف الإدريسي"
   },
   {
    "segment_id": "s08",
@@ -47,7 +47,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 9,
@@ -69,7 +70,7 @@
     "segment_id": "s02",
     "span": [
      50,
-     72
+     73
     ],
     "token_ids": [
      11,
@@ -77,17 +78,17 @@
      13,
      14
     ],
-    "arabic_full": "رخي أحمد يوسف الإدريسي",
-    "english_full": "Rakhi Ahmed Yousef Al Idrisi",
+    "arabic_full": "رشاد أحمد يوسف الإدريسي",
+    "english_full": "Rashad Ahmed Yousef Al Idrisi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "رخي",
+      "arabic": "رشاد",
       "position": "given",
       "english_variants": [
-       "Rakhi"
+       "Rashad"
       ],
-      "english_used": "Rakhi"
+      "english_used": "Rashad"
      },
      {
       "token_id": 12,
@@ -227,7 +228,7 @@
     "segment_id": "s07",
     "span": [
      8,
-     30
+     31
     ],
     "token_ids": [
      85,
@@ -235,17 +236,17 @@
      87,
      88
     ],
-    "arabic_full": "رخي أحمد يوسف الإدريسي",
-    "english_full": "Rakhi Ahmed Yousef Al Idrisi",
+    "arabic_full": "رشاد أحمد يوسف الإدريسي",
+    "english_full": "Rashad Ahmed Yousef Al Idrisi",
     "tokens": [
      {
       "token_id": 85,
-      "arabic": "رخي",
+      "arabic": "رشاد",
       "position": "given",
       "english_variants": [
-       "Rakhi"
+       "Rashad"
       ],
-      "english_used": "Rakhi"
+      "english_used": "Rashad"
      },
      {
       "token_id": 86,

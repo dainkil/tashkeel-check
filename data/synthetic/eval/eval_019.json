@@ -13,7 +13,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 04/04/2026 حضر أمام الكاتب العدل السيدة فوزية بنت خلف بن محمد القطامي، بحرينية الجنسية، وتحمل جواز سفر رقم D4437633."
+   "text": "إنه في يوم 04/04/2026 حضر أمام الكاتب العدل السيدة فوزية بنت خلفان بن محمد القطامي، بحرينية الجنسية، وتحمل جواز سفر رقم D4437633."
   },
   {
    "segment_id": "s03",
@@ -29,7 +29,7 @@
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: فوزية بنت خلف بن محمد القطامي"
+   "text": "الموكلة: فوزية بنت خلفان بن محمد القطامي"
   },
   {
    "segment_id": "s07",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 19,
@@ -63,7 +64,7 @@
     "segment_id": "s02",
     "span": [
      51,
-     80
+     82
     ],
     "token_ids": [
      11,
@@ -73,8 +74,8 @@
      15,
      16
     ],
-    "arabic_full": "فوزية بنت خلف بن محمد القطامي",
-    "english_full": "Fawziyya Bint Khalaf bin Mohmmad Al Qatami",
+    "arabic_full": "فوزية بنت خلفان بن محمد القطامي",
+    "english_full": "Fawziyya Bint Khalvan bin Mohmmad Al Qatami",
     "tokens": [
      {
       "token_id": 11,
@@ -88,12 +89,13 @@
      },
      {
       "token_id": 13,
-      "arabic": "خلف",
+      "arabic": "خلفان",
       "position": "middle",
       "english_variants": [
-       "Khalaf"
+       "Khalfan",
+       "Khalvan"
       ],
-      "english_used": "Khalaf"
+      "english_used": "Khalvan"
      },
      {
       "token_id": 15,
@@ -225,7 +227,7 @@
     "segment_id": "s06",
     "span": [
      9,
-     38
+     40
     ],
     "token_ids": [
      77,
@@ -235,8 +237,8 @@
      81,
      82
     ],
-    "arabic_full": "فوزية بنت خلف بن محمد القطامي",
-    "english_full": "Fawziyya Bint Khalaf bin Mohmmad Al Qatami",
+    "arabic_full": "فوزية بنت خلفان بن محمد القطامي",
+    "english_full": "Fawziyya Bint Khalvan bin Mohmmad Al Qatami",
     "tokens": [
      {
       "token_id": 77,
@@ -250,12 +252,13 @@
      },
      {
       "token_id": 79,
-      "arabic": "خلف",
+      "arabic": "خلفان",
       "position": "middle",
       "english_variants": [
-       "Khalaf"
+       "Khalfan",
+       "Khalvan"
       ],
-      "english_used": "Khalaf"
+      "english_used": "Khalvan"
      },
      {
       "token_id": 81,

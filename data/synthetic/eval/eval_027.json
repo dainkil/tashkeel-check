@@ -13,7 +13,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 19/02/2026 حضر أمام الكاتب العدل السيد يوسف صالح محمود السيار، إماراتي الجنسية، ويحمل جواز سفر رقم U2097607."
+   "text": "إنه في يوم 19/02/2026 حضر أمام الكاتب العدل السيد يوسف صالح محمود السيابي، إماراتي الجنسية، ويحمل جواز سفر رقم U2097607."
   },
   {
    "segment_id": "s03",
@@ -21,7 +21,7 @@
   },
   {
    "segment_id": "s04",
-   "text": "وقرر أنه وكّل السيد سالم راشد الشدي، سعودي الجنسية، ويحمل بطاقة هوية رقم 40605455."
+   "text": "وقرر أنه وكّل السيد سالم راشد الشراح، سعودي الجنسية، ويحمل بطاقة هوية رقم 40605455."
   },
   {
    "segment_id": "s05",
@@ -29,11 +29,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "الموكل: يوسف صالح محمود السيار"
+   "text": "الموكل: يوسف صالح محمود السيابي"
   },
   {
    "segment_id": "s07",
-   "text": "الوكيل: سالم راشد الشدي"
+   "text": "الوكيل: سالم راشد الشراح"
   },
   {
    "segment_id": "s08",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 27,
@@ -63,7 +64,7 @@
     "segment_id": "s02",
     "span": [
      50,
-     72
+     73
     ],
     "token_ids": [
      11,
@@ -71,8 +72,8 @@
      13,
      14
     ],
-    "arabic_full": "يوسف صالح محمود السيار",
-    "english_full": "Yousef Saleh Mahmoud Al Sayyar",
+    "arabic_full": "يوسف صالح محمود السيابي",
+    "english_full": "Yousef Saleh Mahmoud Al Siyabi",
     "tokens": [
      {
       "token_id": 11,
@@ -115,12 +116,14 @@
      },
      {
       "token_id": 14,
-      "arabic": "السيار",
+      "arabic": "السيابي",
       "position": "family",
       "english_variants": [
-       "Al Sayyar"
+       "Al Siyabi",
+       "al Siyabi",
+       "al Sayyabi"
       ],
-      "english_used": "Al Sayyar"
+      "english_used": "Al Siyabi"
      }
     ],
     "evidence": null
@@ -160,15 +163,15 @@
     "segment_id": "s04",
     "span": [
      20,
-     35
+     36
     ],
     "token_ids": [
      49,
      50,
      51
     ],
-    "arabic_full": "سالم راشد الشدي",
-    "english_full": "Salem Rashed Al Sheddi",
+    "arabic_full": "سالم راشد الشراح",
+    "english_full": "Salem Rashed Al Sharah",
     "tokens": [
      {
       "token_id": 49,
@@ -194,12 +197,12 @@
      },
      {
       "token_id": 51,
-      "arabic": "الشدي",
+      "arabic": "الشراح",
       "position": "family",
       "english_variants": [
-       "Al Sheddi"
+       "Al Sharah"
       ],
-      "english_used": "Al Sheddi"
+      "english_used": "Al Sharah"
      }
     ],
     "evidence": null
@@ -210,7 +213,7 @@
     "segment_id": "s06",
     "span": [
      8,
-     30
+     31
     ],
     "token_ids": [
      75,
@@ -218,8 +221,8 @@
      77,
      78
     ],
-    "arabic_full": "يوسف صالح محمود السيار",
-    "english_full": "Yousef Saleh Mahmoud Al Sayyar",
+    "arabic_full": "يوسف صالح محمود السيابي",
+    "english_full": "Yousef Saleh Mahmoud Al Siyabi",
     "tokens": [
      {
       "token_id": 75,
@@ -262,12 +265,14 @@
      },
      {
       "token_id": 78,
-      "arabic": "السيار",
+      "arabic": "السيابي",
       "position": "family",
       "english_variants": [
-       "Al Sayyar"
+       "Al Siyabi",
+       "al Siyabi",
+       "al Sayyabi"
       ],
-      "english_used": "Al Sayyar"
+      "english_used": "Al Siyabi"
      }
     ],
     "evidence": null
@@ -278,15 +283,15 @@
     "segment_id": "s07",
     "span": [
      8,
-     23
+     24
     ],
     "token_ids": [
      80,
      81,
      82
     ],
-    "arabic_full": "سالم راشد الشدي",
-    "english_full": "Salem Rashed Al Sheddi",
+    "arabic_full": "سالم راشد الشراح",
+    "english_full": "Salem Rashed Al Sharah",
     "tokens": [
      {
       "token_id": 80,
@@ -312,12 +317,12 @@
      },
      {
       "token_id": 82,
-      "arabic": "الشدي",
+      "arabic": "الشراح",
       "position": "family",
       "english_variants": [
-       "Al Sheddi"
+       "Al Sharah"
       ],
-      "english_used": "Al Sheddi"
+      "english_used": "Al Sharah"
      }
     ],
     "evidence": null

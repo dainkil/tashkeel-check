@@ -15,7 +15,7 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 05/04/2026 حضر أمام الكاتب العدل السيدة لؤلؤة يوسف الجاسم، كويتية الجنسية، وتحمل جواز سفر رقم F7244001."
+   "text": "إنه في يوم 05/04/2026 حضر أمام الكاتب العدل السيدة لانا يوسف الجاسم، كويتية الجنسية، وتحمل جواز سفر رقم F7244001."
   },
   {
    "segment_id": "s03",
@@ -27,7 +27,7 @@
   },
   {
    "segment_id": "s05",
-   "text": "وقررت أنها وكّلت السيد أحمد نذير منصور البلوشي، بحريني الجنسية، ويحمل بطاقة هوية رقم 98213758."
+   "text": "وقررت أنها وكّلت السيد أحمد نجيب منصور البلوشي، بحريني الجنسية، ويحمل بطاقة هوية رقم 98213758."
   },
   {
    "segment_id": "s06",
@@ -35,11 +35,11 @@
   },
   {
    "segment_id": "s07",
-   "text": "الموكلة: لؤلؤة يوسف الجاسم"
+   "text": "الموكلة: لانا يوسف الجاسم"
   },
   {
    "segment_id": "s08",
-   "text": "الوكيل: أحمد نذير منصور البلوشي"
+   "text": "الوكيل: أحمد نجيب منصور البلوشي"
   },
   {
    "segment_id": "s09",
@@ -47,7 +47,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 15,
@@ -69,24 +70,24 @@
     "segment_id": "s02",
     "span": [
      51,
-     68
+     67
     ],
     "token_ids": [
      11,
      12,
      13
     ],
-    "arabic_full": "لؤلؤة يوسف الجاسم",
-    "english_full": "Luluwah Yousef Al Jasem",
+    "arabic_full": "لانا يوسف الجاسم",
+    "english_full": "Lana Yousef Al Jasem",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "لؤلؤة",
+      "arabic": "لانا",
       "position": "given",
       "english_variants": [
-       "Luluwah"
+       "Lana"
       ],
-      "english_used": "Luluwah"
+      "english_used": "Lana"
      },
      {
       "token_id": 12,
@@ -171,8 +172,8 @@
      59,
      60
     ],
-    "arabic_full": "أحمد نذير منصور البلوشي",
-    "english_full": "Ahmed Nadhir Mansour Al Balushi",
+    "arabic_full": "أحمد نجيب منصور البلوشي",
+    "english_full": "Ahmed Najeeb Mansour Al Balushi",
     "tokens": [
      {
       "token_id": 57,
@@ -191,12 +192,12 @@
      },
      {
       "token_id": 58,
-      "arabic": "نذير",
+      "arabic": "نجيب",
       "position": "middle",
       "english_variants": [
-       "Nadhir"
+       "Najeeb"
       ],
-      "english_used": "Nadhir"
+      "english_used": "Najeeb"
      },
      {
       "token_id": 59,
@@ -240,24 +241,24 @@
     "segment_id": "s07",
     "span": [
      9,
-     26
+     25
     ],
     "token_ids": [
      84,
      85,
      86
     ],
-    "arabic_full": "لؤلؤة يوسف الجاسم",
-    "english_full": "Luluwah Yousef Al Jasem",
+    "arabic_full": "لانا يوسف الجاسم",
+    "english_full": "Lana Yousef Al Jasem",
     "tokens": [
      {
       "token_id": 84,
-      "arabic": "لؤلؤة",
+      "arabic": "لانا",
       "position": "given",
       "english_variants": [
-       "Luluwah"
+       "Lana"
       ],
-      "english_used": "Luluwah"
+      "english_used": "Lana"
      },
      {
       "token_id": 85,
@@ -306,8 +307,8 @@
      90,
      91
     ],
-    "arabic_full": "أحمد نذير منصور البلوشي",
-    "english_full": "Ahmed Nadhir Mansour Al Balushi",
+    "arabic_full": "أحمد نجيب منصور البلوشي",
+    "english_full": "Ahmed Najeeb Mansour Al Balushi",
     "tokens": [
      {
       "token_id": 88,
@@ -326,12 +327,12 @@
      },
      {
       "token_id": 89,
-      "arabic": "نذير",
+      "arabic": "نجيب",
       "position": "middle",
       "english_variants": [
-       "Nadhir"
+       "Najeeb"
       ],
-      "english_used": "Nadhir"
+      "english_used": "Najeeb"
      },
      {
       "token_id": 90,

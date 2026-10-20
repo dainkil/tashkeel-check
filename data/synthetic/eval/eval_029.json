@@ -17,11 +17,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 03/03/2026 حضر أمام الكاتب العدل السيدة شروق محمد المنذري، إماراتية الجنسية، وتحمل جواز سفر رقم A8237668."
+   "text": "إنه في يوم 03/03/2026 حضر أمام الكاتب العدل السيدة شعاع محمد المنصور، إماراتية الجنسية، وتحمل جواز سفر رقم A8237668."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Shurooq Muhammad Al Mantheri, Passport No. A8237668"
+   "text": "Principal: Shu'a' Muhammad Al Mansor, Passport No. A8237668"
   },
   {
    "segment_id": "s04",
@@ -33,11 +33,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "وقررت أنها وكّلت السيدة نهاد بنت كميل الفراعنة، قطرية الجنسية، وتحمل بطاقة هوية رقم 29057722."
+   "text": "وقررت أنها وكّلت السيدة نهلة بنت كميل الفايز، قطرية الجنسية، وتحمل بطاقة هوية رقم 29057722."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Nihad bint Kameel El Faraana, ID No. 29057722"
+   "text": "Attorney: Nahla bint Kameel Al Fayez, ID No. 29057722"
   },
   {
    "segment_id": "s08",
@@ -45,11 +45,11 @@
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: شروق محمد المنذري"
+   "text": "الموكلة: شعاع محمد المنصور"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: نهاد بنت كميل الفراعنة"
+   "text": "الوكيلة: نهلة بنت كميل الفايز"
   },
   {
    "segment_id": "s11",
@@ -57,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 29,
@@ -86,18 +87,17 @@
      12,
      13
     ],
-    "arabic_full": "شروق محمد المنذري",
-    "english_full": "Shurooq Muhammad Al Mantheri",
+    "arabic_full": "شعاع محمد المنصور",
+    "english_full": "Shu'a' Muhammad Al Mansor",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "شروق",
+      "arabic": "شعاع",
       "position": "given",
       "english_variants": [
-       "Shorouk",
-       "Shurooq"
+       "Shu'a'"
       ],
-      "english_used": "Shurooq"
+      "english_used": "Shu'a'"
      },
      {
       "token_id": 12,
@@ -123,17 +123,22 @@
      },
      {
       "token_id": 13,
-      "arabic": "المنذري",
+      "arabic": "المنصور",
       "position": "family",
       "english_variants": [
-       "Al Mantheri"
+       "Al Mansour",
+       "Al Mansor",
+       "Al Mansoor",
+       "al Mansour",
+       "Al Meaweed",
+       "al Mansur"
       ],
-      "english_used": "Al Mantheri"
+      "english_used": "Al Mansor"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Shurooq Muhammad Al Mantheri"
+     "quote": "Shu'a' Muhammad Al Mansor"
     }
    },
    {
@@ -171,7 +176,7 @@
     "segment_id": "s06",
     "span": [
      24,
-     46
+     44
     ],
     "token_ids": [
      66,
@@ -179,17 +184,17 @@
      68,
      69
     ],
-    "arabic_full": "نهاد بنت كميل الفراعنة",
-    "english_full": "Nihad bint Kameel El Faraana",
+    "arabic_full": "نهلة بنت كميل الفايز",
+    "english_full": "Nahla bint Kameel Al Fayez",
     "tokens": [
      {
       "token_id": 66,
-      "arabic": "نهاد",
+      "arabic": "نهلة",
       "position": "given",
       "english_variants": [
-       "Nihad"
+       "Nahla"
       ],
-      "english_used": "Nihad"
+      "english_used": "Nahla"
      },
      {
       "token_id": 68,
@@ -204,20 +209,19 @@
      },
      {
       "token_id": 69,
-      "arabic": "الفراعنة",
+      "arabic": "الفايز",
       "position": "family",
       "english_variants": [
-       "Faraana",
-       "El Faraana",
-       "al Faraana",
-       "el Faraana"
+       "Al Fayez",
+       "al Fayez",
+       "Al Faiz"
       ],
-      "english_used": "El Faraana"
+      "english_used": "Al Fayez"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Nihad bint Kameel El Faraana"
+     "quote": "Nahla bint Kameel Al Fayez"
     }
    },
    {
@@ -233,18 +237,17 @@
      103,
      104
     ],
-    "arabic_full": "شروق محمد المنذري",
-    "english_full": "Shurooq Muhammad Al Mantheri",
+    "arabic_full": "شعاع محمد المنصور",
+    "english_full": "Shu'a' Muhammad Al Mansor",
     "tokens": [
      {
       "token_id": 102,
-      "arabic": "شروق",
+      "arabic": "شعاع",
       "position": "given",
       "english_variants": [
-       "Shorouk",
-       "Shurooq"
+       "Shu'a'"
       ],
-      "english_used": "Shurooq"
+      "english_used": "Shu'a'"
      },
      {
       "token_id": 103,
@@ -270,17 +273,22 @@
      },
      {
       "token_id": 104,
-      "arabic": "المنذري",
+      "arabic": "المنصور",
       "position": "family",
       "english_variants": [
-       "Al Mantheri"
+       "Al Mansour",
+       "Al Mansor",
+       "Al Mansoor",
+       "al Mansour",
+       "Al Meaweed",
+       "al Mansur"
       ],
-      "english_used": "Al Mantheri"
+      "english_used": "Al Mansor"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Shurooq Muhammad Al Mantheri"
+     "quote": "Shu'a' Muhammad Al Mansor"
     }
    },
    {
@@ -289,7 +297,7 @@
     "segment_id": "s10",
     "span": [
      9,
-     31
+     29
     ],
     "token_ids": [
      106,
@@ -297,17 +305,17 @@
      108,
      109
     ],
-    "arabic_full": "نهاد بنت كميل الفراعنة",
-    "english_full": "Nihad bint Kameel El Faraana",
+    "arabic_full": "نهلة بنت كميل الفايز",
+    "english_full": "Nahla bint Kameel Al Fayez",
     "tokens": [
      {
       "token_id": 106,
-      "arabic": "نهاد",
+      "arabic": "نهلة",
       "position": "given",
       "english_variants": [
-       "Nihad"
+       "Nahla"
       ],
-      "english_used": "Nihad"
+      "english_used": "Nahla"
      },
      {
       "token_id": 108,
@@ -322,20 +330,19 @@
      },
      {
       "token_id": 109,
-      "arabic": "الفراعنة",
+      "arabic": "الفايز",
       "position": "family",
       "english_variants": [
-       "Faraana",
-       "El Faraana",
-       "al Faraana",
-       "el Faraana"
+       "Al Fayez",
+       "al Fayez",
+       "Al Faiz"
       ],
-      "english_used": "El Faraana"
+      "english_used": "Al Fayez"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Nihad bint Kameel El Faraana"
+     "quote": "Nahla bint Kameel Al Fayez"
     }
    }
   ],

@@ -28,11 +28,11 @@
   },
   {
    "segment_id": "s05",
-   "text": "وقرر أنه وكّل السيد عمرو بن مبارك الكواري، سعودي الجنسية، ويحمل بطاقة هوية رقم 26260817."
+   "text": "وقرر أنه وكّل السيد عمرو بن مبارك الكندري، سعودي الجنسية، ويحمل بطاقة هوية رقم 26260817."
   },
   {
    "segment_id": "s06",
-   "text": "Attorney: Amro Bin Mubarak Al Kuwari, ID No. 26260817"
+   "text": "Attorney: Amr Bin Mubarak Al Kandari, ID No. 26260817"
   },
   {
    "segment_id": "s07",
@@ -44,7 +44,7 @@
   },
   {
    "segment_id": "s09",
-   "text": "الوكيل: عمرو بن مبارك الكواري"
+   "text": "الوكيل: عمرو بن مبارك الكندري"
   },
   {
    "segment_id": "s10",
@@ -52,7 +52,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 17,
@@ -176,18 +177,17 @@
      59,
      60
     ],
-    "arabic_full": "عمرو بن مبارك الكواري",
-    "english_full": "Amro Bin Mubarak Al Kuwari",
+    "arabic_full": "عمرو بن مبارك الكندري",
+    "english_full": "Amr Bin Mubarak Al Kandari",
     "tokens": [
      {
       "token_id": 57,
       "arabic": "عمرو",
       "position": "given",
       "english_variants": [
-       "Amr",
-       "Amro"
+       "Amr"
       ],
-      "english_used": "Amro"
+      "english_used": "Amr"
      },
      {
       "token_id": 59,
@@ -205,20 +205,18 @@
      },
      {
       "token_id": 60,
-      "arabic": "الكواري",
+      "arabic": "الكندري",
       "position": "family",
       "english_variants": [
-       "Al Kuwari",
-       "al Kuwari",
-       "Kuwari",
-       "Al Kowari"
+       "Al Kandari",
+       "Al Kandary"
       ],
-      "english_used": "Al Kuwari"
+      "english_used": "Al Kandari"
      }
     ],
     "evidence": {
      "segment_id": "s06",
-     "quote": "Amro Bin Mubarak Al Kuwari"
+     "quote": "Amr Bin Mubarak Al Kandari"
     }
    },
    {
@@ -289,18 +287,17 @@
      99,
      100
     ],
-    "arabic_full": "عمرو بن مبارك الكواري",
-    "english_full": "Amro Bin Mubarak Al Kuwari",
+    "arabic_full": "عمرو بن مبارك الكندري",
+    "english_full": "Amr Bin Mubarak Al Kandari",
     "tokens": [
      {
       "token_id": 97,
       "arabic": "عمرو",
       "position": "given",
       "english_variants": [
-       "Amr",
-       "Amro"
+       "Amr"
       ],
-      "english_used": "Amro"
+      "english_used": "Amr"
      },
      {
       "token_id": 99,
@@ -318,20 +315,18 @@
      },
      {
       "token_id": 100,
-      "arabic": "الكواري",
+      "arabic": "الكندري",
       "position": "family",
       "english_variants": [
-       "Al Kuwari",
-       "al Kuwari",
-       "Kuwari",
-       "Al Kowari"
+       "Al Kandari",
+       "Al Kandary"
       ],
-      "english_used": "Al Kuwari"
+      "english_used": "Al Kandari"
      }
     ],
     "evidence": {
      "segment_id": "s06",
-     "quote": "Amro Bin Mubarak Al Kuwari"
+     "quote": "Amr Bin Mubarak Al Kandari"
     }
    }
   ],

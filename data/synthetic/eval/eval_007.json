@@ -17,11 +17,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 24/09/2026 حضر أمام الكاتب العدل السيدة سانيكا بنت ناصر الكويكبي، كويتية الجنسية، وتحمل جواز سفر رقم T2807572."
+   "text": "إنه في يوم 24/09/2026 حضر أمام الكاتب العدل السيدة سجى بنت ناصر الكويتية، كويتية الجنسية، وتحمل جواز سفر رقم T2807572."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Sanika Bint Naser Al Kwikbi, Passport No. T2807572"
+   "text": "Principal: Saja Bint Naser El Kuwaitia, Passport No. T2807572"
   },
   {
    "segment_id": "s04",
@@ -45,7 +45,7 @@
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: سانيكا بنت ناصر الكويكبي"
+   "text": "الموكلة: سجى بنت ناصر الكويتية"
   },
   {
    "segment_id": "s10",
@@ -57,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 7,
@@ -79,7 +80,7 @@
     "segment_id": "s02",
     "span": [
      51,
-     75
+     72
     ],
     "token_ids": [
      11,
@@ -87,17 +88,17 @@
      13,
      14
     ],
-    "arabic_full": "سانيكا بنت ناصر الكويكبي",
-    "english_full": "Sanika Bint Naser Al Kwikbi",
+    "arabic_full": "سجى بنت ناصر الكويتية",
+    "english_full": "Saja Bint Naser El Kuwaitia",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "سانيكا",
+      "arabic": "سجى",
       "position": "given",
       "english_variants": [
-       "Sanika"
+       "Saja"
       ],
-      "english_used": "Sanika"
+      "english_used": "Saja"
      },
      {
       "token_id": 13,
@@ -118,18 +119,17 @@
      },
      {
       "token_id": 14,
-      "arabic": "الكويكبي",
+      "arabic": "الكويتية",
       "position": "family",
       "english_variants": [
-       "Al Kuwaikabi",
-       "Al Kwikbi"
+       "El Kuwaitia"
       ],
-      "english_used": "Al Kwikbi"
+      "english_used": "El Kuwaitia"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Sanika Bint Naser Al Kwikbi"
+     "quote": "Saja Bint Naser El Kuwaitia"
     }
    },
    {
@@ -243,7 +243,7 @@
     "segment_id": "s09",
     "span": [
      9,
-     33
+     30
     ],
     "token_ids": [
      108,
@@ -251,17 +251,17 @@
      110,
      111
     ],
-    "arabic_full": "سانيكا بنت ناصر الكويكبي",
-    "english_full": "Sanika Bint Naser Al Kwikbi",
+    "arabic_full": "سجى بنت ناصر الكويتية",
+    "english_full": "Saja Bint Naser El Kuwaitia",
     "tokens": [
      {
       "token_id": 108,
-      "arabic": "سانيكا",
+      "arabic": "سجى",
       "position": "given",
       "english_variants": [
-       "Sanika"
+       "Saja"
       ],
-      "english_used": "Sanika"
+      "english_used": "Saja"
      },
      {
       "token_id": 110,
@@ -282,18 +282,17 @@
      },
      {
       "token_id": 111,
-      "arabic": "الكويكبي",
+      "arabic": "الكويتية",
       "position": "family",
       "english_variants": [
-       "Al Kuwaikabi",
-       "Al Kwikbi"
+       "El Kuwaitia"
       ],
-      "english_used": "Al Kwikbi"
+      "english_used": "El Kuwaitia"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Sanika Bint Naser Al Kwikbi"
+     "quote": "Saja Bint Naser El Kuwaitia"
     }
    },
    {

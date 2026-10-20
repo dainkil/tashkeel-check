@@ -17,7 +17,7 @@
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفته مديرًا لشركة الحضرمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 220047، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الحصين للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 220047، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
@@ -41,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 3,
@@ -125,23 +126,23 @@
     "segment_id": "s03",
     "span": [
      24,
-     31
+     30
     ],
     "token_ids": [
      27
     ],
-    "arabic_full": "الحضرمي",
-    "english_full": "Al Hadhrami",
+    "arabic_full": "الحصين",
+    "english_full": "Al Hussein",
     "tokens": [
      {
       "token_id": 27,
-      "arabic": "الحضرمي",
+      "arabic": "الحصين",
       "position": "family",
       "english_variants": [
-       "Al Hadrami",
-       "Al Hadhrami"
+       "Hussayen",
+       "Al Hussein"
       ],
-      "english_used": "Al Hadhrami"
+      "english_used": "Al Hussein"
      }
     ],
     "evidence": null

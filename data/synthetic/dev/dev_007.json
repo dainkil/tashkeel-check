@@ -16,11 +16,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 03/11/2026 حضر أمام الكاتب العدل السيد حامد بن النواف الشيبي، بحريني الجنسية، ويحمل جواز سفر رقم S9539803."
+   "text": "إنه في يوم 03/11/2026 حضر أمام الكاتب العدل السيد حامد بن أمجد الشيبي، بحريني الجنسية، ويحمل جواز سفر رقم S9539803."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Hamed Bin Nawaf Al Shaibi, Passport No. S9539803"
+   "text": "Principal: Hamed Bin Amjad Al Shaibi, Passport No. S9539803"
   },
   {
    "segment_id": "s04",
@@ -40,7 +40,7 @@
   },
   {
    "segment_id": "s08",
-   "text": "الموكل: حامد بن النواف الشيبي"
+   "text": "الموكل: حامد بن أمجد الشيبي"
   },
   {
    "segment_id": "s09",
@@ -52,7 +52,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 7,
@@ -74,7 +75,7 @@
     "segment_id": "s02",
     "span": [
      50,
-     71
+     69
     ],
     "token_ids": [
      11,
@@ -82,8 +83,8 @@
      13,
      14
     ],
-    "arabic_full": "حامد بن النواف الشيبي",
-    "english_full": "Hamed Bin Nawaf Al Shaibi",
+    "arabic_full": "حامد بن أمجد الشيبي",
+    "english_full": "Hamed Bin Amjad Al Shaibi",
     "tokens": [
      {
       "token_id": 11,
@@ -98,12 +99,14 @@
      },
      {
       "token_id": 13,
-      "arabic": "النواف",
+      "arabic": "أمجد",
       "position": "middle",
       "english_variants": [
-       "Nawaf"
+       "Amjad",
+       "Amgad",
+       "Amjed"
       ],
-      "english_used": "Nawaf"
+      "english_used": "Amjad"
      },
      {
       "token_id": 14,
@@ -118,7 +121,7 @@
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Hamed Bin Nawaf Al Shaibi"
+     "quote": "Hamed Bin Amjad Al Shaibi"
     }
    },
    {
@@ -236,7 +239,7 @@
     "segment_id": "s08",
     "span": [
      8,
-     29
+     27
     ],
     "token_ids": [
      99,
@@ -244,8 +247,8 @@
      101,
      102
     ],
-    "arabic_full": "حامد بن النواف الشيبي",
-    "english_full": "Hamed Bin Nawaf Al Shaibi",
+    "arabic_full": "حامد بن أمجد الشيبي",
+    "english_full": "Hamed Bin Amjad Al Shaibi",
     "tokens": [
      {
       "token_id": 99,
@@ -260,12 +263,14 @@
      },
      {
       "token_id": 101,
-      "arabic": "النواف",
+      "arabic": "أمجد",
       "position": "middle",
       "english_variants": [
-       "Nawaf"
+       "Amjad",
+       "Amgad",
+       "Amjed"
       ],
-      "english_used": "Nawaf"
+      "english_used": "Amjad"
      },
      {
       "token_id": 102,
@@ -280,7 +285,7 @@
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Hamed Bin Nawaf Al Shaibi"
+     "quote": "Hamed Bin Amjad Al Shaibi"
     }
    },
    {

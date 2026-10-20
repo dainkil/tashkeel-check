@@ -32,11 +32,11 @@
   },
   {
    "segment_id": "s06",
-   "text": "المفوض بالتوقيع: ماجد بن خالد الدميني"
+   "text": "المفوض بالتوقيع: ماجد بن خالد الدلهمي"
   },
   {
    "segment_id": "s07",
-   "text": "Authorized signatory: Majid bin Khalid Al Dumayni"
+   "text": "Authorized signatory: Majid bin Khalid Al Dalhami"
   },
   {
    "segment_id": "s08",
@@ -48,7 +48,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v1",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 10,
@@ -182,8 +183,8 @@
      68,
      69
     ],
-    "arabic_full": "ماجد بن خالد الدميني",
-    "english_full": "Majid bin Khalid Al Dumayni",
+    "arabic_full": "ماجد بن خالد الدلهمي",
+    "english_full": "Majid bin Khalid Al Dalhami",
     "tokens": [
      {
       "token_id": 66,
@@ -210,17 +211,17 @@
      },
      {
       "token_id": 69,
-      "arabic": "الدميني",
+      "arabic": "الدلهمي",
       "position": "family",
       "english_variants": [
-       "Al Dumayni"
+       "Al Dalhami"
       ],
-      "english_used": "Al Dumayni"
+      "english_used": "Al Dalhami"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Majid bin Khalid Al Dumayni"
+     "quote": "Majid bin Khalid Al Dalhami"
     }
    }
   ],
