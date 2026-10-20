@@ -4,6 +4,11 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +16,43 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 08/12/2026 حضر أمام الكاتب العدل السيد حسن بن طلال الخالدي، بحريني الجنسية، ويحمل جواز سفر رقم L6306950."
+   "text": "إنه في يوم 08/06/2026 حضر أمام الكاتب العدل السيدة حصة محمد الهندي، كويتية الجنسية، وتحمل جواز سفر رقم H8118406."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Hassan Bin Talal Al Khaldi, Passport No. L6306950"
+   "text": "Principal: Hessah Muhammad al Hendi, Passport No. H8118406"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة العرادة للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 322166، وعنوانها الشارقة، الإمارات العربية المتحدة."
+   "text": "وذلك بصفتها مديرة لشركة العريفي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 898416، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: al Arada General Trading L.L.C., Registration No. 322166"
+   "text": "Company: al Arifi General Trading L.L.C., Registration No. 898416"
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة هيا بنت أحمد الأهدل، عمانية الجنسية، وتحمل بطاقة هوية رقم 60663054."
+   "text": "وقررت أنها وكّلت السيد بدر جمال الحبسي، سعودي الجنسية، ويحمل بطاقة هوية رقم 39448369."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Haya Bint Ahmad al Ahdal, ID No. 60663054"
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الموكلة: حصة محمد الهندي"
   },
   {
    "segment_id": "s09",
-   "text": "الموكل: حسن بن طلال الخالدي"
+   "text": "الوكيل: بدر جمال الحبسي"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: هيا بنت أحمد الأهدل"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 21,
@@ -72,55 +73,67 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
-     69
+     51,
+     66
     ],
     "token_ids": [
      11,
      12,
-     13,
-     14
+     13
     ],
-    "arabic_full": "حسن بن طلال الخالدي",
-    "english_full": "Hassan Bin Talal Al Khaldi",
+    "arabic_full": "حصة محمد الهندي",
+    "english_full": "Hessah Muhammad al Hendi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "حسن",
+      "arabic": "حصة",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Hessa",
+       "Hissa",
+       "Hussa",
+       "Hessah"
       ],
-      "english_used": "Hassan"
+      "english_used": "Hessah"
+     },
+     {
+      "token_id": 12,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad"
      },
      {
       "token_id": 13,
-      "arabic": "طلال",
-      "position": "middle",
-      "english_variants": [
-       "Talal",
-       "Talla"
-      ],
-      "english_used": "Talal"
-     },
-     {
-      "token_id": 14,
-      "arabic": "الخالدي",
+      "arabic": "الهندي",
       "position": "family",
       "english_variants": [
-       "Al Khaldi",
-       "Al Khalidi",
-       "al Khaldi"
+       "Hindi",
+       "Al Hendi",
+       "al Hendi",
+       "al Hindi"
       ],
-      "english_used": "Al Khaldi"
+      "english_used": "al Hendi"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Hassan Bin Talal Al Khaldi"
+     "quote": "Hessah Muhammad al Hendi"
     }
    },
    {
@@ -132,25 +145,26 @@
      31
     ],
     "token_ids": [
-     37
+     35
     ],
-    "arabic_full": "العرادة",
-    "english_full": "al Arada",
+    "arabic_full": "العريفي",
+    "english_full": "al Arifi",
     "tokens": [
      {
-      "token_id": 37,
-      "arabic": "العرادة",
+      "token_id": 35,
+      "arabic": "العريفي",
       "position": "family",
       "english_variants": [
-       "al Arada",
-       "Al Arada"
+       "al Arifi",
+       "Al Arefe",
+       "al Arify"
       ],
-      "english_used": "al Arada"
+      "english_used": "al Arifi"
      }
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "al Arada General Trading"
+     "quote": "al Arifi General Trading"
     }
    },
    {
@@ -158,181 +172,179 @@
     "role": "agent",
     "segment_id": "s06",
     "span": [
-     21,
-     40
+     23,
+     38
     ],
     "token_ids": [
-     68,
-     69,
-     70,
-     71
+     66,
+     67,
+     68
     ],
-    "arabic_full": "هيا بنت أحمد الأهدل",
-    "english_full": "Haya Bint Ahmad al Ahdal",
+    "arabic_full": "بدر جمال الحبسي",
+    "english_full": "Badr Jamal Al Habsi",
     "tokens": [
      {
-      "token_id": 68,
-      "arabic": "هيا",
+      "token_id": 66,
+      "arabic": "بدر",
       "position": "given",
       "english_variants": [
-       "Haya"
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
       ],
-      "english_used": "Haya"
+      "english_used": "Badr"
      },
      {
-      "token_id": 70,
-      "arabic": "أحمد",
+      "token_id": 67,
+      "arabic": "جمال",
       "position": "middle",
       "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
+       "Jamal"
       ],
-      "english_used": "Ahmad"
+      "english_used": "Jamal"
      },
      {
-      "token_id": 71,
-      "arabic": "الأهدل",
+      "token_id": 68,
+      "arabic": "الحبسي",
       "position": "family",
       "english_variants": [
-       "al Ahdal"
+       "Al Habsi"
       ],
-      "english_used": "al Ahdal"
+      "english_used": "Al Habsi"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Haya Bint Ahmad al Ahdal"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s08",
     "span": [
-     8,
-     27
+     9,
+     24
     ],
     "token_ids": [
-     104,
-     105,
-     106,
-     107
+     92,
+     93,
+     94
     ],
-    "arabic_full": "حسن بن طلال الخالدي",
-    "english_full": "Hassan Bin Talal Al Khaldi",
+    "arabic_full": "حصة محمد الهندي",
+    "english_full": "Hessah Muhammad al Hendi",
     "tokens": [
      {
-      "token_id": 104,
-      "arabic": "حسن",
+      "token_id": 92,
+      "arabic": "حصة",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Hessa",
+       "Hissa",
+       "Hussa",
+       "Hessah"
       ],
-      "english_used": "Hassan"
+      "english_used": "Hessah"
      },
      {
-      "token_id": 106,
-      "arabic": "طلال",
+      "token_id": 93,
+      "arabic": "محمد",
       "position": "middle",
       "english_variants": [
-       "Talal",
-       "Talla"
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
       ],
-      "english_used": "Talal"
+      "english_used": "Muhammad"
      },
      {
-      "token_id": 107,
-      "arabic": "الخالدي",
+      "token_id": 94,
+      "arabic": "الهندي",
       "position": "family",
       "english_variants": [
-       "Al Khaldi",
-       "Al Khalidi",
-       "al Khaldi"
+       "Hindi",
+       "Al Hendi",
+       "al Hendi",
+       "al Hindi"
       ],
-      "english_used": "Al Khaldi"
+      "english_used": "al Hendi"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Hassan Bin Talal Al Khaldi"
+     "quote": "Hessah Muhammad al Hendi"
     }
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s09",
     "span": [
-     9,
-     28
+     8,
+     23
     ],
     "token_ids": [
-     109,
-     110,
-     111,
-     112
+     96,
+     97,
+     98
     ],
-    "arabic_full": "هيا بنت أحمد الأهدل",
-    "english_full": "Haya Bint Ahmad al Ahdal",
+    "arabic_full": "بدر جمال الحبسي",
+    "english_full": "Badr Jamal Al Habsi",
     "tokens": [
      {
-      "token_id": 109,
-      "arabic": "هيا",
+      "token_id": 96,
+      "arabic": "بدر",
       "position": "given",
       "english_variants": [
-       "Haya"
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
       ],
-      "english_used": "Haya"
+      "english_used": "Badr"
      },
      {
-      "token_id": 111,
-      "arabic": "أحمد",
+      "token_id": 97,
+      "arabic": "جمال",
       "position": "middle",
       "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
+       "Jamal"
       ],
-      "english_used": "Ahmad"
+      "english_used": "Jamal"
      },
      {
-      "token_id": 112,
-      "arabic": "الأهدل",
+      "token_id": 98,
+      "arabic": "الحبسي",
       "position": "family",
       "english_variants": [
-       "al Ahdal"
+       "Al Habsi"
       ],
-      "english_used": "al Ahdal"
+      "english_used": "Al Habsi"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Haya Bint Ahmad al Ahdal"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [
+   38,
+   39,
    40,
-   41,
-   42,
+   43,
+   44,
    45,
-   46,
-   47,
+   49,
+   50,
    51,
-   52,
-   53,
-   54
+   52
   ]
  }
 }

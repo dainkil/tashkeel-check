@@ -3,7 +3,12 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -15,27 +20,35 @@
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيد جابر محمد الزهير، قطري الجنسية، ويحمل جواز سفر رقم R3530749، يعمل لديها بوظيفة مندوب مبيعات منذ 19/10/2026."
+   "text": "Company: al Khawar General Trading L.L.C., Registration No. 122383"
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "بأن السيد محمد درويش القطان، قطري الجنسية، ويحمل جواز سفر رقم R3530749، يعمل لديها بوظيفة مندوب مبيعات منذ 19/10/2026."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: حسن صقر الصفار"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "المفوضة بالتوقيع: حمدة صالح الصعدي"
   },
   {
    "segment_id": "s07",
+   "text": "Authorized signatory: Hamda Saleh Al Sadi"
+  },
+  {
+   "segment_id": "s08",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s09",
    "text": "التاريخ: 11/07/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 18,
@@ -76,39 +89,31 @@
       "english_used": "al Khawar"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "al Khawar General Trading"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
      10,
-     26
+     27
     ],
     "token_ids": [
-     23,
-     24,
-     25
+     32,
+     33,
+     34
     ],
-    "arabic_full": "جابر محمد الزهير",
-    "english_full": "Jaber Muhammad al Zuhair",
+    "arabic_full": "محمد درويش القطان",
+    "english_full": "Mohammed Darwish Al Qattan",
     "tokens": [
      {
-      "token_id": 23,
-      "arabic": "جابر",
-      "position": "given",
-      "english_variants": [
-       "Jaber",
-       "Jabir",
-       "Gaber"
-      ],
-      "english_used": "Jaber"
-     },
-     {
-      "token_id": 24,
+      "token_id": 32,
       "arabic": "محمد",
-      "position": "middle",
+      "position": "given",
       "english_variants": [
        "Mohammed",
        "Mohamed",
@@ -125,17 +130,26 @@
        "Mohmmed",
        "Mo"
       ],
-      "english_used": "Muhammad"
+      "english_used": "Mohammed"
      },
      {
-      "token_id": 25,
-      "arabic": "الزهير",
+      "token_id": 33,
+      "arabic": "درويش",
+      "position": "middle",
+      "english_variants": [
+       "Darwish",
+       "Darweesh"
+      ],
+      "english_used": "Darwish"
+     },
+     {
+      "token_id": 34,
+      "arabic": "القطان",
       "position": "family",
       "english_variants": [
-       "al Zuhair",
-       "Al Zuhair"
+       "Al Qattan"
       ],
-      "english_used": "al Zuhair"
+      "english_used": "Al Qattan"
      }
     ],
     "evidence": null
@@ -143,53 +157,54 @@
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s06",
     "span": [
-     17,
-     31
+     18,
+     34
     ],
     "token_ids": [
-     55,
-     56,
-     57
+     64,
+     65,
+     66
     ],
-    "arabic_full": "حسن صقر الصفار",
-    "english_full": "Hassan Saqr Al Saffar",
+    "arabic_full": "حمدة صالح الصعدي",
+    "english_full": "Hamda Saleh Al Sadi",
     "tokens": [
      {
-      "token_id": 55,
-      "arabic": "حسن",
+      "token_id": 64,
+      "arabic": "حمدة",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Hamda",
+       "Hamdah"
       ],
-      "english_used": "Hassan"
+      "english_used": "Hamda"
      },
      {
-      "token_id": 56,
-      "arabic": "صقر",
+      "token_id": 65,
+      "arabic": "صالح",
       "position": "middle",
       "english_variants": [
-       "Saqr",
-       "Saqer"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Saqr"
+      "english_used": "Saleh"
      },
      {
-      "token_id": 57,
-      "arabic": "الصفار",
+      "token_id": 66,
+      "arabic": "الصعدي",
       "position": "family",
       "english_variants": [
-       "Al Saffar",
-       "al Saffar"
+       "Al Sadi"
       ],
-      "english_used": "Al Saffar"
+      "english_used": "Al Sadi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Hamda Saleh Al Sadi"
+    }
    }
   ],
   "neutral_token_ids": [

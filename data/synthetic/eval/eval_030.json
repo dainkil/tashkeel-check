@@ -3,7 +3,11 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +15,35 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الأنصاري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 590177، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الشهري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 810946، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة علياء مازن القاسمي، قطرية الجنسية، وتحمل جواز سفر رقم R7690972، تعمل لديها بوظيفة محاسبة منذ 08/01/2026."
+   "text": "بأن السيد وليد بن طارق بن سعيد العلي، كويتي الجنسية، ويحمل جواز سفر رقم G8360848، يعمل لديها بوظيفة مهندس منذ 19/08/2026."
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: حسن بن يوسف الجابري"
+   "text": "المفوضة بالتوقيع: سارة محمد طه الحميدين"
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "Authorized signatory: Sarah Mohammed Taha al Hamidin"
   },
   {
    "segment_id": "s07",
-   "text": "التاريخ: 01/04/2026"
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s08",
+   "text": "التاريخ: 08/01/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 30,
@@ -57,24 +65,26 @@
     "segment_id": "s02",
     "span": [
      9,
-     17
+     15
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "الأنصاري",
-    "english_full": "Al Ansari",
+    "arabic_full": "الشهري",
+    "english_full": "al Shehri",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الأنصاري",
+      "arabic": "الشهري",
       "position": "family",
       "english_variants": [
-       "Al Ansari",
-       "al Ansari",
-       "al Ansary"
+       "Al Shehri",
+       "al Shehri",
+       "Al shehri",
+       "al Chahri",
+       "al Shihri"
       ],
-      "english_used": "Al Ansari"
+      "english_used": "al Shehri"
      }
     ],
     "evidence": null
@@ -84,52 +94,73 @@
     "role": "employee",
     "segment_id": "s03",
     "span": [
-     11,
-     29
+     10,
+     36
     ],
     "token_ids": [
      23,
      24,
-     25
+     25,
+     26,
+     27,
+     28
     ],
-    "arabic_full": "علياء مازن القاسمي",
-    "english_full": "Alia Mazen Al Qassemi",
+    "arabic_full": "وليد بن طارق بن سعيد العلي",
+    "english_full": "Waleed Bin Tariq bin Saeed Al Ali",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "علياء",
+      "arabic": "وليد",
       "position": "given",
       "english_variants": [
-       "Alia",
-       "Alyaa",
-       "Alya"
+       "Waleed",
+       "Walid"
       ],
-      "english_used": "Alia"
-     },
-     {
-      "token_id": 24,
-      "arabic": "مازن",
-      "position": "middle",
-      "english_variants": [
-       "Mazen",
-       "Mazin"
-      ],
-      "english_used": "Mazen"
+      "english_used": "Waleed"
      },
      {
       "token_id": 25,
-      "arabic": "القاسمي",
+      "arabic": "طارق",
+      "position": "middle",
+      "english_variants": [
+       "Tariq",
+       "Tareq",
+       "Tarek",
+       "Tarik",
+       "Tareg"
+      ],
+      "english_used": "Tariq"
+     },
+     {
+      "token_id": 27,
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Saeed"
+     },
+     {
+      "token_id": 28,
+      "arabic": "العلي",
       "position": "family",
       "english_variants": [
-       "Al Qasimi",
-       "Al Qassimi",
-       "Al Qassemi",
-       "al Qasimi",
-       "al Qassimi",
-       "Al Qasmi",
-       "Al Qassmi"
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
       ],
-      "english_used": "Al Qassemi"
+      "english_used": "Al Ali"
      }
     ],
     "evidence": null
@@ -139,58 +170,76 @@
     "role": "signatory",
     "segment_id": "s05",
     "span": [
-     17,
-     36
+     18,
+     39
     ],
     "token_ids": [
-     54,
-     55,
-     56,
-     57
+     57,
+     58,
+     59,
+     60
     ],
-    "arabic_full": "حسن بن يوسف الجابري",
-    "english_full": "Hassan bin Yousef Al Jabri",
+    "arabic_full": "سارة محمد طه الحميدين",
+    "english_full": "Sarah Mohammed Taha al Hamidin",
     "tokens": [
      {
-      "token_id": 54,
-      "arabic": "حسن",
+      "token_id": 57,
+      "arabic": "سارة",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Sarah",
+       "Sara"
       ],
-      "english_used": "Hassan"
+      "english_used": "Sarah"
      },
      {
-      "token_id": 56,
-      "arabic": "يوسف",
+      "token_id": 58,
+      "arabic": "محمد",
       "position": "middle",
       "english_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef",
-       "YOUSEF"
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
       ],
-      "english_used": "Yousef"
+      "english_used": "Mohammed"
      },
      {
-      "token_id": 57,
-      "arabic": "الجابري",
+      "token_id": 59,
+      "arabic": "طه",
+      "position": "middle",
+      "english_variants": [
+       "Taha"
+      ],
+      "english_used": "Taha"
+     },
+     {
+      "token_id": 60,
+      "arabic": "الحميدين",
       "position": "family",
       "english_variants": [
-       "Al Jabri",
-       "Al Gabri"
+       "Al Hamidin",
+       "al Hamidin",
+       "al Humaideen",
+       "al Humaydin"
       ],
-      "english_used": "Al Jabri"
+      "english_used": "al Hamidin"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Sarah Mohammed Taha al Hamidin"
+    }
    }
   ],
   "neutral_token_ids": [

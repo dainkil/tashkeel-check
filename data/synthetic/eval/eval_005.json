@@ -4,6 +4,8 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,27 +13,27 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 09/11/2026 حضر أمام الكاتب العدل السيدة بدرية بنت داود بن ناصر الحويدر، قطرية الجنسية، وتحمل جواز سفر رقم V5135501."
+   "text": "إنه في يوم 10/01/2026 حضر أمام الكاتب العدل السيد خلفان فيصل الدوسري، إماراتي الجنسية، ويحمل جواز سفر رقم G7121869."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفتها مديرة لشركة الفرحان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 785385، وعنوانها الشارقة، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الدريبي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 936389، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وقررت أنها وكّلت السيدة استقلال محمد أحمد الخيبري، إماراتية الجنسية، وتحمل بطاقة هوية رقم 46278298."
+   "text": "وقرر أنه وكّل السيدة نوال صالح البحراني، كويتية الجنسية، وتحمل بطاقة هوية رقم 78572343."
   },
   {
    "segment_id": "s05",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: بدرية بنت داود بن ناصر الحويدر"
+   "text": "الموكل: خلفان فيصل الدوسري"
   },
   {
    "segment_id": "s07",
-   "text": "الوكيلة: استقلال محمد أحمد الخيبري"
+   "text": "الوكيلة: نوال صالح البحراني"
   },
   {
    "segment_id": "s08",
@@ -39,7 +41,7 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 5,
@@ -60,71 +62,59 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     51,
-     81
+     50,
+     68
     ],
     "token_ids": [
      11,
      12,
-     13,
-     14,
-     15,
-     16
+     13
     ],
-    "arabic_full": "بدرية بنت داود بن ناصر الحويدر",
-    "english_full": "Badriya Bint Dawud Bin Nasir al Huwaider",
+    "arabic_full": "خلفان فيصل الدوسري",
+    "english_full": "Khalfan Faisel Al Dowsri",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "بدرية",
+      "arabic": "خلفان",
       "position": "given",
       "english_variants": [
-       "Badriya",
-       "Badria",
-       "Badriyah",
-       "Badryah",
-       "Badriyya"
+       "Khalfan",
+       "Khalvan"
       ],
-      "english_used": "Badriya"
+      "english_used": "Khalfan"
+     },
+     {
+      "token_id": 12,
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisel"
      },
      {
       "token_id": 13,
-      "arabic": "داود",
-      "position": "middle",
-      "english_variants": [
-       "Dawood",
-       "Dawoud",
-       "Daoud",
-       "Dawud"
-      ],
-      "english_used": "Dawud"
-     },
-     {
-      "token_id": 15,
-      "arabic": "ناصر",
-      "position": "middle",
-      "english_variants": [
-       "Nasser",
-       "Naser",
-       "Nasir",
-       "Nassir",
-       "Nasr",
-       "nasser",
-       "Naceur",
-       "Naseer",
-       "Nassar"
-      ],
-      "english_used": "Nasir"
-     },
-     {
-      "token_id": 16,
-      "arabic": "الحويدر",
+      "arabic": "الدوسري",
       "position": "family",
       "english_variants": [
-       "al Huwaider",
-       "Al Huwaider"
+       "Al Dosari",
+       "Al Dossari",
+       "Al Dawsari",
+       "Al Dossary",
+       "Al Doseri",
+       "al Dosari",
+       "al Dawsari",
+       "Dossary",
+       "Dawsari",
+       "Al Dowsri",
+       "Dausary"
       ],
-      "english_used": "al Huwaider"
+      "english_used": "Al Dowsri"
      }
     ],
     "evidence": null
@@ -138,20 +128,20 @@
      31
     ],
     "token_ids": [
-     29
+     26
     ],
-    "arabic_full": "الفرحان",
-    "english_full": "Al Farhan",
+    "arabic_full": "الدريبي",
+    "english_full": "al Daribi",
     "tokens": [
      {
-      "token_id": 29,
-      "arabic": "الفرحان",
+      "token_id": 26,
+      "arabic": "الدريبي",
       "position": "family",
       "english_variants": [
-       "Al Farhan",
-       "al Farhan"
+       "al Daribi",
+       "Al Doraibi"
       ],
-      "english_used": "Al Farhan"
+      "english_used": "al Daribi"
      }
     ],
     "evidence": null
@@ -161,74 +151,49 @@
     "role": "agent",
     "segment_id": "s04",
     "span": [
-     24,
-     49
+     21,
+     39
     ],
     "token_ids": [
-     51,
-     52,
-     53,
-     54
+     48,
+     49,
+     50
     ],
-    "arabic_full": "استقلال محمد أحمد الخيبري",
-    "english_full": "Istiqlal Mohammed Ahmed Al Khaibari",
+    "arabic_full": "نوال صالح البحراني",
+    "english_full": "Nawal Saleh Al Bahrani",
     "tokens": [
      {
-      "token_id": 51,
-      "arabic": "استقلال",
+      "token_id": 48,
+      "arabic": "نوال",
       "position": "given",
       "english_variants": [
-       "Istiqlal"
+       "Nawal",
+       "Nawaal",
+       "Nawa",
+       "Nawwal"
       ],
-      "english_used": "Istiqlal"
+      "english_used": "Nawal"
      },
      {
-      "token_id": 52,
-      "arabic": "محمد",
+      "token_id": 49,
+      "arabic": "صالح",
       "position": "middle",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Mohammed"
+      "english_used": "Saleh"
      },
      {
-      "token_id": 53,
-      "arabic": "أحمد",
-      "position": "middle",
-      "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
-      ],
-      "english_used": "Ahmed"
-     },
-     {
-      "token_id": 54,
-      "arabic": "الخيبري",
+      "token_id": 50,
+      "arabic": "البحراني",
       "position": "family",
       "english_variants": [
-       "Al Khaibari",
-       "Al Kaebari",
-       "Al Khaibri"
+       "Al Bahrani",
+       "al Bahrani"
       ],
-      "english_used": "Al Khaibari"
+      "english_used": "Al Bahrani"
      }
     ],
     "evidence": null
@@ -238,71 +203,59 @@
     "role": "principal",
     "segment_id": "s06",
     "span": [
-     9,
-     39
+     8,
+     26
     ],
     "token_ids": [
-     78,
-     79,
-     80,
-     81,
-     82,
-     83
+     74,
+     75,
+     76
     ],
-    "arabic_full": "بدرية بنت داود بن ناصر الحويدر",
-    "english_full": "Badriya Bint Dawud Bin Nasir al Huwaider",
+    "arabic_full": "خلفان فيصل الدوسري",
+    "english_full": "Khalfan Faisel Al Dowsri",
     "tokens": [
      {
-      "token_id": 78,
-      "arabic": "بدرية",
+      "token_id": 74,
+      "arabic": "خلفان",
       "position": "given",
       "english_variants": [
-       "Badriya",
-       "Badria",
-       "Badriyah",
-       "Badryah",
-       "Badriyya"
+       "Khalfan",
+       "Khalvan"
       ],
-      "english_used": "Badriya"
+      "english_used": "Khalfan"
      },
      {
-      "token_id": 80,
-      "arabic": "داود",
+      "token_id": 75,
+      "arabic": "فيصل",
       "position": "middle",
       "english_variants": [
-       "Dawood",
-       "Dawoud",
-       "Daoud",
-       "Dawud"
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
       ],
-      "english_used": "Dawud"
+      "english_used": "Faisel"
      },
      {
-      "token_id": 82,
-      "arabic": "ناصر",
-      "position": "middle",
-      "english_variants": [
-       "Nasser",
-       "Naser",
-       "Nasir",
-       "Nassir",
-       "Nasr",
-       "nasser",
-       "Naceur",
-       "Naseer",
-       "Nassar"
-      ],
-      "english_used": "Nasir"
-     },
-     {
-      "token_id": 83,
-      "arabic": "الحويدر",
+      "token_id": 76,
+      "arabic": "الدوسري",
       "position": "family",
       "english_variants": [
-       "al Huwaider",
-       "Al Huwaider"
+       "Al Dosari",
+       "Al Dossari",
+       "Al Dawsari",
+       "Al Dossary",
+       "Al Doseri",
+       "al Dosari",
+       "al Dawsari",
+       "Dossary",
+       "Dawsari",
+       "Al Dowsri",
+       "Dausary"
       ],
-      "english_used": "al Huwaider"
+      "english_used": "Al Dowsri"
      }
     ],
     "evidence": null
@@ -313,89 +266,64 @@
     "segment_id": "s07",
     "span": [
      9,
-     34
+     27
     ],
     "token_ids": [
-     85,
-     86,
-     87,
-     88
+     78,
+     79,
+     80
     ],
-    "arabic_full": "استقلال محمد أحمد الخيبري",
-    "english_full": "Istiqlal Mohammed Ahmed Al Khaibari",
+    "arabic_full": "نوال صالح البحراني",
+    "english_full": "Nawal Saleh Al Bahrani",
     "tokens": [
      {
-      "token_id": 85,
-      "arabic": "استقلال",
+      "token_id": 78,
+      "arabic": "نوال",
       "position": "given",
       "english_variants": [
-       "Istiqlal"
+       "Nawal",
+       "Nawaal",
+       "Nawa",
+       "Nawwal"
       ],
-      "english_used": "Istiqlal"
+      "english_used": "Nawal"
      },
      {
-      "token_id": 86,
-      "arabic": "محمد",
+      "token_id": 79,
+      "arabic": "صالح",
       "position": "middle",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Mohammed"
+      "english_used": "Saleh"
      },
      {
-      "token_id": 87,
-      "arabic": "أحمد",
-      "position": "middle",
-      "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
-      ],
-      "english_used": "Ahmed"
-     },
-     {
-      "token_id": 88,
-      "arabic": "الخيبري",
+      "token_id": 80,
+      "arabic": "البحراني",
       "position": "family",
       "english_variants": [
-       "Al Khaibari",
-       "Al Kaebari",
-       "Al Khaibri"
+       "Al Bahrani",
+       "al Bahrani"
       ],
-      "english_used": "Al Khaibari"
+      "english_used": "Al Bahrani"
      }
     ],
     "evidence": null
    }
   ],
   "neutral_token_ids": [
-   32,
-   33,
+   29,
+   30,
+   31,
    34,
-   37,
-   38,
-   39,
-   43,
-   44,
-   45,
-   46
+   35,
+   36,
+   40,
+   41,
+   42,
+   43
   ]
  }
 }

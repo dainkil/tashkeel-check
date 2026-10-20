@@ -4,6 +4,8 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
  "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +13,31 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة العلياني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 676369، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الدوسري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 940754، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيد تركي بن طارق المسلمي، قطري الجنسية، ويحمل جواز سفر رقم P1231424، يعمل لديها بوظيفة مندوب مبيعات منذ 17/11/2026."
+   "text": "بأن السيدة حصة يحيى الشريف، بحرينية الجنسية، وتحمل جواز سفر رقم F2782180، تعمل لديها بوظيفة مهندسة منذ 18/10/2026."
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s05",
-   "text": "المفوضة بالتوقيع: خديجة بنت فيصل العبيدان"
+   "text": "المفوض بالتوقيع: موسى حسين الصباح"
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مديرة"
+   "text": "الصفة: مدير"
   },
   {
    "segment_id": "s07",
-   "text": "التاريخ: 25/04/2026"
+   "text": "التاريخ: 10/11/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 1001,
   "split": "dev",
   "index": 8,
@@ -57,23 +59,32 @@
     "segment_id": "s02",
     "span": [
      9,
-     17
+     16
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "العلياني",
-    "english_full": "Al Olayani",
+    "arabic_full": "الدوسري",
+    "english_full": "Al Dawsari",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "العلياني",
+      "arabic": "الدوسري",
       "position": "family",
       "english_variants": [
-       "Al Olayani",
-       "Al Aliany"
+       "Al Dosari",
+       "Al Dossari",
+       "Al Dawsari",
+       "Al Dossary",
+       "Al Doseri",
+       "al Dosari",
+       "al Dawsari",
+       "Dossary",
+       "Dawsari",
+       "Al Dowsri",
+       "Dausary"
       ],
-      "english_used": "Al Olayani"
+      "english_used": "Al Dawsari"
      }
     ],
     "evidence": null
@@ -83,50 +94,51 @@
     "role": "employee",
     "segment_id": "s03",
     "span": [
-     10,
-     30
+     11,
+     26
     ],
     "token_ids": [
      23,
      24,
-     25,
-     26
+     25
     ],
-    "arabic_full": "تركي بن طارق المسلمي",
-    "english_full": "Turki Bin Tarek Al Maslami",
+    "arabic_full": "حصة يحيى الشريف",
+    "english_full": "Hessa Yahya al Sharif",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "تركي",
+      "arabic": "حصة",
       "position": "given",
       "english_variants": [
-       "Turki",
-       "Turky",
-       "Turkee"
+       "Hessa",
+       "Hissa",
+       "Hussa",
+       "Hessah"
       ],
-      "english_used": "Turki"
+      "english_used": "Hessa"
+     },
+     {
+      "token_id": 24,
+      "arabic": "يحيى",
+      "position": "middle",
+      "english_variants": [
+       "Yahya",
+       "Yahia"
+      ],
+      "english_used": "Yahya"
      },
      {
       "token_id": 25,
-      "arabic": "طارق",
-      "position": "middle",
-      "english_variants": [
-       "Tariq",
-       "Tareq",
-       "Tarek",
-       "Tarik",
-       "Tareg"
-      ],
-      "english_used": "Tarek"
-     },
-     {
-      "token_id": 26,
-      "arabic": "المسلمي",
+      "arabic": "الشريف",
       "position": "family",
       "english_variants": [
-       "Al Maslami"
+       "Al Sherif",
+       "Al Shareef",
+       "al Sharif",
+       "Al Sheriff",
+       "Al Sharif"
       ],
-      "english_used": "Al Maslami"
+      "english_used": "al Sharif"
      }
     ],
     "evidence": null
@@ -136,52 +148,57 @@
     "role": "signatory",
     "segment_id": "s05",
     "span": [
-     18,
-     41
+     17,
+     33
     ],
     "token_ids": [
-     56,
-     57,
-     58,
-     59
+     54,
+     55,
+     56
     ],
-    "arabic_full": "خديجة بنت فيصل العبيدان",
-    "english_full": "Khadija bint Fesal Al Obaidan",
+    "arabic_full": "موسى حسين الصباح",
+    "english_full": "Moussa Husain Al Sabah",
     "tokens": [
      {
-      "token_id": 56,
-      "arabic": "خديجة",
+      "token_id": 54,
+      "arabic": "موسى",
       "position": "given",
       "english_variants": [
-       "Khadija",
-       "Khadeeja",
-       "Kadeeja",
-       "Khadijah"
+       "Musa",
+       "Mousa",
+       "Moosa",
+       "Moussa"
       ],
-      "english_used": "Khadija"
+      "english_used": "Moussa"
      },
      {
-      "token_id": 58,
-      "arabic": "فيصل",
+      "token_id": 55,
+      "arabic": "حسين",
       "position": "middle",
       "english_variants": [
-       "Faisal",
-       "Faisel",
-       "Faysal",
-       "Fesal",
-       "Feisal",
-       "Fessul"
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
       ],
-      "english_used": "Fesal"
+      "english_used": "Husain"
      },
      {
-      "token_id": 59,
-      "arabic": "العبيدان",
+      "token_id": 56,
+      "arabic": "الصباح",
       "position": "family",
       "english_variants": [
-       "Al Obaidan"
+       "Al Sabah",
+       "al Sabah"
       ],
-      "english_used": "Al Obaidan"
+      "english_used": "Al Sabah"
      }
     ],
     "evidence": null

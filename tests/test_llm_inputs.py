@@ -33,7 +33,8 @@ PROMPT_HASHES = {
 }
 OUTPUT_SCHEMA_SHA = "309023d8e869b43e"
 ANALYZE_TOOL_SHA = "ccd52b8087fddf37"
-USER_MESSAGES_SHA = {"fakeanalyzer": "33a58b27b079d9e0", "camel": "f25918a967fbc2de"}
+# 사용자 메시지는 dev 문서로 만든다. 2026-10-20 합성 문서 synthetic-v1로 바꾸며 갱신(ADR-014). 위 세 해시는 그대로다
+USER_MESSAGES_SHA = {"fakeanalyzer": "beef1349540a797b", "camel": "81bb195d7668886c"}
 
 
 def _sha(data: Any) -> str:

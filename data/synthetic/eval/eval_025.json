@@ -4,6 +4,12 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "agent",
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,27 +17,27 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 21/03/2026 حضر أمام الكاتب العدل السيد ماجد محمد اليافعي، كويتي الجنسية، ويحمل جواز سفر رقم G8948225."
+   "text": "إنه في يوم 21/03/2026 حضر أمام الكاتب العدل السيد سامي بن عارف الأحمري، كويتي الجنسية، ويحمل جواز سفر رقم G8948225."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Majed Mohammed El Yafi, Passport No. G8948225"
+   "text": "Principal: Sami bin Aref al Ahmari, Passport No. G8948225"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة الدربي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 173302، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الدرمكي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 173302، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Derbi General Trading L.L.C., Registration No. 173302"
+   "text": "Company: Al Darmaki General Trading L.L.C., Registration No. 173302"
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة فاطمة بنت فهد الموسوي، كويتية الجنسية، وتحمل بطاقة هوية رقم 57261907."
+   "text": "وقرر أنه وكّل السيد عمر بن محمد الموسوي، كويتي الجنسية، ويحمل بطاقة هوية رقم 57261907."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Fatima bint Fahad Al Mosawi, ID No. 57261907"
+   "text": "Attorney: Omar bin Mohammed Al Mosawi, ID No. 57261907"
   },
   {
    "segment_id": "s08",
@@ -39,11 +45,11 @@
   },
   {
    "segment_id": "s09",
-   "text": "الموكل: ماجد محمد اليافعي"
+   "text": "الموكل: سامي بن عارف الأحمري"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: فاطمة بنت فهد الموسوي"
+   "text": "الوكيل: عمر بن محمد الموسوي"
   },
   {
    "segment_id": "s11",
@@ -51,7 +57,7 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 25,
@@ -73,64 +79,51 @@
     "segment_id": "s02",
     "span": [
      50,
-     67
+     70
     ],
     "token_ids": [
      11,
      12,
-     13
+     13,
+     14
     ],
-    "arabic_full": "ماجد محمد اليافعي",
-    "english_full": "Majed Mohammed El Yafi",
+    "arabic_full": "سامي بن عارف الأحمري",
+    "english_full": "Sami bin Aref al Ahmari",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "ماجد",
+      "arabic": "سامي",
       "position": "given",
       "english_variants": [
-       "Majed",
-       "Majid",
-       "Magid",
-       "Madjid"
+       "Sami",
+       "sami"
       ],
-      "english_used": "Majed"
-     },
-     {
-      "token_id": 12,
-      "arabic": "محمد",
-      "position": "middle",
-      "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
-      ],
-      "english_used": "Mohammed"
+      "english_used": "Sami"
      },
      {
       "token_id": 13,
-      "arabic": "اليافعي",
+      "arabic": "عارف",
+      "position": "middle",
+      "english_variants": [
+       "Aref",
+       "Arif"
+      ],
+      "english_used": "Aref"
+     },
+     {
+      "token_id": 14,
+      "arabic": "الأحمري",
       "position": "family",
       "english_variants": [
-       "El Yafi",
-       "Al Yafei"
+       "al Ahmari",
+       "Al Ahmari"
       ],
-      "english_used": "El Yafi"
+      "english_used": "al Ahmari"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Majed Mohammed El Yafi"
+     "quote": "Sami bin Aref al Ahmari"
     }
    },
    {
@@ -139,28 +132,27 @@
     "segment_id": "s04",
     "span": [
      24,
-     30
+     31
     ],
     "token_ids": [
-     35
+     37
     ],
-    "arabic_full": "الدربي",
-    "english_full": "Al Derbi",
+    "arabic_full": "الدرمكي",
+    "english_full": "Al Darmaki",
     "tokens": [
      {
-      "token_id": 35,
-      "arabic": "الدربي",
+      "token_id": 37,
+      "arabic": "الدرمكي",
       "position": "family",
       "english_variants": [
-       "Al Derbi",
-       "al Darbi"
+       "Al Darmaki"
       ],
-      "english_used": "Al Derbi"
+      "english_used": "Al Darmaki"
      }
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "Al Derbi General Trading"
+     "quote": "Al Darmaki General Trading"
     }
    },
    {
@@ -168,93 +160,34 @@
     "role": "agent",
     "segment_id": "s06",
     "span": [
-     21,
-     42
+     20,
+     39
     ],
     "token_ids": [
-     66,
-     67,
      68,
-     69
+     69,
+     70,
+     71
     ],
-    "arabic_full": "فاطمة بنت فهد الموسوي",
-    "english_full": "Fatima bint Fahad Al Mosawi",
+    "arabic_full": "عمر بن محمد الموسوي",
+    "english_full": "Omar bin Mohammed Al Mosawi",
     "tokens": [
-     {
-      "token_id": 66,
-      "arabic": "فاطمة",
-      "position": "given",
-      "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
-      ],
-      "english_used": "Fatima"
-     },
      {
       "token_id": 68,
-      "arabic": "فهد",
-      "position": "middle",
-      "english_variants": [
-       "Fahad",
-       "Fahd",
-       "Fahed",
-       "Al Fahad",
-       "Fahid"
-      ],
-      "english_used": "Fahad"
-     },
-     {
-      "token_id": 69,
-      "arabic": "الموسوي",
-      "position": "family",
-      "english_variants": [
-       "Al Musawi",
-       "Al Mosawi",
-       "al Musawi",
-       "Al Moussawi",
-       "Al Mousawi"
-      ],
-      "english_used": "Al Mosawi"
-     }
-    ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Fatima bint Fahad Al Mosawi"
-    }
-   },
-   {
-    "occurrence_id": "n4",
-    "role": "principal",
-    "segment_id": "s09",
-    "span": [
-     8,
-     25
-    ],
-    "token_ids": [
-     102,
-     103,
-     104
-    ],
-    "arabic_full": "ماجد محمد اليافعي",
-    "english_full": "Majed Mohammed El Yafi",
-    "tokens": [
-     {
-      "token_id": 102,
-      "arabic": "ماجد",
+      "arabic": "عمر",
       "position": "given",
       "english_variants": [
-       "Majed",
-       "Majid",
-       "Magid",
-       "Madjid"
+       "Omar",
+       "Omer",
+       "Umar",
+       "Amr",
+       "Ismaeel",
+       "Umer"
       ],
-      "english_used": "Majed"
+      "english_used": "Omar"
      },
      {
-      "token_id": 103,
+      "token_id": 70,
       "arabic": "محمد",
       "position": "middle",
       "english_variants": [
@@ -276,66 +209,7 @@
       "english_used": "Mohammed"
      },
      {
-      "token_id": 104,
-      "arabic": "اليافعي",
-      "position": "family",
-      "english_variants": [
-       "El Yafi",
-       "Al Yafei"
-      ],
-      "english_used": "El Yafi"
-     }
-    ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Majed Mohammed El Yafi"
-    }
-   },
-   {
-    "occurrence_id": "n5",
-    "role": "agent",
-    "segment_id": "s10",
-    "span": [
-     9,
-     30
-    ],
-    "token_ids": [
-     106,
-     107,
-     108,
-     109
-    ],
-    "arabic_full": "فاطمة بنت فهد الموسوي",
-    "english_full": "Fatima bint Fahad Al Mosawi",
-    "tokens": [
-     {
-      "token_id": 106,
-      "arabic": "فاطمة",
-      "position": "given",
-      "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
-      ],
-      "english_used": "Fatima"
-     },
-     {
-      "token_id": 108,
-      "arabic": "فهد",
-      "position": "middle",
-      "english_variants": [
-       "Fahad",
-       "Fahd",
-       "Fahed",
-       "Al Fahad",
-       "Fahid"
-      ],
-      "english_used": "Fahad"
-     },
-     {
-      "token_id": 109,
+      "token_id": 71,
       "arabic": "الموسوي",
       "position": "family",
       "english_variants": [
@@ -350,21 +224,146 @@
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Fatima bint Fahad Al Mosawi"
+     "quote": "Omar bin Mohammed Al Mosawi"
+    }
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "segment_id": "s09",
+    "span": [
+     8,
+     28
+    ],
+    "token_ids": [
+     104,
+     105,
+     106,
+     107
+    ],
+    "arabic_full": "سامي بن عارف الأحمري",
+    "english_full": "Sami bin Aref al Ahmari",
+    "tokens": [
+     {
+      "token_id": 104,
+      "arabic": "سامي",
+      "position": "given",
+      "english_variants": [
+       "Sami",
+       "sami"
+      ],
+      "english_used": "Sami"
+     },
+     {
+      "token_id": 106,
+      "arabic": "عارف",
+      "position": "middle",
+      "english_variants": [
+       "Aref",
+       "Arif"
+      ],
+      "english_used": "Aref"
+     },
+     {
+      "token_id": 107,
+      "arabic": "الأحمري",
+      "position": "family",
+      "english_variants": [
+       "al Ahmari",
+       "Al Ahmari"
+      ],
+      "english_used": "al Ahmari"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Sami bin Aref al Ahmari"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s10",
+    "span": [
+     8,
+     27
+    ],
+    "token_ids": [
+     109,
+     110,
+     111,
+     112
+    ],
+    "arabic_full": "عمر بن محمد الموسوي",
+    "english_full": "Omar bin Mohammed Al Mosawi",
+    "tokens": [
+     {
+      "token_id": 109,
+      "arabic": "عمر",
+      "position": "given",
+      "english_variants": [
+       "Omar",
+       "Omer",
+       "Umar",
+       "Amr",
+       "Ismaeel",
+       "Umer"
+      ],
+      "english_used": "Omar"
+     },
+     {
+      "token_id": 111,
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed"
+     },
+     {
+      "token_id": 112,
+      "arabic": "الموسوي",
+      "position": "family",
+      "english_variants": [
+       "Al Musawi",
+       "Al Mosawi",
+       "al Musawi",
+       "Al Moussawi",
+       "Al Mousawi"
+      ],
+      "english_used": "Al Mosawi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Omar bin Mohammed Al Mosawi"
     }
    }
   ],
   "neutral_token_ids": [
-   38,
-   39,
    40,
-   43,
-   44,
+   41,
+   42,
    45,
-   49,
-   50,
+   46,
+   47,
    51,
-   52
+   52,
+   53,
+   54
   ]
  }
 }

@@ -3,7 +3,12 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +16,39 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الغربي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 919869، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة السليم للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 575649، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة إيمان سلمان القشطة، كويتية الجنسية، وتحمل جواز سفر رقم C4081447، تعمل لديها بوظيفة مندوبة مبيعات منذ 09/12/2026."
+   "text": "Company: al Salim General Trading L.L.C., Registration No. 575649"
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+   "text": "بأن السيد عدنان فهد سبيت الحساوي، كويتي الجنسية، ويحمل جواز سفر رقم Z5996660، يعمل لديها بوظيفة مهندس منذ 04/06/2026."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: سطام محمد المشعان"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "المفوضة بالتوقيع: منى فايز الرويلي"
   },
   {
    "segment_id": "s07",
-   "text": "التاريخ: 10/04/2026"
+   "text": "Authorized signatory: Muna Fayez Al Ruwaili"
+  },
+  {
+   "segment_id": "s08",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s09",
+   "text": "التاريخ: 07/10/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 12,
@@ -62,66 +75,87 @@
     "token_ids": [
      3
     ],
-    "arabic_full": "الغربي",
-    "english_full": "Al Gharbi",
+    "arabic_full": "السليم",
+    "english_full": "al Salim",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الغربي",
+      "arabic": "السليم",
       "position": "family",
       "english_variants": [
-       "Al Gharbi"
+       "al Salim",
+       "Al Saleem",
+       "al Saleem",
+       "Al Selim",
+       "Al Sulim",
+       "Al Sulaim"
       ],
-      "english_used": "Al Gharbi"
+      "english_used": "al Salim"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "al Salim General Trading"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
-     11,
-     29
+     10,
+     32
     ],
     "token_ids": [
-     23,
-     24,
-     25
+     32,
+     33,
+     34,
+     35
     ],
-    "arabic_full": "إيمان سلمان القشطة",
-    "english_full": "Iman Salman Al Qeshtah",
+    "arabic_full": "عدنان فهد سبيت الحساوي",
+    "english_full": "Adnan Fahed Subait Al Hsawi",
     "tokens": [
      {
-      "token_id": 23,
-      "arabic": "إيمان",
+      "token_id": 32,
+      "arabic": "عدنان",
       "position": "given",
       "english_variants": [
-       "Eman",
-       "Iman",
-       "Eiman"
+       "Adnan"
       ],
-      "english_used": "Iman"
+      "english_used": "Adnan"
      },
      {
-      "token_id": 24,
-      "arabic": "سلمان",
+      "token_id": 33,
+      "arabic": "فهد",
       "position": "middle",
       "english_variants": [
-       "Salman",
-       "Selman"
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
       ],
-      "english_used": "Salman"
+      "english_used": "Fahed"
      },
      {
-      "token_id": 25,
-      "arabic": "القشطة",
+      "token_id": 34,
+      "arabic": "سبيت",
+      "position": "middle",
+      "english_variants": [
+       "Subait"
+      ],
+      "english_used": "Subait"
+     },
+     {
+      "token_id": 35,
+      "arabic": "الحساوي",
       "position": "family",
       "english_variants": [
-       "Al Qeshtah"
+       "Al Hasawi",
+       "Al Hassawi",
+       "Al Hsawi"
       ],
-      "english_used": "Al Qeshtah"
+      "english_used": "Al Hsawi"
      }
     ],
     "evidence": null
@@ -129,63 +163,59 @@
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s06",
     "span": [
-     17,
+     18,
      34
     ],
     "token_ids": [
-     55,
-     56,
-     57
+     64,
+     65,
+     66
     ],
-    "arabic_full": "سطام محمد المشعان",
-    "english_full": "Sattam Mohammed Mashaan",
+    "arabic_full": "منى فايز الرويلي",
+    "english_full": "Muna Fayez Al Ruwaili",
     "tokens": [
      {
-      "token_id": 55,
-      "arabic": "سطام",
+      "token_id": 64,
+      "arabic": "منى",
       "position": "given",
       "english_variants": [
-       "Sattam",
-       "Satam"
+       "Mona",
+       "Muna",
+       "muna",
+       "Mana"
       ],
-      "english_used": "Sattam"
+      "english_used": "Muna"
      },
      {
-      "token_id": 56,
-      "arabic": "محمد",
+      "token_id": 65,
+      "arabic": "فايز",
       "position": "middle",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Fayez",
+       "Faiz",
+       "Fayiz",
+       "Fayz"
       ],
-      "english_used": "Mohammed"
+      "english_used": "Fayez"
      },
      {
-      "token_id": 57,
-      "arabic": "المشعان",
+      "token_id": 66,
+      "arabic": "الرويلي",
       "position": "family",
       "english_variants": [
-       "Mashaan",
-       "al Masha'an"
+       "Al Ruwaili",
+       "Al Rwuily",
+       "Al Ruwailli"
       ],
-      "english_used": "Mashaan"
+      "english_used": "Al Ruwaili"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Muna Fayez Al Ruwaili"
+    }
    }
   ],
   "neutral_token_ids": [

@@ -4,6 +4,12 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
  "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "company",
+  "employee",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +17,31 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الأحمد للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 311131، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الصباح للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 452424، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Ahmad General Trading L.L.C., Registration No. 311131"
+   "text": "Company: Al Sabah General Trading L.L.C., Registration No. 452424"
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيد فريد ناصر باسل الحربي، عماني الجنسية، ويحمل جواز سفر رقم D6877356، يعمل لديها بوظيفة محاسب منذ 14/07/2026."
+   "text": "بأن السيدة مها محمد عطا السليم، بحرينية الجنسية، وتحمل جواز سفر رقم Y2952564، تعمل لديها بوظيفة مندوبة مبيعات منذ 25/11/2026."
   },
   {
    "segment_id": "s05",
-   "text": "Employee: Farid Nasser Basil Al Harbi, Passport No. D6877356"
+   "text": "Employee: Maha Muhammad Atta al Salim, Passport No. Y2952564"
   },
   {
    "segment_id": "s06",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s07",
-   "text": "المفوض بالتوقيع: يوسف راشد البلوشي"
+   "text": "المفوض بالتوقيع: سلطان بن شاهين بن بدر القنيعان"
   },
   {
    "segment_id": "s08",
-   "text": "Authorized signatory: Yusuf Rashed Al Beloushi"
+   "text": "Authorized signatory: Sultan bin Shahin Bin Badr Al Qunayan"
   },
   {
    "segment_id": "s09",
@@ -43,11 +49,11 @@
   },
   {
    "segment_id": "s10",
-   "text": "التاريخ: 02/11/2026"
+   "text": "التاريخ: 07/02/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 14,
@@ -74,25 +80,23 @@
     "token_ids": [
      3
     ],
-    "arabic_full": "الأحمد",
-    "english_full": "Al Ahmad",
+    "arabic_full": "الصباح",
+    "english_full": "Al Sabah",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الأحمد",
+      "arabic": "الصباح",
       "position": "family",
       "english_variants": [
-       "Al Ahmad",
-       "Al Ahmed",
-       "Ahmad",
-       "al Ahmad"
+       "Al Sabah",
+       "al Sabah"
       ],
-      "english_used": "Al Ahmad"
+      "english_used": "Al Sabah"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Al Ahmad General Trading"
+     "quote": "Al Sabah General Trading"
     }
    },
    {
@@ -100,8 +104,8 @@
     "role": "employee",
     "segment_id": "s04",
     "span": [
-     10,
-     31
+     11,
+     30
     ],
     "token_ids": [
      32,
@@ -109,63 +113,68 @@
      34,
      35
     ],
-    "arabic_full": "فريد ناصر باسل الحربي",
-    "english_full": "Farid Nasser Basil Al Harbi",
+    "arabic_full": "مها محمد عطا السليم",
+    "english_full": "Maha Muhammad Atta al Salim",
     "tokens": [
      {
       "token_id": 32,
-      "arabic": "فريد",
+      "arabic": "مها",
       "position": "given",
       "english_variants": [
-       "Farid",
-       "Fareed"
+       "Maha"
       ],
-      "english_used": "Farid"
+      "english_used": "Maha"
      },
      {
       "token_id": 33,
-      "arabic": "ناصر",
+      "arabic": "محمد",
       "position": "middle",
       "english_variants": [
-       "Nasser",
-       "Naser",
-       "Nasir",
-       "Nassir",
-       "Nasr",
-       "nasser",
-       "Naceur",
-       "Naseer",
-       "Nassar"
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
       ],
-      "english_used": "Nasser"
+      "english_used": "Muhammad"
      },
      {
       "token_id": 34,
-      "arabic": "باسل",
+      "arabic": "عطا",
       "position": "middle",
       "english_variants": [
-       "Basil",
-       "Basel"
+       "Atta",
+       "Ata"
       ],
-      "english_used": "Basil"
+      "english_used": "Atta"
      },
      {
       "token_id": 35,
-      "arabic": "الحربي",
+      "arabic": "السليم",
       "position": "family",
       "english_variants": [
-       "Al Harbi",
-       "al Harbi",
-       "Al Harby",
-       "El Harby",
-       "El Harbi"
+       "al Salim",
+       "Al Saleem",
+       "al Saleem",
+       "Al Selim",
+       "Al Sulim",
+       "Al Sulaim"
       ],
-      "english_used": "Al Harbi"
+      "english_used": "al Salim"
      }
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "Farid Nasser Basil Al Harbi"
+     "quote": "Maha Muhammad Atta al Salim"
     }
    },
    {
@@ -174,67 +183,67 @@
     "segment_id": "s07",
     "span": [
      17,
-     34
+     47
     ],
     "token_ids": [
-     74,
      75,
-     76
+     76,
+     77,
+     78,
+     79,
+     80
     ],
-    "arabic_full": "يوسف راشد البلوشي",
-    "english_full": "Yusuf Rashed Al Beloushi",
+    "arabic_full": "سلطان بن شاهين بن بدر القنيعان",
+    "english_full": "Sultan bin Shahin Bin Badr Al Qunayan",
     "tokens": [
      {
-      "token_id": 74,
-      "arabic": "يوسف",
+      "token_id": 75,
+      "arabic": "سلطان",
       "position": "given",
       "english_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef",
-       "YOUSEF"
+       "Sultan",
+       "Al Sharji",
+       "Sultsn"
       ],
-      "english_used": "Yusuf"
+      "english_used": "Sultan"
      },
      {
-      "token_id": 75,
-      "arabic": "راشد",
+      "token_id": 77,
+      "arabic": "شاهين",
       "position": "middle",
       "english_variants": [
-       "Rashid",
-       "Rashed",
-       "Rasheed"
+       "Shaheen",
+       "Shahin",
+       "Shahen"
       ],
-      "english_used": "Rashed"
+      "english_used": "Shahin"
      },
      {
-      "token_id": 76,
-      "arabic": "البلوشي",
+      "token_id": 79,
+      "arabic": "بدر",
+      "position": "middle",
+      "english_variants": [
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
+      ],
+      "english_used": "Badr"
+     },
+     {
+      "token_id": 80,
+      "arabic": "القنيعان",
       "position": "family",
       "english_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
+       "Al Qunayan",
+       "Al Qunaian"
       ],
-      "english_used": "Al Beloushi"
+      "english_used": "Al Qunayan"
      }
     ],
     "evidence": {
      "segment_id": "s08",
-     "quote": "Yusuf Rashed Al Beloushi"
+     "quote": "Sultan bin Shahin Bin Badr Al Qunayan"
     }
    }
   ],

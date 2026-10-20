@@ -3,7 +3,9 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": true,
+ "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,43 +13,31 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة السليم للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 655170، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة النعيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 304792، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Saleem General Trading L.L.C., Registration No. 655170"
+   "text": "بأن السيدة سمية بنت محمد بن حسن البراق، كويتية الجنسية، وتحمل جواز سفر رقم E8440663، تعمل لديها بوظيفة مهندسة منذ 10/09/2026."
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيدة أسماء بنت جاذوب البراشدي، سعودية الجنسية، وتحمل جواز سفر رقم F4276672، تعمل لديها بوظيفة مهندسة منذ 21/11/2026."
-  },
-  {
-   "segment_id": "s05",
-   "text": "Employee: Asma bint Jathob Al Barashdy, Passport No. F4276672"
-  },
-  {
-   "segment_id": "s06",
    "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
+   "segment_id": "s05",
+   "text": "المفوض بالتوقيع: نايف بن داويت الشيب"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الصفة: مدير"
+  },
+  {
    "segment_id": "s07",
-   "text": "المفوضة بالتوقيع: مرام بنت ناصر بن فيصل الزعابي"
-  },
-  {
-   "segment_id": "s08",
-   "text": "Authorized signatory: Maram Bint Naser Bin Faisel Al Zaabi"
-  },
-  {
-   "segment_id": "s09",
-   "text": "الصفة: مديرة"
-  },
-  {
-   "segment_id": "s10",
-   "text": "التاريخ: 12/11/2026"
+   "text": "التاريخ: 21/11/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 28,
@@ -69,158 +59,156 @@
     "segment_id": "s02",
     "span": [
      9,
-     15
+     16
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "السليم",
-    "english_full": "Al Saleem",
+    "arabic_full": "النعيمي",
+    "english_full": "Al Nuaimi",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "السليم",
+      "arabic": "النعيمي",
       "position": "family",
       "english_variants": [
-       "al Salim",
-       "Al Saleem",
-       "al Saleem",
-       "Al Selim",
-       "Al Sulim",
-       "Al Sulaim"
+       "Al Nuaimi",
+       "Al Naimi",
+       "Al Noaimi",
+       "al Naimi"
       ],
-      "english_used": "Al Saleem"
+      "english_used": "Al Nuaimi"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Al Saleem General Trading"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      11,
-     35
+     38
     ],
     "token_ids": [
-     32,
-     33,
-     34,
-     35
+     23,
+     24,
+     25,
+     26,
+     27,
+     28
     ],
-    "arabic_full": "أسماء بنت جاذوب البراشدي",
-    "english_full": "Asma bint Jathob Al Barashdy",
+    "arabic_full": "سمية بنت محمد بن حسن البراق",
+    "english_full": "Somaya bint Mohammed bin Hassan Al Barraq",
     "tokens": [
      {
-      "token_id": 32,
-      "arabic": "أسماء",
+      "token_id": 23,
+      "arabic": "سمية",
       "position": "given",
       "english_variants": [
-       "Asma",
-       "Asmaa"
+       "Somaya",
+       "Sumayyah",
+       "Somayya",
+       "Sumaya"
       ],
-      "english_used": "Asma"
+      "english_used": "Somaya"
      },
      {
-      "token_id": 34,
-      "arabic": "جاذوب",
+      "token_id": 25,
+      "arabic": "محمد",
       "position": "middle",
       "english_variants": [
-       "Jathob"
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
       ],
-      "english_used": "Jathob"
+      "english_used": "Mohammed"
      },
      {
-      "token_id": 35,
-      "arabic": "البراشدي",
+      "token_id": 27,
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan"
+     },
+     {
+      "token_id": 28,
+      "arabic": "البراق",
       "position": "family",
       "english_variants": [
-       "Al Barashdy"
+       "Al Barraq"
       ],
-      "english_used": "Al Barashdy"
+      "english_used": "Al Barraq"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Asma bint Jathob Al Barashdy"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s07",
+    "segment_id": "s05",
     "span": [
-     18,
-     47
+     17,
+     36
     ],
     "token_ids": [
-     74,
-     75,
-     76,
-     77,
-     78,
-     79
+     57,
+     58,
+     59,
+     60
     ],
-    "arabic_full": "مرام بنت ناصر بن فيصل الزعابي",
-    "english_full": "Maram Bint Naser Bin Faisel Al Zaabi",
+    "arabic_full": "نايف بن داويت الشيب",
+    "english_full": "Naif Bin Dawit Al Sheeb",
     "tokens": [
      {
-      "token_id": 74,
-      "arabic": "مرام",
+      "token_id": 57,
+      "arabic": "نايف",
       "position": "given",
       "english_variants": [
-       "Maram"
+       "Nayef",
+       "Naif",
+       "Nayif"
       ],
-      "english_used": "Maram"
+      "english_used": "Naif"
      },
      {
-      "token_id": 76,
-      "arabic": "ناصر",
+      "token_id": 59,
+      "arabic": "داويت",
       "position": "middle",
       "english_variants": [
-       "Nasser",
-       "Naser",
-       "Nasir",
-       "Nassir",
-       "Nasr",
-       "nasser",
-       "Naceur",
-       "Naseer",
-       "Nassar"
+       "Dawit"
       ],
-      "english_used": "Naser"
+      "english_used": "Dawit"
      },
      {
-      "token_id": 78,
-      "arabic": "فيصل",
-      "position": "middle",
-      "english_variants": [
-       "Faisal",
-       "Faisel",
-       "Faysal",
-       "Fesal",
-       "Feisal",
-       "Fessul"
-      ],
-      "english_used": "Faisel"
-     },
-     {
-      "token_id": 79,
-      "arabic": "الزعابي",
+      "token_id": 60,
+      "arabic": "الشيب",
       "position": "family",
       "english_variants": [
-       "Al Zaabi"
+       "Al Sheib",
+       "Al Sheeb",
+       "Al Sheebi"
       ],
-      "english_used": "Al Zaabi"
+      "english_used": "Al Sheeb"
      }
     ],
-    "evidence": {
-     "segment_id": "s08",
-     "quote": "Maram Bint Naser Bin Faisel Al Zaabi"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [

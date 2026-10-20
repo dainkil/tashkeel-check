@@ -4,6 +4,8 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
  "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,11 +13,11 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة العبدلي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 550292، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة العبدان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 550292، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة لولوة بنت ماجد المنوري، بحرينية الجنسية، وتحمل جواز سفر رقم K4943260، تعمل لديها بوظيفة مهندسة منذ 03/06/2026."
+   "text": "بأن السيدة ليلى سحيم زايد الفايز، بحرينية الجنسية، وتحمل جواز سفر رقم K4943260، تعمل لديها بوظيفة مهندسة منذ 03/06/2026."
   },
   {
    "segment_id": "s04",
@@ -23,11 +25,11 @@
   },
   {
    "segment_id": "s05",
-   "text": "المفوضة بالتوقيع: حميدة متعب المهدي"
+   "text": "المفوض بالتوقيع: حسين محبوب المهدي"
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مديرة"
+   "text": "الصفة: مدير"
   },
   {
    "segment_id": "s07",
@@ -35,7 +37,7 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 16,
@@ -62,18 +64,17 @@
     "token_ids": [
      3
     ],
-    "arabic_full": "العبدلي",
-    "english_full": "Al Abdeli",
+    "arabic_full": "العبدان",
+    "english_full": "Al Abdan",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "العبدلي",
+      "arabic": "العبدان",
       "position": "family",
       "english_variants": [
-       "Al Abdali",
-       "Al Abdeli"
+       "Al Abdan"
       ],
-      "english_used": "Al Abdeli"
+      "english_used": "Al Abdan"
      }
     ],
     "evidence": null
@@ -84,7 +85,7 @@
     "segment_id": "s03",
     "span": [
      11,
-     33
+     32
     ],
     "token_ids": [
      23,
@@ -92,44 +93,49 @@
      25,
      26
     ],
-    "arabic_full": "لولوة بنت ماجد المنوري",
-    "english_full": "Lulwah bint Majed Al Manwari",
+    "arabic_full": "ليلى سحيم زايد الفايز",
+    "english_full": "Laila Suhaim Zayed Al Fayez",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "لولوة",
+      "arabic": "ليلى",
       "position": "given",
       "english_variants": [
-       "Lulwa",
-       "Lulwah",
-       "Lolwah",
-       "Lola",
-       "Lulowa",
-       "Lolwa",
-       "Luluwah"
+       "Laila",
+       "Layla"
       ],
-      "english_used": "Lulwah"
+      "english_used": "Laila"
+     },
+     {
+      "token_id": 24,
+      "arabic": "سحيم",
+      "position": "middle",
+      "english_variants": [
+       "Suhaim"
+      ],
+      "english_used": "Suhaim"
      },
      {
       "token_id": 25,
-      "arabic": "ماجد",
+      "arabic": "زايد",
       "position": "middle",
       "english_variants": [
-       "Majed",
-       "Majid",
-       "Magid",
-       "Madjid"
+       "Zayed",
+       "Zaid",
+       "Zahed"
       ],
-      "english_used": "Majed"
+      "english_used": "Zayed"
      },
      {
       "token_id": 26,
-      "arabic": "المنوري",
+      "arabic": "الفايز",
       "position": "family",
       "english_variants": [
-       "Al Manwari"
+       "Al Fayez",
+       "al Fayez",
+       "Al Faiz"
       ],
-      "english_used": "Al Manwari"
+      "english_used": "Al Fayez"
      }
     ],
     "evidence": null
@@ -139,40 +145,45 @@
     "role": "signatory",
     "segment_id": "s05",
     "span": [
-     18,
-     35
+     17,
+     34
     ],
     "token_ids": [
      55,
      56,
      57
     ],
-    "arabic_full": "حميدة متعب المهدي",
-    "english_full": "Hemida Mutaeb Al Mahdi",
+    "arabic_full": "حسين محبوب المهدي",
+    "english_full": "Hussain Mahboob Al Mahdi",
     "tokens": [
      {
       "token_id": 55,
-      "arabic": "حميدة",
+      "arabic": "حسين",
       "position": "given",
       "english_variants": [
-       "Hamida",
-       "Hemida",
-       "Hemeida"
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
       ],
-      "english_used": "Hemida"
+      "english_used": "Hussain"
      },
      {
       "token_id": 56,
-      "arabic": "متعب",
+      "arabic": "محبوب",
       "position": "middle",
       "english_variants": [
-       "Muteb",
-       "Mutaeb",
-       "Mutab",
-       "Moteb",
-       "Mutaib"
+       "Mahboob",
+       "Mahboub"
       ],
-      "english_used": "Mutaeb"
+      "english_used": "Mahboob"
      },
      {
       "token_id": 57,

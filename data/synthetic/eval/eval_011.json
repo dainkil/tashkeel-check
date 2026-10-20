@@ -4,6 +4,11 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "agent",
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +16,43 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 26/12/2026 حضر أمام الكاتب العدل السيدة طراد كاظم الشعيبي، بحرينية الجنسية، وتحمل جواز سفر رقم C4626369."
+   "text": "إنه في يوم 26/12/2026 حضر أمام الكاتب العدل السيد أحمد عارف الصايغ، بحريني الجنسية، ويحمل جواز سفر رقم C4626369."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Trad Kazem al Shuebi, Passport No. C4626369"
+   "text": "وذلك بصفته مديرًا لشركة القطامي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 206894، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفتها مديرة لشركة القرني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 206894، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "Company: Al Qatami General Trading L.L.C., Registration No. 206894"
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Qarni General Trading L.L.C., Registration No. 206894"
+   "text": "وقرر أنه وكّل السيدة عهد بنت مطر الجاسر، عمانية الجنسية، وتحمل بطاقة هوية رقم 24388053."
   },
   {
    "segment_id": "s06",
-   "text": "وقررت أنها وكّلت السيدة نوف محمد المطيري، عمانية الجنسية، وتحمل بطاقة هوية رقم 24388053."
+   "text": "Attorney: Ahad Bint Mattar Al Jassir, ID No. 24388053"
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Nouf Muhammad Al Mutairi, ID No. 24388053"
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الموكل: أحمد عارف الصايغ"
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: طراد كاظم الشعيبي"
+   "text": "الوكيلة: عهد بنت مطر الجاسر"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: نوف محمد المطيري"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 11,
@@ -72,293 +73,257 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     51,
-     68
+     50,
+     66
     ],
     "token_ids": [
      11,
      12,
      13
     ],
-    "arabic_full": "طراد كاظم الشعيبي",
-    "english_full": "Trad Kazem al Shuebi",
+    "arabic_full": "أحمد عارف الصايغ",
+    "english_full": "Ahmed Arif Al Sayegh",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "طراد",
+      "arabic": "أحمد",
       "position": "given",
       "english_variants": [
-       "Trad"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Trad"
+      "english_used": "Ahmed"
      },
      {
       "token_id": 12,
-      "arabic": "كاظم",
+      "arabic": "عارف",
       "position": "middle",
       "english_variants": [
-       "Kazem",
-       "Kathem",
-       "Kadim",
-       "Kazim",
-       "Kadhim",
-       "Kadhem"
+       "Aref",
+       "Arif"
       ],
-      "english_used": "Kazem"
+      "english_used": "Arif"
      },
      {
       "token_id": 13,
-      "arabic": "الشعيبي",
+      "arabic": "الصايغ",
       "position": "family",
       "english_variants": [
-       "Al Shuaibi",
-       "al Shuebi",
-       "Al Shuaiby",
-       "Al Shoaibi"
+       "Al Sayegh"
       ],
-      "english_used": "al Shuebi"
+      "english_used": "Al Sayegh"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Trad Kazem al Shuebi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
-     30
+     31
     ],
     "token_ids": [
-     35
+     26
     ],
-    "arabic_full": "القرني",
-    "english_full": "Al Qarni",
+    "arabic_full": "القطامي",
+    "english_full": "Al Qatami",
     "tokens": [
      {
-      "token_id": 35,
-      "arabic": "القرني",
+      "token_id": 26,
+      "arabic": "القطامي",
       "position": "family",
       "english_variants": [
-       "Al Qarni",
-       "Al Garni",
-       "al Qarni",
-       "Al Karni"
+       "Al Qatami",
+       "Qatami"
       ],
-      "english_used": "Al Qarni"
+      "english_used": "Al Qatami"
      }
     ],
     "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Qarni General Trading"
+     "segment_id": "s04",
+     "quote": "Al Qatami General Trading"
     }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s05",
     "span": [
-     24,
-     40
+     21,
+     39
     ],
     "token_ids": [
-     66,
-     67,
-     68
+     57,
+     58,
+     59,
+     60
     ],
-    "arabic_full": "نوف محمد المطيري",
-    "english_full": "Nouf Muhammad Al Mutairi",
+    "arabic_full": "عهد بنت مطر الجاسر",
+    "english_full": "Ahad Bint Mattar Al Jassir",
     "tokens": [
      {
-      "token_id": 66,
-      "arabic": "نوف",
+      "token_id": 57,
+      "arabic": "عهد",
       "position": "given",
       "english_variants": [
-       "Nouf",
-       "Noof"
+       "Ahad",
+       "Ahd"
       ],
-      "english_used": "Nouf"
+      "english_used": "Ahad"
      },
      {
-      "token_id": 67,
-      "arabic": "محمد",
+      "token_id": 59,
+      "arabic": "مطر",
       "position": "middle",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Matar",
+       "Mattar"
       ],
-      "english_used": "Muhammad"
+      "english_used": "Mattar"
      },
      {
-      "token_id": 68,
-      "arabic": "المطيري",
+      "token_id": 60,
+      "arabic": "الجاسر",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Al Jassir",
+       "al Jasser",
+       "Al Jasser"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Al Jassir"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Nouf Muhammad Al Mutairi"
+     "segment_id": "s06",
+     "quote": "Ahad Bint Mattar Al Jassir"
     }
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s08",
     "span": [
-     9,
-     26
+     8,
+     24
     ],
     "token_ids": [
-     100,
-     101,
-     102
+     93,
+     94,
+     95
     ],
-    "arabic_full": "طراد كاظم الشعيبي",
-    "english_full": "Trad Kazem al Shuebi",
+    "arabic_full": "أحمد عارف الصايغ",
+    "english_full": "Ahmed Arif Al Sayegh",
     "tokens": [
      {
-      "token_id": 100,
-      "arabic": "طراد",
+      "token_id": 93,
+      "arabic": "أحمد",
       "position": "given",
       "english_variants": [
-       "Trad"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Trad"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 101,
-      "arabic": "كاظم",
+      "token_id": 94,
+      "arabic": "عارف",
       "position": "middle",
       "english_variants": [
-       "Kazem",
-       "Kathem",
-       "Kadim",
-       "Kazim",
-       "Kadhim",
-       "Kadhem"
+       "Aref",
+       "Arif"
       ],
-      "english_used": "Kazem"
+      "english_used": "Arif"
      },
      {
-      "token_id": 102,
-      "arabic": "الشعيبي",
+      "token_id": 95,
+      "arabic": "الصايغ",
       "position": "family",
       "english_variants": [
-       "Al Shuaibi",
-       "al Shuebi",
-       "Al Shuaiby",
-       "Al Shoaibi"
+       "Al Sayegh"
       ],
-      "english_used": "al Shuebi"
+      "english_used": "Al Sayegh"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Trad Kazem al Shuebi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s09",
     "span": [
      9,
-     25
+     27
     ],
     "token_ids": [
-     104,
-     105,
-     106
+     97,
+     98,
+     99,
+     100
     ],
-    "arabic_full": "نوف محمد المطيري",
-    "english_full": "Nouf Muhammad Al Mutairi",
+    "arabic_full": "عهد بنت مطر الجاسر",
+    "english_full": "Ahad Bint Mattar Al Jassir",
     "tokens": [
      {
-      "token_id": 104,
-      "arabic": "نوف",
+      "token_id": 97,
+      "arabic": "عهد",
       "position": "given",
       "english_variants": [
-       "Nouf",
-       "Noof"
+       "Ahad",
+       "Ahd"
       ],
-      "english_used": "Nouf"
+      "english_used": "Ahad"
      },
      {
-      "token_id": 105,
-      "arabic": "محمد",
+      "token_id": 99,
+      "arabic": "مطر",
       "position": "middle",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Matar",
+       "Mattar"
       ],
-      "english_used": "Muhammad"
+      "english_used": "Mattar"
      },
      {
-      "token_id": 106,
-      "arabic": "المطيري",
+      "token_id": 100,
+      "arabic": "الجاسر",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Al Jassir",
+       "al Jasser",
+       "Al Jasser"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Al Jassir"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Nouf Muhammad Al Mutairi"
+     "segment_id": "s06",
+     "quote": "Ahad Bint Mattar Al Jassir"
     }
    }
   ],
   "neutral_token_ids": [
-   38,
-   39,
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
    40,
-   43,
-   44,
-   45,
-   49,
-   50,
-   51,
-   52
+   41,
+   42,
+   43
   ]
  }
 }

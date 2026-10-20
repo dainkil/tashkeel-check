@@ -54,16 +54,26 @@ def test_gold_token_ids_point_at_the_named_tokens(tmp_path):
             assert tokens[tid]["script"] == "ar"
 
 
-def test_evidence_exists_only_in_bilingual_docs_and_is_quoted_verbatim(tmp_path):
+def test_evidence_exists_only_for_evidence_roles_and_is_quoted_verbatim(tmp_path):
     for doc in _gen(tmp_path, n=10):
         seg_text = {s["segment_id"]: s["text"] for s in doc["segments"]}
+        assert doc["bilingual"] == bool(doc["evidence_roles"])
         for occ in doc["gold"]["names"]:
-            if doc["bilingual"]:
+            if occ["role"] in doc["evidence_roles"]:
                 ev = occ["evidence"]
                 assert ev["quote"] in seg_text[ev["segment_id"]]
                 assert all(tk["english_used"] in ev["quote"] for tk in occ["tokens"])
             else:
                 assert occ["evidence"] is None
+
+
+def test_layouts_are_balanced_per_doc_type_and_mixed_docs_mix(tmp_path):
+    docs = _gen(tmp_path, n=6)
+    for doc_type in ("poa", "company_letter"):
+        assert sorted(d["evidence_layout"] for d in docs if d["doc_type"] == doc_type) == ["all", "mixed", "none"]
+    for doc in docs:
+        has_ev = {occ["evidence"] is not None for occ in doc["gold"]["names"]}
+        assert has_ev == {"none": {False}, "mixed": {True, False}, "all": {True}}[doc["evidence_layout"]]
 
 
 def test_no_generated_full_name_exists_in_wikidata(tmp_path):

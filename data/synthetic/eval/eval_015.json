@@ -4,6 +4,10 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +15,39 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 17/04/2026 حضر أمام الكاتب العدل السيد تقي بن إبراهيم العمير، عماني الجنسية، ويحمل جواز سفر رقم Y1320363."
+   "text": "إنه في يوم 05/04/2026 حضر أمام الكاتب العدل السيدة لؤلؤة يوسف الجاسم، كويتية الجنسية، وتحمل جواز سفر رقم F7244001."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Taqi bin Ebrahim Al Omair, Passport No. Y1320363"
+   "text": "وذلك بصفتها مديرة لشركة الرشيد للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 120022، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة الشهراني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 334320، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "Company: al Rashid General Trading L.L.C., Registration No. 120022"
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Shahrani General Trading L.L.C., Registration No. 334320"
+   "text": "وقررت أنها وكّلت السيد أحمد نذير منصور البلوشي، بحريني الجنسية، ويحمل بطاقة هوية رقم 98213758."
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة ايف صالح الغسرة، قطرية الجنسية، وتحمل بطاقة هوية رقم 28650969."
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Eve Saleh Al Gassra, ID No. 28650969"
+   "text": "الموكلة: لؤلؤة يوسف الجاسم"
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الوكيل: أحمد نذير منصور البلوشي"
   },
   {
    "segment_id": "s09",
-   "text": "الموكل: تقي بن إبراهيم العمير"
-  },
-  {
-   "segment_id": "s10",
-   "text": "الوكيلة: ايف صالح الغسرة"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 15,
@@ -72,263 +68,319 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
-     71
+     51,
+     68
     ],
     "token_ids": [
      11,
      12,
-     13,
-     14
+     13
     ],
-    "arabic_full": "تقي بن إبراهيم العمير",
-    "english_full": "Taqi bin Ebrahim Al Omair",
+    "arabic_full": "لؤلؤة يوسف الجاسم",
+    "english_full": "Luluwah Yousef Al Jasem",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "تقي",
+      "arabic": "لؤلؤة",
       "position": "given",
       "english_variants": [
-       "Taqi"
+       "Luluwah"
       ],
-      "english_used": "Taqi"
+      "english_used": "Luluwah"
+     },
+     {
+      "token_id": 12,
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
      },
      {
       "token_id": 13,
-      "arabic": "إبراهيم",
-      "position": "middle",
-      "english_variants": [
-       "Ibrahim",
-       "Ebrahim",
-       "Ibrahem",
-       "Ibrahmi",
-       "Ibraheem",
-       "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
-      ],
-      "english_used": "Ebrahim"
-     },
-     {
-      "token_id": 14,
-      "arabic": "العمير",
+      "arabic": "الجاسم",
       "position": "family",
       "english_variants": [
-       "Al Omair",
-       "Al Omeir"
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jassem",
+       "al Jasim",
+       "Al Jassam",
+       "al Jasem"
       ],
-      "english_used": "Al Omair"
+      "english_used": "Al Jasem"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Taqi bin Ebrahim Al Omair"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
-     32
+     30
     ],
     "token_ids": [
-     37
+     26
     ],
-    "arabic_full": "الشهراني",
-    "english_full": "Al Shahrani",
+    "arabic_full": "الرشيد",
+    "english_full": "al Rashid",
     "tokens": [
      {
-      "token_id": 37,
-      "arabic": "الشهراني",
+      "token_id": 26,
+      "arabic": "الرشيد",
       "position": "family",
       "english_variants": [
-       "Al Shahrani",
-       "Al Shahaaan"
+       "Al Rasheed",
+       "al Rashid",
+       "Rasheed",
+       "Al Rashid",
+       "al Rasheed",
+       "Al Rushaid",
+       "Al Rashaid",
+       "Al Rashed"
       ],
-      "english_used": "Al Shahrani"
+      "english_used": "al Rashid"
      }
     ],
     "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Shahrani General Trading"
+     "segment_id": "s04",
+     "quote": "al Rashid General Trading"
     }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s05",
     "span": [
-     21,
-     36
+     23,
+     46
     ],
     "token_ids": [
-     68,
-     69,
-     70
+     57,
+     58,
+     59,
+     60
     ],
-    "arabic_full": "ايف صالح الغسرة",
-    "english_full": "Eve Saleh Al Gassra",
+    "arabic_full": "أحمد نذير منصور البلوشي",
+    "english_full": "Ahmed Nadhir Mansour Al Balushi",
     "tokens": [
      {
-      "token_id": 68,
-      "arabic": "ايف",
+      "token_id": 57,
+      "arabic": "أحمد",
       "position": "given",
       "english_variants": [
-       "Eve"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Eve"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 69,
-      "arabic": "صالح",
+      "token_id": 58,
+      "arabic": "نذير",
       "position": "middle",
       "english_variants": [
-       "Saleh",
-       "Salih",
-       "Salem"
+       "Nadhir"
       ],
-      "english_used": "Saleh"
+      "english_used": "Nadhir"
      },
      {
-      "token_id": 70,
-      "arabic": "الغسرة",
+      "token_id": 59,
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour"
+     },
+     {
+      "token_id": 60,
+      "arabic": "البلوشي",
       "position": "family",
       "english_variants": [
-       "Al Ghasra",
-       "Al Gassra"
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
       ],
-      "english_used": "Al Gassra"
+      "english_used": "Al Balushi"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Eve Saleh Al Gassra"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s07",
     "span": [
-     8,
-     29
+     9,
+     26
     ],
     "token_ids": [
-     102,
-     103,
-     104,
-     105
+     84,
+     85,
+     86
     ],
-    "arabic_full": "تقي بن إبراهيم العمير",
-    "english_full": "Taqi bin Ebrahim Al Omair",
+    "arabic_full": "لؤلؤة يوسف الجاسم",
+    "english_full": "Luluwah Yousef Al Jasem",
     "tokens": [
      {
-      "token_id": 102,
-      "arabic": "تقي",
+      "token_id": 84,
+      "arabic": "لؤلؤة",
       "position": "given",
       "english_variants": [
-       "Taqi"
+       "Luluwah"
       ],
-      "english_used": "Taqi"
+      "english_used": "Luluwah"
      },
      {
-      "token_id": 104,
-      "arabic": "إبراهيم",
+      "token_id": 85,
+      "arabic": "يوسف",
       "position": "middle",
       "english_variants": [
-       "Ibrahim",
-       "Ebrahim",
-       "Ibrahem",
-       "Ibrahmi",
-       "Ibraheem",
-       "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
       ],
-      "english_used": "Ebrahim"
+      "english_used": "Yousef"
      },
      {
-      "token_id": 105,
-      "arabic": "العمير",
+      "token_id": 86,
+      "arabic": "الجاسم",
       "position": "family",
       "english_variants": [
-       "Al Omair",
-       "Al Omeir"
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jassem",
+       "al Jasim",
+       "Al Jassam",
+       "al Jasem"
       ],
-      "english_used": "Al Omair"
+      "english_used": "Al Jasem"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Taqi bin Ebrahim Al Omair"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s08",
     "span": [
-     9,
-     24
+     8,
+     31
     ],
     "token_ids": [
-     107,
-     108,
-     109
+     88,
+     89,
+     90,
+     91
     ],
-    "arabic_full": "ايف صالح الغسرة",
-    "english_full": "Eve Saleh Al Gassra",
+    "arabic_full": "أحمد نذير منصور البلوشي",
+    "english_full": "Ahmed Nadhir Mansour Al Balushi",
     "tokens": [
      {
-      "token_id": 107,
-      "arabic": "ايف",
+      "token_id": 88,
+      "arabic": "أحمد",
       "position": "given",
       "english_variants": [
-       "Eve"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Eve"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 108,
-      "arabic": "صالح",
+      "token_id": 89,
+      "arabic": "نذير",
       "position": "middle",
       "english_variants": [
-       "Saleh",
-       "Salih",
-       "Salem"
+       "Nadhir"
       ],
-      "english_used": "Saleh"
+      "english_used": "Nadhir"
      },
      {
-      "token_id": 109,
-      "arabic": "الغسرة",
+      "token_id": 90,
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour"
+     },
+     {
+      "token_id": 91,
+      "arabic": "البلوشي",
       "position": "family",
       "english_variants": [
-       "Al Ghasra",
-       "Al Gassra"
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
       ],
-      "english_used": "Al Gassra"
+      "english_used": "Al Balushi"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Eve Saleh Al Gassra"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
    40,
    41,
    42,
-   45,
-   46,
-   47,
-   51,
-   52,
-   53,
-   54
+   43
   ]
  }
 }

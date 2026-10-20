@@ -4,6 +4,10 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,43 +15,35 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة البراشدي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 852220، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الربيع للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 531105، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Barashdy General Trading L.L.C., Registration No. 852220"
+   "text": "Company: Al Rabiea General Trading L.L.C., Registration No. 531105"
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيد محمد كمال معمر الداهي، إماراتي الجنسية، ويحمل جواز سفر رقم R5041084، يعمل لديها بوظيفة محاسب منذ 24/11/2026."
+   "text": "بأن السيدة عائشة بنت علي الجناحي، إماراتية الجنسية، وتحمل جواز سفر رقم D5311976، تعمل لديها بوظيفة مهندسة منذ 24/08/2026."
   },
   {
    "segment_id": "s05",
-   "text": "Employee: Mohammed Kamal Muammar Al Dahi, Passport No. R5041084"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "المفوضة بالتوقيع: العنود حمد القاسمي"
   },
   {
    "segment_id": "s07",
-   "text": "المفوض بالتوقيع: موسى حاتم الشنقيطي"
+   "text": "الصفة: مديرة"
   },
   {
    "segment_id": "s08",
-   "text": "Authorized signatory: Mousa Hatem Shenqeeti"
-  },
-  {
-   "segment_id": "s09",
-   "text": "الصفة: مدير"
-  },
-  {
-   "segment_id": "s10",
-   "text": "التاريخ: 22/08/2026"
+   "text": "التاريخ: 01/03/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 1001,
   "split": "dev",
   "index": 4,
@@ -69,27 +65,27 @@
     "segment_id": "s02",
     "span": [
      9,
-     17
+     15
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "البراشدي",
-    "english_full": "Al Barashdy",
+    "arabic_full": "الربيع",
+    "english_full": "Al Rabiea",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "البراشدي",
+      "arabic": "الربيع",
       "position": "family",
       "english_variants": [
-       "Al Barashdy"
+       "Al Rabiea"
       ],
-      "english_used": "Al Barashdy"
+      "english_used": "Al Rabiea"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Al Barashdy General Trading"
+     "quote": "Al Rabiea General Trading"
     }
    },
    {
@@ -97,8 +93,8 @@
     "role": "employee",
     "segment_id": "s04",
     "span": [
-     10,
-     31
+     11,
+     32
     ],
     "token_ids": [
      32,
@@ -106,127 +102,105 @@
      34,
      35
     ],
-    "arabic_full": "محمد كمال معمر الداهي",
-    "english_full": "Mohammed Kamal Muammar Al Dahi",
+    "arabic_full": "عائشة بنت علي الجناحي",
+    "english_full": "Aisha Bint Ali al Janahi",
     "tokens": [
      {
       "token_id": 32,
-      "arabic": "محمد",
+      "arabic": "عائشة",
       "position": "given",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Aisha",
+       "Aiysha",
+       "Ayesha"
       ],
-      "english_used": "Mohammed"
-     },
-     {
-      "token_id": 33,
-      "arabic": "كمال",
-      "position": "middle",
-      "english_variants": [
-       "Kamal"
-      ],
-      "english_used": "Kamal"
+      "english_used": "Aisha"
      },
      {
       "token_id": 34,
-      "arabic": "معمر",
+      "arabic": "علي",
       "position": "middle",
       "english_variants": [
-       "Muamer",
-       "Moamar",
-       "Muaammar",
-       "Al Muaammar",
-       "Muammar"
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
       ],
-      "english_used": "Muammar"
+      "english_used": "Ali"
      },
      {
       "token_id": 35,
-      "arabic": "الداهي",
+      "arabic": "الجناحي",
       "position": "family",
       "english_variants": [
-       "Al Dahi"
+       "Al Janahi",
+       "Janahi",
+       "al Janahi"
       ],
-      "english_used": "Al Dahi"
+      "english_used": "al Janahi"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Mohammed Kamal Muammar Al Dahi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s07",
+    "segment_id": "s06",
     "span": [
-     17,
-     35
+     18,
+     36
     ],
     "token_ids": [
-     74,
-     75,
-     76
+     64,
+     65,
+     66
     ],
-    "arabic_full": "موسى حاتم الشنقيطي",
-    "english_full": "Mousa Hatem Shenqeeti",
+    "arabic_full": "العنود حمد القاسمي",
+    "english_full": "Alanoud Hamad Al Qassemi",
     "tokens": [
      {
-      "token_id": 74,
-      "arabic": "موسى",
+      "token_id": 64,
+      "arabic": "العنود",
       "position": "given",
       "english_variants": [
-       "Musa",
-       "Mousa",
-       "Moosa",
-       "Moussa"
+       "Alanoud",
+       "Al Anoud",
+       "Al Anood",
+       "Anoud"
       ],
-      "english_used": "Mousa"
+      "english_used": "Alanoud"
      },
      {
-      "token_id": 75,
-      "arabic": "حاتم",
+      "token_id": 65,
+      "arabic": "حمد",
       "position": "middle",
       "english_variants": [
-       "Hatem",
-       "Hatim"
+       "Hamad",
+       "Hamed"
       ],
-      "english_used": "Hatem"
+      "english_used": "Hamad"
      },
      {
-      "token_id": 76,
-      "arabic": "الشنقيطي",
+      "token_id": 66,
+      "arabic": "القاسمي",
       "position": "family",
       "english_variants": [
-       "Al Shanqiti",
-       "Al Shanqeeti",
-       "Shenqeeti",
-       "Shengeeti",
-       "Al Shengeeti",
-       "Al Shangeati",
-       "Al Shankiti",
-       "Shanqeeti"
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
       ],
-      "english_used": "Shenqeeti"
+      "english_used": "Al Qassemi"
      }
     ],
-    "evidence": {
-     "segment_id": "s08",
-     "quote": "Mousa Hatem Shenqeeti"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [

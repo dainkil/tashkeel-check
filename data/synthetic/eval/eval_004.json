@@ -3,7 +3,9 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": true,
+ "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,43 +13,31 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الفرحان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 381057، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الشمري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 942896، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Farhan General Trading L.L.C., Registration No. 381057"
+   "text": "بأن السيد محمد خميس الأحمدي، كويتي الجنسية، ويحمل جواز سفر رقم J1224783، يعمل لديها بوظيفة مندوب مبيعات منذ 10/05/2026."
   },
   {
    "segment_id": "s04",
-   "text": "بأن السيدة منيرة حسن الحرمي، كويتية الجنسية، وتحمل جواز سفر رقم A8138380، تعمل لديها بوظيفة مندوبة مبيعات منذ 19/10/2026."
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s05",
-   "text": "Employee: Munira Hassan Al Harmi, Passport No. A8138380"
+   "text": "المفوض بالتوقيع: راشد ساري الحازمي"
   },
   {
    "segment_id": "s06",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
-  },
-  {
-   "segment_id": "s07",
-   "text": "المفوض بالتوقيع: جمعة موسى الهدلق"
-  },
-  {
-   "segment_id": "s08",
-   "text": "Authorized signatory: Jumaa Musa Al Hadlaq"
-  },
-  {
-   "segment_id": "s09",
    "text": "الصفة: مدير"
   },
   {
-   "segment_id": "s10",
-   "text": "التاريخ: 25/01/2026"
+   "segment_id": "s07",
+   "text": "التاريخ: 05/06/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 2002,
   "split": "eval",
   "index": 4,
@@ -69,143 +59,146 @@
     "segment_id": "s02",
     "span": [
      9,
-     16
+     15
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "الفرحان",
-    "english_full": "Al Farhan",
+    "arabic_full": "الشمري",
+    "english_full": "Al Shammari",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الفرحان",
+      "arabic": "الشمري",
       "position": "family",
       "english_variants": [
-       "Al Farhan",
-       "al Farhan"
+       "Al Shammari",
+       "Al Shammeri",
+       "Al Shameri",
+       "Shahd",
+       "Al Shammary",
+       "Al shammeri",
+       "Salman",
+       "Al Shamri",
+       "Shammari"
       ],
-      "english_used": "Al Farhan"
+      "english_used": "Al Shammari"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Al Farhan General Trading"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
-     11,
+     10,
      27
     ],
     "token_ids": [
-     32,
-     33,
-     34
+     23,
+     24,
+     25
     ],
-    "arabic_full": "منيرة حسن الحرمي",
-    "english_full": "Munira Hassan Al Harmi",
+    "arabic_full": "محمد خميس الأحمدي",
+    "english_full": "Muhammad Khamis Al Ahmadi",
     "tokens": [
      {
-      "token_id": 32,
-      "arabic": "منيرة",
+      "token_id": 23,
+      "arabic": "محمد",
       "position": "given",
       "english_variants": [
-       "Munira",
-       "Munirah",
-       "Muneera",
-       "Munera",
-       "Monira"
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
       ],
-      "english_used": "Munira"
+      "english_used": "Muhammad"
      },
      {
-      "token_id": 33,
-      "arabic": "حسن",
+      "token_id": 24,
+      "arabic": "خميس",
       "position": "middle",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
       ],
-      "english_used": "Hassan"
+      "english_used": "Khamis"
      },
      {
-      "token_id": 34,
-      "arabic": "الحرمي",
+      "token_id": 25,
+      "arabic": "الأحمدي",
       "position": "family",
       "english_variants": [
-       "Al Harmi"
+       "Al Ahmadi",
+       "AlAhmadi"
       ],
-      "english_used": "Al Harmi"
+      "english_used": "Al Ahmadi"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Munira Hassan Al Harmi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s07",
+    "segment_id": "s05",
     "span": [
      17,
-     33
+     34
     ],
     "token_ids": [
-     73,
-     74,
-     75
+     55,
+     56,
+     57
     ],
-    "arabic_full": "جمعة موسى الهدلق",
-    "english_full": "Jumaa Musa Al Hadlaq",
+    "arabic_full": "راشد ساري الحازمي",
+    "english_full": "Rashid Sari Al Hazmi",
     "tokens": [
      {
-      "token_id": 73,
-      "arabic": "جمعة",
+      "token_id": 55,
+      "arabic": "راشد",
       "position": "given",
       "english_variants": [
-       "Juma",
-       "Jumaa",
-       "Jouma",
-       "Jum'ah",
-       "Joma",
-       "Juma'a",
-       "Jumah"
+       "Rashid",
+       "Rashed",
+       "Rasheed"
       ],
-      "english_used": "Jumaa"
+      "english_used": "Rashid"
      },
      {
-      "token_id": 74,
-      "arabic": "موسى",
+      "token_id": 56,
+      "arabic": "ساري",
       "position": "middle",
       "english_variants": [
-       "Musa",
-       "Mousa",
-       "Moosa",
-       "Moussa"
+       "Sari"
       ],
-      "english_used": "Musa"
+      "english_used": "Sari"
      },
      {
-      "token_id": 75,
-      "arabic": "الهدلق",
+      "token_id": 57,
+      "arabic": "الحازمي",
       "position": "family",
       "english_variants": [
-       "Al Hadlaq"
+       "al Hazmi",
+       "al Hazimi",
+       "Al Hazmi"
       ],
-      "english_used": "Al Hadlaq"
+      "english_used": "Al Hazmi"
      }
     ],
-    "evidence": {
-     "segment_id": "s08",
-     "quote": "Jumaa Musa Al Hadlaq"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [

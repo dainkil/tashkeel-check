@@ -3,7 +3,13 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "agent",
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,35 +17,47 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيد مشاري أكرم المهدي، سعودي الجنسية، ويحمل جواز سفر رقم V2694428."
+   "text": "إنه في يوم 05/02/2026 حضر أمام الكاتب العدل السيدة فاطمة أحمد القحطاني، إماراتية الجنسية، وتحمل جواز سفر رقم M3787432."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفته مديرًا لشركة الصباح للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 526387، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "Principal: Fatma Ahmed Al Qahtani, Passport No. M3787432"
   },
   {
    "segment_id": "s04",
-   "text": "وقرر أنه وكّل السيد حسن مقرن البدر، إماراتي الجنسية، ويحمل بطاقة هوية رقم 95401729."
+   "text": "وذلك بصفتها مديرة لشركة الظفيري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 137205، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "Company: Zufayri General Trading L.L.C., Registration No. 137205"
   },
   {
    "segment_id": "s06",
-   "text": "الموكل: مشاري أكرم المهدي"
+   "text": "وقررت أنها وكّلت السيد عامر بن موسى بن مشعل النجادة، قطري الجنسية، ويحمل بطاقة هوية رقم 63655879."
   },
   {
    "segment_id": "s07",
-   "text": "الوكيل: حسن مقرن البدر"
+   "text": "Attorney: Amer bin Mousa Bin Meshaal Al Njeda, ID No. 63655879"
   },
   {
    "segment_id": "s08",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: فاطمة أحمد القحطاني"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: عامر بن موسى بن مشعل النجادة"
+  },
+  {
+   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v1",
   "seed": 1001,
   "split": "dev",
   "index": 1,
@@ -60,246 +78,320 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
-     67
+     51,
+     70
     ],
     "token_ids": [
      11,
      12,
      13
     ],
-    "arabic_full": "مشاري أكرم المهدي",
-    "english_full": "Mishari Akram Mahdi",
+    "arabic_full": "فاطمة أحمد القحطاني",
+    "english_full": "Fatma Ahmed Al Qahtani",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "مشاري",
+      "arabic": "فاطمة",
       "position": "given",
       "english_variants": [
-       "Meshari",
-       "Mashari",
-       "Mishari",
-       "Meshary",
-       "Mishary",
-       "Moshari"
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
       ],
-      "english_used": "Mishari"
+      "english_used": "Fatma"
      },
      {
       "token_id": 12,
-      "arabic": "أكرم",
+      "arabic": "أحمد",
       "position": "middle",
       "english_variants": [
-       "Akram",
-       "al Akram"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Akram"
+      "english_used": "Ahmed"
      },
      {
       "token_id": 13,
-      "arabic": "المهدي",
+      "arabic": "القحطاني",
       "position": "family",
       "english_variants": [
-       "Al Mahdi",
-       "Mahdi"
+       "Al Qahtani",
+       "al Qahtani",
+       "al Kahtani"
       ],
-      "english_used": "Mahdi"
+      "english_used": "Al Qahtani"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Fatma Ahmed Al Qahtani"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
      24,
-     30
+     31
     ],
     "token_ids": [
-     26
+     35
     ],
-    "arabic_full": "الصباح",
-    "english_full": "Al Sabah",
+    "arabic_full": "الظفيري",
+    "english_full": "Zufayri",
     "tokens": [
      {
-      "token_id": 26,
-      "arabic": "الصباح",
+      "token_id": 35,
+      "arabic": "الظفيري",
       "position": "family",
       "english_variants": [
-       "Al Sabah",
-       "al Sabah"
+       "Al Dhefiri",
+       "al Dafiri",
+       "al Dhafiri",
+       "Zufayri",
+       "Al Dhufairi"
       ],
-      "english_used": "Al Sabah"
+      "english_used": "Zufayri"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Zufayri General Trading"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s04",
+    "segment_id": "s06",
     "span": [
-     20,
-     34
+     23,
+     51
     ],
     "token_ids": [
-     48,
-     49,
-     50
+     65,
+     66,
+     67,
+     68,
+     69,
+     70
     ],
-    "arabic_full": "حسن مقرن البدر",
-    "english_full": "Hassan Muqrin El Badr",
+    "arabic_full": "عامر بن موسى بن مشعل النجادة",
+    "english_full": "Amer bin Mousa Bin Meshaal Al Njeda",
     "tokens": [
      {
-      "token_id": 48,
-      "arabic": "حسن",
+      "token_id": 65,
+      "arabic": "عامر",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Amer",
+       "Amir",
+       "Amar",
+       "Obaid",
+       "Aamer"
       ],
-      "english_used": "Hassan"
+      "english_used": "Amer"
      },
      {
-      "token_id": 49,
-      "arabic": "مقرن",
+      "token_id": 67,
+      "arabic": "موسى",
       "position": "middle",
       "english_variants": [
-       "Muqrin"
+       "Musa",
+       "Mousa",
+       "Moosa",
+       "Moussa"
       ],
-      "english_used": "Muqrin"
+      "english_used": "Mousa"
      },
      {
-      "token_id": 50,
-      "arabic": "البدر",
+      "token_id": 69,
+      "arabic": "مشعل",
+      "position": "middle",
+      "english_variants": [
+       "Meshal",
+       "Meshaal",
+       "Mishaal",
+       "Mashal",
+       "Mishal",
+       "Mishel",
+       "Mashel"
+      ],
+      "english_used": "Meshaal"
+     },
+     {
+      "token_id": 70,
+      "arabic": "النجادة",
       "position": "family",
       "english_variants": [
-       "El Badr",
-       "al Badr"
+       "Al Najadah",
+       "Al Najada",
+       "Al Njeda"
       ],
-      "english_used": "El Badr"
+      "english_used": "Al Njeda"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Amer bin Mousa Bin Meshaal Al Njeda"
+    }
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s06",
+    "segment_id": "s09",
     "span": [
-     8,
-     25
+     9,
+     28
     ],
     "token_ids": [
-     74,
-     75,
-     76
+     105,
+     106,
+     107
     ],
-    "arabic_full": "مشاري أكرم المهدي",
-    "english_full": "Mishari Akram Mahdi",
+    "arabic_full": "فاطمة أحمد القحطاني",
+    "english_full": "Fatma Ahmed Al Qahtani",
     "tokens": [
      {
-      "token_id": 74,
-      "arabic": "مشاري",
+      "token_id": 105,
+      "arabic": "فاطمة",
       "position": "given",
       "english_variants": [
-       "Meshari",
-       "Mashari",
-       "Mishari",
-       "Meshary",
-       "Mishary",
-       "Moshari"
+       "Fatima",
+       "Fatma",
+       "Fatimah",
+       "Fatema",
+       "FatimaSaleem"
       ],
-      "english_used": "Mishari"
+      "english_used": "Fatma"
      },
      {
-      "token_id": 75,
-      "arabic": "أكرم",
+      "token_id": 106,
+      "arabic": "أحمد",
       "position": "middle",
       "english_variants": [
-       "Akram",
-       "al Akram"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Akram"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 76,
-      "arabic": "المهدي",
+      "token_id": 107,
+      "arabic": "القحطاني",
       "position": "family",
       "english_variants": [
-       "Al Mahdi",
-       "Mahdi"
+       "Al Qahtani",
+       "al Qahtani",
+       "al Kahtani"
       ],
-      "english_used": "Mahdi"
+      "english_used": "Al Qahtani"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Fatma Ahmed Al Qahtani"
+    }
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s07",
+    "segment_id": "s10",
     "span": [
      8,
-     22
+     36
     ],
     "token_ids": [
-     78,
-     79,
-     80
+     109,
+     110,
+     111,
+     112,
+     113,
+     114
     ],
-    "arabic_full": "حسن مقرن البدر",
-    "english_full": "Hassan Muqrin El Badr",
+    "arabic_full": "عامر بن موسى بن مشعل النجادة",
+    "english_full": "Amer bin Mousa Bin Meshaal Al Njeda",
     "tokens": [
      {
-      "token_id": 78,
-      "arabic": "حسن",
+      "token_id": 109,
+      "arabic": "عامر",
       "position": "given",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Amer",
+       "Amir",
+       "Amar",
+       "Obaid",
+       "Aamer"
       ],
-      "english_used": "Hassan"
+      "english_used": "Amer"
      },
      {
-      "token_id": 79,
-      "arabic": "مقرن",
+      "token_id": 111,
+      "arabic": "موسى",
       "position": "middle",
       "english_variants": [
-       "Muqrin"
+       "Musa",
+       "Mousa",
+       "Moosa",
+       "Moussa"
       ],
-      "english_used": "Muqrin"
+      "english_used": "Mousa"
      },
      {
-      "token_id": 80,
-      "arabic": "البدر",
+      "token_id": 113,
+      "arabic": "مشعل",
+      "position": "middle",
+      "english_variants": [
+       "Meshal",
+       "Meshaal",
+       "Mishaal",
+       "Mashal",
+       "Mishal",
+       "Mishel",
+       "Mashel"
+      ],
+      "english_used": "Meshaal"
+     },
+     {
+      "token_id": 114,
+      "arabic": "النجادة",
       "position": "family",
       "english_variants": [
-       "El Badr",
-       "al Badr"
+       "Al Najadah",
+       "Al Najada",
+       "Al Njeda"
       ],
-      "english_used": "El Badr"
+      "english_used": "Al Njeda"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Amer bin Mousa Bin Meshaal Al Njeda"
+    }
    }
   ],
   "neutral_token_ids": [
-   29,
-   30,
-   31,
-   34,
-   35,
-   36,
+   38,
+   39,
    40,
-   41,
-   42,
-   43
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
   ]
  }
 }
