@@ -1,0 +1,119 @@
+{
+  "experiment": "EXP-001",
+  "split": "main",
+  "run_at": "2026-10-20T09:56:51+00:00",
+  "snapshot": "data/wikidata/gcc_persons.json",
+  "align_version": "v1",
+  "matcher_version": "v1",
+  "analyzer": {
+    "tool": "camel-tools",
+    "version": "1.6.0",
+    "db": "calima-msa-r13",
+    "backoff": "NONE"
+  },
+  "alignment_stats": {
+    "persons_aligned": 6030,
+    "persons_unaligned": 1648
+  },
+  "dev_keys": "data/wikidata/exp001_dev_keys.json",
+  "n_dev_keys_dropped": 2,
+  "summary": {
+    "all": {
+      "n_units": 3023,
+      "n_single_word": 2892,
+      "M1_zero_analysis_rate": 0.3686,
+      "M2_analysis_count_distribution": {
+        "0": 1066,
+        "6+": 967,
+        "1": 345,
+        "2-5": 514
+      },
+      "M3_ambiguous_rate": 0.278,
+      "M4_noun_prop_rate": 0.2777,
+      "M5_coverage_strict": 0.5002,
+      "M5_coverage_dialect": 0.5022,
+      "M6_english_variants_distribution": {
+        "2": 600,
+        "3": 215,
+        "1": 2005,
+        "5": 107,
+        "4": 96
+      },
+      "M6_ge2_variants_rate": 0.3368
+    },
+    "by_position": {
+      "family": {
+        "n_units": 2071,
+        "n_single_word": 1977,
+        "M1_zero_analysis_rate": 0.4588,
+        "M2_analysis_count_distribution": {
+          "0": 907,
+          "1": 224,
+          "6+": 468,
+          "2-5": 378
+        },
+        "M3_ambiguous_rate": 0.1968,
+        "M4_noun_prop_rate": 0.214,
+        "M5_coverage_strict": 0.4153,
+        "M5_coverage_dialect": 0.4177,
+        "M6_english_variants_distribution": {
+          "2": 406,
+          "1": 1408,
+          "3": 135,
+          "5": 57,
+          "4": 65
+        },
+        "M6_ge2_variants_rate": 0.3201
+      },
+      "given": {
+        "n_units": 847,
+        "n_single_word": 817,
+        "M1_zero_analysis_rate": 0.164,
+        "M2_analysis_count_distribution": {
+          "6+": 455,
+          "1": 111,
+          "0": 134,
+          "2-5": 117
+        },
+        "M3_ambiguous_rate": 0.4663,
+        "M4_noun_prop_rate": 0.4247,
+        "M5_coverage_strict": 0.7037,
+        "M5_coverage_dialect": 0.7048,
+        "M6_english_variants_distribution": {
+          "3": 71,
+          "1": 519,
+          "5": 49,
+          "2": 178,
+          "4": 30
+        },
+        "M6_ge2_variants_rate": 0.3872
+      },
+      "middle": {
+        "n_units": 105,
+        "n_single_word": 98,
+        "M1_zero_analysis_rate": 0.2551,
+        "M2_analysis_count_distribution": {
+          "6+": 44,
+          "2-5": 19,
+          "0": 25,
+          "1": 10
+        },
+        "M3_ambiguous_rate": 0.3469,
+        "M4_noun_prop_rate": 0.3367,
+        "M5_coverage_strict": 0.5333,
+        "M5_coverage_dialect": 0.5333,
+        "M6_english_variants_distribution": {
+          "2": 16,
+          "1": 78,
+          "3": 9,
+          "5": 1,
+          "4": 1
+        },
+        "M6_ge2_variants_rate": 0.2571
+      }
+    },
+    "n_single_word": 2892
+  },
+  "decision_rule": "M5_coverage_dialect < 0.5 → 분석기를 이름 독법 근거로 쓰지 않는다",
+  "decision": "analyzer_usable_for_names"
+}
