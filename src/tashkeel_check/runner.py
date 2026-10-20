@@ -14,6 +14,7 @@ from langsmith.run_helpers import get_current_run_tree
 from . import __version__
 from .analyzer import AnalyzeFn, analyzer_version
 from .config import Settings, has_openai_key, tracing_enabled
+from .errors import ConfigError
 from .fake import FakeAgentModel, Responder
 from .graph import ToolFactory, build_graph
 from .prompts import PROMPT_VERSION, prompt_hash
@@ -49,7 +50,7 @@ def make_model(settings: Settings, fake: bool = False, responder: Responder | No
     if fake:
         return FakeAgentModel(responder=responder)
     if not has_openai_key():
-        raise RuntimeError("OPENAI_API_KEY가 없습니다. .env에 키를 넣거나 --fake(연습 모드)로 실행하세요.")
+        raise ConfigError("OPENAI_API_KEY가 없습니다. .env에 키를 넣거나 --fake(연습 모드)로 실행하세요.")
     kwargs: dict[str, Any] = {}
     if settings.temperature is not None:
         kwargs["temperature"] = settings.temperature

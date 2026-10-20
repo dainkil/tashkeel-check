@@ -9,6 +9,7 @@ import hashlib
 import json
 
 from .analyzer import TokenAnalysis, view_for_llm
+from .errors import InputError
 from .text import Segment, Token, render_plain, render_token_table
 
 PROMPT_VERSION = "p0"
@@ -49,7 +50,7 @@ def system_prompt(condition: str) -> str:
         return C1_SYSTEM + C2_TOOL_LINE
     if condition == "C3":
         return C1_SYSTEM + C3_ANALYZER_LINE
-    raise ValueError(f"unknown condition {condition!r}")
+    raise InputError(f"unknown condition {condition!r}")
 
 
 def analyzer_block(analyses: dict[int, TokenAnalysis], max_candidates: int) -> str:

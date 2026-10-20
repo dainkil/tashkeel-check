@@ -21,6 +21,7 @@ from langgraph.graph.state import CompiledStateGraph
 
 from .analyzer import AnalyzeFn, TokenAnalysis, analyze_tokens
 from .config import CONDITIONS, Settings
+from .errors import InputError
 from .export import write_outputs
 from .prompts import system_prompt, user_message
 from .reconcile import parse_c0, reconcile
@@ -66,10 +67,10 @@ def build_graph(
 
     def load(state: GraphState) -> dict:
         if state["condition"] not in CONDITIONS:
-            raise ValueError(f"unknown condition {state['condition']!r}")
+            raise InputError(f"unknown condition {state['condition']!r}")
         segments = [Segment(segment_id=s["segment_id"], text=nfc(s["text"])) for s in state["segments"]]
         if not segments:
-            raise ValueError("document has no segments")
+            raise InputError("document has no segments")
         meta = {**state.get("meta", {}), "started_at_epoch": time.time()}
         return {
             "segments": segments,

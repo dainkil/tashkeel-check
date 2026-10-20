@@ -10,6 +10,7 @@ from collections.abc import Callable
 from functools import lru_cache
 from typing import TYPE_CHECKING, TypedDict
 
+from .errors import AnalyzerUnavailable as AnalyzerUnavailable  # 기존 import 경로 유지
 from .romanize import romanize, romanize_display
 from .text import Token, dediac
 
@@ -19,10 +20,6 @@ if TYPE_CHECKING:
 DB_NAME = "calima-msa-r13"
 CASE_MARKS = {"ً", "ٌ", "ٍ", "َ", "ُ", "ِ", "ْ"}  # 탄윈 3종, 파트하, 담마, 카스라, 수쿤
 FATHATAN = "ً"
-
-
-class AnalyzerUnavailable(RuntimeError):
-    pass
 
 
 class Candidate(TypedDict):
