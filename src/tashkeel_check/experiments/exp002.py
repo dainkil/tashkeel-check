@@ -23,14 +23,16 @@ RATE_DEFS = {
     "unsupported_adopt_rate": ("n_unsupported_adopt", "n_gold_without_evidence"),
     "hold_rate": ("n_hold", "n_gold_without_evidence"),
     "evidence_pass_rate": ("n_evidence_correct", "n_gold_with_evidence"),
+    "hold_candidate_hit_rate": ("n_hold_candidate_hit", "n_hold"),
 }
 SUM_KEYS = [
     "n_unprocessed",
     "n_unprocessed_names",
     "n_unprocessed_ambiguous_words",
     "n_evidence_failed",
-    "n_over_flag",
-    "n_high_conf_unsupported",
+    "n_over_flag_tokens",
+    "n_unsupported_adopt_tokens",
+    "n_high_conf_unsupported_tokens",
     "n_inconsistent_names",
     "n_suspected_missed_names",
     "n_invalid_items",

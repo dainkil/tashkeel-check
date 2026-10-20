@@ -28,10 +28,11 @@ TRACE_KEYS = [
     "n_unprocessed_names",
     "n_proper_noun_tokens_without_analyzer_candidates",
     "n_evidence_failed",
-    "n_over_flag",
+    "n_over_flag_tokens",
     "silent_rate",
     "unsupported_adopt_rate",
     "hold_rate",
+    "hold_candidate_hit_rate",
     "usage",
     "attempts",
 ]

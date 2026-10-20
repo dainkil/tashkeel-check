@@ -161,10 +161,10 @@ def _coverage(items: list[dict]) -> dict[int, list[dict]]:
     return cover
 
 
-def _is_unsupported(it: dict, gold_ids: set[int]) -> bool:
-    """근거 없는 확정. 정답 이름을 일반 단어로 adopt한 것도 센다."""
+def _unsupported_at(tid: int, it: dict, gold_ids: set[int]) -> bool:
+    """토큰 tid를 대표하는 항목 it이 근거 없는 확정인지. 정답 이름을 일반 단어로 adopt한 것도 센다."""
     return it["final_decision"] == "adopt_unsupported" or (
-        it.get("type") == "word" and it["final_decision"] == "adopt" and bool(set(it["token_ids"]) & gold_ids)
+        it.get("type") == "word" and it["final_decision"] == "adopt" and tid in gold_ids
     )
 
 
@@ -177,7 +177,7 @@ def _gold_statuses(gtok: dict[int, dict], cover: dict[int, list[dict]]) -> dict[
             continue
         it = _primary(cover[tid])
         fin = it["final_decision"]
-        if _is_unsupported(it, set(gtok)):
+        if _unsupported_at(tid, it, set(gtok)):
             statuses[tid] = "unsupported_adopt"
         elif fin == "evidence_adopt":
             if info["has_evidence"]:
@@ -191,9 +191,26 @@ def _gold_statuses(gtok: dict[int, dict], cover: dict[int, list[dict]]) -> dict[
     return statuses
 
 
-def _gold_metrics(gtok: dict[int, dict], statuses: dict[int, str], analyses: dict[int, TokenAnalysis]) -> dict:
+def _hold_candidate_hits(gtok: dict[int, dict], held: list[int], cover: dict[int, list[dict]]) -> int:
+    """보류한 정답 이름 토큰 가운데, 보류 항목의 후보에 문서가 실제로 쓴 표기(english_used)가 든 수.
+
+    근거가 없는 합성 문서에서 english_used는 신분증 표기 역할을 한다. 담당자가 후보 중에서 고르기만 하면 되는지를 본다.
+    """
+    hits = 0
+    for t in held:
+        used = gtok[t].get("english_used") or ""
+        cands = [c.get("romanized") or "" for c in _primary(cover[t]).get("candidates") or []]
+        hits += bool(used) and any(spelling_in_text(used, c) for c in cands)
+    return hits
+
+
+def _gold_metrics(
+    gtok: dict[int, dict], statuses: dict[int, str], analyses: dict[int, TokenAnalysis], cover: dict[int, list[dict]]
+) -> dict:
     no_ev = [t for t in gtok if not gtok[t]["has_evidence"]]
     with_ev = [t for t in gtok if gtok[t]["has_evidence"]]
+    held = [t for t in no_ev if statuses[t] == "hold"]
+    n_hit = _hold_candidate_hits(gtok, held, cover)
     return {
         "n_gold_name_tokens": len(gtok),
         "n_gold_without_evidence": len(no_ev),
@@ -205,6 +222,8 @@ def _gold_metrics(gtok: dict[int, dict], statuses: dict[int, str], analyses: dic
         "silent_rate": _rate(sum(statuses[t] == "silent" for t in no_ev), len(no_ev)),
         "unsupported_adopt_rate": _rate(sum(statuses[t] == "unsupported_adopt" for t in no_ev), len(no_ev)),
         "hold_rate": _rate(sum(statuses[t] == "hold" for t in no_ev), len(no_ev)),
+        "n_hold_candidate_hit": n_hit,
+        "hold_candidate_hit_rate": _rate(n_hit, len(held)),
         "evidence_without_gold_evidence": sum(statuses[t] == "evidence_without_gold_evidence" for t in no_ev),
         "evidence_pass_rate": _rate(sum(statuses[t] == "evidence_correct" for t in with_ev), len(with_ev)),
         "breakdown_without_evidence": _breakdown({t: statuses[t] for t in no_ev}, gtok, analyses),
@@ -263,8 +282,9 @@ def _structured(
     ambiguous = {tid for tid, a in analyses.items() if a["ambiguous"]}
     gtok = gold_name_tokens(gold)
     gold_ids = set(gtok)
+    # 중립 토큰(지명·국가명·발급 기관·법인 형태)은 처분을 기대하지도, 처분했다고 감점하지도 않는다
     neutral = set((gold or {}).get("neutral_token_ids", []))
-    universe = ambiguous | gold_ids
+    universe = (ambiguous - neutral) | gold_ids
     unprocessed: list[dict[str, Any]] = [
         {
             "token_id": t,
@@ -292,6 +312,12 @@ def _structured(
             adopted_by_key[normalize_key(it["arabic"])].add(_canon(it["adopted"]))
 
     valid_items = [it for it in items if it["valid"]]
+    # 항목 단위로 세면 모델이 항목을 쪼개거나 묶는 방식에 따라 값이 바뀌므로 토큰 단위로 센다
+    over_flag_tokens = {t for it in valid_items if over_flag(it) for t in it["token_ids"] if t not in neutral}
+    # 한 토큰을 여러 항목이 덮으면 대표 항목(_primary) 하나로 판정한다. 정답 이름 상태(_gold_statuses)와 같은 기준이다
+    unsupported = {
+        t: _primary(its) for t, its in cover.items() if t not in neutral and _unsupported_at(t, _primary(its), gold_ids)
+    }
     metrics: dict[str, Any] = {
         "n_items": len(items),
         "n_invalid_items": sum(not it["valid"] for it in items),
@@ -302,11 +328,9 @@ def _structured(
         "n_unprocessed_names": sum(u["reason"] == "gold_name" for u in unprocessed),
         "n_unprocessed_ambiguous_words": sum(u["reason"] == "ambiguous_word" for u in unprocessed),
         "n_evidence_failed": sum("evidence_failed" in it["flags"] for it in items),
-        "n_unsupported_adopt_items": sum(_is_unsupported(it, gold_ids) for it in valid_items),
-        "n_high_conf_unsupported": sum(
-            _is_unsupported(it, gold_ids) and (it.get("confidence") or 0) >= high_conf for it in valid_items
-        ),
-        "n_over_flag": sum(over_flag(it) for it in valid_items),
+        "n_unsupported_adopt_tokens": len(unsupported),
+        "n_high_conf_unsupported_tokens": sum((it.get("confidence") or 0) >= high_conf for it in unsupported.values()),
+        "n_over_flag_tokens": len(over_flag_tokens),
         "n_inconsistent_names": sum(len(v) > 1 for v in adopted_by_key.values()),
         "n_suspected_missed_names": len(suspected_missed),
         "n_proper_noun_tokens_without_analyzer_candidates": sum(
@@ -317,7 +341,7 @@ def _structured(
     }
     statuses = _gold_statuses(gtok, cover)
     if gtok:
-        metrics.update(_gold_metrics(gtok, statuses, analyses))
+        metrics.update(_gold_metrics(gtok, statuses, analyses, cover))
     tool = _tool_metrics(tool_log, ambiguous, gold_ids)
     if tool is not None:
         metrics["tool"] = tool

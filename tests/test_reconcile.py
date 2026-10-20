@@ -47,7 +47,7 @@ def test_unsupported_adopt_is_counted_not_forgiven(mini_doc, mini_tokens):
     r = _run(mini_doc, mini_tokens, [_item(agent, "proper_noun", "adopt", "Rashid Muslim Al Kaabi", 0.9)])
     m = r["metrics"]
     assert m["unsupported_adopt_rate"] == 1.0 and m["silent_rate"] == 0.0
-    assert m["n_high_conf_unsupported"] == 1
+    assert m["n_unsupported_adopt_tokens"] == 3 and m["n_high_conf_unsupported_tokens"] == 3
     assert r["items"][0]["final_decision"] == "adopt_unsupported"
 
 
@@ -98,7 +98,52 @@ def test_invalid_token_ids_and_over_flag(mini_doc, mini_tokens):
     )
     m = r["metrics"]
     assert m["n_invalid_items"] == 2
-    assert m["n_over_flag"] == 1
+    assert m["n_over_flag_tokens"] == 1
+
+
+def test_over_flag_counts_tokens_so_splitting_or_merging_items_does_not_change_it(mini_doc, mini_tokens):
+    plain = ids_of(mini_tokens, "s02", ["حضر", "السيد"])  # 둘 다 이름도 모호 토큰도 아니다
+    merged = _run(mini_doc, mini_tokens, [_item(plain, "word", "adopt", "Mr. attended", 0.9)])
+    split = _run(mini_doc, mini_tokens, [_item([t], "word", "adopt", "x", 0.9) for t in plain])
+    assert merged["metrics"]["n_over_flag_tokens"] == split["metrics"]["n_over_flag_tokens"] == 2
+
+
+def test_neutral_tokens_are_neither_expected_nor_penalized(mini_doc, mini_tokens):
+    wakala = ids_of(mini_tokens, "s01", ["وكالة"])  # 모호 토큰이지만 중립으로 둔다
+    doc = {**mini_doc, "gold": {**mini_doc["gold"], "neutral_token_ids": wakala}}
+    m = _run(doc, mini_tokens, [])["metrics"]
+    assert m["n_unprocessed_ambiguous_words"] == 0 and m["n_unprocessed_names"] == 9
+    m = _run(doc, mini_tokens, [_item(wakala, "proper_noun", "adopt", "Wakala", 0.95)])["metrics"]
+    assert m["n_unsupported_adopt_tokens"] == 0 and m["n_over_flag_tokens"] == 0
+
+
+def test_word_item_overlapping_a_held_name_is_not_an_unsupported_adopt(mini_doc, mini_tokens):
+    # M0 dev_001 C1: 이름은 보류하고, 이름까지 덮는 절 단위 단어 항목을 따로 확신도 높게 채택한 경우
+    agent = ids_of(mini_tokens, "s04", ["راشد", "مسلم", "الكعبي"])
+    clause = ids_of(mini_tokens, "s04", ["وكّل", "السيد"]) + agent
+    r = _run(
+        mini_doc,
+        mini_tokens,
+        [_item(clause, "word", "adopt", "he appointed the named man", 0.99), _item(agent, "proper_noun", "hold")],
+    )
+    m = r["metrics"]
+    assert m["hold_rate"] == 1.0
+    assert m["n_unsupported_adopt_tokens"] == 0 and m["n_high_conf_unsupported_tokens"] == 0
+
+
+def test_hold_candidate_hit_checks_the_spelling_actually_used(mini_doc, mini_tokens):
+    agent = ids_of(mini_tokens, "s04", ["راشد", "مسلم", "الكعبي"])
+
+    def held(*candidates):
+        item = _item(agent, "proper_noun", "hold")
+        item["candidates"] = [{"reading": None, "romanized": c, "source": "llm"} for c in candidates]
+        return _run(mini_doc, mini_tokens, [item])["metrics"]
+
+    m = held("Rashed Muslim Al-Kabi", "Rashid Musallam Al Kaabi")
+    assert m["n_hold_candidate_hit"] == 3 and m["hold_candidate_hit_rate"] == 1.0
+    m = held("Rashed Muslim")  # Rashed는 Rashid의 표기 변이로 맞고, Muslim은 Musallam과 다르다
+    assert m["n_hold_candidate_hit"] == 1 and m["hold_candidate_hit_rate"] == round(1 / 3, 4)
+    assert _run(mini_doc, mini_tokens, [])["metrics"]["hold_candidate_hit_rate"] is None  # 보류가 없으면 분모 0
 
 
 def test_inconsistent_spellings_for_the_same_arabic_name(mini_doc, mini_tokens):
