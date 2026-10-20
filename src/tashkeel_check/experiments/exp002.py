@@ -41,6 +41,8 @@ SUM_KEYS = [
 
 
 def _pooled(runs: list[dict], num: str, den: str) -> float | None:
+    if not any(num in r for r in runs):  # 그 조건에 없는 지표(예: C0의 보류율)를 0으로 보고하지 않는다
+        return None
     n = sum(r.get(num) or 0 for r in runs)
     d = sum(r.get(den) or 0 for r in runs)
     return round(n / d, 4) if d else None

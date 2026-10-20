@@ -59,3 +59,15 @@ def test_exp002_pools_counts_and_reports_repeat_range():
     assert s["silent_rate"]["pooled"] == 0.5
     assert s["silent_rate"]["repeat_range"] == [0.25, 0.75]
     assert s["n_unprocessed"]["total"] == 4 and s["tokens_in"] == 40
+
+
+def test_exp002_reports_none_for_rates_a_condition_does_not_have():
+    # C0에는 처분 형식이 없어 n_hold·n_evidence_correct가 없다. 0.0이 아니라 None이어야 한다
+    runs = [
+        {"_doc_id": d, "_repeat": 0, "n_silent": 1, "n_gold_without_evidence": 2, "n_gold_with_evidence": 3}
+        for d in ("d1", "d2")
+    ]
+    s = exp002.aggregate({"C0": runs})["C0"]
+    assert s["silent_rate"]["pooled"] == 0.5
+    assert s["hold_rate"] == {"pooled": None, "repeat_range": None, "doc_bootstrap_95": None}
+    assert s["evidence_pass_rate"]["pooled"] is None
