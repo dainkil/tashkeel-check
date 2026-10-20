@@ -61,7 +61,7 @@ def test_c1_structured_output_writes_all_artifacts(mini_doc, mini_tokens, tmp_pa
     }
     rec = Recorder(tool_call("AgentOutput", out))
     result = _run(mini_doc, "C1", rec, tmp_path)
-    m = result["metrics"]
+    m = result.metrics
     assert m["valid_output"] and m["attempts"] == 1
     assert m["hold_rate"] == 1.0
     for name in ("segments.json", "proper_nouns.csv", "metrics.json", "run_meta.json"):
@@ -87,8 +87,8 @@ def test_c2_binds_the_analyzer_tool_and_logs_calls(mini_doc, mini_tokens):
     tool_msgs = [m for m in rec.seen[1] if isinstance(m, ToolMessage)]
     payload = json.loads(tool_msgs[0].content)
     assert payload[0]["ambiguous"] is True and payload[1]["error"] == "unknown token id"
-    assert result["metrics"]["tool"]["calls"] == 1
-    assert result["meta"]["tool_calls"] == 1
+    assert result.metrics["tool"]["calls"] == 1
+    assert result.meta.tool_calls == 1
 
 
 def test_only_c3_shows_analyzer_results_and_only_c2_mentions_the_tool(mini_doc):
@@ -108,8 +108,8 @@ def test_c0_plain_translation(mini_doc):
     text = "\n".join(f"[{s['segment_id']}] line" for s in mini_doc["segments"])
     rec = Recorder(AIMessage(content=text))
     result = _run(mini_doc, "C0", rec)
-    assert result["metrics"]["valid_output"]
-    assert result["metrics"]["silent_rate"] == 1.0  # 이름이 번역문에 없으면 not_found로 말없이 찍음에 들어간다
+    assert result.metrics["valid_output"]
+    assert result.metrics["silent_rate"] == 1.0  # 이름이 번역문에 없으면 not_found로 말없이 찍음에 들어간다
     human = next(m for m in rec.seen[0] if isinstance(m, HumanMessage))
     assert "TOKENS" not in str(human.content)
 
@@ -118,13 +118,13 @@ def test_retry_once_on_missing_segments_then_succeed(mini_doc):
     partial = tool_call("AgentOutput", {"translation": _translation(mini_doc)[:2], "items": []})
     full = tool_call("AgentOutput", {"translation": _translation(mini_doc), "items": []})
     result = _run(mini_doc, "C1", Recorder(partial, full))
-    assert result["metrics"]["attempts"] == 2 and result["metrics"]["valid_output"]
+    assert result.metrics["attempts"] == 2 and result.metrics["valid_output"]
 
 
 def test_gives_up_after_one_retry_and_still_reconciles(mini_doc):
     partial = tool_call("AgentOutput", {"translation": _translation(mini_doc)[:1], "items": []})
     result = _run(mini_doc, "C1", Recorder(partial, partial))
-    m = result["metrics"]
+    m = result.metrics
     assert m["attempts"] == 2 and not m["valid_output"]
     assert m["silent_rate"] == 1.0 and len(m["errors"]) == 2
 
@@ -132,7 +132,7 @@ def test_gives_up_after_one_retry_and_still_reconciles(mini_doc):
 def test_model_error_is_recorded_and_retried(mini_doc):
     full = tool_call("AgentOutput", {"translation": _translation(mini_doc), "items": []})
     result = _run(mini_doc, "C1", Recorder(RuntimeError("API down"), full))
-    m = result["metrics"]
+    m = result.metrics
     assert m["valid_output"] and m["attempts"] == 2
     assert "API down" in m["errors"][0]
 
@@ -140,7 +140,7 @@ def test_model_error_is_recorded_and_retried(mini_doc):
 def test_practice_mode_runs_every_condition(mini_doc):
     for cond in ("C0", "C1", "C2", "C3"):
         result = run_document(mini_doc, cond, FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
-        assert result["metrics"]["valid_output"], cond
+        assert result.metrics["valid_output"], cond
 
 
 def test_reused_reviewer_matches_fresh_runs():
@@ -149,7 +149,7 @@ def test_reused_reviewer_matches_fresh_runs():
     from .golden_cases import DEV_DOCS
 
     def strip(result):
-        return {**result, "meta": {k: v for k, v in result["meta"].items() if k != "elapsed_s"}}
+        return result.model_dump(exclude={"meta": {"elapsed_s"}})
 
     reviewer = Reviewer(FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
     for path in DEV_DOCS[:3]:

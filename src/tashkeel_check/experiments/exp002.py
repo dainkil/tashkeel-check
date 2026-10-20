@@ -108,7 +108,7 @@ def run(
                 result = run_document(
                     doc, cond, model_factory(), settings, out_dir=out / cond / doc["doc_id"] / f"r{rep}", repeat=rep
                 )
-                runs_by_condition[cond].append({**result["metrics"], "_doc_id": doc["doc_id"], "_repeat": rep})
+                runs_by_condition[cond].append({**result.metrics, "_doc_id": doc["doc_id"], "_repeat": rep})
     report = {
         "experiment": "EXP-002",
         "docs_dir": str(docs_dir),

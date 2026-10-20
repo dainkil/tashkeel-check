@@ -18,6 +18,7 @@ from .errors import ConfigError
 from .fake import FakeAgentModel, Responder
 from .graph import ToolFactory, build_graph
 from .prompts import PROMPT_VERSION, prompt_hash
+from .results import ReviewResult
 from .romanize import MATCHER_VERSION
 
 TRACE_KEYS = [
@@ -107,7 +108,7 @@ class Reviewer:
         run_type="chain",
         process_inputs=lambda inputs: {k: v for k, v in inputs.items() if k != "self"},
     )
-    def run(self, doc: dict, condition: str, out_dir: str | Path | None = None, repeat: int = 0) -> dict:
+    def run(self, doc: dict, condition: str, out_dir: str | Path | None = None, repeat: int = 0) -> ReviewResult:
         doc_in, gold = split_gold(doc)
         meta = self._meta(doc, condition, repeat)
         final = self.graph.invoke(
@@ -126,10 +127,10 @@ class Reviewer:
                 "metadata": {k: meta[k] for k in ("doc_id", "condition", "repeat", "model", "prompt_hash")},
             },
         )
-        result: dict = final["result"]
+        result: ReviewResult = final["result"]
         run_tree = get_current_run_tree()
         if run_tree is not None:  # 추적이 켜져 있을 때만
-            run_tree.add_metadata({f"m_{k}": result["metrics"].get(k) for k in TRACE_KEYS})
+            run_tree.add_metadata({f"m_{k}": result.metrics.get(k) for k in TRACE_KEYS})
         return result
 
 
@@ -142,7 +143,7 @@ def run_document(
     repeat: int = 0,
     analyze_fn: AnalyzeFn | None = None,
     extra_tool_factories: list[ToolFactory] | None = None,
-) -> dict:
+) -> ReviewResult:
     """한 번 실행할 때 쓰는 편의 함수. 여러 문서를 돌릴 때는 Reviewer를 한 번 만들어 다시 쓴다."""
     reviewer = Reviewer(model, settings, analyze_fn, extra_tool_factories)
     return reviewer.run(doc, condition, out_dir=out_dir, repeat=repeat)

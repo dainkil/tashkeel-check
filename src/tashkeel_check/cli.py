@@ -44,7 +44,7 @@ def _cmd_run(args: argparse.Namespace, settings: Settings) -> int:
             repeat=args.repeat,
             extra_tool_factories=factories,
         )
-        m = result["metrics"]
+        m = result.metrics
         print(
             json.dumps(
                 {

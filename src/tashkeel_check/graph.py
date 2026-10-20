@@ -26,6 +26,7 @@ from .errors import InputError
 from .export import write_outputs
 from .prompts import system_prompt, user_message
 from .reconcile import parse_c0, reconcile
+from .results import ReviewResult
 from .schemas import AgentOutput
 from .text import Segment, Token, nfc, tokenize
 from .tools import make_analyze_tool
@@ -50,7 +51,8 @@ class GraphState(TypedDict, total=False):
     attempts: int
     errors: list[str]
     valid: bool
-    result: dict
+    reconciled: dict  # reconcile 노드의 결과(검증 전)
+    result: ReviewResult  # export 노드가 검증한 최종 결과
 
 
 def _add_usage(usage: dict, msg: AIMessage) -> None:
@@ -178,7 +180,7 @@ def build_graph(
             }
         )
         result["doc_id"] = state["doc_id"]
-        return {"result": result}
+        return {"reconciled": result}
 
     def export(state: GraphState) -> dict:
         meta = dict(state.get("meta", {}))
@@ -186,10 +188,10 @@ def build_graph(
         meta["attempts"] = state.get("attempts", 0)
         meta["usage"] = state.get("usage", {})
         meta["tool_calls"] = len(state.get("tool_log", []))
-        result = {**state["result"], "meta": meta}
+        result = ReviewResult.model_validate({**state["reconciled"], "meta": meta})
         out_dir = state.get("out_dir")
         if out_dir:
-            write_outputs(out_dir, result, meta)
+            write_outputs(out_dir, result)
         return {"result": result, "meta": meta}
 
     builder = StateGraph(GraphState)
