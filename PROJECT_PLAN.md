@@ -490,7 +490,7 @@ LangSmith 메타데이터와 로컬 `run_meta.json`에 같은 값을 남긴다: 
 - [x] 설정 검증(pydantic), `data_dir`·`results_dir`, 예외 체계와 CLI 종료 코드, logging과 `--verbose`
 - [x] `Reviewer`(그래프 한 번 빌드), 결과 형식 `ReviewResult`, `reconcile._structured` 분해
 - [x] 동작 동일 확인: 골든·LLM 입력 해시가 R1 이후 바뀌지 않음, dev_004 C0~C3 산출 파일이 리팩토링 전 코드(71704ee)와 바이트 단위로 같음(`run_meta.json`의 `elapsed_s` 제외)
-- [ ] CI 첫 실행(브랜치 push 후, 사용자 확인 필요)
+- [x] CI 첫 실행과 `main` 병합(PR #1, 2026-10-20). PR과 병합 뒤 `main`에서 모두 통과: ruff·mypy, 테스트 141개(live·camel 84개 제외)
 
 ### 단계 1.5 — 과제 2 서비스화 (ADR-012, 전부 미구현, 사용자 지시 후 착수)
 
@@ -529,7 +529,8 @@ LangSmith 메타데이터와 로컬 `run_meta.json`에 같은 값을 남긴다: 
 - 결과 [확인]: ruff·mypy 통과, 테스트 224개 통과(live 제외), CAMeL DB 없이도 133개 통과(CI 조건). dev_004 C0~C3 산출 파일이 리팩토링 전 코드와 바이트 단위로 같다(`elapsed_s` 제외)
 - 계획과 달라진 점: `pydantic-settings` 대신 pydantic `BaseModel` + `load_settings()`로 했다. `BaseSettings`는 생성할 때마다 환경 변수를 읽는데, CLI의 `load_dotenv`가 `.env`를 `os.environ`에 써 넣어 테스트 결과가 실행 순서에 따라 달라지기 때문이다(ADR-013)
 - 동작이 달라진 곳(골든 밖): CLI가 키 없음·설정 오류·입력 오류를 traceback 대신 한 줄 메시지와 종료 코드(3·3·2)로 낸다. `.env`를 레포 위치가 아니라 작업 디렉터리에서 위로 찾는다. 빈 환경 변수 값은 설정하지 않은 것으로 본다. `ENABLE_BUNDLE_SEARCH`가 `true` 외에 `1`·`yes`도 참으로 읽는다. 로그 줄에 수준(INFO 등)이 붙는다
-- 확인하지 않은 것: CI 첫 실행(push 전), `pre-commit install`(사용자 선택)
+- CI [확인]: 사용자 지시로 브랜치를 push하고 PR #1로 CI를 돌린 뒤 `main`에 병합(merge commit)했다. PR과 병합 뒤 `main`에서 모두 통과(테스트 141개, live·camel 제외). 서식 커밋 해시를 `.git-blame-ignore-revs`가 가리키므로 squash·rebase 대신 merge commit을 썼다. 로컬 `main`에만 있던 이전 커밋 8개도 이때 함께 push했다
+- 확인하지 않은 것: `pre-commit install`(사용자 선택)
 - 주의: `.env`에 키가 있으면 `uv run pytest`가 `live` 테스트로 실제 API를 부른다. 이번 점검에서도 두 번 불렀다. 평소에는 `uv run pytest -m "not live"`를 쓴다
 
 ### 완료 (2026-10-20): 과제 2 요건 검토와 계획 반영 (ADR-012)
@@ -693,7 +694,7 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 
 ### 사용자가 정할 것
 
-- 리팩토링 브랜치(`refactor/production-baseline`)를 push해 CI를 처음 돌릴지, `main`에 합칠지. `uv run pre-commit install`로 커밋 훅을 켤지
+- `uv run pre-commit install`로 커밋 훅을 켤지
 - 단계 1.5 구현 착수 시점. `all_total_vue_student/`를 언제 삭제할지(지금은 untracked로 둠)
 - MCP를 C2 서비스 경로에 실제로 끼울지(`USE_MCP_TOOLS`), 아니면 MCP 서버를 외부 노출용으로만 두고 `/v1/samples`의 리소스 조회로 연동 확인을 갈음할지
 - 모호 판정 규칙 유지 여부(위 관찰)
