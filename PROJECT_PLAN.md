@@ -891,6 +891,18 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 - 해결 또는 임시 대응: `fetch-wikidata --endpoint {wdqs,qlever}` 선택을 추가하고, 나라별 결과를 캐시하고, 진행 기록을 남기고, Retry-After가 180초를 넘으면 기다리지 않고 멈추게 했다. 스냅숏에 엔드포인트를 기록한다.
 - 남은 문제: 미러는 공식 서비스보다 갱신이 늦을 수 있다(개수 7,678 대 7,683). 공식 서비스가 정상화되면 `--endpoint wdqs`로 다시 받아 비교할 수 있다.
 
+### TS-003 — C0 대조 결과가 실행마다 달라짐(PYTHONHASHSEED 의존)
+
+- 발생일 / 해결일: 2026-10-20 / 2026-10-20
+- 상태: 해결
+- 증상과 영향: 리팩토링 안전망(골든 테스트)을 만들다가, 같은 입력·같은 가짜 응답에서도 dev_007 C0의 `n_inconsistent_names`가 실행마다 0과 1을 오가는 것을 발견했다. 원인이 같은 경로라서 C0의 `flagged`/`silent` 판정, 곧 주 지표인 말없이 찍음 비율도 바뀔 수 있다. EXP-002는 아직 돌리지 않아 실험 결과에 미친 영향은 없다.
+- 재현 입력·명령·조건: `PYTHONHASHSEED`를 1~6으로 바꿔 가며 dev_007을 C0로 돌리면 `n_inconsistent_names`가 1 또는 0이 된다. 최소 재현: `find_spellings(["Mohammed", "Muhammad"], "Mr. Mohammad")`와 후보 순서를 뒤집은 호출의 정규형이 `muhamid`, `muhamad`로 다르다 [확인].
+- 원인 [확인]: `reconcile.find_spellings`가 번역문 단어열과 맞는 첫 후보의 정규형을 기록했다. `match_spelling`이 모음 차이를 접고 5자 이상이면 편집 거리 1까지 허용하므로, 한 단어열에 후보 여럿이 맞는다. 이때 어느 후보가 먼저인지는 `set` 순회 순서, 곧 해시 seed가 정한다.
+- 해결: 정규형을 후보가 아니라 번역문에 실제로 쓰인 단어열에서 만든다(`_canon(span)`). 지표 정의("같은 아랍어 이름이 서로 다른 표기로 옮겨진 경우", 6.2절)에 맞고, C1~C3가 채택 표기(`adopted`)의 정규형을 비교하는 방식과도 같다. 회귀 테스트 `test_c0_spelling_key_comes_from_the_translation_not_the_candidate_order`를 추가했고, 수정 전 코드에서는 실패한다.
+- 해결 확인 방법과 실제 결과: 골든 스냅숏 160건을 `PYTHONHASHSEED` 0~3으로 만들어 네 번 모두 같은 파일이 나왔다 [확인].
+- 남은 문제·재발 방지: 골든 테스트가 실행마다 다른 seed로 돌기 때문에 순서 의존이 다시 생기면 걸린다.
+- 관련 코드·ADR·실험: `reconcile.find_spellings`, `_c0`, EXP-002 C0 판정 규칙, ADR-013(골든 테스트)
+
 ```markdown
 ### TS-XXX — 문제 제목
 - 발생일 / 해결일:

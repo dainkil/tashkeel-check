@@ -318,7 +318,10 @@ def parse_c0(text: str) -> dict[str, str]:
 
 
 def find_spellings(candidates: set[str], text: str) -> list[tuple[int, int, str]]:
-    """text에서 후보 표기와 일치하는 단어열의 (시작, 끝, 정규형)."""
+    """text에서 후보 표기와 일치하는 단어열의 (시작, 끝, 정규형).
+
+    정규형은 번역문에 실제로 쓰인 단어열에서 만든다. 후보에서 만들면 한 단어열에 여러 후보가 맞을 때
+    집합 순회 순서(PYTHONHASHSEED)에 따라 값이 바뀐다(TS-003)."""
     words = list(WORD_RE.finditer(text))
     hits = []
     for n in (3, 2, 1):
@@ -327,10 +330,8 @@ def find_spellings(candidates: set[str], text: str) -> list[tuple[int, int, str]
             if any(h[0] <= start < h[1] or h[0] < end <= h[1] for h in hits):
                 continue
             span = text[start:end]
-            for c in candidates:
-                if match_spelling(c, span):
-                    hits.append((start, end, _canon(c)))
-                    break
+            if any(match_spelling(c, span) for c in candidates):
+                hits.append((start, end, _canon(span)))
     return sorted(hits)
 
 

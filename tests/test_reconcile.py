@@ -1,7 +1,7 @@
 """대조 노드는 LLM 없이 돈다. 강등 규칙과 지표를 직접 확인한다."""
 
 from tashkeel_check.analyzer import analyze_tokens
-from tashkeel_check.reconcile import reconcile
+from tashkeel_check.reconcile import find_spellings, reconcile
 
 from .conftest import fake_analyze, ids_of
 
@@ -119,3 +119,10 @@ def test_c0_marked_vs_silent(mini_doc, mini_tokens):
     assert st[str(rashid)] == "silent" and st[str(kaabi)] == "silent"
     assert r["metrics"]["silent_rate"] == round(2 / 3, 4)
     assert r["metrics"]["n_unprocessed"] is None
+
+
+def test_c0_spelling_key_comes_from_the_translation_not_the_candidate_order():
+    # TS-003: 한 단어열에 후보 여러 개가 맞을 때 결과가 후보 순회 순서에 따라 바뀌면 안 된다
+    text = "Mr. Mohammad attended"
+    assert find_spellings(["Mohammed", "Muhammad"], text) == find_spellings(["Muhammad", "Mohammed"], text)
+    assert find_spellings({"Mohammed", "Muhammad"}, text)[0][2] == find_spellings({"Mohammad"}, text)[0][2]
