@@ -46,7 +46,7 @@ dev = [
 [tool.ruff]
 line-length = 120
 target-version = "py311"
-extend-exclude = ["all_total_vue_student", "docs/market"]  # 제공 ZIP, 계산 기록 스크립트는 손대지 않는다
+extend-exclude = ["all_total_vue_student", "docs/business/market"]  # 제공 ZIP, 계산 기록 스크립트는 손대지 않는다
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]

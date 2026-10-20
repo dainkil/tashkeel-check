@@ -63,7 +63,7 @@ uv run pytest -m "not live"
 
 `live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
 
-개발할 때는 CI와 같은 검사를 돌립니다. `tests/golden/`은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않습니다(`PROJECT_PLAN.md` ADR-013).
+개발할 때는 CI와 같은 검사를 돌립니다. `tests/golden/`은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않습니다([ADR-013](docs/adr/ADR-013.md)).
 
 ```bash
 uv run ruff check . && uv run ruff format --check . && uv run mypy
@@ -76,7 +76,7 @@ uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 
 ## 과제 2 안내 파일과의 대응 [계획, 미구현]
 
-과제 2는 제공 프로젝트(`all_total_vue_student`: FastAPI + Vue 채팅 UI + LangGraph + MCP + SQLite)의 구조를 재활용해 새 서비스를 만들라고 합니다. 이 레포는 기존 구조를 유지하고 제공 프로젝트에서는 패턴만 가져옵니다. 챗봇 대신 문서 붙여넣기 폼, SQLite 대신 Postgres, LLM 층은 기존 LangChain 방식입니다(`PROJECT_PLAN.md` ADR-012).
+과제 2는 제공 프로젝트(`all_total_vue_student`: FastAPI + Vue 채팅 UI + LangGraph + MCP + SQLite)의 구조를 재활용해 새 서비스를 만들라고 합니다. 이 레포는 기존 구조를 유지하고 제공 프로젝트에서는 패턴만 가져옵니다. 챗봇 대신 문서 붙여넣기 폼, SQLite 대신 Postgres, LLM 층은 기존 LangChain 방식입니다([ADR-012](docs/adr/ADR-012.md)).
 
 | 제공 프로젝트 파일 | 이 레포에서의 위치 | 상태 |
 | --- | --- | --- |
@@ -106,6 +106,8 @@ CAMeL Tools의 기본 형태소 DB(calima-msa-r13)는 GPL v2입니다. 이 프�
 
 ## 문서
 
-- [PROJECT_PLAN.md](PROJECT_PLAN.md): 계획, 측정 설계, ADR, 진행 기록
-- [개발 계획](docs/개발-계획.md): 주요 기능, 기술 스택·시스템 구성, 마일스톤
-- [사업성 검토](사업성%20검토%20아랍어%20문서%20검증%20도구.md): 시장성, 기술성, 경제성 검토
+- [PROJECT_PLAN.md](PROJECT_PLAN.md): 현재 상태, 다음 작업, 문서 지도
+- [docs/README.md](docs/README.md): 문서 지도. 정의·범위·구조·데이터·측정·로드맵·ADR·변경 이력이 `docs/` 아래에 나뉘어 있다
+- [아키텍처](docs/architecture.md): 그래프, 조건 C0~C3, 스키마, 툴, 스택, 코드 대조
+- [로드맵](docs/roadmap.md): 주요 기능, 기술 스택·시스템 구성, 마일스톤, 체크리스트
+- [사업성 검토](docs/business/feasibility.md): 시장성, 기술성, 경제성 검토

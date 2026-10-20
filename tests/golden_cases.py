@@ -2,7 +2,7 @@
 
 dev 문서 10개 × C0~C3를 가짜 모델로 돌려 반환값과 산출 파일 4종을 그대로 남긴다.
 기준값은 `uv run python -m tests.golden_cases`로 만든다. 리팩토링 중에는 다시 만들지 않는다(ADR-013).
-기준값을 다시 만들어야 한다면 그 변경은 리팩토링이 아니다. 이유를 PROJECT_PLAN 변경 이력에 남긴다.
+기준값을 다시 만들어야 한다면 그 변경은 리팩토링이 아니다. 이유를 docs/changelog.md에 남긴다.
 """
 
 from __future__ import annotations

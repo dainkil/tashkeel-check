@@ -1,6 +1,6 @@
 """아랍어 문서 검수 수요·공급 계산 (2026-10-20).
 
-`docs/market/reports/아랍어 문서 검수 수요 공급 분석.md`의 수치를 모두 이 스크립트가 낸다.
+`docs/business/market/reports/demand-supply-analysis.md`의 수치를 모두 이 스크립트가 낸다.
 기존 경제성 모델(recalc_economics.py)과 긍정 근거 시나리오(recalc_upside.py)의 상수와 함수를
 그대로 불러 쓴다. 같은 입력이면 사업성 검토(사우디 기준)와 같은 값이 나오는지 0절에서 assert로 확인한다.
 
@@ -11,10 +11,10 @@
   [단일]   동적 페이지에서 한 번 조회한 값
   [가정]   계산을 위해 둔 값. 근거가 아니다
   [미확인] 모르는 값. 계산에 넣지 않는다
-출처 ID(Sxx)는 docs/market/sources.csv.
+출처 ID(Sxx)는 docs/business/market/sources.csv.
 
 실행(저장소 밖 디렉터리에서, 표준 라이브러리만 사용):
-  python3 -I /Users/muna/Documents/tashkeel-check/docs/market/recalc_demand_supply.py
+  python3 -I /Users/muna/Documents/tashkeel-check/docs/business/market/recalc_demand_supply.py
 """
 import sys
 from datetime import date

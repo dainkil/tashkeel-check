@@ -36,7 +36,7 @@
 
 **사우디 공인 번역 자격**
 - "translators and translation bureaus must be licensed by MOC" — [US ITA Country Commercial Guide, 2026-05-11, 직접](https://www.trade.gov/index.php/country-commercial-guides/saudi-arabia-licensing-requirements-professional-services)
-- 샤리아 법원 소송절차법 제23조에 따르면 외국어 문서는 허가받은 사무소의 공인 번역을 함께 내야 한다 — 기존 조사 S60(대리), `docs/market/sources.csv`
+- 샤리아 법원 소송절차법 제23조에 따르면 외국어 문서는 허가받은 사무소의 공인 번역을 함께 내야 한다 — 기존 조사 S60(대리), `docs/business/market/sources.csv`
 - 문학·출판·번역위원회(LPTC) 규정은 번역의 모든 형태(서면·구두·시청각)를 위원회가 관장하는 분야로 정한다. 다만 번역사무소 면허나 번역사 인증 절차의 세부 내용은 찾지 못했다 — [qanoniah (위원회 조직규정), 요약](https://qanoniah.com/File/dJG8m4pa1LVJG9QLgr2bq5W60-تنظيم-هيئة-الأدب-والنشر-والترجمة)
 
 **ISO 17100 / ISO 18587**

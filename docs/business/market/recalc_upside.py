@@ -1,6 +1,6 @@
 """긍정 근거 조사(2026-10-16)가 여는 시나리오 계산. 사우디 기본 시나리오와 같은 모델을 쓴다.
 
-모든 입력은 [가정]이다. 근거는 docs/market/긍정-근거-조사.md 참고.
+모든 입력은 [가정]이다. 근거는 docs/business/market/upside-evidence.md 참고.
 """
 import sys
 from pathlib import Path

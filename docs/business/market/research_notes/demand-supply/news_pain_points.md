@@ -199,7 +199,7 @@
 현재 기업이 실제로 돈을 내는 것은 공인 번역(장당 수십~100리얄대, 당일 처리 할증), 공증, 현지 로펌 자문, GRO(정부관계 담당자) 인건비다. "번역 2차 검수"를 별도로 사고판다는 공개 증거는 찾지 못했다. 업체 홍보에서 정확성 인증서와 면허 번역사 서명이 가치로 팔린다.
 
 ### Cited Findings
-- 사우디 공인 번역 공개 가격: 375단어 한 장 기준 중앙값 약 62.5리얄. 법률 문서는 건당 35~200리얄이고 최빈값은 100리얄이다. Ruwaaq는 영어↔아랍어 300단어 이하 50리얄, 당일 처리 +50%, 공증 문서당 +100리얄이다(기존 조사에서 직접 확인, 이번에 재확인 안 함) — [Ruwaaq Al Marifaa 2026-04-16](https://rwaaqalmarifaa.com/how-much-does-certified-translation-cost-a-complete-price-guide-in-riyadh-saudi-arabia/); [SACT 2026-08-24](https://sact.co/ترجمة-معتمدة-الرياض/); 정리는 `docs/market/사우디-가격-고객수-조사.md`
+- 사우디 공인 번역 공개 가격: 375단어 한 장 기준 중앙값 약 62.5리얄. 법률 문서는 건당 35~200리얄이고 최빈값은 100리얄이다. Ruwaaq는 영어↔아랍어 300단어 이하 50리얄, 당일 처리 +50%, 공증 문서당 +100리얄이다(기존 조사에서 직접 확인, 이번에 재확인 안 함) — [Ruwaaq Al Marifaa 2026-04-16](https://rwaaqalmarifaa.com/how-much-does-certified-translation-cost-a-complete-price-guide-in-riyadh-saudi-arabia/); [SACT 2026-08-24](https://sact.co/ترجمة-معتمدة-الرياض/); 정리는 `docs/business/market/saudi-price-customers.md`
 - 번역 업체는 "Quick Turnaround in 12 Hours"를 광고한다(업체 주장) — [Translayte, 요약](https://translayte.com/certified-translations/saudi-arabia)
 - 번역업 상업등기 7,964건, 20% 증가(사우디 상무부 발표) — [Okaz 2026-09-30, 기존](https://www.okaz.com.sa/economy/na/2268624)
 - 법원용 번역은 면허 번역사가 검증해야 한다(UAE). 그래서 AI 번역만으로는 제출할 수 없고, 사람의 검증 단계에 계속 돈이 든다 — [Gulf News 2025-10-13, 직접](https://gulfnews.com/uae/uae-public-prosecution-launches-bayan-smart-translation-centre-1.500305922); [HAQQ 2026-06-11, 직접](https://www.haqq.ai/blog/ai-legal-translation-arabic-english.html)
