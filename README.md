@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-13): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다.
+> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다.
 
 ## 무엇을 하는가
 
@@ -70,6 +70,7 @@ uv run pytest
 - 에이전트 실험은 합성 문서로 합니다. 결과를 실제 서류의 오류율이나 포착률로 일반화하지 않습니다.
 - Wikidata 인명은 공개 인물 위주라 일반 고객 서류의 이름 분포와 다를 수 있습니다.
 - 단계 1에서 고유명사의 근거로 인정하는 것은 같은 문서 안의 영문 표기뿐입니다.
+- 아랍어 사람 검수를 하지 않으므로 실제 고객 서류의 포착률은 재지 않습니다. 실제 문서 측정은 공식 영문본이 함께 공개된 문서로만 계획합니다.
 
 ## 라이선스 참고
 
