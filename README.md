@@ -58,7 +58,16 @@ uv run tashkeel run --doc data/synthetic/dev/dev_001.json --condition all --fake
 실제 모델로 돌리려면 `.env.example`을 `.env`로 복사해 `OPENAI_API_KEY`를 넣고 `--fake`를 뺍니다. LangSmith 키가 있으면 추적이 켜지고, 없으면 추적만 꺼집니다. 결과는 `results/debug/<문서>/<조건>/`에 `segments.json`, `proper_nouns.csv`, `metrics.json`, `run_meta.json`으로 남습니다.
 
 ```bash
-uv run pytest
+uv run pytest -m "not live"
+```
+
+`live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
+
+개발할 때는 CI와 같은 검사를 돌립니다. `tests/golden/`은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않습니다(`PROJECT_PLAN.md` ADR-013).
+
+```bash
+uv run ruff check . && uv run ruff format --check . && uv run mypy
+uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 ```
 
 ## 하지 않는 것 (단계 1)

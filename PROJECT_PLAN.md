@@ -2,7 +2,7 @@
 
 - 프로젝트/레포 이름: `tashkeel-check`
 - 마지막 업데이트: 2026-10-20
-- 현재 단계: 단계 1 구현 완료, 실험(EXP-001·002) 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). **단계 1.5는 미구현**
+- 현재 단계: 단계 1 구현 완료, 실험(EXP-001·002) 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). 단계 1.5 전 리팩토링 완료(ADR-013, 동작 동일 확인). **단계 1.5는 미구현**
 - 문서 역할: 현재 계획, 진행 상황, 실험, ADR, 트러블슈팅을 관리하는 작업용 기준 문서. 외부용 소개는 `README.md`, 사업 근거는 `사업성 검토 아랍어 문서 검증 도구.md`, 시장 조사 기록은 `docs/market/`에 있다.
 
 > **작업을 시작하기 전에 이 문서를 읽는다. 작업 중 계획·범위·구조·데이터·평가 방식이 바뀌면 해당 본문을 최신 상태로 수정하고, 변경 이력에 이유와 영향을 기록한다. 중요한 기술적 결정은 ADR에, 문제와 해결 과정은 트러블슈팅에, 측정 결과는 실험 기록에 남긴다. 작업을 마칠 때 체크리스트와 다음 작업을 갱신한다.**
@@ -282,15 +282,18 @@ LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수�
 - CAMeL Tools 1.6.0과 기본 형태소 DB calima-msa-r13. DB는 `camel_data`로 내려받는다. 패키지 이름은 공식 문서에서 확인한다.
 - calima-msa-r13은 GPL v2다(ADR-005). README에 적는다.
 
-### 4.8 저장소 구조 [확인, 2026-10-13 구현]
+### 4.8 저장소 구조 [확인, 2026-10-13 구현, 2026-10-20 리팩토링 반영]
 
 계획 초안의 `scripts/`는 CLI 하위 명령(`uv run tashkeel <명령>`)으로 바꿨다.
 
 ```text
-pyproject.toml, uv.lock      Python 3.11, uv
-.env.example                 골격 .env와 같은 키 이름 + MODEL, 판단 기준, 실험 규모
+pyproject.toml, uv.lock      Python 3.11, uv. ruff·mypy·pytest 설정(ADR-013)
+.env.example                 골격 .env와 같은 키 이름 + MODEL, 판단 기준, 실험 규모, DATA_DIR·RESULTS_DIR
+.pre-commit-config.yaml      ruff·mypy 훅(uv.lock 버전 사용)
+.github/workflows/ci.yml     ruff·mypy·pytest(live·camel 제외)
 src/tashkeel_check/
-  config.py                  설정, 조건, LangSmith 켜짐 여부
+  config.py                  설정(검증하는 pydantic 모델, 환경 변수는 load_settings만 읽음), 조건, LangSmith
+  errors.py                  TashkeelError → InputError(400·종료 2) / ConfigError·AnalyzerUnavailable(503·종료 3)
   text.py                    정규화, 구간·토큰 ID
   analyzer.py                CAMeL 래퍼, 격어미 제거, 모호 판정
   romanize.py                romanize, match_spelling (v0)
@@ -300,15 +303,16 @@ src/tashkeel_check/
   fake.py                    가짜 모델(연습 모드, 테스트)
   graph.py                   StateGraph
   reconcile.py               강등 규칙, 지표
-  export.py                  JSON·CSV·run_meta
-  runner.py                  문서 1개 실행, LangSmith 메타데이터
+  results.py                 결과 형식 ReviewResult(파일·API·DB 공통 계약, 모르는 키는 오류)
+  export.py                  JSON·CSV·run_meta (ReviewResult에서 씀)
+  runner.py                  Reviewer(그래프 한 번 빌드, 문서마다 재사용), run_document(편의 래퍼), LangSmith
   cli.py                     run / fetch-wikidata / make-synthetic / bundle-search / exp001 / exp002
   data/                      names.py(이름 정렬), wikidata.py, synthetic.py
   experiments/               exp001.py, exp002.py
   rag/                       bundle.py (단계 2 틀)
 data/wikidata/  data/synthetic/{dev,eval}/  data/bundles/sample/
 results/                     평가 실행 결과는 보존, results/debug/는 git 제외
-tests/
+tests/                       golden/(골든 스냅숏 160건), golden_cases.py, test_llm_inputs.py(LLM 입력 해시)
 docs/                        요구사항-분석.md, 아키텍처-설계.md, 툴-설계.md, experiments/
 ```
 
@@ -328,7 +332,7 @@ tests/test_web_api.py, tests/test_mcp.py
 docs/과제2-테스트-기록.md    기능별 입력·결과, 예외 테스트(실행한 것만)
 ```
 
-CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더한다. 의존성 추가 후보: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.run_document`에는 노드 진행 콜백(`on_node`)을 더하고 내부를 `graph.stream`으로 바꾼다(결과 동일, 기존 테스트 유지). 과제 안내 파일과의 대응표는 README에 둔다.
+CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더한다. 의존성 추가 후보: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.Reviewer`에 노드 진행 콜백(`on_node`)을 더하고 내부를 `graph.stream`으로 바꾼다(결과 동일, 골든 테스트로 확인). 서비스는 기동할 때 `Reviewer`를 하나 만들어 두고, `InputError`·`ConfigError`를 400·503으로 바꾸며, 응답은 `ReviewResult`를 그대로 쓴다. 과제 안내 파일과의 대응표는 README에 둔다.
 
 주요 명령:
 
@@ -340,7 +344,8 @@ CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKE
 | `uv run tashkeel make-synthetic` | 합성 문서 dev 10개·eval 30개와 샘플 묶음 |
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
 | `uv run tashkeel exp002 --split eval --yes` | EXP-002(360회, 비용 발생) |
-| `uv run pytest` | 테스트(실제 LLM 테스트는 `live` 마커, 키가 없으면 건너뜀) |
+| `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
+| `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 
 ## 5. 데이터
 
@@ -476,7 +481,16 @@ LangSmith 메타데이터와 로컬 `run_meta.json`에 같은 값을 남긴다: 
 - [x] 가짜 모델 결정적 테스트, analyze·reconcile 단위 테스트 (50개 통과, live 1개는 키가 없어 건너뜀)
 - [x] 문서 3종: [요구사항 분석](docs/요구사항-분석.md), [아키텍처 설계](docs/아키텍처-설계.md), [툴 설계](docs/툴-설계.md)
 - [x] 단계 2 틀: 묶음 검색(RAG·벡터 DB), 꺼짐(ADR-007)
-- [ ] EXP-002 실행·기록. 코드와 사전 등록은 끝, **실행하지 않음**(사용자 지시, API 키 없음)
+- [ ] EXP-002 실행·기록. 코드와 사전 등록은 끝, **실행하지 않음**(사용자 지시. 2026-10-20 기준 `.env`에 OpenAI 키는 있음)
+
+### 단계 1.5 전 리팩토링 (ADR-013, 2026-10-20 완료)
+
+- [x] 골든 스냅숏 160건(dev 10 × C0~C3 × 분석기 2종 × 응답기 2종)과 LLM 입력 해시 고정 테스트. 만드는 과정에서 C0 대조의 해시 seed 의존 버그를 찾아 고침(TS-003)
+- [x] ruff·mypy·pytest-cov·pre-commit, GitHub Actions CI(live·camel 제외). ruff format 일괄 적용 커밋은 `.git-blame-ignore-revs`에 등록
+- [x] 설정 검증(pydantic), `data_dir`·`results_dir`, 예외 체계와 CLI 종료 코드, logging과 `--verbose`
+- [x] `Reviewer`(그래프 한 번 빌드), 결과 형식 `ReviewResult`, `reconcile._structured` 분해
+- [x] 동작 동일 확인: 골든·LLM 입력 해시가 R1 이후 바뀌지 않음, dev_004 C0~C3 산출 파일이 리팩토링 전 코드(71704ee)와 바이트 단위로 같음(`run_meta.json`의 `elapsed_s` 제외)
+- [ ] CI 첫 실행(브랜치 push 후, 사용자 확인 필요)
 
 ### 단계 1.5 — 과제 2 서비스화 (ADR-012, 전부 미구현, 사용자 지시 후 착수)
 
@@ -505,6 +519,18 @@ LangSmith 메타데이터와 로컬 `run_meta.json`에 같은 값을 남긴다: 
 - [ ] 단일 에이전트(C2·C3)보다 말없이 찍는 비율이 낮을 때만 멀티 에이전트를 판매 형태로 확정한다. 아니면 단일 에이전트 API로 판다
 
 ## 9. 현재 상태와 다음 작업
+
+### 완료 (2026-10-20): 단계 1.5 전 리팩토링 (ADR-013)
+
+사용자가 "리팩토링부터 할지, 프로젝트부터 할지"를 묻고 실무에서 쓸 수 있는 코드를 원했다. 마감이 없어 리팩토링을 먼저 하고 동작은 바꾸지 않기로 했다. 브랜치 `refactor/production-baseline`, 커밋 단위로 한 종류씩.
+
+- 진단 [확인]: src 약 2,500줄, 모듈 경계 분명, 테스트 51개 통과. 부족한 점은 린트·타입 검사·CI 없음, 결과가 타입 없는 dict, 경로가 레포 위치(`ROOT`)에 묶임, 예외 체계 없음, 라이브러리 print, 실행마다 그래프 재빌드, 170줄짜리 `reconcile._structured`였다
+- 안전망: 골든 스냅숏 160건과 LLM 입력 해시(시스템 프롬프트, 구조화 출력 스키마, 툴 스키마, 사용자 메시지) 고정 테스트를 먼저 만들었다. 이 과정에서 C0 대조가 해시 seed에 따라 달라지는 버그를 찾아 고쳤다(TS-003). 리팩토링 중 골든과 해시 고정값은 한 번도 바뀌지 않았다 [확인]
+- 결과 [확인]: ruff·mypy 통과, 테스트 224개 통과(live 제외), CAMeL DB 없이도 133개 통과(CI 조건). dev_004 C0~C3 산출 파일이 리팩토링 전 코드와 바이트 단위로 같다(`elapsed_s` 제외)
+- 계획과 달라진 점: `pydantic-settings` 대신 pydantic `BaseModel` + `load_settings()`로 했다. `BaseSettings`는 생성할 때마다 환경 변수를 읽는데, CLI의 `load_dotenv`가 `.env`를 `os.environ`에 써 넣어 테스트 결과가 실행 순서에 따라 달라지기 때문이다(ADR-013)
+- 동작이 달라진 곳(골든 밖): CLI가 키 없음·설정 오류·입력 오류를 traceback 대신 한 줄 메시지와 종료 코드(3·3·2)로 낸다. `.env`를 레포 위치가 아니라 작업 디렉터리에서 위로 찾는다. 빈 환경 변수 값은 설정하지 않은 것으로 본다. `ENABLE_BUNDLE_SEARCH`가 `true` 외에 `1`·`yes`도 참으로 읽는다. 로그 줄에 수준(INFO 등)이 붙는다
+- 확인하지 않은 것: CI 첫 실행(push 전), `pre-commit install`(사용자 선택)
+- 주의: `.env`에 키가 있으면 `uv run pytest`가 `live` 테스트로 실제 API를 부른다. 이번 점검에서도 두 번 불렀다. 평소에는 `uv run pytest -m "not live"`를 쓴다
 
 ### 완료 (2026-10-20): 과제 2 요건 검토와 계획 반영 (ADR-012)
 
@@ -632,12 +658,12 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 | --- | --- |
 | Python·도구 | Python 3.11.15, uv, 주요 패키지는 `uv.lock`(langchain 1.4.5, langgraph 1.2.15, langsmith 0.14.8, langchain-openai 1.7.1, camel-tools 1.6.0) |
 | 디스크 | 여유 약 619GB |
-| API 키 | OpenAI·LangSmith 키 없음(환경 변수와 `.env` 모두). `.env.example`만 있다 |
+| API 키 | 2026-10-13: OpenAI·LangSmith 키 없음. 2026-10-20: `.env`에 OpenAI 키가 있다(`MODEL=openai:gpt-6.1-sol`). LangSmith 키는 없다 |
 
 ### 아직 하지 않은 것
 
 - EXP-001, EXP-002 실행(사용자 지시로 보류)
-- 실제 OpenAI 모델로 한 번이라도 돌려 본 것. 구조화 출력·tool call이 `gpt-6.1-sol`에서 안정적인지 모른다 [미확인]
+- 실제 모델로 dev 문서를 돌려 본 것. 2026-10-20 리팩토링 점검 중 `live` 테스트(작은 문서 1개, C1)가 `gpt-6.1-sol`을 두 번 호출해 둘 다 구조화 출력 검사를 통과했다 [확인]. C2의 tool call, dev 문서 규모, 실패율은 아직 모른다 [미확인]
 - `temperature` 지원 여부 확인
 - C0 판정 규칙의 사람 확인(20건)
 
@@ -645,12 +671,12 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 
 과제 2 서비스화(단계 1.5, 사용자 지시 후 착수, 8절 체크리스트 순서):
 
-1. API와 작업 실행(`web/app.py`, `web/jobs.py`, `runner.run_document`의 `on_node` 콜백) → 2. Postgres(`web/db.py`, `web/models.py`, Alembic, `docker-compose.yml`) → 3. 화면(`web/static/index.html`) → 4. MCP(`mcp/`) → 5. `tashkeel serve`·`run.sh`·`Dockerfile` → 6. 테스트와 `docs/과제2-테스트-기록.md`, 화면 캡처 → 7. README 실행 방법·변경 파일 설명 갱신, 4.8절을 [확인]으로 바꿈.
+1. API와 작업 실행(`web/app.py`, `web/jobs.py`, `runner.Reviewer`의 `on_node` 콜백. 응답 형식은 `results.ReviewResult`, 오류는 `errors`로 400·503) → 2. Postgres(`web/db.py`, `web/models.py`, Alembic, `docker-compose.yml`) → 3. 화면(`web/static/index.html`) → 4. MCP(`mcp/`) → 5. `tashkeel serve`·`run.sh`·`Dockerfile` → 6. 테스트와 `docs/과제2-테스트-기록.md`, 화면 캡처 → 7. README 실행 방법·변경 파일 설명 갱신, 4.8절을 [확인]으로 바꿈.
 
 실험(기존):
 
-1. `.env`에 `OPENAI_API_KEY`(필요하면 `LANGSMITH_API_KEY`)를 넣는다.
-2. 연습 모드 대신 실제 모델로 dev 문서 1개를 C1·C2로 돌려 구조화 출력이 나오는지 본다(`uv run tashkeel run --doc data/synthetic/dev/dev_004.json --condition C2`).
+1. ~~`.env`에 `OPENAI_API_KEY`를 넣는다~~ (2026-10-20 확인: 있음). LangSmith 추적을 쓰려면 `LANGSMITH_API_KEY`를 더한다.
+2. M0: 실제 모델로 dev 문서 1개를 C1·C2로 돌려 구조화 출력과 tool call이 나오는지 본다(`uv run tashkeel run --doc data/synthetic/dev/dev_004.json --condition C2`). 리팩토링 뒤 첫 작업으로 한다.
 3. 모호 판정 규칙을 유지할지 정한다(위 "구현 중 본 것").
 4. EXP-001: dev로 규칙 고정 → main 1회.
 5. EXP-002: `uv run tashkeel exp002 --split eval --yes`(360회).
@@ -667,6 +693,7 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 
 ### 사용자가 정할 것
 
+- 리팩토링 브랜치(`refactor/production-baseline`)를 push해 CI를 처음 돌릴지, `main`에 합칠지. `uv run pre-commit install`로 커밋 훅을 켤지
 - 단계 1.5 구현 착수 시점. `all_total_vue_student/`를 언제 삭제할지(지금은 untracked로 둠)
 - MCP를 C2 서비스 경로에 실제로 끼울지(`USE_MCP_TOOLS`), 아니면 MCP 서버를 외부 노출용으로만 두고 `/v1/samples`의 리소스 조회로 연동 확인을 갈음할지
 - 모호 판정 규칙 유지 여부(위 관찰)
@@ -713,6 +740,7 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 | 2026-10-20 | `docs/개발-계획.md` 신설: 주요 기능 선정(F1~F13), 기술 스택·시스템 구성(FastAPI·SQLite·Qdrant·Docker 추가, API 초안, 구성도), 개발 계획(M0~M6, 약 10~11주). 2절·7절에 요약과 링크 추가 | 사용자 지시("주요 기능 선정, 기술 스택 및 시스템 구성 설계, 개발 계획 수립") | 단계 1 코드·실험 설계는 바뀌지 않음. 제품 경로의 스택·API·기간은 전부 [제안]. M2(EXP-002)를 제품화 관문으로 명시. 사용자가 정할 것에 M0 시작일, 화면·MCP 범위 추가 |
 | 2026-10-20 | 과제 2 요건 반영(ADR-012): 단계 1.5(서비스화: 단일 문서 검수 웹 화면·API·Postgres·최소 MCP) 신설. 3절 범위의 "웹 화면"을 1.5로 이동, 4.6·4.7·4.8절에 설계 [제안] 추가, 8절 체크리스트·9절 다음 작업 추가. `docs/개발-계획.md`에 M1.5 추가, F14(MCP)를 단계 1.5의 툴·리소스·프롬프트 3종으로 구체화(같은 날 "mcp 할거고" 결정과 합침), README에 과제 파일 대응표 추가 | 과제 2 안내(제공 ZIP 구조 재활용) + 사용자 결정(기존 구조 유지, ZIP은 패턴만, 폼 화면, Postgres, LangChain LLM 층 유지, 단일 문서) | 실험 설계·단계 1 코드·실험 기록은 바뀌지 않음. 개발 계획 M4의 단일 문서 부분이 앞당겨짐. SQLite는 채택하지 않음. **코드 변경 없음, 단계 1.5는 미구현** |
 | 2026-10-20 | 1절을 문제 정의와 서비스 목표로 다시 씀. 1.1을 언어·업무·도구 세 층과 대상 고객, 기존 수단의 한계로 구조화. 1.2 "서비스 목표" G1~G6을 신설해 6절 지표와 판정 기준을 연결하고, 목표가 아닌 것을 명시. 질문 표는 1.3으로 번호 이동 | 사용자 지시("해결하고자 하는 문제 및 서비스 목표 정의") | 정의·범위·실험 설계는 바뀌지 않음. ADR-008·009와 사업성 검토에 흩어진 내용을 한곳에 모음. G1·G3·G4의 목표값은 [제안]이며 EXP-002 전에 사용자 확정 필요. 2절·ADR-002의 "1.2절" 참조를 "1.3절"로 고침 |
+| 2026-10-20 | 단계 1.5 전 리팩토링(ADR-013): 골든 테스트·LLM 입력 해시 테스트, ruff·mypy·pre-commit·CI, 설정 검증과 `data_dir`·`results_dir`, 예외 체계(`errors.py`), logging, `Reviewer`, 결과 형식 `ReviewResult`(`results.py`), `reconcile` 분해. C0 대조 버그 수정(TS-003) | 사용자 질문("리팩토링부터? 프로젝트부터?", 실무 수준 코드 요구, 마감 없음) | 실험 설계·프롬프트·스키마·지표 정의는 바뀌지 않음(해시 고정 테스트로 확인). TS-003 수정으로 C0의 `n_inconsistent_names`·`flagged` 판정이 seed와 무관해짐(EXP-002 미실행이라 기존 결과 영향 없음). 단계 1.5는 `Reviewer`·`ReviewResult`·`errors`·`Settings` 위에 만든다. 4.8절·8절·9절 갱신 |
 | 2026-10-20 | MCP 서버(`analyze_tokens`·`search_bundle` 노출)를 선택 항목에서 범위로 올림. `docs/개발-계획.md`에 F14 추가, 2.1절 스택 표와 M4에 반영, 3.5절에서 해당 결정 항목 삭제. 사용자가 정할 것 갱신 | 사용자 결정("mcp 할거고") | M4 작업량이 늘어남(기간 재추정은 안 함). 단계 1 코드·실험 설계는 바뀌지 않음 |
 
 추가 형식: `날짜 / 바뀐 내용 / 변경 이유·근거 / 일정·범위·평가에 미치는 영향 / 관련 ADR·실험`.
@@ -852,6 +880,19 @@ ZIP 구성 확인 결과 [확인, 읽기만]:
 - 재검토 조건: 과제 채점 기준이 ZIP 파일 이름·위치를 그대로 요구한다고 확인될 때(루트에 얇은 진입 파일을 두는 대안 검토). 실제 모델에서 구조화 출력이 불안정해 ADR-006을 재검토할 때. 묶음 업로드가 과제 범위에 필요해질 때.
 - 관련 코드·실험·트러블슈팅: `graph.build_graph(extra_tool_factories)`, `runner.run_document`, `fake.FakeAgentModel`, `tools.py`, `prompts.system_prompt`, `docs/개발-계획.md` 1·2.1·2.3·2.5·3.2절, README 대응표. ZIP 출처: 과제 2 제공 `all_total_vue_student.zip`(레포에 untracked로 압축 해제됨, 통합 후 삭제 예정).
 - 대체하거나 대체된 ADR: ADR-003·007의 "웹 화면·API는 단계 2"를 단일 문서 범위에 한해 앞당긴다. ADR-006(LLM 층)·ADR-011(Postgres)은 그대로 적용한다. ADR-004의 "분석기는 코드에서 항상 돈다"는 MCP 경로에서도 유지된다(MCP 툴은 같은 분석기 함수를 서브프로세스에서 돌릴 뿐이다).
+
+### ADR-013 — 단계 1.5 전에 동작을 보존하는 리팩토링을 하고, 골든 테스트·LLM 입력 해시·정적 검사·CI를 코드 품질 기준으로 둔다
+
+- 날짜: 2026-10-20
+- 상태: 채택
+- 배경과 문제: 단계 1.5(API·DB·MCP)는 `runner`·`graph`·`reconcile` 결과·설정 위에 올라간다. 결과가 타입 없는 dict이고 경로가 레포 위치에 묶여 있으며 예외 체계와 정적 검사가 없어, 그대로 서비스를 붙이면 약점이 API 응답과 DB 스키마에 굳는다. 사용자는 실무에서 쓸 수 있는 코드를 원했고 마감은 없다. 한편 EXP-002는 사전 등록돼 있어 리팩토링이 LLM 입력이나 지표를 바꾸면 안 된다.
+- 검토한 대안: 서비스화부터 하고 나중에 정리 / 전면 재작성 / 기한을 둔 동작 보존 리팩토링. 설정은 `pydantic-settings` / pydantic `BaseModel` + 명시적 로더.
+- 결정: 기한을 둔 동작 보존 리팩토링을 먼저 한다. 규칙은 (1) 골든 스냅숏을 먼저 만들고 리팩토링 중에는 다시 만들지 않는다, (2) LLM이 보는 입력(프롬프트, 스키마 필드·설명, 툴 docstring, 사용자 메시지)은 바꾸지 않고 해시 테스트로 지킨다, (3) 커밋 하나에 한 종류의 변경, (4) 기능 추가 없음. 품질 기준은 ruff(E,F,I,B,UP,SIM, 120자)·mypy(`disallow_untyped_defs`)·pytest·CI(live·camel 제외)다. 설정은 pydantic `BaseModel`(검증)로 두고 환경 변수는 `load_settings()`만 읽는다. 결과는 `ReviewResult`로 검증한다(모르는 키는 오류). 지표(metrics)는 EXP 전에 정의가 바뀔 수 있어 dict로 둔다.
+- 선택 이유와 근거: 골든과 해시 테스트가 있어야 "동작이 같다"를 말이 아니라 측정으로 보일 수 있다(골든을 만들다 TS-003을 찾은 것이 그 예다). `BaseSettings`는 생성할 때마다 환경 변수를 읽는데 CLI의 `load_dotenv`가 `.env`를 `os.environ`에 써 넣어, 테스트 결과가 실행 순서에 따라 달라진다. 프롬프트 원문의 긴 줄은 LLM 입력이라 E501을 `prompts.py`에서만 끈다.
+- 비용·성능·구조에 미치는 영향: 개발 의존성 4개(ruff, mypy, pytest-cov, pre-commit) 추가. 골든 파일 약 4.9MB(git 압축 약 0.35MB). 프롬프트·스키마를 바꾸는 실험 변경은 이제 해시 테스트를 함께 고쳐야 하므로, 그 자체가 기록을 남기게 된다. 골든을 다시 만들어야 하는 변경은 리팩토링이 아니므로 이유를 변경 이력에 적는다(`uv run python -m tests.golden_cases`).
+- 재검토 조건: 지표 정의가 EXP 전에 바뀔 때(골든을 다시 만들고 기록). metrics를 DB 열로 펼쳐야 할 때(타입 모델로 승격). CI에서 CAMeL DB를 받을 수 있게 될 때.
+- 관련 코드·실험·트러블슈팅: `tests/golden_cases.py`, `tests/test_golden.py`, `tests/test_llm_inputs.py`, `config.py`, `errors.py`, `results.py`, `runner.Reviewer`, `.github/workflows/ci.yml`, TS-003
+- 대체하거나 대체된 ADR: 없음. ADR-002(같은 코드로 조건 비교)와 ADR-012(단계 1.5)를 보완한다.
 
 ### 새 ADR 작성 템플릿
 
