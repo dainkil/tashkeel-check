@@ -6,19 +6,20 @@
 from __future__ import annotations
 
 import unicodedata
+from collections.abc import Callable
 from functools import lru_cache
-from typing import Callable, TypedDict
+from typing import TYPE_CHECKING, TypedDict
 
+from .errors import AnalyzerUnavailable as AnalyzerUnavailable  # 기존 import 경로 유지
 from .romanize import romanize, romanize_display
 from .text import Token, dediac
+
+if TYPE_CHECKING:
+    from camel_tools.morphology.analyzer import Analyzer
 
 DB_NAME = "calima-msa-r13"
 CASE_MARKS = {"ً", "ٌ", "ٍ", "َ", "ُ", "ِ", "ْ"}  # 탄윈 3종, 파트하, 담마, 카스라, 수쿤
 FATHATAN = "ً"
-
-
-class AnalyzerUnavailable(RuntimeError):
-    pass
 
 
 class Candidate(TypedDict):
@@ -61,7 +62,7 @@ def strip_case_ending(diac: str) -> str:
 
 
 @lru_cache(maxsize=1)
-def _camel_analyzer():
+def _camel_analyzer() -> Analyzer:
     try:
         from camel_tools.morphology.analyzer import Analyzer
         from camel_tools.morphology.database import MorphologyDB

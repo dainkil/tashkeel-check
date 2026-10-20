@@ -6,8 +6,10 @@ LLM이 필요 없는 검사와 집계는 일반 함수 노드다.
 
 from __future__ import annotations
 
+import logging
 import time
-from typing import Any, Callable, TypedDict
+from collections.abc import Callable
+from typing import Any, TypedDict
 
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ToolStrategy
@@ -16,15 +18,20 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import BaseTool
 from langgraph.graph import END, START, StateGraph
+from langgraph.graph.state import CompiledStateGraph
 
 from .analyzer import AnalyzeFn, TokenAnalysis, analyze_tokens
 from .config import CONDITIONS, Settings
+from .errors import InputError
 from .export import write_outputs
 from .prompts import system_prompt, user_message
 from .reconcile import parse_c0, reconcile
+from .results import ReviewResult
 from .schemas import AgentOutput
 from .text import Segment, Token, nfc, tokenize
 from .tools import make_analyze_tool
+
+logger = logging.getLogger(__name__)
 
 ToolFactory = Callable[[list[Token], list[dict]], BaseTool]
 
@@ -44,7 +51,8 @@ class GraphState(TypedDict, total=False):
     attempts: int
     errors: list[str]
     valid: bool
-    result: dict
+    reconciled: dict  # reconcile 노드의 결과(검증 전)
+    result: ReviewResult  # export 노드가 검증한 최종 결과
 
 
 def _add_usage(usage: dict, msg: AIMessage) -> None:
@@ -59,15 +67,15 @@ def build_graph(
     settings: Settings,
     analyze_fn: AnalyzeFn | None = None,
     extra_tool_factories: list[ToolFactory] | None = None,
-):
+) -> CompiledStateGraph:
     extra_tool_factories = extra_tool_factories or []
 
     def load(state: GraphState) -> dict:
         if state["condition"] not in CONDITIONS:
-            raise ValueError(f"unknown condition {state['condition']!r}")
+            raise InputError(f"unknown condition {state['condition']!r}")
         segments = [Segment(segment_id=s["segment_id"], text=nfc(s["text"])) for s in state["segments"]]
         if not segments:
-            raise ValueError("document has no segments")
+            raise InputError("document has no segments")
         meta = {**state.get("meta", {}), "started_at_epoch": time.time()}
         return {
             "segments": segments,
@@ -102,10 +110,16 @@ def build_graph(
             else:
                 tools: list[BaseTool] = []
                 if condition == "C2":
-                    tools.append(make_analyze_tool(state["tokens"], state["analyses"], tool_log, settings.max_candidates))
+                    tools.append(
+                        make_analyze_tool(state["tokens"], state["analyses"], tool_log, settings.max_candidates)
+                    )
                 tools.extend(factory(state["tokens"], tool_log) for factory in extra_tool_factories)
-                runner = create_agent(model, tools=tools, system_prompt=system, response_format=ToolStrategy(AgentOutput))
-                res = runner.invoke({"messages": [HumanMessage(user)]}, config={"recursion_limit": settings.recursion_limit})
+                runner = create_agent(
+                    model, tools=tools, system_prompt=system, response_format=ToolStrategy(AgentOutput)
+                )
+                res = runner.invoke(
+                    {"messages": [HumanMessage(user)]}, config={"recursion_limit": settings.recursion_limit}
+                )
                 for m in res["messages"]:
                     if isinstance(m, AIMessage):
                         _add_usage(usage, m)
@@ -115,6 +129,7 @@ def build_graph(
                 else:
                     output = structured.model_dump() if hasattr(structured, "model_dump") else dict(structured)
         except Exception as exc:  # API 오류와 형식 오류를 기록하고 validate가 재시도를 정한다
+            logger.warning("%s %s attempt %d failed", state["doc_id"], condition, attempts, exc_info=True)
             errors.append(f"attempt {attempts}: {type(exc).__name__}: {exc}")
         return {"output": output, "attempts": attempts, "usage": usage, "tool_log": tool_log, "errors": errors}
 
@@ -165,7 +180,7 @@ def build_graph(
             }
         )
         result["doc_id"] = state["doc_id"]
-        return {"result": result}
+        return {"reconciled": result}
 
     def export(state: GraphState) -> dict:
         meta = dict(state.get("meta", {}))
@@ -173,9 +188,10 @@ def build_graph(
         meta["attempts"] = state.get("attempts", 0)
         meta["usage"] = state.get("usage", {})
         meta["tool_calls"] = len(state.get("tool_log", []))
-        result = {**state["result"], "meta": meta}
-        if state.get("out_dir"):
-            write_outputs(state["out_dir"], result, meta)
+        result = ReviewResult.model_validate({**state["reconciled"], "meta": meta})
+        out_dir = state.get("out_dir")
+        if out_dir:
+            write_outputs(out_dir, result)
         return {"result": result, "meta": meta}
 
     builder = StateGraph(GraphState)

@@ -60,10 +60,7 @@ def has_latin(text: str) -> bool:
 def segment_text(text: str) -> list[Segment]:
     """빈 줄이 아닌 줄을 한 구간으로 본다."""
     lines = [line.strip() for line in nfc(text).splitlines()]
-    return [
-        Segment(segment_id=f"s{i:02d}", text=line)
-        for i, line in enumerate((ln for ln in lines if ln), start=1)
-    ]
+    return [Segment(segment_id=f"s{i:02d}", text=line) for i, line in enumerate((ln for ln in lines if ln), start=1)]
 
 
 def tokenize(segments: list[Segment]) -> list[Token]:
@@ -84,11 +81,7 @@ def tokenize(segments: list[Segment]) -> list[Token]:
 
 
 def tokens_in_span(tokens: list[Token], segment_id: str, start: int, end: int) -> list[int]:
-    return [
-        t["id"]
-        for t in tokens
-        if t["segment_id"] == segment_id and t["start"] >= start and t["end"] <= end
-    ]
+    return [t["id"] for t in tokens if t["segment_id"] == segment_id and t["start"] >= start and t["end"] <= end]
 
 
 def render_plain(segments: list[Segment]) -> str:

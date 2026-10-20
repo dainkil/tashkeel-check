@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy
+      # CAMeL 형태소 DB(GPL v2, ADR-005)는 CI에서 받지 않는다. camel 마커 테스트는 로컬에서 돌린다.
+      # 실제 LLM 호출(live)은 비용이 들어 CI에서 돌리지 않는다.
+      - run: uv run pytest -m "not live and not camel"

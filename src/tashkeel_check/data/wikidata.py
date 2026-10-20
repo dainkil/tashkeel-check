@@ -6,14 +6,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
-import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ..text import normalize_key
@@ -23,7 +23,14 @@ ENDPOINTS = {
     "wdqs": "https://query.wikidata.org/sparql",  # Wikidata 공식
     "qlever": "https://qlever.dev/api/wikidata",  # Freiburg 대학의 공개 Wikidata 미러(같은 CC0 데이터)
 }
-COUNTRIES = {"Q878": "UAE", "Q851": "Saudi Arabia", "Q846": "Qatar", "Q817": "Kuwait", "Q398": "Bahrain", "Q842": "Oman"}
+COUNTRIES = {
+    "Q878": "UAE",
+    "Q851": "Saudi Arabia",
+    "Q846": "Qatar",
+    "Q817": "Kuwait",
+    "Q398": "Bahrain",
+    "Q842": "Oman",
+}
 GENDERS = {"http://www.wikidata.org/entity/Q6581097": "male", "http://www.wikidata.org/entity/Q6581072": "female"}
 
 PREFIXES = """PREFIX wd: <http://www.wikidata.org/entity/>
@@ -31,12 +38,15 @@ PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 """
-QUERY = PREFIXES + """SELECT ?p ?ar ?en ?gender (GROUP_CONCAT(DISTINCT ?al; separator="|") AS ?aliases) WHERE {
+QUERY = (
+    PREFIXES
+    + """SELECT ?p ?ar ?en ?gender (GROUP_CONCAT(DISTINCT ?al; separator="|") AS ?aliases) WHERE {
   ?p wdt:P31 wd:Q5; wdt:P27 wd:%s; rdfs:label ?ar. FILTER(LANG(?ar)="ar")
   ?p rdfs:label ?en. FILTER(LANG(?en)="en")
   OPTIONAL { ?p wdt:P21 ?gender }
   OPTIONAL { ?p skos:altLabel ?al. FILTER(LANG(?al)="en") }
 } GROUP BY ?p ?ar ?en ?gender"""
+)
 
 
 def _user_agent() -> str:
@@ -44,15 +54,18 @@ def _user_agent() -> str:
     return f"tashkeel-check/0.1 (research prototype; {contact})"
 
 
-def _log(msg: str) -> None:
-    print(f"[wikidata {datetime.now().strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+logger = logging.getLogger(__name__)
 
 
-def _sparql(query: str, endpoint: str = "wdqs", attempts: int = 6, wait_s: float = 65.0, max_wait_s: float = 180.0) -> list[dict]:
+def _sparql(
+    query: str, endpoint: str = "wdqs", attempts: int = 6, wait_s: float = 65.0, max_wait_s: float = 180.0
+) -> list[dict]:
     """429(요청 제한)·5xx면 기다렸다가 다시 보낸다. 2026-10-13에는 분당 1회로 제한됐다(TS-002).
     Retry-After가 길어도 max_wait_s까지만 기다린다."""
     url = ENDPOINTS[endpoint] + "?" + urllib.parse.urlencode({"query": query})
-    req = urllib.request.Request(url, headers={"User-Agent": _user_agent(), "Accept": "application/sparql-results+json"})
+    req = urllib.request.Request(
+        url, headers={"User-Agent": _user_agent(), "Accept": "application/sparql-results+json"}
+    )
     for attempt in range(1, attempts + 1):
         try:
             with urllib.request.urlopen(req, timeout=120) as resp:
@@ -63,11 +76,14 @@ def _sparql(query: str, endpoint: str = "wdqs", attempts: int = 6, wait_s: float
                 raise
             if retry_after and retry_after.isdigit() and float(retry_after) > max_wait_s:
                 raise RuntimeError(
-                    f"{endpoint}가 Retry-After={retry_after}s를 요구합니다. 나중에 다시 실행하거나 --endpoint qlever를 쓰세요."
+                    f"{endpoint}가 Retry-After={retry_after}s를 요구합니다. "
+                    "나중에 다시 실행하거나 --endpoint qlever를 쓰세요."
                 ) from exc
             wait = float(retry_after) if retry_after and retry_after.isdigit() else wait_s
             wait = min(wait, max_wait_s)
-            _log(f"HTTP {exc.code}, retry {attempt}/{attempts - 1} after {wait:.0f}s (Retry-After={retry_after})")
+            logger.info(
+                "HTTP %s, retry %d/%d after %.0fs (Retry-After=%s)", exc.code, attempt, attempts - 1, wait, retry_after
+            )
             time.sleep(wait)
     raise RuntimeError("unreachable")
 
@@ -83,21 +99,28 @@ def fetch(out_dir: str | Path, endpoint: str = "wdqs") -> Path:
         cache = raw / f"{qid}.json"
         if cache.exists():
             bindings = json.loads(cache.read_text(encoding="utf-8"))
-            _log(f"{name}: cached ({len(bindings)} rows)")
+            logger.info("%s: cached (%d rows)", name, len(bindings))
         else:
             if not first and endpoint == "wdqs":
                 time.sleep(65.0)  # 2026-10-13 WDQS의 분당 1회 제한에 맞춘다
-            _log(f"{name}: querying {endpoint}")
+            logger.info("%s: querying %s", name, endpoint)
             bindings = _sparql(QUERY % qid, endpoint)
             cache.write_text(json.dumps(bindings, ensure_ascii=False) + "\n", encoding="utf-8")
-            _log(f"{name}: {len(bindings)} rows")
+            logger.info("%s: %d rows", name, len(bindings))
             first = False
         for b in bindings:
             pid = b["p"]["value"].rsplit("/", 1)[-1]
             aliases = [a for a in b.get("aliases", {}).get("value", "").split("|") if a]
             row = rows.setdefault(
                 pid,
-                {"qid": pid, "ar": b["ar"]["value"], "en": b["en"]["value"], "aliases": [], "gender": None, "countries": []},
+                {
+                    "qid": pid,
+                    "ar": b["ar"]["value"],
+                    "en": b["en"]["value"],
+                    "aliases": [],
+                    "gender": None,
+                    "countries": [],
+                },
             )
             row["aliases"] = sorted(set(row["aliases"]) | set(aliases))
             row["gender"] = row["gender"] or GENDERS.get(b.get("gender", {}).get("value", ""))
@@ -107,7 +130,7 @@ def fetch(out_dir: str | Path, endpoint: str = "wdqs") -> Path:
     snapshot = {
         "source": "Wikidata SPARQL (CC0)",
         "endpoint": ENDPOINTS[endpoint],
-        "retrieved_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "countries": COUNTRIES,
         "n_rows": len(rows),
         "rows": sorted(rows.values(), key=lambda r: r["qid"]),
@@ -129,7 +152,8 @@ def build_name_pool(snapshot_path: str | Path, out_path: str | Path) -> Path:
             pairs = primary if en == r["en"] else align(r["ar"], en)
             for ar_u, en_u, pos in pairs or []:
                 e = pool.setdefault(
-                    normalize_key(ar_u), {"arabic": Counter(), "english": Counter(), "positions": Counter(), "genders": Counter()}
+                    normalize_key(ar_u),
+                    {"arabic": Counter(), "english": Counter(), "positions": Counter(), "genders": Counter()},
                 )
                 e["english"][en_u] += 1
                 if en == r["en"]:

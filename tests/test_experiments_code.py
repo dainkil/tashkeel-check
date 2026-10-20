@@ -8,11 +8,13 @@ from .conftest import fake_analyze
 
 
 def test_exp001_unit_measure_and_summary(tmp_path):
-    snap = {"rows": [
-        {"ar": "سعيد مسلم المسلم", "en": "Saeed Musallam Al Muslim", "aliases": ["Said Muslim Al Muslim"]},
-        {"ar": "حمد الكعبي", "en": "Hamad Al Kaabi", "aliases": []},
-        {"ar": "راشد بن محمد آل مكتوم", "en": "Prince Rashid of Dubai", "aliases": []},
-    ]}
+    snap = {
+        "rows": [
+            {"ar": "سعيد مسلم المسلم", "en": "Saeed Musallam Al Muslim", "aliases": ["Said Muslim Al Muslim"]},
+            {"ar": "حمد الكعبي", "en": "Hamad Al Kaabi", "aliases": []},
+            {"ar": "راشد بن محمد آل مكتوم", "en": "Prince Rashid of Dubai", "aliases": []},
+        ]
+    }
     path = tmp_path / "snap.json"
     path.write_text(json.dumps(snap, ensure_ascii=False))
     units, stats = exp001.collect_units(path)
@@ -38,10 +40,21 @@ def test_exp002_pools_counts_and_reports_repeat_range():
     runs = []
     for doc in ("d1", "d2"):
         for rep, silent in ((0, 1), (1, 3)):
-            runs.append({"_doc_id": doc, "_repeat": rep, "n_silent": silent, "n_gold_without_evidence": 4,
-                         "n_unsupported_adopt": 0, "n_hold": 4 - silent, "n_evidence_correct": 2,
-                         "n_gold_with_evidence": 2, "n_unprocessed": 1, "valid_output": True,
-                         "usage": {"input_tokens": 10, "output_tokens": 5}})
+            runs.append(
+                {
+                    "_doc_id": doc,
+                    "_repeat": rep,
+                    "n_silent": silent,
+                    "n_gold_without_evidence": 4,
+                    "n_unsupported_adopt": 0,
+                    "n_hold": 4 - silent,
+                    "n_evidence_correct": 2,
+                    "n_gold_with_evidence": 2,
+                    "n_unprocessed": 1,
+                    "valid_output": True,
+                    "usage": {"input_tokens": 10, "output_tokens": 5},
+                }
+            )
     s = exp002.aggregate({"C1": runs})["C1"]
     assert s["silent_rate"]["pooled"] == 0.5
     assert s["silent_rate"]["repeat_range"] == [0.25, 0.75]

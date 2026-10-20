@@ -8,9 +8,9 @@ from __future__ import annotations
 
 import json
 import random
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Callable
 
 from langchain_core.language_models.chat_models import BaseChatModel
 
@@ -25,9 +25,16 @@ RATE_DEFS = {
     "evidence_pass_rate": ("n_evidence_correct", "n_gold_with_evidence"),
 }
 SUM_KEYS = [
-    "n_unprocessed", "n_unprocessed_names", "n_unprocessed_ambiguous_words", "n_evidence_failed",
-    "n_over_flag", "n_high_conf_unsupported", "n_inconsistent_names", "n_suspected_missed_names",
-    "n_invalid_items", "n_items",
+    "n_unprocessed",
+    "n_unprocessed_names",
+    "n_unprocessed_ambiguous_words",
+    "n_evidence_failed",
+    "n_over_flag",
+    "n_high_conf_unsupported",
+    "n_inconsistent_names",
+    "n_suspected_missed_names",
+    "n_invalid_items",
+    "n_items",
 ]
 
 
@@ -61,15 +68,14 @@ def aggregate(runs_by_condition: dict[str, list[dict]]) -> dict:
         reps = sorted({r["_repeat"] for r in runs})
         entry: dict = {"n_runs": len(runs), "n_docs": len({r["_doc_id"] for r in runs}), "repeats": len(reps)}
         for name, (num, den) in RATE_DEFS.items():
-            per_rep = [_pooled([r for r in runs if r["_repeat"] == k], num, den) for k in reps]
-            per_rep = [v for v in per_rep if v is not None]
+            per_rep = [v for k in reps if (v := _pooled([r for r in runs if r["_repeat"] == k], num, den)) is not None]
             entry[name] = {
                 "pooled": _pooled(runs, num, den),
                 "repeat_range": [min(per_rep), max(per_rep)] if per_rep else None,
                 "doc_bootstrap_95": _bootstrap(runs, num, den),
             }
         for key in SUM_KEYS:
-            vals = [r.get(key) for r in runs if r.get(key) is not None]
+            vals = [v for r in runs if (v := r.get(key)) is not None]
             entry[key] = {"total": sum(vals), "mean_per_run": round(sum(vals) / len(vals), 3)} if vals else None
         usage = [r.get("usage", {}) for r in runs]
         entry["tokens_in"] = sum(u.get("input_tokens", 0) for u in usage)
@@ -93,14 +99,16 @@ def run(
 ) -> Path:
     repeats = repeats or settings.repeats
     doc_paths = sorted(Path(docs_dir).glob("*.json"))[:limit]
-    out = Path(out_root) / datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    out = Path(out_root) / datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     runs_by_condition: dict[str, list[dict]] = {c: [] for c in conditions}
     for cond in conditions:
         for path in doc_paths:
             doc = load_doc(path)
             for rep in range(repeats):
-                result = run_document(doc, cond, model_factory(), settings, out_dir=out / cond / doc["doc_id"] / f"r{rep}", repeat=rep)
-                runs_by_condition[cond].append({**result["metrics"], "_doc_id": doc["doc_id"], "_repeat": rep})
+                result = run_document(
+                    doc, cond, model_factory(), settings, out_dir=out / cond / doc["doc_id"] / f"r{rep}", repeat=rep
+                )
+                runs_by_condition[cond].append({**result.metrics, "_doc_id": doc["doc_id"], "_repeat": rep})
     report = {
         "experiment": "EXP-002",
         "docs_dir": str(docs_dir),

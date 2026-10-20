@@ -36,5 +36,36 @@ markers = [
 
 [dependency-groups]
 dev = [
+    "mypy>=2.4.0",
+    "pre-commit>=4.7.0",
     "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.1",
 ]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["all_total_vue_student", "docs/market"]  # 제공 ZIP, 계산 기록 스크립트는 손대지 않는다
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/tashkeel_check/prompts.py" = ["E501"]  # 프롬프트 원문은 LLM 입력이라 줄을 바꾸지 않는다(ADR-013)
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src"]
+disallow_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = ["camel_tools.*", "qdrant_client.*", "langchain_qdrant.*", "sklearn.*"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["tashkeel_check"]
+branch = true

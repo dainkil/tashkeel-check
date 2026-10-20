@@ -36,11 +36,10 @@ def test_live_c1_returns_structured_dispositions(mini_doc):
     """실제 OpenAI 호출. 번역 문장이 아니라 구조만 본다."""
     settings = load_settings()
     result = run_document(mini_doc, "C1", make_model(settings), settings)
-    m = result["metrics"]
+    m = result.metrics
     assert m["valid_output"]
     assert m["n_segments_translated"] == m["n_segments"]
-    for it in result["items"]:
-        assert it["final_decision"] in {"adopt", "abstain", "evidence_adopt", "hold", "adopt_unsupported"}
-        if it["final_decision"] == "evidence_adopt":
-            assert it["evidence"] and it["evidence_failure"] is None
+    for it in result.items:  # final_decision 값은 ReviewResult가 검증한다
+        if it.final_decision == "evidence_adopt":
+            assert it.evidence and it.evidence_failure is None
     assert m["n_unprocessed"] is not None

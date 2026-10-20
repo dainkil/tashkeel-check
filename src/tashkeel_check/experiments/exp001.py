@@ -10,7 +10,7 @@ import itertools
 import json
 import random
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ..analyzer import AnalyzeFn, analyzer_version, camel_analyze, summarize
@@ -35,12 +35,20 @@ def collect_units(snapshot_path: str | Path) -> tuple[list[dict], dict]:
                 continue
             any_aligned = True
             for ar_u, en_u, pos in pairs:
-                u = units.setdefault(normalize_key(ar_u), {"key": normalize_key(ar_u), "arabic": ar_u, "english": set(), "positions": Counter()})
+                u = units.setdefault(
+                    normalize_key(ar_u),
+                    {"key": normalize_key(ar_u), "arabic": ar_u, "english": set(), "positions": Counter()},
+                )
                 u["english"].add(en_u)
                 u["positions"][pos] += 1
         stats["persons_aligned" if any_aligned else "persons_unaligned"] += 1
     out = [
-        {**u, "english": sorted(u["english"]), "position": u["positions"].most_common(1)[0][0], "positions": dict(u["positions"])}
+        {
+            **u,
+            "english": sorted(u["english"]),
+            "position": u["positions"].most_common(1)[0][0],
+            "positions": dict(u["positions"]),
+        }
         for _, u in sorted(units.items())
     ]
     return out, dict(stats)
@@ -60,7 +68,14 @@ def unit_measure(unit: dict, analyze_fn: AnalyzeFn) -> dict:
     words = unit["arabic"].split()
     per_word = [summarize(i, w, analyze_fn(dediac(w))) for i, w in enumerate(words)]
     forms = [[c["diac"] for c in s["candidates"]] or [] for s in per_word]
-    romanized = [" ".join(romanize(f) for f in combo) for combo in itertools.islice(itertools.product(*forms), MAX_COMBINATIONS)] if all(forms) else []
+    romanized = (
+        [
+            " ".join(romanize(f) for f in combo)
+            for combo in itertools.islice(itertools.product(*forms), MAX_COMBINATIONS)
+        ]
+        if all(forms)
+        else []
+    )
     strict = any(match_spelling(r, e) for r in romanized for e in unit["english"])
     dialect = strict or any(match_spelling(r, e, dialect=True) for r in romanized for e in unit["english"])
     single = per_word[0] if len(per_word) == 1 else None
@@ -108,7 +123,13 @@ def summarize_measures(rows: list[dict]) -> dict:
     return {"all": block(rows), "by_position": by_position, "n_single_word": len(single)}
 
 
-def run(snapshot_path: str | Path, split: str, out_dir: str | Path, analyze_fn: AnalyzeFn | None = None, coverage_threshold: float = 0.5) -> Path:
+def run(
+    snapshot_path: str | Path,
+    split: str,
+    out_dir: str | Path,
+    analyze_fn: AnalyzeFn | None = None,
+    coverage_threshold: float = 0.5,
+) -> Path:
     units, stats = collect_units(snapshot_path)
     rows = [unit_measure(u, analyze_fn or camel_analyze) for u in split_units(units)[split]]
     summary = summarize_measures(rows)
@@ -116,7 +137,7 @@ def run(snapshot_path: str | Path, split: str, out_dir: str | Path, analyze_fn: 
     report = {
         "experiment": "EXP-001",
         "split": split,
-        "run_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "run_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "snapshot": str(snapshot_path),
         "align_version": ALIGN_VERSION,
         "matcher_version": MATCHER_VERSION,
@@ -124,7 +145,9 @@ def run(snapshot_path: str | Path, split: str, out_dir: str | Path, analyze_fn: 
         "alignment_stats": stats,
         "summary": summary,
         "decision_rule": f"M5_coverage_dialect < {coverage_threshold} → 분석기를 이름 독법 근거로 쓰지 않는다",
-        "decision": None if m5 is None else ("analyzer_not_name_evidence" if m5 < coverage_threshold else "analyzer_usable_for_names"),
+        "decision": None
+        if m5 is None
+        else ("analyzer_not_name_evidence" if m5 < coverage_threshold else "analyzer_usable_for_names"),
     }
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)

@@ -79,7 +79,7 @@ def mini_doc() -> dict:
             "token_ids": ids,
             "tokens": [
                 {"token_id": i, "arabic": w, "position": p, "english_variants": v, "english_used": e}
-                for i, w, p, v, e in zip(ids, words, ["given", "middle", "family"], variants, english)
+                for i, w, p, v, e in zip(ids, words, ["given", "middle", "family"], variants, english, strict=True)
             ],
             "evidence": evidence,
         }
@@ -87,10 +87,21 @@ def mini_doc() -> dict:
     principal_vars = [["Salem", "Salim"], ["Hamad"], ["Al Muslim"]]
     gold = {
         "names": [
-            occ("n1", "principal", "s02", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev),
-            occ("n2", "agent", "s04", ["راشد", "مسلم", "الكعبي"], ["Rashid", "Musallam", "Al Kaabi"],
-                [["Rashid", "Rashed"], ["Musallam", "Muslim"], ["Al Kaabi", "Al Ka'abi"]], None),
-            occ("n3", "principal", "s05", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev),
+            occ(
+                "n1", "principal", "s02", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev
+            ),
+            occ(
+                "n2",
+                "agent",
+                "s04",
+                ["راشد", "مسلم", "الكعبي"],
+                ["Rashid", "Musallam", "Al Kaabi"],
+                [["Rashid", "Rashed"], ["Musallam", "Muslim"], ["Al Kaabi", "Al Ka'abi"]],
+                None,
+            ),
+            occ(
+                "n3", "principal", "s05", ["سالم", "حمد", "المسلم"], ["Salem", "Hamad", "Al Muslim"], principal_vars, ev
+            ),
         ],
         "neutral_token_ids": [],
     }
