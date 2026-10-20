@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다.
+> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 계획(단계 1.5)에 추가했고, 아직 구현 전입니다.
 
 ## 무엇을 하는가
 
@@ -63,7 +63,25 @@ uv run pytest
 
 ## 하지 않는 것 (단계 1)
 
-스캔본 문자 인식, 고객별 이름 사전, 사람 검토 화면, 멀티 에이전트, 한글 표기, 번역 문장 품질 평가. 서류 묶음 검색(RAG·벡터 DB)은 단계 2용 틀만 있고 꺼져 있습니다.
+스캔본 문자 인식, 고객별 이름 사전, 사람 검토 화면, 멀티 에이전트, 한글 표기, 번역 문장 품질 평가. 서류 묶음 검색(RAG·벡터 DB)은 단계 2용 틀만 있고 꺼져 있습니다. 웹 화면과 API는 단계 1.5로 계획만 있고 아직 없습니다.
+
+## 과제 2 안내 파일과의 대응 [계획, 미구현]
+
+과제 2는 제공 프로젝트(`all_total_vue_student`: FastAPI + Vue 채팅 UI + LangGraph + MCP + SQLite)의 구조를 재활용해 새 서비스를 만들라고 합니다. 이 레포는 기존 구조를 유지하고 제공 프로젝트에서는 패턴만 가져옵니다. 챗봇 대신 문서 붙여넣기 폼, SQLite 대신 Postgres, LLM 층은 기존 LangChain 방식입니다(`PROJECT_PLAN.md` ADR-012).
+
+| 제공 프로젝트 파일 | 이 레포에서의 위치 | 상태 |
+| --- | --- | --- |
+| `web_chat.html` | `src/tashkeel_check/web/static/index.html` (Vue 3 CDN 폼 화면) | 계획 |
+| `server.py` | `src/tashkeel_check/web/app.py`, `web/jobs.py` (FastAPI, SSE 진행) | 계획 |
+| `agent/graph.py` | `src/tashkeel_check/graph.py` | 있음(변경 없음) |
+| `agent/openai_llm.py`, `fake_llm.py` | `src/tashkeel_check/runner.py`의 `make_model`, `fake.py` | 있음(변경 없음) |
+| `agent/ollama_llm.py` | 쓰지 않음 | — |
+| `agent/session_store.py` (SQLite) | `src/tashkeel_check/web/db.py`, `web/models.py` (Postgres) | 계획 |
+| `mcp_server.py`, `agent/mcp_client.py` | `src/tashkeel_check/mcp/` (툴 `analyze_tokens`, 리소스 합성 문서, 프롬프트 조건 지시문) | 계획 |
+| `data/` | `data/synthetic/`, `data/wikidata/` | 있음 |
+| `run.sh` | `run.sh` (uv 기준, Postgres 확인 포함) | 계획 |
+
+실행 방법, 실행 화면, 기능별·예외 테스트 결과는 구현 뒤에 이 문서와 `docs/과제2-테스트-기록.md`에 넣습니다.
 
 ## 알려진 한계
 
