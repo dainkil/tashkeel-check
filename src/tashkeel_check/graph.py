@@ -6,6 +6,7 @@ LLM이 필요 없는 검사와 집계는 일반 함수 노드다.
 
 from __future__ import annotations
 
+import logging
 import time
 from collections.abc import Callable
 from typing import Any, TypedDict
@@ -28,6 +29,8 @@ from .reconcile import parse_c0, reconcile
 from .schemas import AgentOutput
 from .text import Segment, Token, nfc, tokenize
 from .tools import make_analyze_tool
+
+logger = logging.getLogger(__name__)
 
 ToolFactory = Callable[[list[Token], list[dict]], BaseTool]
 
@@ -124,6 +127,7 @@ def build_graph(
                 else:
                     output = structured.model_dump() if hasattr(structured, "model_dump") else dict(structured)
         except Exception as exc:  # API 오류와 형식 오류를 기록하고 validate가 재시도를 정한다
+            logger.warning("%s %s attempt %d failed", state["doc_id"], condition, attempts, exc_info=True)
             errors.append(f"attempt {attempts}: {type(exc).__name__}: {exc}")
         return {"output": output, "attempts": attempts, "usage": usage, "tool_log": tool_log, "errors": errors}
 

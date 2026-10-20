@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import sys
 from pathlib import Path
 
@@ -133,6 +134,7 @@ def _cmd_exp002(args: argparse.Namespace, settings: Settings) -> int:
 def _parser(settings: Settings) -> argparse.ArgumentParser:
     data, results = settings.data_dir, settings.results_dir
     parser = argparse.ArgumentParser(prog="tashkeel", description="아랍어 문서 모호성 은폐 측정 장치")
+    parser.add_argument("-v", "--verbose", action="store_true", help="디버그 로그까지 낸다")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("run", help="문서 하나를 실행해 JSON·CSV를 만든다")
@@ -182,6 +184,16 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     return parser
 
 
+def _configure_logging(verbose: bool) -> None:
+    """이 패키지의 로그만 stderr로 낸다. 다른 라이브러리는 기본값(경고 이상)을 따른다."""
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(logging.Formatter("[%(module)s %(asctime)s] %(levelname)s %(message)s", "%H:%M:%S"))
+    pkg = logging.getLogger("tashkeel_check")
+    pkg.handlers[:] = [handler]
+    pkg.setLevel(logging.DEBUG if verbose else logging.INFO)
+    pkg.propagate = False
+
+
 def _exit_code(exc: TashkeelError) -> int:
     if isinstance(exc, ConfigError):
         return 3
@@ -194,6 +206,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         settings = load_settings()
         args = _parser(settings).parse_args(argv)
+        _configure_logging(args.verbose)
         return int(args.func(args, settings))
     except TashkeelError as exc:
         print(f"오류: {exc}", file=sys.stderr)

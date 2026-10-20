@@ -6,8 +6,8 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
-import sys
 import time
 import urllib.error
 import urllib.parse
@@ -54,8 +54,7 @@ def _user_agent() -> str:
     return f"tashkeel-check/0.1 (research prototype; {contact})"
 
 
-def _log(msg: str) -> None:
-    print(f"[wikidata {datetime.now().strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+logger = logging.getLogger(__name__)
 
 
 def _sparql(
@@ -82,7 +81,9 @@ def _sparql(
                 ) from exc
             wait = float(retry_after) if retry_after and retry_after.isdigit() else wait_s
             wait = min(wait, max_wait_s)
-            _log(f"HTTP {exc.code}, retry {attempt}/{attempts - 1} after {wait:.0f}s (Retry-After={retry_after})")
+            logger.info(
+                "HTTP %s, retry %d/%d after %.0fs (Retry-After=%s)", exc.code, attempt, attempts - 1, wait, retry_after
+            )
             time.sleep(wait)
     raise RuntimeError("unreachable")
 
@@ -98,14 +99,14 @@ def fetch(out_dir: str | Path, endpoint: str = "wdqs") -> Path:
         cache = raw / f"{qid}.json"
         if cache.exists():
             bindings = json.loads(cache.read_text(encoding="utf-8"))
-            _log(f"{name}: cached ({len(bindings)} rows)")
+            logger.info("%s: cached (%d rows)", name, len(bindings))
         else:
             if not first and endpoint == "wdqs":
                 time.sleep(65.0)  # 2026-10-13 WDQS의 분당 1회 제한에 맞춘다
-            _log(f"{name}: querying {endpoint}")
+            logger.info("%s: querying %s", name, endpoint)
             bindings = _sparql(QUERY % qid, endpoint)
             cache.write_text(json.dumps(bindings, ensure_ascii=False) + "\n", encoding="utf-8")
-            _log(f"{name}: {len(bindings)} rows")
+            logger.info("%s: %d rows", name, len(bindings))
             first = False
         for b in bindings:
             pid = b["p"]["value"].rsplit("/", 1)[-1]
