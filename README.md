@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다.
+> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 측정 결과는 없습니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다.
 
 ## 무엇을 하는가
 

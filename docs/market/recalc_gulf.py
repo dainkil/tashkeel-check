@@ -5,6 +5,9 @@
 - 고객은 번역가를 부르던 비용을 아끼려는 최종 사용자다. 번역사무소는 고객이 아니다.
 - 인터뷰와 사람 검수(제품 안의 검수, 아랍어 검수자를 쓰는 사전 감사)는 할 수 없어 추후 과제로 둔다.
 
+같은 날 두 번째 결정(ADR-009): 1순위 고객은 걸프 법인 고객을 받는 KYC·컴플라이언스 팀이고 API로 판다.
+걸프 진출 외국 중소기업 셀프서브는 체험·유입용 2순위다(8절).
+
 그래서 수요 입력은 모두 공개 자료에 [가정]을 곱한 추산이다. 근거와 해석은
 `사업성 검토 아랍어 문서 검증 도구.md`(2026-10-20 개정)에 있다. 경제성 모델은
 recalc_economics.model을 그대로 쓰고, 사람 검수 원가만 0으로 둔다.
@@ -16,7 +19,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from recalc_economics import AED, API, BASE_O, FIXED_M, SAR, USD, eok, model, scale  # noqa: E402
+from recalc_economics import AED, API, BASE_O, FIXED_M, RATE, SAR, USD, eok, model, scale  # noqa: E402
 
 # ---------- 가격 기준 ----------
 SA_FEE = 62.5 * SAR          # [확인] 사우디 공인 번역 375단어 한 장 중앙값(업체 5곳), S11·S12 외. 24,367원
@@ -46,6 +49,12 @@ INSURANCE_USD = 410          # [요약] 번역가 E&O 최저 연 $410(2021), S17
 SOC2_USD = 28_000            # [문헌○] SOC 2 첫해(25명 이하 스타트업), S165
 ISO_USD = 30_000             # [요약] ISO 27001 Stage 1+2 심사, S179
 DB_PREMIUM_USD = 158 - 99    # [문헌○] Cloud SQL db-standard-2 담맘 − 아이오와 월 가격, S173
+
+# ---------- API 고객: KYC·컴플라이언스 팀(ADR-009) ----------
+API_PAGES = 200              # [가정] 고객당 월 서류 묶음 10건 × 20장(아랍어 상업등기·정관 + 여권 사본)
+API_N5 = (10, 20, 40)        # [가정] 5년차 API 고객 수. 경로 모양은 BASE_O(0·10·30·60·100%)
+SOC2_YEAR = 2                # [가정] 첫 API 판매 전인 2년차에 SOC 2를 받음. 갱신 비용은 [미확인]이라 넣지 않음
+CAC_ENT = 10_000_000         # [가정] 엔터프라이즈 영업을 넣은 고객당 획득 비용(비교용). 근거 없음
 
 
 def won(x):
@@ -157,6 +166,26 @@ def main():
     print(f"  사우디 리전 DB 할증 월 {won(DB_PREMIUM_USD * USD)}")
     total_months = (2 / 4.345 + 3, 1 + 6)
     print(f"  셀프서브 첫 판매까지: 약 {total_months[0]:.1f}~{total_months[1]:.0f}개월 [가정, A + B]")
+
+    print("\n== 8. API 고객: KYC·컴플라이언스 팀 (걸프 가중 가격, 고객당 월 200장, 2년차 SOC 2)")
+    cpage = gcc_price - API
+    per_cust = cpage * API_PAGES
+    print(f"  고객당 월 공헌 {won(per_cust)}, 손익분기 {FIXED_M / per_cust:.1f}곳(급여) / {STUDENT_FIXED / per_cust:.1f}곳(대학생)")
+    cac_base = 20 / 0.2 * API * 3
+    for title, fixed in [("급여", FIXED_M), ("대학생", STUDENT_FIXED)]:
+        for cac, cac_label in [(cac_base, "기본"), (CAC_ENT, "1,000만 원")]:
+            for n5 in API_N5:
+                r = model(price=gcc_price, review=0, docs=API_PAGES, K=[0] * 5, O=scale(BASE_O, n5 / 100),
+                          fixed_m=fixed, os_cac_mult=cac / (20 / 0.2 * API))
+                cum, npv, trough, first = 0, 0, 0, None
+                for y, _k, _o, _rev, cf, _c in r["rows"]:
+                    cf -= soc2 if y == SOC2_YEAR else 0
+                    cum += cf
+                    npv += cf / (1 + RATE) ** y
+                    trough = min(trough, cum)
+                    first = first or (y if cf > 0 else None)
+                print(f"  {title}, CAC {cac_label}, 5년차 {n5}곳: 5년 누적 {eok(cum)}억, NPV {eok(npv)}억, "
+                      f"누적 최저 {eok(trough)}억, 첫 흑자 {first or '없음'}{'년차' if first else ''}")
 
 
 if __name__ == "__main__":
