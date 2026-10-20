@@ -141,3 +141,19 @@ def test_practice_mode_runs_every_condition(mini_doc):
     for cond in ("C0", "C1", "C2", "C3"):
         result = run_document(mini_doc, cond, FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
         assert result["metrics"]["valid_output"], cond
+
+
+def test_reused_reviewer_matches_fresh_runs():
+    from tashkeel_check.runner import Reviewer, load_doc
+
+    from .golden_cases import DEV_DOCS
+
+    def strip(result):
+        return {**result, "meta": {k: v for k, v in result["meta"].items() if k != "elapsed_s"}}
+
+    reviewer = Reviewer(FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
+    for path in DEV_DOCS[:3]:
+        doc = load_doc(path)
+        for cond in ("C0", "C1", "C2", "C3"):
+            fresh = run_document(doc, cond, FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
+            assert strip(reviewer.run(doc, cond)) == strip(fresh), (doc["doc_id"], cond)
