@@ -2,11 +2,11 @@
 
 이 폴더의 문서는 합성 데이터다. 실존 인물·회사·서류가 아니다.
 
-- 생성: `uv run tashkeel make-synthetic` (`src/tashkeel_check/data/synthetic.py`, 생성기 `synthetic-v1`, 2026-10-20. 이전 `synthetic-v0`은 git 기록에만 있다)
+- 생성: `uv run tashkeel make-synthetic` (`src/tashkeel_check/data/synthetic.py`, 생성기 `synthetic-v2`, 2026-10-20. v2는 v1과 템플릿이 같고 이름 풀을 정렬 규칙 v1로 다시 만든 것이다. 이전 버전은 git 기록에만 있다)
 - 분할: `dev/` 10개(seed 1001, 프롬프트 디버깅용), `eval/` 30개(seed 2002, EXP-002 조건 비교에 한 번만 사용)
 - 문서 유형: 위임장(`poa`), 법인 확인서(`company_letter`)
 - 근거 배치(`evidence_layout`): 이름의 영문 근거 줄이 붙는 역할이 없음(`none`, 아랍어만) / 일부(`mixed`) / 전부(`all`). 문서 유형마다 세 배치를 같은 수에 가깝게 나눴다. 근거가 붙은 역할은 `evidence_roles`, 영문 줄이 하나라도 있는지는 `bilingual`. eval은 10/10/10, dev는 4/4/2(없음/일부/전부)
-- 이름: Wikidata 걸프 인명(CC0)에서 뽑은 이름 단위를 무작위로 조합했다. 조합한 전체 이름이 Wikidata 레이블과 같으면 버렸다
+- 이름: Wikidata 걸프 인명(CC0)에서 뽑은 이름 단위를 무작위로 조합했다. 조합한 전체 이름이 Wikidata 레이블과 같으면 버렸다. 이름 풀(`data/wikidata/name_tokens.json`)의 정렬 버전은 문서 `meta.name_pool_align_version`에 있다
 - 신분증·여권·등록 번호: 형식 출처가 없어 자리표시 숫자를 썼다
 - 템플릿의 아랍어 문장은 사람이 검수하지 않았다
 
