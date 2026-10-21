@@ -1,0 +1,30 @@
+{
+  "bundle_id": "bundle_sample_001",
+  "customer_id": "customer_demo",
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다.",
+  "entities": {"person_001": "person", "org_001": "organization"},
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {"segment_id": "s01", "entity_id": "person_001", "text": "الاسم: مسلم", "translated_name": "Muslim"},
+        {"segment_id": "s02", "entity_id": "org_001", "text": "اسم الشركة: شركة الخليج للتجارة", "translated_name": "Gulf Trading Company"}
+      ]
+    },
+    {
+      "document_id": "id_001",
+      "document_type": "identity",
+      "segments": [
+        {"segment_id": "s01", "entity_id": "person_001", "text": "الاسم: مسلم | Name: Musallam"}
+      ]
+    },
+    {
+      "document_id": "cr_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {"segment_id": "s01", "entity_id": "org_001", "text": "اسم الشركة: شركة الخليج للتجارة | Company Name: Gulf Trading Company"}
+      ]
+    }
+  ]
+}
