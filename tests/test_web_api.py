@@ -169,6 +169,7 @@ def test_db_unreachable_starts_but_refuses_reviews(tmp_path):
 def test_static_form_is_served(client):
     r = client.get("/")
     assert r.status_code == 200 and "Tashkeel Check" in r.text and "EventSource" in r.text
+    assert "API 키" in r.text and "대상 지정" in r.text and "/v1/bundles/draft" in r.text  # ADR-019 화면
 
 
 @pytest.mark.db

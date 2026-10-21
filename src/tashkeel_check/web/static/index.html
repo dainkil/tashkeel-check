@@ -63,7 +63,7 @@
   <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 분석기 {{ health.analyzer.tool }} {{ health.analyzer.version }} / {{ health.analyzer.db }} · DB {{ fmt(health.db) }} · MCP {{ fmt(health.mcp) }}</span>
   <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
   <nav class="tabs"><button :class="{on: tab==='doc'}" @click="tab='doc'">단일 문서</button><button :class="{on: tab==='bundle'}" @click="tab='bundle'; loadBundles()">서류 묶음</button></nav>
-  <div class="row" style="margin-top:8px"><label for="apiKey" style="margin:0">API 키</label><input id="apiKey" type="password" v-model="apiKey" placeholder="tk_… (인증이 켜진 서버에서 필요)" style="width:260px"><button @click="saveKey">저장</button><button @click="clearKey">지우기</button><span class="small" v-if="health">인증 {{ health.auth === 'required' ? '필요' : '꺼짐' }}</span></div>
+  <div class="row" style="margin-top:8px"><label for="apiKey" style="margin:0">API 키</label><input id="apiKey" type="password" v-model="apiKey" placeholder="tk_… (인증이 켜진 서버에서 필요)" style="width:260px"><button @click="saveKey" style="width:auto; padding:4px 12px">저장</button><button @click="clearKey" style="width:auto; padding:4px 12px">지우기</button><span class="small" v-if="health" style="white-space:nowrap">인증 {{ health.auth === 'required' ? '필요' : '꺼짐' }}</span></div>
 </header>
 <main v-show="tab==='doc'">
   <section>
@@ -156,13 +156,15 @@
       <label>묶음 JSON (bundle_id · documents[document_id, document_type, segments[segment_id, text, entity_id, translated_name]])</label>
       <textarea class="json" v-model="bundleJson" placeholder='{"bundle_id": "...", "documents": [...]}'></textarea>
       <label>또는 파일 업로드 (묶음 JSON 1개, 또는 서류 파일 여러 개: .json 서류 / .txt·.md는 줄마다 구간 하나, 대상 ID 없음 → "대상 ID 없음" 대기)</label>
-      <div class="row"><input type="file" multiple accept=".json,.txt,.md" @change="bundleFiles = Array.from($event.target.files)"><input v-model="uploadCustomerId" placeholder="customer_id (선택)" style="width:160px"></div>
+      <div class="row"><input type="file" multiple accept=".json,.txt,.md" @change="bundleFiles = Array.from($event.target.files)"><input v-model="uploadBundleId" placeholder="bundle_id (선택)" style="width:140px"><input v-model="uploadCustomerId" placeholder="customer_id (선택)" style="width:140px"></div>
       <div class="row" style="margin-top:8px"><input type="checkbox" id="useLlm" v-model="useLlm"><label for="useLlm">라벨 칸이 없는 문장의 고유명사도 LLM으로 뽑는다</label></div>
       <select v-model="condition" v-if="useLlm" style="margin-top:6px">
         <option value="C1">C1 · 지시만</option><option value="C2">C2 · 지시 + 분석기 툴</option><option value="C3">C3 · 지시 + 분석기 결과 미리 제공</option><option value="M1" v-if="health && health.multi_agent">M1 · 번역자 + 격리 검증자 + 규칙 중재자</option>
       </select>
       <button :disabled="bundleRunning" @click="submitBundle">{{ bundleRunning ? '실행 중…' : '묶음 검수 실행' }}</button>
-      <button :disabled="bundleRunning || !bundleFiles.length" @click="uploadBundle" style="margin-left:8px">{{ bundleRunning ? '실행 중…' : '파일 업로드해서 검수' }}</button>
+      <button :disabled="bundleRunning || !bundleFiles.length" @click="draftBundle" style="margin-left:8px">① 파일로 초안 만들기 → 대상 지정</button>
+      <button :disabled="bundleRunning || !bundleFiles.length" @click="uploadBundle" style="margin-left:8px">파일 업로드해서 바로 검수</button>
+      <button :disabled="bundleRunning || !bundleJson" @click="draftFromJson" style="margin-left:8px" class="small">위 JSON을 서류 파일처럼 올려 대상 지정 체험</button>
       <p class="err" v-if="bundleError">{{ bundleError }}</p>
       <p class="small">규칙: 같은 대상 ID(entity_id)가 붙은 다른 서류의 영문 칸만 근거로 쓴다. 대소문자·공백만 무시하고 정확히 같을 때만 확정한다.</p>
     </div>
@@ -181,6 +183,31 @@
   </section>
 
   <section>
+    <div class="card" v-if="draft" style="margin-bottom:16px">
+      <h2>② 대상 지정 <span class="small">· {{ draft.bundle.bundle_id }} · 서류 {{ draft.bundle.documents.length }} · 같은 당사자를 가리키는 칸에 같은 대상을 고른다. 서버는 제안만 하고 자동으로 연결하지 않는다</span></h2>
+      <div class="row" style="flex-wrap:wrap">
+        <button @click="applySuggestions" style="width:auto; padding:6px 12px">제안대로 대상 만들기</button>
+        <button @click="addEntity()" style="width:auto; padding:6px 12px">새 대상</button>
+        <span v-for="(e, i) in draftEntities" class="step">
+          <input v-model="e.id" style="width:110px" placeholder="대상 ID"> <select v-model="e.type" style="width:auto"><option value="person">person</option><option value="organization">organization</option><option value="other">other</option></select> <a href="#" @click.prevent="draftEntities.splice(i,1)">×</a>
+        </span>
+      </div>
+      <div class="row" style="margin-top:6px; flex-wrap:wrap"><span class="small">서류 종류:</span><span v-for="d in draft.bundle.documents" class="small">{{ d.document_id }} <input v-model="draftDocTypes[d.document_id]" style="width:150px"></span></div>
+      <table style="margin-top:8px">
+        <thead><tr><th>서류</th><th>구간</th><th>칸</th><th>값</th><th>제안</th><th>대상</th><th>번역 표기(검수 대상)</th></tr></thead>
+        <tbody>
+          <tr v-for="f in draft.fields">
+            <td>{{ f.document_id }}</td><td>{{ f.segment_id }}</td><td>{{ f.label || '(문장)' }}</td>
+            <td :class="{ar: f.script==='ar'}">{{ f.value }}</td>
+            <td class="small">{{ f.suggested_group || '—' }}</td>
+            <td><select v-model="draftAssign[f.document_id + '|' + f.segment_id]" style="min-width:150px"><option value="">(없음)</option><option v-for="e in draftEntities" :value="e.id">{{ e.id }} · {{ e.type }}</option></select></td>
+            <td><input v-if="f.script==='ar'" v-model="draftTranslated[f.document_id + '|' + f.segment_id]" placeholder="예: Musallam Al Kaabi" style="width:170px"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row" style="margin-top:8px"><button :disabled="bundleRunning" @click="reviewDraft" style="width:auto; padding:6px 14px">③ 검수 실행</button><span class="small">대상이 없는 칸의 고유명사는 "대상 ID 없음"으로 대기에 오른다. 한 줄에 당사자가 둘이면 대상을 하나만 붙일 수 있다.</span></div>
+      <p class="err" v-if="draftError">{{ draftError }}</p>
+    </div>
     <div class="card" v-if="bundleReview">
       <h2>LLM 추출 진행 <span class="small">· 검수 {{ bundleReview.review_id.slice(0,8) }} · {{ bundleReview.condition }} · {{ bundleReview.status }}</span></h2>
       <div class="steps"><span v-for="(st, d) in bundleReview.job_status" class="step" :class="{done: st==='done', cur: st==='running'}">{{ d }}: {{ st }}</span><span v-for="d in bundleReview.skipped" class="step">{{ d }}: 아랍어 없음(건너뜀)</span></div>
@@ -255,7 +282,8 @@ createApp({
     result: null, jobs: [], es: null,
     tab: 'doc', bundleSamples: [], bundleSampleId: '', bundleJson: '', useLlm: false, bundleRunning: false, bundleError: null,
     bundles: [], bundleResult: null, bundleReview: null, selected: null, bundleObj: null, closeError: null, closeOk: null, closeName: '',
-    bundleFiles: [], uploadCustomerId: '', bundleEs: null,
+    bundleFiles: [], uploadCustomerId: '', uploadBundleId: '', bundleEs: null,
+    draft: null, draftEntities: [], draftAssign: {}, draftTranslated: {}, draftDocTypes: {}, draftError: null,
     apiKey: (function () { try { return localStorage.getItem('tashkeel_api_key') || '' } catch (e) { return '' } })(), usage: null,
   }},
   computed: {
@@ -326,11 +354,62 @@ createApp({
       this.bundleError = null; this.closeError = null; this.closeOk = null; this.selected = null; this.bundleReview = null; this.bundleResult = null; this.bundleRunning = true;
       if (this.bundleEs) { this.bundleEs.close(); this.bundleEs = null }
     },
+    // ---- 업로드 초안 → 대상 지정 → 검수(ADR-019) ----
+    uploadForm(files) {
+      const fd = new FormData(); files.forEach(f => fd.append('files', f, f.name));
+      if (this.uploadCustomerId) fd.append('customer_id', this.uploadCustomerId); if (this.uploadBundleId) fd.append('bundle_id', this.uploadBundleId);
+      return fd;
+    },
+    async draftBundle(files) {
+      this.resetBundle(); this.draft = null; this.draftError = null;
+      try {
+        const d = await this.api('/v1/bundles/draft', { method: 'POST', body: this.uploadForm(files || this.bundleFiles) });
+        this.draft = d; this.draftEntities = []; this.draftAssign = {}; this.draftTranslated = {}; this.draftDocTypes = {};
+        d.bundle.documents.forEach(doc => { this.draftDocTypes[doc.document_id] = doc.document_type });
+        d.fields.forEach(f => { this.draftAssign[f.document_id + '|' + f.segment_id] = '' });
+      } catch (e) { this.bundleError = e.message }
+      this.bundleRunning = false;
+    },
+    async draftFromJson() {
+      // 샘플·JSON의 서류를 대상 ID·번역 표기 없는 서류 파일로 만들어 초안 경로를 체험한다
+      let obj; try { obj = JSON.parse(this.bundleJson) } catch (e) { this.bundleError = 'JSON 형식 오류: ' + e.message; return }
+      const files = (obj.documents || []).map(d => new File([JSON.stringify({ document_type: d.document_type, segments: d.segments.map(s => ({ segment_id: s.segment_id, text: s.text })) })], d.document_id + '.json', { type: 'application/json' }));
+      this.uploadBundleId = this.uploadBundleId || (obj.bundle_id + '_draft'); if (obj.customer_id && !this.uploadCustomerId) this.uploadCustomerId = obj.customer_id;
+      await this.draftBundle(files);
+    },
+    addEntity(id, type) {
+      const n = this.draftEntities.length + 1; this.draftEntities.push({ id: id || ('entity_' + n), type: type || 'person' });
+    },
+    applySuggestions() {
+      // 제안 그룹마다 대상을 하나 만들고 그 그룹의 구간에 붙인다. 누르기 전에는 아무것도 연결되지 않는다
+      const byGroup = {};
+      this.draft.groups.forEach(g => {
+        const typed = this.draft.fields.find(f => f.suggested_group === g.group && f.entity_type);
+        const id = g.group; byGroup[g.group] = id;
+        if (!this.draftEntities.some(e => e.id === id)) this.draftEntities.push({ id, type: typed ? typed.entity_type : 'other' });
+      });
+      this.draft.fields.forEach(f => { if (f.suggested_group) this.draftAssign[f.document_id + '|' + f.segment_id] = byGroup[f.suggested_group] });
+    },
+    async reviewDraft() {
+      this.draftError = null;
+      const entities = {}; this.draftEntities.forEach(e => { if (e.id) entities[e.id] = e.type });
+      const bundle = JSON.parse(JSON.stringify(this.draft.bundle)); bundle.entities = entities;
+      bundle.documents.forEach(doc => {
+        doc.document_type = this.draftDocTypes[doc.document_id] || doc.document_type;
+        doc.segments.forEach(seg => {
+          const k = doc.document_id + '|' + seg.segment_id;
+          seg.entity_id = this.draftAssign[k] || null; seg.translated_name = (this.draftTranslated[k] || '').trim() || null;
+          if (seg.entity_id && !entities[seg.entity_id]) { this.draftError = '대상 목록에 없는 ID: ' + seg.entity_id }
+        });
+      });
+      if (this.draftError) return;
+      this.bundleJson = JSON.stringify(bundle, null, 2); this.bundleSampleId = '';
+      await this.submitBundle();
+    },
     async uploadBundle() {
       this.resetBundle();
-      const fd = new FormData(); this.bundleFiles.forEach(f => fd.append('files', f, f.name)); if (this.uploadCustomerId) fd.append('customer_id', this.uploadCustomerId);
       try {
-        const r = await this.api('/v1/bundles', { method: 'POST', body: fd });
+        const r = await this.api('/v1/bundles', { method: 'POST', body: this.uploadForm(this.bundleFiles) });
         this.bundleObj = await this.api('/v1/bundles/' + encodeURIComponent(r.bundle_id)); this.bundleJson = JSON.stringify(this.bundleObj, null, 2); this.bundleSampleId = '';
         this.bundleResult = r; this.loadBundles();
         if (this.useLlm) { await this.startLlm(r.bundle_id); return }
@@ -422,6 +501,7 @@ createApp({
       this.tab = 'bundle'; await this.loadBundles();
       if (params.get('sample')) { this.bundleSampleId = params.get('sample'); await this.loadBundleSample() }
       if (params.get('llm')) { this.useLlm = true; this.condition = params.get('llm') }
+      if (params.get('draft') && this.bundleJson) { await this.draftFromJson(); if (params.get('suggest')) this.applySuggestions(); return }
       if (params.get('run') && this.bundleJson) { await this.submitBundle(); if (this.bundleResult && this.bundleResult.items.length) this.select(this.bundleResult.items.find(i => i.status==='pending') || this.bundleResult.items[0]) }
     }
   }
