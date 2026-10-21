@@ -1,0 +1,131 @@
+{
+  "bundle_id": "dev_kyc_mrz_only",
+  "customer_id": "customer_dev_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_dev_007": "organization",
+    "person_dev_007_1": "person",
+    "person_dev_007_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الرقبة للتجارة",
+          "entity_id": "org_dev_007",
+          "translated_name": "al Raqbah Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: حامد بن أمجد الشيبي",
+          "entity_id": "person_dev_007_1",
+          "translated_name": "Hamed Bin Amjad Al Shaibi"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: محمد بن نجم بن سليمان الهذلول",
+          "entity_id": "person_dev_007_2",
+          "translated_name": "Mohamed bin Najm bin Suleiman Al Hathloul"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<SHAIBI<<HAMED<BIN<AMJAD<<<<<<<<<<<<<",
+          "entity_id": "person_dev_007_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000071<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<HATHLOUL<<MOHAMED<BIN<NAJM<BIN<SULEI",
+          "entity_id": "person_dev_007_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000072<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الرقبة للتجارة | Company Name: al Raqbah Trading Company",
+          "entity_id": "org_dev_007"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: حامد بن أمجد الشيبي | Shareholder: Hamed Bin Amjad Al Shaibi",
+          "entity_id": "person_dev_007_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "mrz_only",
+    "entity_types": {
+      "org_dev_007": "organization",
+      "person_dev_007_1": "person",
+      "person_dev_007_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "dev_007",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "pending",
+        "reason": "translation_mismatch"
+      }
+    ],
+    "evidence_only_from": "MRZ",
+    "mrz_lossy": [
+      "register_001:s04:1"
+    ],
+    "generator": "bundles-kyc-v1"
+  }
+}

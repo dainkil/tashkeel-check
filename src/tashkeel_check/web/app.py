@@ -13,9 +13,9 @@ from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, File, Form, Request, UploadFile
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -26,6 +26,7 @@ from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
 from ..bundle import Bundle, parse_bundle, review_bundle
 from ..bundle.dictionary import DictionaryEntry, InMemoryDictionary
 from ..bundle.schemas import REASON_LABELS, ReviewItem
+from ..bundle.upload import bundle_from_uploads
 from ..config import CONDITIONS, Settings, configure_tracing, has_openai_key
 from ..errors import ConfigError, InputError
 from ..mcp.client import MCPClient, default_server_command
@@ -302,20 +303,41 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         bundle = parse_bundle(json.loads(path.read_text(encoding="utf-8")))  # gold는 뗀다
         return JSONResponse(bundle.model_dump(mode="json"))
 
-    @app.post("/v1/bundles/review")
-    def review_bundle_endpoint(body: dict[str, Any], request: Request) -> dict[str, Any]:
-        bundle: Bundle = parse_bundle(body)  # 구조 오류 → InputError → 400
+    def _review_and_save(bundle: Bundle, request: Request) -> dict[str, Any]:
         _require_db_ok(request)  # DB 불통 → 503
         items = review_bundle(bundle, runtime.dictionary)
         runtime.bundles.save(bundle, items)
         return {
             "bundle_id": bundle.bundle_id,
+            "documents": [
+                {"document_id": d.document_id, "document_type": d.document_type, "segments": len(d.segments)}
+                for d in bundle.documents
+            ],
             "counts": {
                 "confirmed": sum(1 for i in items if i.status == "confirmed"),
                 "pending": sum(1 for i in items if i.status == "pending"),
             },
             "items": [_item_json(i) for i in items],
         }
+
+    @app.post("/v1/bundles/review")
+    def review_bundle_endpoint(body: dict[str, Any], request: Request) -> dict[str, Any]:
+        bundle: Bundle = parse_bundle(body)  # 구조 오류 → InputError → 400
+        return _review_and_save(bundle, request)
+
+    @app.post("/v1/bundles", status_code=201)
+    def upload_bundle(
+        request: Request,
+        files: Annotated[list[UploadFile], File(description="묶음 JSON 하나, 또는 서류 파일(.json/.txt/.md) 여러 개")],
+        bundle_id: Annotated[str | None, Form()] = None,
+        customer_id: Annotated[str | None, Form()] = None,
+        document_type: Annotated[str, Form()] = "document",
+        entities: Annotated[str | None, Form(description='{"대상 ID": "person|organization|other"} JSON')] = None,
+    ) -> dict[str, Any]:
+        """파일 업로드로 묶음을 만들고 바로 라벨 경로로 검수한다. LLM 경로는 이어서 `/reviews`를 부른다."""
+        uploads = [(f.filename or f"file_{i}", f.file.read()) for i, f in enumerate(files, start=1)]
+        bundle = bundle_from_uploads(uploads, bundle_id, customer_id, document_type, entities)  # 오류 → 400
+        return _review_and_save(bundle, request)
 
     @app.get("/v1/bundles/{bundle_id}/items")
     def bundle_items(bundle_id: str) -> JSONResponse:
@@ -361,6 +383,20 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
                 "pending": sum(1 for i in rec.items if i.status == "pending"),
             }
         return JSONResponse(body)
+
+    @app.get("/v1/bundles/{bundle_id}/reviews/{review_id}/events", response_model=None)
+    def bundle_review_events(bundle_id: str, review_id: str, request: Request) -> StreamingResponse | JSONResponse:
+        """묶음 단위 SSE: start → 서류별 작업 이벤트 → done. 끝난 검수는 누적 이벤트를 재생하고 바로 done을 낸다."""
+        brm = bundle_reviews(request)
+        rec = brm.get(review_id)
+        if rec is None or rec.bundle.bundle_id != bundle_id:
+            return _not_found(f"묶음 검수가 없습니다: {review_id!r}")
+
+        def gen() -> Iterator[str]:
+            for ev in brm.iter_events(review_id):
+                yield _sse(ev)
+
+        return StreamingResponse(gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 
     @app.get("/v1/bundles/{bundle_id}")
     def bundle_detail(bundle_id: str) -> JSONResponse:

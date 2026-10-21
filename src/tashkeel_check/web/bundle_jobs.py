@@ -7,6 +7,8 @@ API 호출 실패는 `model_error`로 기록하고 이름 미검출과 구분한
 from __future__ import annotations
 
 import threading
+import time
+from collections.abc import Iterator
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
@@ -100,6 +102,66 @@ class BundleReviewManager:
             rec.items = review_mentions(bundle, mentions, self.dictionary) + errors
             rec.status = "done"
             self.store.save(bundle, rec.items)
+
+    def iter_events(self, review_id: str, timeout: float = 600.0) -> Iterator[dict[str, Any]]:
+        """묶음 단위 SSE: `start` → 서류별 작업 이벤트(`document`, 원래 이벤트는 `job_event`) → `done`.
+
+        서류 작업의 누적 이벤트를 처음부터 재생하고, 모든 작업이 끝나 합류가 되면 `done`을 낸다.
+        """
+        rec = self._reviews[review_id]
+        yield {
+            "event": "start",
+            "review_id": rec.id,
+            "bundle_id": rec.bundle.bundle_id,
+            "condition": rec.condition,
+            "jobs": dict(rec.job_ids),
+            "skipped": list(rec.skipped),
+            "t": round(time.time(), 3),
+        }
+        seen = dict.fromkeys(rec.job_ids, 0)
+        deadline = time.time() + timeout
+
+        def drain() -> list[dict[str, Any]]:
+            out: list[dict[str, Any]] = []
+            for doc_id, job_id in rec.job_ids.items():
+                job = self.jobs.get(job_id)
+                if job is None:
+                    continue
+                with job.cond:
+                    new = job.events[seen[doc_id] :]
+                seen[doc_id] += len(new)
+                out += [
+                    {**ev, "event": "document", "job_event": ev["event"], "document_id": doc_id, "review_id": rec.id}
+                    for ev in new
+                ]
+            return out
+
+        while True:
+            batch = drain()
+            progressed = bool(batch)
+            yield from batch
+            self._refresh(rec)
+            if rec.status == "done":
+                yield from drain()  # 합류 직전에 끝난 작업의 마지막 이벤트까지 내보낸다
+                items = rec.items or []
+                yield {
+                    "event": "done",
+                    "review_id": rec.id,
+                    "bundle_id": rec.bundle.bundle_id,
+                    "counts": {
+                        "confirmed": sum(1 for i in items if i.status == "confirmed"),
+                        "pending": sum(1 for i in items if i.status == "pending"),
+                    },
+                    "errors": dict(rec.errors),
+                    "skipped": list(rec.skipped),
+                    "t": round(time.time(), 3),
+                }
+                return
+            if time.time() > deadline:
+                yield {"event": "timeout", "review_id": rec.id, "t": round(time.time(), 3)}
+                return
+            if not progressed:
+                time.sleep(0.2)
 
     def summary(self, rec: BundleReview) -> dict[str, Any]:
         jobs = [self.jobs.get(j) for j in rec.job_ids.values()]

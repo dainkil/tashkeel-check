@@ -198,19 +198,22 @@ src/tashkeel_check/
                              rules.py(판정 순서, 정확 일치 확정, 변이 일치는 제안)
                              dictionary.py(DictionaryLookup 프로토콜, 메모리 사전)
                              pipeline.py(review_bundle, LLM 결과 합류 mentions_from_result·merge_mentions, model_error_item)
+  bundle/mrz.py              여권 MRZ 첫 줄 해독·생성(is_mrz_line, mrz_name, mrz_line1)
+  bundle/upload.py           업로드 파일(묶음 JSON / 서류 .json·.txt·.md) → Bundle (bundle_from_uploads)
   data/bundles.py            합성 묶음 생성기(사례 9 × 종류 3, gold 포함) — tashkeel make-bundles
+  data/kyc_bundles.py        합성 KYC 묶음 생성기(상업등기 + 여권 + 정관, 사례 8, gold 포함) — 같은 명령
   web/bundles.py             BundleStore(메모리 / Postgres), DbDictionary
   web/bundle_jobs.py         묶음 LLM 검수: 서류별 JobManager 작업 → 합류 → 저장
-  web/app.py                 /v1/bundles/*, /v1/dictionary 엔드포인트
+  web/app.py                 /v1/bundles/*(업로드 POST /v1/bundles, 묶음 SSE /reviews/{id}/events 포함), /v1/dictionary 엔드포인트
   web/static/index.html      "서류 묶음" 탭(딥링크 #bundle?sample=…&run=1[&llm=C2])
   mcp/server.py              search_bundle 툴, document://synthetic/bundles/{split}[/{bundle_id}]
   rag/bundle.py              BundleIndex.from_documents(entity_id=…), BundleHit.document_id·segment_id
 alembic/versions/0002_bundles.py   bundles, review_items, name_dictionary; name_items.evidence_document_id
-data/bundles/sample_bundle.json    가이드 예시(개인 + 회사)   data/synthetic/bundles/{dev,eval}/   사례 묶음 60개
-tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,api,llm}.py
+data/bundles/sample_bundle.json    가이드 예시(개인 + 회사)   data/synthetic/bundles/{dev,eval}/   사례 묶음 60개 + KYC 묶음 16개
+tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,eval_kyc,mrz,api,llm}.py
 ```
 
-데이터 흐름(라벨 경로, LLM 없음): 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값, 같은 구간에 영문 칸이 있으면 근거 출처라 검수 대상에서 제외) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸) → `validate_evidence`(서류·구간·인용·영문 대조) → `decide_status` → `ReviewItem`. LLM 경로: 서류마다 단일 문서 그래프(C1~C3)를 돌려 `proper_noun` 항목을 `NameMention(source="llm")`으로 바꾸되, 라벨 칸이 있는 구간은 라벨 결과만 쓴다. 두 경로의 판정 함수는 같다.
+데이터 흐름(라벨 경로, LLM 없음): 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값, 같은 구간에 영문 칸이 있으면 근거 출처라 검수 대상에서 제외) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸. 여권의 성·이름 칸은 하나로 합치고 MRZ는 해독하되, 같은 서류에 인쇄 칸이 있으면 MRZ는 뺀다) → `validate_evidence`(서류·구간·인용·영문 대조) → `decide_status` → `ReviewItem`. LLM 경로: 서류마다 단일 문서 그래프(C1~C3)를 돌려 `proper_noun` 항목을 `NameMention(source="llm")`으로 바꾸되, 라벨 칸이 있는 구간은 라벨 결과만 쓴다. 두 경로의 판정 함수는 같다.
 
 주요 명령:
 
@@ -220,7 +223,7 @@ tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,api,llm}.py
 | `uv run tashkeel run --doc ... --condition C2` | 실제 OpenAI 모델로 실행(키 필요) |
 | `uv run tashkeel fetch-wikidata` | Wikidata 스냅숏과 이름 풀 (`--pool-only`: 재조회 없이 저장된 스냅숏으로 이름 풀만) |
 | `uv run tashkeel make-synthetic` | 합성 문서 dev 10개·eval 30개와 샘플 묶음 |
-| `uv run tashkeel make-bundles` | 합성 묶음(평가 사례 9개 × 대상 종류 3개, dev·eval 60개) → `data/synthetic/bundles/` |
+| `uv run tashkeel make-bundles` | 합성 묶음(평가 사례 9개 × 대상 종류 3개 60개 + KYC 사례 8개 × dev·eval 16개) → `data/synthetic/bundles/` |
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
 | `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
 | `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |

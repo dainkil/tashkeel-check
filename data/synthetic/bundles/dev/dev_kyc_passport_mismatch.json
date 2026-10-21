@@ -1,0 +1,137 @@
+{
+  "bundle_id": "dev_kyc_passport_mismatch",
+  "customer_id": "customer_dev_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_dev_002": "organization",
+    "person_dev_002_1": "person",
+    "person_dev_002_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة القعود للتجارة",
+          "entity_id": "org_dev_002",
+          "translated_name": "Al Gaood Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: حصة نايف المشاري",
+          "entity_id": "person_dev_002_1",
+          "translated_name": "Hissa Nayef al Meshari"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: ياز بنت فيصل الطراروة",
+          "entity_id": "person_dev_002_2",
+          "translated_name": "Yazz bint Faisal Al Tararwa"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL MESHARI | Given Names: HESSA NAYEF",
+          "entity_id": "person_dev_002_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<MESHARI<<HESSA<NAYEF<<<<<<<<<<<<<<<<",
+          "entity_id": "person_dev_002_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000021<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL TARARWA | Given Names: YAZZ BINT FAISAL",
+          "entity_id": "person_dev_002_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<TARARWA<<YAZZ<BINT<FAISAL<<<<<<<<<<<",
+          "entity_id": "person_dev_002_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000022<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة القعود للتجارة | Company Name: Al Gaood Trading Company",
+          "entity_id": "org_dev_002"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: حصة نايف المشاري | Shareholder: Hessa Nayef al Meshari",
+          "entity_id": "person_dev_002_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "passport_mismatch",
+    "entity_types": {
+      "org_dev_002": "organization",
+      "person_dev_002_1": "person",
+      "person_dev_002_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "dev_002",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "pending",
+        "reason": "translation_mismatch"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "generator": "bundles-kyc-v1"
+  }
+}

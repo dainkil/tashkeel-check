@@ -89,13 +89,14 @@ LLM_BACKEND=fake USE_MCP_TOOLS=true DATABASE_URL=postgresql+psycopg:///tashkeel 
 여러 서류를 한 묶음으로 보내면, 서류의 영문 표기를 **같은 대상 ID(`entity_id`)가 붙은 다른 서류**의 영문 칸과 대조합니다. 대상은 사람·회사·기관·그 밖의 명명된 당사자 모두이고 규칙은 같습니다. 아랍어 표기가 같다는 이유로 다른 대상을 연결하지 않고, 대소문자·공백만 무시한 정확 일치일 때만 확정하며, 그 밖에는 사유(근거 없음, 서류 간 표기 충돌, 번역 표기 불일치, 비교 대상 없음, 검증 실패, 대상 ID 없음 …)와 함께 확인 대기로 돌립니다. 라벨 칸(`الاسم:`, `اسم الشركة:` …)이 있으면 LLM 없이 돌고, 라벨 칸이 없는 문장은 LLM(C1~C3)이 고유명사를 뽑아 같은 판정을 탑니다.
 
 ```bash
-uv run tashkeel make-bundles          # 평가 사례 9개 × 대상 종류 3개 합성 묶음 → data/synthetic/bundles/
+uv run tashkeel make-bundles          # 평가 사례 9개 × 대상 종류 3개 + KYC(등기·여권·정관) 사례 8개 합성 묶음 → data/synthetic/bundles/
+curl -s -F files=@data/bundles/sample_bundle.json localhost:8000/v1/bundles   # 파일 업로드로 묶음 만들고 바로 검수
 curl -s -X POST localhost:8000/v1/bundles/review -H 'content-type: application/json' \
   -d @data/bundles/sample_bundle.json | python3 -m json.tool
 curl -s localhost:8000/v1/bundles/bundle_sample_001/pending
 ```
 
-화면의 "서류 묶음" 탭에서 샘플 묶음이나 JSON을 넣어 전체 결과·확인 대기 목록·항목별 원문·번역·근거를 보고, 담당자가 확인한 표기를 사전에 등록해 항목을 닫을 수 있습니다(`POST /v1/dictionary`. 검수 결과를 자동으로 사전에 넣지 않습니다). 사전은 고객 + 대상 ID + 정규화 아랍어 표기가 키이고 다른 고객의 사전은 보지 않습니다. 저장은 Postgres 표 `bundles`·`review_items`·`name_dictionary`(`DATABASE_URL`이 없으면 메모리)입니다. MCP 서버에는 `search_bundle` 툴이 더해졌습니다.
+화면의 "서류 묶음" 탭에서 샘플 묶음이나 JSON을 넣어 전체 결과·확인 대기 목록·항목별 원문·번역·근거를 보고, 담당자가 확인한 표기를 사전에 등록해 항목을 닫을 수 있습니다(`POST /v1/dictionary`. 검수 결과를 자동으로 사전에 넣지 않습니다). 사전은 고객 + 대상 ID + 정규화 아랍어 표기가 키이고 다른 고객의 사전은 보지 않습니다. 저장은 Postgres 표 `bundles`·`review_items`·`name_dictionary`(`DATABASE_URL`이 없으면 메모리)입니다. MCP 서버에는 `search_bundle` 툴이 더해졌습니다. 파일 업로드(`POST /v1/bundles`)와 묶음 단위 진행 스트림(SSE)도 있습니다. 여권은 `Surname`·`Given Names` 칸을 하나로 합치고 MRZ 첫 줄도 해독해 근거로 쓰되, 같은 여권에 인쇄 칸이 있으면 MRZ는 쓰지 않습니다. 합성 KYC 묶음(상업등기 + 여권 + 정관, 사례 8개)이 `make-bundles`에 포함됩니다.
 
 ```bash
 uv run pytest -m "not live"
@@ -112,7 +113,7 @@ uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 
 ## 하지 않는 것 (단계 1)
 
-스캔본 문자 인식, 사람 검토 화면(확인 대기 항목을 닫으며 표기를 등록하는 것만 있음), 멀티 에이전트, 한글 표기, 번역 문장 품질 평가, 파일 업로드. 벡터 검색(RAG)은 같은 대상의 구간만 색인하는 후보 힌트이고 근거로 쓰지 않습니다. 묶음에 대상 ID가 없는 고유명사는 근거를 찾지 않고 대기로 둡니다. 서류 종류별 우선순위는 없습니다(서류끼리 다르면 대기).
+스캔본 문자 인식, 사람 검토 화면(확인 대기 항목을 닫으며 표기를 등록하는 것만 있음), 멀티 에이전트, 한글 표기, 번역 문장 품질 평가, 인증. 파일 업로드는 묶음 JSON 또는 텍스트 서류(`.json`·`.txt`·`.md`)만 받고 스캔본은 받지 않습니다. 벡터 검색(RAG)은 같은 대상의 구간만 색인하는 후보 힌트이고 근거로 쓰지 않습니다. 묶음에 대상 ID가 없는 고유명사는 근거를 찾지 않고 대기로 둡니다. 서류 종류별 우선순위는 없습니다(서류끼리 다르면 대기).
 
 ## 과제 2 안내 파일과의 대응 [확인, 2026-10-21 구현]
 

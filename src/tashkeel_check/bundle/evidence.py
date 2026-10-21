@@ -8,7 +8,7 @@
 from __future__ import annotations
 
 from ..text import nfc
-from .extractor import LABELS, english_fields
+from .extractor import LABELS, MRZ_LABEL, LabeledField, english_fields
 from .schemas import Bundle, BundleEvidence, EntityType, NameMention
 
 
@@ -27,18 +27,22 @@ def search_evidence(
     for doc in bundle.documents:
         if doc.document_id == mention.document_id:
             continue
-        for seg in doc.segments:
-            if seg.entity_id != mention.entity_id:
-                continue
-            for field in english_fields(seg.text, labels):
-                found.append(
-                    BundleEvidence(
-                        document_id=doc.document_id,
-                        segment_id=seg.segment_id,
-                        quote=seg.text,
-                        english_name=field.value,
-                    )
-                )
+        in_doc: list[tuple[str, LabeledField]] = [
+            (seg.segment_id, field)
+            for seg in doc.segments
+            if seg.entity_id == mention.entity_id
+            for field in english_fields(seg.text, labels)
+        ]
+        # 같은 서류에 인쇄된 영문 칸이 있으면 MRZ는 쓰지 않는다. MRZ는 영문자만 담고 39자에서 잘려
+        # 같은 여권의 인쇄 칸과 다른 꼴이 될 수 있어서다. MRZ만 있는 서류에서는 MRZ 해독값이 근거다
+        if any(f.label != MRZ_LABEL for _, f in in_doc):
+            in_doc = [(sid, f) for sid, f in in_doc if f.label != MRZ_LABEL]
+        for sid, field in in_doc:
+            seg = doc.segment(sid)
+            assert seg is not None
+            found.append(
+                BundleEvidence(document_id=doc.document_id, segment_id=sid, quote=seg.text, english_name=field.value)
+            )
     return found
 
 
@@ -54,7 +58,13 @@ def validate_evidence(bundle: Bundle, evidence: BundleEvidence) -> tuple[bool, s
         return False, "empty_quote"
     if strict_form(evidence.quote) not in strict_form(seg.text):
         return False, "quote_not_in_segment"
-    if not evidence.english_name.strip() or strict_form(evidence.english_name) not in strict_form(evidence.quote):
+    name = strict_form(evidence.english_name)
+    if not name:
+        return False, "name_not_in_quote"
+    # 영문 표기는 인용 안에 그대로 있거나, 인용의 영문 칸(성·이름 합성, MRZ 해독)에서 나온 것이어야 한다
+    if name not in strict_form(evidence.quote) and name not in {
+        strict_form(f.value) for f in english_fields(evidence.quote)
+    }:
         return False, "name_not_in_quote"
     return True, None
 

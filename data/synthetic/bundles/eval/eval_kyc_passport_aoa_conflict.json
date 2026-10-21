@@ -1,0 +1,137 @@
+{
+  "bundle_id": "eval_kyc_passport_aoa_conflict",
+  "customer_id": "customer_eval_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_eval_004": "organization",
+    "person_eval_004_1": "person",
+    "person_eval_004_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الشمري للتجارة",
+          "entity_id": "org_eval_004",
+          "translated_name": "Al Shammari Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: محمد خميس الأحمدي",
+          "entity_id": "person_eval_004_1",
+          "translated_name": "Muhammad Khamis Al Ahmadi"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: راشد ساطع الحارثية",
+          "entity_id": "person_eval_004_2",
+          "translated_name": "Rashid Sateh Al Harthy"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL AHMADI | Given Names: MUHAMMAD KHAMIS",
+          "entity_id": "person_eval_004_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<AHMADI<<MUHAMMAD<KHAMIS<<<<<<<<<<<<<",
+          "entity_id": "person_eval_004_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000041<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL HARTHY | Given Names: RASHID SATEH",
+          "entity_id": "person_eval_004_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<HARTHY<<RASHID<SATEH<<<<<<<<<<<<<<<<",
+          "entity_id": "person_eval_004_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000042<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الشمري للتجارة | Company Name: Al Shammari Trading Company",
+          "entity_id": "org_eval_004"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: محمد خميس الأحمدي | Shareholder: Mohammed Khamis Al Ahmadi",
+          "entity_id": "person_eval_004_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "passport_aoa_conflict",
+    "entity_types": {
+      "org_eval_004": "organization",
+      "person_eval_004_1": "person",
+      "person_eval_004_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "eval_004",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "pending",
+        "reason": "cross_document_conflict"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "generator": "bundles-kyc-v1"
+  }
+}

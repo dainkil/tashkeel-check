@@ -35,10 +35,17 @@
 | 2026-10-21 | 단계 1.5 서비스화 구현(ADR-012): `web/`(FastAPI API 8개, 작업 스레드·SSE, Postgres 4테이블 + Alembic, Vue 폼 화면), `mcp/`(FastMCP stdio 서버 툴·리소스·프롬프트, 동기 클라이언트, C2 툴 교체 `analyze_tool_factory`), `tashkeel serve`, `run.sh`·`Dockerfile`·`docker-compose.yml`, 설정 5개(`LLM_BACKEND`·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_HOST`·`WEB_PORT`), `Reviewer.run(on_node=…)`, `analyzer.thread_safe_analyze`. 테스트 26개 추가(279개 통과), `docs/과제2-테스트-기록.md`·`docs/images/` 신설. README, [architecture.md](architecture.md) 4.6~4.8, [roadmap.md](roadmap.md) 1·2.5·3.3·4절, [scope.md](scope.md), ADR-012 갱신 | 사용자 지시(EXP-002 eval이 도는 동안 병렬 작업). `USE_MCP_TOOLS` 기본 끔은 사용자 결정 | 그래프·채점·프롬프트·골든은 그대로(골든 160건 변화 없음, `test_llm_inputs` 해시 그대로). 실험 경로는 새 설정을 읽지 않는다. 실제 모델 실행과 compose 빌드는 미확인 |
 | 2026-10-21 | 14단계 가이드를 레포에 얹어 단계 2 묶음 검수를 첫 구현(ADR-018): `bundle/`(묶음 스키마·로더·라벨 추출·대상 ID 기반 근거 검색·인용 검증·판정·사전), 합성 묶음 사례 9 × 종류 3(`make-bundles`), `/v1/bundles/*`·`/v1/dictionary`, Postgres 표 3개(Alembic 0002), LLM 경로 합류, MCP `search_bundle`, 화면 묶음 탭. EXP-002는 120/360에서 보류. 단계 1.5 브랜치 병합 | 사용자가 14단계 개발 가이드를 가져와 계획을 다시 세우라고 함. 사용자 결정: 레포에 얹기, 실험 보류, Postgres 유지, 사람 이름에 치중하지 않고 고유명사 범위 명시 | 같은 대상 여부는 데이터의 대상 ID로만, 확정은 정확 일치만, 사전 키에 대상 ID 추가(ADR-010 보완), 묶음 검색 틀(ADR-007)은 후보 힌트로 강등. 단일 문서 경로·골든·실험 설계는 바뀌지 않음(372개 통과). 가이드의 `app/` 구조·SQLite·자동 사전 등록·멀티 에이전트는 채택 안 함 |
 | 2026-10-21 | `feat/bundle-review`(단계 1.5 서비스화와 묶음 검수 포함)를 `exp/grading-data-v2`에 병합(병합 커밋, EXP-003 준비 커밋 뒤). 충돌 정리: `experiments/harness.py`가 `analyzer.thread_safe_analyze()`를 쓰고 자체 복사본을 지움, `runner.py`는 두 쪽 import를 합침, `data.md` 합성 묶음 절을 5.3→5.4로, `evaluation.md` 묶음 검수 지표 절을 6.4→6.5로 옮김(synthetic-hard·EXP-003이 5.3·6.4를 먼저 씀) | 두 작업을 한 브랜치에서 이어 가기 위해. 사용자 지시 | 동작 변경 없음. 테스트 414개 통과, 5개 건너뜀(Postgres 연결 2, LLM 경로 평가 3) |
+| 2026-10-21 | 묶음 검수의 남은 틀을 더함(ADR-018 보완): 파일 업로드 `POST /v1/bundles`(묶음 JSON 또는 서류 .json/.txt/.md, 바로 검수), 묶음 단위 SSE `/reviews/{id}/events`, 여권 성·이름 칸 합성과 MRZ 첫 줄 해독(`bundle/mrz.py`, 같은 서류의 인쇄 칸이 MRZ보다 우선), 합성 KYC 묶음 생성기(`data/kyc_bundles.py`: 상업등기 + 여권 + 정관, 사례 8개 × dev·eval, `make-bundles`에 포함), 라벨 표에 소유자·관리자·주주·Surname·Given Names 추가, 화면 업로드·진행 스트림. 테스트 445개 통과 | 옆 세션이 EXP-003 시험지를 다시 만들어 검증하는 동안 겹치지 않는 묶음 기능을 미리 만들기로 사용자가 정함(2026-10-21) | 판정 규칙·단일 문서 경로·실험은 그대로. 남은 것: pgvector 이전, 서류 우선순위, 인증, 업로드 서류의 대상 ID 입력. 실제 KYC 서식은 아님 | ADR-018 보완, `docs/과제2-테스트-기록.md` B-20~B-24·E-17, `docs/data.md` 5.4, `docs/evaluation.md` 6.5 |
 
 추가 형식: `날짜 / 바뀐 내용 / 변경 이유·근거 / 일정·범위·평가에 미치는 영향 / 관련 ADR·실험`.
 
 ## 상세 기록 (구 9절 "완료" 블록, 날짜 역순)
+
+### 완료 (2026-10-21): 묶음 검수 남은 틀 — 파일 업로드·묶음 SSE·여권 MRZ·합성 KYC 묶음 (ADR-018 보완)
+
+- 실제 확인한 것 [확인]: 합성 KYC 묶음 사례 8개 × dev·eval이 정답과 일치(여권 인쇄 칸·MRZ·정관 근거로 확정, 소유자 번역 불일치·여권 없음·여권·정관 충돌·회사명 불일치·관리자 ID 없음은 대기, 같은 이름의 다른 주주는 연결 안 함). MRZ만 있는 여권은 해독값으로 확정하되 39자를 넘어 잘린 이름(dev 1건)은 대기. 같은 여권에 인쇄 칸이 있으면 MRZ는 근거에서 빠져 충돌이 나지 않음. 파일 업로드(묶음 JSON / 텍스트 서류)가 201로 바로 검수 결과를 내고, 형식·UTF-8·JSON·혼합·entities 오류는 400. 묶음 SSE가 `start → document… → done` 순서로 흐르고 끝난 검수는 재생 뒤 바로 `done`. 화면 캡처 `docs/images/screen-bundle_kyc.jpg`(가짜 모델, headless Chrome).
+- 하지 않은 것: 실제 모델 실행, pgvector 이전, 서류 종류별 우선순위, 인증, 업로드한 텍스트 서류에 대상 ID를 붙이는 입력(지금은 "대상 ID 없음" 대기), 실제 KYC 서식 재현(MRZ 검사 숫자 포함).
+- 작업 위치: `exp/grading-data-v2` 메인 체크아웃. 옆 세션의 EXP-003 파일(`synthetic_hard.py`, `exp003.py`, `harness.py`, `scoring_v2.py`, `data/synthetic-hard/`)은 건드리지 않았다.
 
 ### 완료 (2026-10-21): 단계 2 묶음 검수 첫 구현(14단계 가이드 반영, ADR-018)
 

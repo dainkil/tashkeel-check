@@ -1,0 +1,137 @@
+{
+  "bundle_id": "eval_kyc_passport_mismatch",
+  "customer_id": "customer_eval_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_eval_002": "organization",
+    "person_eval_002_1": "person",
+    "person_eval_002_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الشمري للتجارة",
+          "entity_id": "org_eval_002",
+          "translated_name": "Al Shammari Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: حمدة أحمد الصديق",
+          "entity_id": "person_eval_002_1",
+          "translated_name": "Hamdah Ahmed al Siddiq"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: حسن محمد المرزوقي",
+          "entity_id": "person_eval_002_2",
+          "translated_name": "Hassan Mohammad Al Marzooqi"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL SIDDIQ | Given Names: HAMDA AHMED",
+          "entity_id": "person_eval_002_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<SIDDIQ<<HAMDA<AHMED<<<<<<<<<<<<<<<<<",
+          "entity_id": "person_eval_002_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000021<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL MARZOOQI | Given Names: HASSAN MOHAMMAD",
+          "entity_id": "person_eval_002_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<MARZOOQI<<HASSAN<MOHAMMAD<<<<<<<<<<<",
+          "entity_id": "person_eval_002_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000022<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الشمري للتجارة | Company Name: Al Shammari Trading Company",
+          "entity_id": "org_eval_002"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: حمدة أحمد الصديق | Shareholder: Hamda Ahmed al Siddiq",
+          "entity_id": "person_eval_002_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "passport_mismatch",
+    "entity_types": {
+      "org_eval_002": "organization",
+      "person_eval_002_1": "person",
+      "person_eval_002_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "eval_002",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "pending",
+        "reason": "translation_mismatch"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "generator": "bundles-kyc-v1"
+  }
+}

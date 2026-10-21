@@ -1,0 +1,136 @@
+{
+  "bundle_id": "dev_kyc_unlinked_manager",
+  "customer_id": "customer_dev_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_dev_008": "organization",
+    "person_dev_008_1": "person",
+    "person_dev_008_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الدوسري للتجارة",
+          "entity_id": "org_dev_008",
+          "translated_name": "Al Dawsari Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: حصة يحيى الشريف",
+          "entity_id": "person_dev_008_1",
+          "translated_name": "Hessa Yahya al Sharif"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: موسى حسين الصباح",
+          "translated_name": "Moussa Husain Al Sabah"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL SHARIF | Given Names: HESSA YAHYA",
+          "entity_id": "person_dev_008_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<SHARIF<<HESSA<YAHYA<<<<<<<<<<<<<<<<<",
+          "entity_id": "person_dev_008_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000081<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL SABAH | Given Names: MOUSSA HUSAIN",
+          "entity_id": "person_dev_008_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<SABAH<<MOUSSA<HUSAIN<<<<<<<<<<<<<<<<",
+          "entity_id": "person_dev_008_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000082<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الدوسري للتجارة | Company Name: Al Dawsari Trading Company",
+          "entity_id": "org_dev_008"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: حصة يحيى الشريف | Shareholder: Hessa Yahya al Sharif",
+          "entity_id": "person_dev_008_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "unlinked_manager",
+    "entity_types": {
+      "org_dev_008": "organization",
+      "person_dev_008_1": "person",
+      "person_dev_008_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "dev_008",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "pending",
+        "reason": "no_entity_id"
+      }
+    ],
+    "generator": "bundles-kyc-v1"
+  }
+}

@@ -130,6 +130,7 @@ LangSmith 메타데이터와 로컬 `run_meta.json`에 같은 값을 남긴다: 
 | 인용 검증 실패 수 | `validate_evidence` 실패 코드별 수(`document_not_found`, `segment_not_found`, `quote_not_in_segment`, `name_not_in_quote`, `empty_quote`) | `bad_quote` 사례에서 `quote_not_in_segment` 거부 [확인, 테스트] |
 | 같은 표기의 다른 대상을 연결한 수 | `namesake` 사례에서 다른 대상 ID의 근거를 쓴 수 | 0 [확인, 테스트] |
 | 다른 고객 근거를 쓴 수 | `other_customer` 사례 | 0 [확인, 테스트] |
+| KYC 묶음 사례 일치 | 상업등기 + 여권 + 정관 사례 8개 × dev·eval(`tests/test_bundle_eval_kyc.py`) | 16건 전부 정답과 일치 [확인, 테스트]. MRZ만 있는 여권에서 해독값이 잘린 이름 1건(dev)은 정답대로 대기 |
 | 실행 오류 수 | LLM 경로에서 API 호출 실패(`model_error`)로 기록된 서류 수. 이름 미검출과 구분 | 가짜 모델로 `APIConnectionError` 주입 시 서류 2개 모두 `model_error` [확인, 테스트] |
 | 서류당 처리 시간·비용 | 라벨 경로 0원·수 ms, LLM 경로는 단일 문서 실행과 같음(`runs.usage`) | 라벨 경로만 측정 의미 있음. LLM 경로는 실제 모델 미실행 |
 | 단일 에이전트 대비 멀티 에이전트 | 단계 3 | 하지 않음 |

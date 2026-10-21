@@ -89,10 +89,12 @@ def _cmd_synthetic(args: argparse.Namespace, settings: Settings) -> int:
 
 def _cmd_make_bundles(args: argparse.Namespace, settings: Settings) -> int:
     from .data.bundles import generate_bundles
+    from .data.kyc_bundles import generate_kyc_bundles
 
     made = []
     for split in ("dev", "eval"):
         made += generate_bundles(Path(args.synthetic) / split / f"{split}_001.json", args.out, split)
+        made += generate_kyc_bundles(args.synthetic, args.out, split)  # KYC 묶음(등기 + 여권 + 정관)
     print(f"{len(made)} bundles → {args.out}")
     return 0
 
@@ -343,7 +345,9 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--n", type=int, default=2)
     p.set_defaults(func=_cmd_inspect_gold)
 
-    p = sub.add_parser("make-bundles", help="합성 묶음(평가 사례 9개 × 대상 종류 3개, dev·eval)을 만든다")
+    p = sub.add_parser(
+        "make-bundles", help="합성 묶음(평가 사례 9개 × 대상 종류 3개 + KYC 사례 8개, dev·eval)을 만든다"
+    )
     p.add_argument("--synthetic", default=str(data / "synthetic"))
     p.add_argument("--out", default=str(data / "synthetic" / "bundles"))
     p.set_defaults(func=_cmd_make_bundles)

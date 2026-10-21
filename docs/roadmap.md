@@ -183,9 +183,11 @@ flowchart LR
 | `GET /v1/bundles`, `GET /v1/bundles/samples[/{id}]` | — | 최근 묶음 요약 / 합성 샘플 묶음(gold 제외) |
 | `POST /v1/bundles/{id}/reviews?condition=` | 저장된 묶음, 조건 C1~C3 | 202 `review_id`, 서류별 `job_id`. 라벨 칸 없는 문장의 고유명사를 LLM이 뽑아 합류 |
 | `GET /v1/bundles/{id}/reviews/{review_id}` | — | 서류별 작업 상태, 끝나면 합류한 `items`·`counts`, 실행 오류(`errors`) |
+| `GET /v1/bundles/{id}/reviews/{review_id}/events` | — | 묶음 단위 SSE: `start`(서류별 작업 ID) → `document`(서류별 작업 이벤트, `job_event`·`node`) → `done`(`counts`·`errors`). 끝난 검수는 재생 뒤 바로 `done` |
+| `POST /v1/bundles` | multipart `files`(묶음 JSON 1개, 또는 서류 `.json`/`.txt`/`.md` 여러 개), `bundle_id`?·`customer_id`?·`document_type`?·`entities`? | 201. 업로드한 파일로 묶음을 만들고 바로 라벨 경로로 검수(`documents`·`counts`·`items`). 텍스트 서류는 대상 ID가 없어 "대상 ID 없음" 대기. 형식 오류·UTF-8 아님·2 MB 초과·20개 초과는 400 |
 | `POST /v1/dictionary` | `bundle_id`, `mention_id`, `english_name`? | 담당자가 대기 항목을 닫으며 등록한 사전 항목(201). 자동 등록 없음 |
 
-아직 없는 것: 파일 업로드(`POST /v1/bundles`에 텍스트 파일), 묶음 단위 SSE, `GET /v1/dictionary?customer=`, 인증.
+아직 없는 것: `GET /v1/dictionary?customer=`, 인증, 업로드 서류에 대상 ID를 붙이는 입력(지금은 JSON 서류에만 `entity_id`를 쓸 수 있다).
 
 - 인증은 API 키 헤더로 시작한다. 조직·권한 모델, 감사 로그, 키 회전은 엔터프라이즈 단계로 둔다.
 - 보고서의 이름 항목 형식은 단계 1 `proper_nouns.csv` 열(아랍어 원문, 토큰 ID, 후보와 출처, 채택 표기, 처분, 근거 위치, 분석 수)에 `document_id`, `evidence_document_id`, `inconsistent_with[]`, `glossary_hit`을 더한다.
@@ -345,8 +347,9 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 - [x] 가이드 12 — MCP `search_bundle` 툴(대상 ID 기준, 없는 ID는 오류)과 리소스 `document://synthetic/bundles/{split}[/{bundle_id}]`
 - [x] 가이드 14 — 화면 "서류 묶음" 탭(샘플/JSON → 실행 → 전체 결과 → 대기 목록 → 항목별 원문·번역·근거 비교 → 닫기·사전 등록, 딥링크 `#bundle?sample=…&run=1`), 평가 사례 9개 × 대상 종류 3개 합성 묶음(`tashkeel make-bundles`, `data/synthetic/bundles/`)과 테스트. 캡처 `docs/images/screen-bundle_*.jpg`
 - [ ] 가이드 11 나머지 — 벡터 검색을 pgvector로 옮기고 고객·묶음 범위 제한을 DB 수준에서(ADR-011 M3)
-- [ ] 파일 업로드(`POST /v1/bundles`), 묶음 단위 SSE, 인증, 서류 종류별 우선순위(지금은 서류끼리 다르면 무조건 대기)
-- [ ] 합성 KYC 온보딩 묶음 생성기: 아랍어 상업등기 + 영문 여권 MRZ + 정관, 정답은 생성기가 냄 [제안]. 지금 생성기(`bundles-v1`)는 합성 문서 1개를 base로 계약서 + 근거 서류 사례만 만든다
+- [x] 파일 업로드(`POST /v1/bundles`: 묶음 JSON 또는 서류 파일, 바로 검수)와 묶음 단위 SSE(`/reviews/{review_id}/events`), 화면 업로드·진행 스트림 (2026-10-21, ADR-018 보완)
+- [ ] 인증, 서류 종류별 우선순위(지금은 서류끼리 다르면 무조건 대기), 업로드 서류에 대상 ID를 붙이는 입력
+- [x] 합성 KYC 온보딩 묶음 생성기(`bundles-kyc-v1`, `data/kyc_bundles.py`): 아랍어 상업등기 + 영문 여권(인쇄 칸 + MRZ) + 이중언어 정관, 사례 8개 × dev·eval, 정답은 생성기가 냄. 여권 MRZ 해독(`bundle/mrz.py`)과 성·이름 칸 합성, 같은 서류의 인쇄 칸이 MRZ보다 우선. 테스트 `test_bundle_eval_kyc.py`·`test_bundle_mrz.py` (2026-10-21)
 - [ ] 실제 모델로 묶음 LLM 경로 1회 실행(EXP-002 보류 중이라 미실행)
 - [ ] 공개 이중언어 문서(공식 영문본을 정답으로)에서 EXP-002 지표 재측정 [제안, 문서 공개 여부·이용 조건 미확인]
 - [ ] 추후 과제: 보류 항목의 사람 검토(interrupt), 실제 고객 서류로 재측정, SOC 2, 설치형 배포 시 형태소 DB 교체(`glf-01` 검토)

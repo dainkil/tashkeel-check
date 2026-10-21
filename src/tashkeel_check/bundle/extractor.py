@@ -11,6 +11,7 @@ import re
 from dataclasses import dataclass
 
 from ..text import nfc, normalize_key
+from .mrz import mrz_name
 from .schemas import Document, EntityType, NameMention
 
 LABELS: dict[str, EntityType] = {
@@ -32,7 +33,27 @@ LABELS: dict[str, EntityType] = {
     "organization": "organization",
     "organisation": "organization",
     "entity": "organization",
+    # 상업등기·정관·여권 칸(KYC 묶음). 종류는 표시용이라 소유자가 법인이어도 판정은 같다
+    "اسم المالك": "person",
+    "المالك": "person",
+    "اسم المدير": "person",
+    "المدير": "person",
+    "اسم الشريك": "person",
+    "الشريك": "person",
+    "owner": "person",
+    "owner name": "person",
+    "manager": "person",
+    "manager name": "person",
+    "shareholder": "person",
+    "shareholder name": "person",
+    "surname": "person",
+    "given names": "person",
+    "given name": "person",
 }
+# 여권 시각 영역의 성·이름 칸. 둘 다 있으면 "이름 성" 하나로 합쳐 영문 표기로 쓴다
+SURNAME_LABELS = {"surname"}
+GIVEN_LABELS = {"given names", "given name"}
+MRZ_LABEL = "MRZ"
 
 FIELD_SEP = "|"
 LABEL_RE = re.compile(r"^\s*(?P<label>[^:：]{1,40}?)\s*[:：]\s*(?P<value>.*?)\s*$")
@@ -108,4 +129,15 @@ def extract_names(
 
 
 def english_fields(text: str, labels: dict[str, EntityType] = LABELS) -> list[LabeledField]:
-    return [f for f in split_fields(text, labels) if f.script == "latin"]
+    """근거로 쓸 영문 칸. 라벨 칸 외에 여권의 성·이름 칸 합성과 MRZ 첫 줄도 영문 표기 하나로 센다."""
+    latin = [f for f in split_fields(text, labels) if f.script == "latin"]
+    surname = next((f for f in latin if _label_key(f.label) in SURNAME_LABELS), None)
+    given = next((f for f in latin if _label_key(f.label) in GIVEN_LABELS), None)
+    if surname is not None and given is not None:
+        latin = [f for f in latin if f is not surname and f is not given]
+        latin.append(LabeledField("Given Names + Surname", f"{given.value} {surname.value}", "person", "latin"))
+    for part in nfc(text).split(FIELD_SEP):
+        name = mrz_name(part)
+        if name is not None:
+            latin.append(LabeledField(MRZ_LABEL, name, "person", "latin"))
+    return latin

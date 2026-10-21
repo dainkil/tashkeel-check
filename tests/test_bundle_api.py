@@ -149,3 +149,68 @@ def test_bundle_review_is_stored_in_postgres(tmp_path):
         contract_only["documents"][0]["segments"][0]["translated_name"] = "Musallam"
         again = c.post("/v1/bundles/review", json=contract_only).json()
         assert {i["reason"] for i in again["items"]} == {"dictionary_match", "no_evidence"}
+
+
+# -- 파일 업로드(POST /v1/bundles)와 묶음 단위 SSE --
+def _upload(client, *files, **form):
+    parts = [("files", (name, data, "application/octet-stream")) for name, data in files]
+    return client.post("/v1/bundles", files=parts, data=form or None)
+
+
+def test_upload_bundle_json_reviews_immediately(client):
+    r = _upload(client, ("sample_bundle.json", json.dumps(SAMPLE).encode("utf-8")))
+    assert r.status_code == 201, r.text
+    body = r.json()
+    assert body["bundle_id"] == "bundle_sample_001" and body["counts"] == {"confirmed": 1, "pending": 1}
+    assert [d["document_id"] for d in body["documents"]] == ["contract_001", "id_001", "cr_001"]
+    assert client.get("/v1/bundles/bundle_sample_001/items").status_code == 200
+
+
+def test_upload_text_files_make_documents_without_entity_ids(client):
+    r = _upload(
+        client,
+        ("contract.txt", "عقد خدمات\n\nالاسم: مسلم\n".encode()),
+        ("id.txt", b"Name: Musallam"),
+        bundle_id="up_txt",
+        customer_id="c1",
+        document_type="contract",
+    )
+    assert r.status_code == 201, r.text
+    body = r.json()
+    assert [(d["document_id"], d["document_type"], d["segments"]) for d in body["documents"]] == [
+        ("contract", "contract", 2),
+        ("id", "contract", 1),
+    ]
+    assert [(i["mention_id"], i["status"], i["reason"]) for i in body["items"]] == [
+        ("contract:s02:1", "pending", "no_entity_id")
+    ]
+    assert client.get("/v1/bundles/up_txt").json()["customer_id"] == "c1"
+
+
+def test_upload_rejects_bad_files_with_400(client):
+    assert _upload(client, ("x.pdf", b"%PDF")).status_code == 400
+    assert _upload(client, ("x.txt", b"\xff\xfe\x00")).status_code == 400
+    r = _upload(client, ("x.json", b"{not"))
+    assert r.status_code == 400 and "JSON 형식 오류" in r.json()["error"]
+    assert _upload(client, ("b.json", json.dumps(SAMPLE).encode()), ("a.txt", b"Name: X")).status_code == 400
+    assert _upload(client, ("a.txt", b"Name: X"), entities="[1]").status_code == 400
+    assert _upload(client, ("a.json", b'{"segments": "x"}')).status_code == 400  # 묶음 구조 오류
+    assert client.post("/v1/bundles", data={"bundle_id": "x"}).status_code == 422  # 파일 없음
+
+
+def test_bundle_review_events_stream_start_documents_done(client):
+    client.post("/v1/bundles/review", json=SAMPLE)
+    rid = client.post("/v1/bundles/bundle_sample_001/reviews?condition=C1").json()["review_id"]
+    with client.stream("GET", f"/v1/bundles/bundle_sample_001/reviews/{rid}/events") as s:
+        events = [json.loads(line[6:]) for line in s.iter_lines() if line.startswith("data: ")]
+    assert events[0]["event"] == "start" and set(events[0]["jobs"]) == {"contract_001", "id_001", "cr_001"}
+    docs = [e for e in events if e["event"] == "document"]
+    assert {e["document_id"] for e in docs} == {"contract_001", "id_001", "cr_001"}
+    assert {e["job_event"] for e in docs} >= {"queued", "node", "done"}
+    assert events[-1]["event"] == "done" and events[-1]["counts"]["confirmed"] + events[-1]["counts"]["pending"] >= 2
+    # 끝난 검수를 다시 열면 누적 이벤트를 재생하고 바로 done
+    with client.stream("GET", f"/v1/bundles/bundle_sample_001/reviews/{rid}/events") as s:
+        replay = [json.loads(line[6:]) for line in s.iter_lines() if line.startswith("data: ")]
+    assert replay[0]["event"] == "start" and replay[-1]["event"] == "done"
+    assert client.get("/v1/bundles/bundle_sample_001/reviews/nope/events").status_code == 404
+    assert client.get(f"/v1/bundles/other/reviews/{rid}/events").status_code == 404
