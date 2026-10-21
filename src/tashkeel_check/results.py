@@ -26,7 +26,7 @@ class CheckedItem(Item):
 
     item_index: int
     valid: bool  # 토큰 ID가 모두 이 문서의 아랍어 토큰인가
-    final_decision: FinalDecision  # 강등 규칙(PROJECT_PLAN 4.5절)을 적용한 처분
+    final_decision: FinalDecision  # 강등 규칙(docs/architecture.md 4.5절)을 적용한 처분
     flags: list[str]
     evidence_failure: str | None
     arabic: str
@@ -64,7 +64,7 @@ class SegmentResult(_Strict):
 
 
 class RunMeta(_Strict):
-    """실행 메타데이터(run_meta.json, PROJECT_PLAN 6.3절)."""
+    """실행 메타데이터(run_meta.json, docs/evaluation.md 6.3절)."""
 
     doc_id: str
     condition: str

@@ -4,6 +4,10 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +15,40 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 09/01/2026 حضر أمام الكاتب العدل السيد خالد عيسى الشعيلي، سعودي الجنسية، ويحمل جواز سفر رقم F4246569."
+   "text": "إنه في يوم 10/10/2026 حضر أمام الكاتب العدل السيدة نوال معمر النجعي، قطرية الجنسية، وتحمل جواز سفر رقم Z8495650."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Khalid Eisa Shuayli, Passport No. F4246569"
+   "text": "وذلك بصفتها مديرة لشركة السبيع للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 518684، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة الكعبي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 258688، وعنوانها الشارقة، الإمارات العربية المتحدة."
+   "text": "Company: Al Subaie General Trading L.L.C., Registration No. 518684"
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Kaabi General Trading L.L.C., Registration No. 258688"
+   "text": "وقررت أنها وكّلت السيد جمعان بن جبران بن بشار العابد، بحريني الجنسية، ويحمل بطاقة هوية رقم 34615434."
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة إسراء بنت جلال بن النعمان الهاجري، بحرينية الجنسية، وتحمل بطاقة هوية رقم 82794216."
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Israa Bint Jalal Bin Na'aman al Hajiri, ID No. 82794216"
+   "text": "الموكلة: نوال معمر النجعي"
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الوكيل: جمعان بن جبران بن بشار العابد"
   },
   {
    "segment_id": "s09",
-   "text": "الموكل: خالد عيسى الشعيلي"
-  },
-  {
-   "segment_id": "s10",
-   "text": "الوكيلة: إسراء بنت جلال بن النعمان الهاجري"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 5,
@@ -72,7 +69,7 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
+     51,
      67
     ],
     "token_ids": [
@@ -80,286 +77,266 @@
      12,
      13
     ],
-    "arabic_full": "خالد عيسى الشعيلي",
-    "english_full": "Khalid Eisa Shuayli",
+    "arabic_full": "نوال معمر النجعي",
+    "english_full": "Nawal Muammar Al Najei",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "خالد",
+      "arabic": "نوال",
       "position": "given",
       "english_variants": [
-       "Khalid",
-       "Khaled",
-       "Halid"
+       "Nawal",
+       "Nawaal",
+       "Nawa",
+       "Nawwal"
       ],
-      "english_used": "Khalid"
+      "english_used": "Nawal"
      },
      {
       "token_id": 12,
-      "arabic": "عيسى",
+      "arabic": "معمر",
       "position": "middle",
       "english_variants": [
-       "Essa",
-       "Eisa",
-       "Issa",
-       "Isa",
-       "Eissa",
-       "Esa",
-       "Eesa",
-       "Abdul Salam"
+       "Muamer",
+       "Moamar",
+       "Muaammar",
+       "Al Muaammar",
+       "Muammar"
       ],
-      "english_used": "Eisa"
+      "english_used": "Muammar"
      },
      {
       "token_id": 13,
-      "arabic": "الشعيلي",
+      "arabic": "النجعي",
       "position": "family",
       "english_variants": [
-       "Shuayli"
+       "Al Najei",
+       "Al Najai",
+       "Naji",
+       "Al Naje"
       ],
-      "english_used": "Shuayli"
+      "english_used": "Al Najei"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Khalid Eisa Shuayli"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
      30
     ],
     "token_ids": [
-     34
+     26
     ],
-    "arabic_full": "الكعبي",
-    "english_full": "Al Kaabi",
+    "arabic_full": "السبيع",
+    "english_full": "Al Subaie",
     "tokens": [
      {
-      "token_id": 34,
-      "arabic": "الكعبي",
+      "token_id": 26,
+      "arabic": "السبيع",
       "position": "family",
       "english_variants": [
-       "Al Kaabi",
-       "Al Kaebi",
-       "Kaabi"
+       "Al Subaie"
       ],
-      "english_used": "Al Kaabi"
+      "english_used": "Al Subaie"
      }
     ],
     "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Kaabi General Trading"
+     "segment_id": "s04",
+     "quote": "Al Subaie General Trading"
     }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s05",
     "span": [
-     21,
-     54
+     23,
+     52
     ],
     "token_ids": [
-     65,
-     66,
-     67,
-     68,
-     69,
-     70
+     57,
+     58,
+     59,
+     60,
+     61,
+     62
     ],
-    "arabic_full": "إسراء بنت جلال بن النعمان الهاجري",
-    "english_full": "Israa Bint Jalal Bin Na'aman al Hajiri",
+    "arabic_full": "جمعان بن جبران بن بشار العابد",
+    "english_full": "Jamaan Bin Jibran Bin Bashar Al Abed",
     "tokens": [
      {
-      "token_id": 65,
-      "arabic": "إسراء",
+      "token_id": 57,
+      "arabic": "جمعان",
       "position": "given",
       "english_variants": [
-       "Esra'a",
-       "Israa"
+       "Jamaan"
       ],
-      "english_used": "Israa"
+      "english_used": "Jamaan"
      },
      {
-      "token_id": 67,
-      "arabic": "جلال",
+      "token_id": 59,
+      "arabic": "جبران",
       "position": "middle",
       "english_variants": [
-       "Jalal",
-       "Galal",
-       "Al Ghamdi"
+       "Jubran",
+       "Jabran",
+       "Jibran"
       ],
-      "english_used": "Jalal"
+      "english_used": "Jibran"
      },
      {
-      "token_id": 69,
-      "arabic": "النعمان",
+      "token_id": 61,
+      "arabic": "بشار",
       "position": "middle",
       "english_variants": [
-       "Na'aman"
+       "Bashar"
       ],
-      "english_used": "Na'aman"
+      "english_used": "Bashar"
      },
      {
-      "token_id": 70,
-      "arabic": "الهاجري",
+      "token_id": 62,
+      "arabic": "العابد",
       "position": "family",
       "english_variants": [
-       "Al Hajri",
-       "Al Hajiri",
-       "al Hajiri",
-       "Al Hajeri"
+       "Al Abed"
       ],
-      "english_used": "al Hajiri"
+      "english_used": "Al Abed"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Israa Bint Jalal Bin Na'aman al Hajiri"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s07",
     "span": [
-     8,
+     9,
      25
     ],
     "token_ids": [
-     105,
-     106,
-     107
+     86,
+     87,
+     88
     ],
-    "arabic_full": "خالد عيسى الشعيلي",
-    "english_full": "Khalid Eisa Shuayli",
+    "arabic_full": "نوال معمر النجعي",
+    "english_full": "Nawal Muammar Al Najei",
     "tokens": [
      {
-      "token_id": 105,
-      "arabic": "خالد",
+      "token_id": 86,
+      "arabic": "نوال",
       "position": "given",
       "english_variants": [
-       "Khalid",
-       "Khaled",
-       "Halid"
+       "Nawal",
+       "Nawaal",
+       "Nawa",
+       "Nawwal"
       ],
-      "english_used": "Khalid"
+      "english_used": "Nawal"
      },
      {
-      "token_id": 106,
-      "arabic": "عيسى",
+      "token_id": 87,
+      "arabic": "معمر",
       "position": "middle",
       "english_variants": [
-       "Essa",
-       "Eisa",
-       "Issa",
-       "Isa",
-       "Eissa",
-       "Esa",
-       "Eesa",
-       "Abdul Salam"
+       "Muamer",
+       "Moamar",
+       "Muaammar",
+       "Al Muaammar",
+       "Muammar"
       ],
-      "english_used": "Eisa"
+      "english_used": "Muammar"
      },
      {
-      "token_id": 107,
-      "arabic": "الشعيلي",
+      "token_id": 88,
+      "arabic": "النجعي",
       "position": "family",
       "english_variants": [
-       "Shuayli"
+       "Al Najei",
+       "Al Najai",
+       "Naji",
+       "Al Naje"
       ],
-      "english_used": "Shuayli"
+      "english_used": "Al Najei"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Khalid Eisa Shuayli"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s08",
     "span": [
-     9,
-     42
+     8,
+     37
     ],
     "token_ids": [
-     109,
-     110,
-     111,
-     112,
-     113,
-     114
+     90,
+     91,
+     92,
+     93,
+     94,
+     95
     ],
-    "arabic_full": "إسراء بنت جلال بن النعمان الهاجري",
-    "english_full": "Israa Bint Jalal Bin Na'aman al Hajiri",
+    "arabic_full": "جمعان بن جبران بن بشار العابد",
+    "english_full": "Jamaan Bin Jibran Bin Bashar Al Abed",
     "tokens": [
      {
-      "token_id": 109,
-      "arabic": "إسراء",
+      "token_id": 90,
+      "arabic": "جمعان",
       "position": "given",
       "english_variants": [
-       "Esra'a",
-       "Israa"
+       "Jamaan"
       ],
-      "english_used": "Israa"
+      "english_used": "Jamaan"
      },
      {
-      "token_id": 111,
-      "arabic": "جلال",
+      "token_id": 92,
+      "arabic": "جبران",
       "position": "middle",
       "english_variants": [
-       "Jalal",
-       "Galal",
-       "Al Ghamdi"
+       "Jubran",
+       "Jabran",
+       "Jibran"
       ],
-      "english_used": "Jalal"
+      "english_used": "Jibran"
      },
      {
-      "token_id": 113,
-      "arabic": "النعمان",
+      "token_id": 94,
+      "arabic": "بشار",
       "position": "middle",
       "english_variants": [
-       "Na'aman"
+       "Bashar"
       ],
-      "english_used": "Na'aman"
+      "english_used": "Bashar"
      },
      {
-      "token_id": 114,
-      "arabic": "الهاجري",
+      "token_id": 95,
+      "arabic": "العابد",
       "position": "family",
       "english_variants": [
-       "Al Hajri",
-       "Al Hajiri",
-       "al Hajiri",
-       "Al Hajeri"
+       "Al Abed"
       ],
-      "english_used": "al Hajiri"
+      "english_used": "Al Abed"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Israa Bint Jalal Bin Na'aman al Hajiri"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [
-   37,
-   38,
-   39,
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
+   40,
+   41,
    42,
-   43,
-   44,
-   48,
-   49,
-   50,
-   51
+   43
   ]
  }
 }

@@ -1,0 +1,570 @@
+{
+ "doc_id": "hdev_014",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Zahrani General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 4246775 | www.alzahrani-group.example.net"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة الزهراني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 535861، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد طارق محمد الزهراني، سعودي الجنسية، ويحمل جواز سفر رقم V8078773، يعمل لديها بوظيفة مهندس منذ 19/09/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد محمد حمد مازن الزهراني"
+  },
+  {
+   "segment_id": "s09",
+   "text": "General Manager: Mohammed Hamad Mazen Al Zahrani"
+  },
+  {
+   "segment_id": "s10",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s11",
+   "text": "Email: hr@alzahrani.example.com"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التاريخ: 12/05/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 14,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     18
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "الزهراني",
+    "english_full": "Al Zahrani",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Zahrani"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الزهراني",
+      "position": "family",
+      "english_variants": [
+       "Al Zahrani",
+       "Zahrani"
+      ],
+      "raw_variants": [
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
+      ],
+      "english_used": "Al Zahrani",
+      "expected": "adopt",
+      "expected_spelling": "Al Zahrani",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Zahrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     28
+    ],
+    "token_ids": [
+     36,
+     37,
+     38
+    ],
+    "arabic_full": "طارق محمد الزهراني",
+    "english_full": "Tariq Mohammed Al Zahrani",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "طارق",
+      "position": "given",
+      "english_variants": [
+       "Tariq",
+       "Tareq",
+       "Tarek",
+       "Tarik"
+      ],
+      "raw_variants": [
+       "Tariq",
+       "Tareq",
+       "Tarek",
+       "Tarik",
+       "Tareg"
+      ],
+      "english_used": "Tariq",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الزهراني",
+      "position": "family",
+      "english_variants": [
+       "Al Zahrani",
+       "Zahrani"
+      ],
+      "raw_variants": [
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
+      ],
+      "english_used": "Al Zahrani",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     42
+    ],
+    "token_ids": [
+     77,
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "محمد حمد مازن الزهراني",
+    "english_full": "Mohammed Hamad Mazen Al Zahrani",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Mohammed Hamad Mazen Al Zahrani"
+    },
+    "tokens": [
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohammed Hamad Mazen Al Zahrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Hamad",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohammed Hamad Mazen Al Zahrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "مازن",
+      "position": "middle",
+      "english_variants": [
+       "Mazen",
+       "Mazin"
+      ],
+      "raw_variants": [
+       "Mazen",
+       "Mazin"
+      ],
+      "english_used": "Mazen",
+      "expected": "adopt",
+      "expected_spelling": "Mazen",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohammed Hamad Mazen Al Zahrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الزهراني",
+      "position": "family",
+      "english_variants": [
+       "Al Zahrani",
+       "Zahrani"
+      ],
+      "raw_variants": [
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
+      ],
+      "english_used": "Al Zahrani",
+      "expected": "adopt",
+      "expected_spelling": "Al Zahrani",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohammed Hamad Mazen Al Zahrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "father": {
+      "arabic": "حمد",
+      "spelling": "Hamad"
+     },
+     "grandfather": {
+      "arabic": "مازن",
+      "spelling": "Mazen"
+     },
+     "family": {
+      "arabic": "الزهراني",
+      "spelling": "Al Zahrani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s09",
+      "quote": "Mohammed Hamad Mazen Al Zahrani",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mohammed",
+       "father": "Hamad",
+       "grandfather": "Mazen",
+       "family": "Al Zahrani"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "طارق",
+      "spelling": "Tariq"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "family": {
+      "arabic": "الزهراني",
+      "spelling": "Al Zahrani"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الزهراني",
+      "spelling": "Al Zahrani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Zahrani",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Zahrani"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Zahrani",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.alzahrani-group.example.net",
+    "kind": "url",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s11",
+    "quote": "hr@alzahrani.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 55,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   55
+  ]
+ },
+ "case_types": [
+  "A1",
+  "C2"
+ ]
+}

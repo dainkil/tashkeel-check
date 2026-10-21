@@ -1,0 +1,546 @@
+{
+ "doc_id": "hdev_010",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Zaabi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 5544565 | www.alzaabi-group.example.com"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة الزعابي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 581145، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد إسماعيل محمد العمري، بحريني الجنسية، ويحمل جواز سفر رقم L4876811، يعمل لديها بوظيفة مهندس منذ 06/04/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Employee: Ismail Muhammad Al Amri, Passport No. L4876811"
+  },
+  {
+   "segment_id": "s07",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s09",
+   "text": "المدير العام: السيد محمد سعود العمري"
+  },
+  {
+   "segment_id": "s10",
+   "text": "General Manager: Muhammad Saud Al Amri"
+  },
+  {
+   "segment_id": "s11",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s12",
+   "text": "Email: hr@alzaabi.example.com"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التاريخ: 02/07/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "C3"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 10,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     17
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "الزعابي",
+    "english_full": "Al Zaabi",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Zaabi"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الزعابي",
+      "position": "family",
+      "english_variants": [
+       "Al Zaabi"
+      ],
+      "raw_variants": [
+       "Al Zaabi"
+      ],
+      "english_used": "Al Zaabi",
+      "expected": "adopt",
+      "expected_spelling": "Al Zaabi",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Zaabi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     29
+    ],
+    "token_ids": [
+     36,
+     37,
+     38
+    ],
+    "arabic_full": "إسماعيل محمد العمري",
+    "english_full": "Ismail Muhammad Al Amri",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Ismail Muhammad Al Amri"
+    },
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "إسماعيل",
+      "position": "given",
+      "english_variants": [
+       "Ismail",
+       "Ismael",
+       "Ismaeel",
+       "Esmaeel",
+       "Esmail"
+      ],
+      "raw_variants": [
+       "Ismail",
+       "Ismael",
+       "Ismaeel",
+       "Esmail",
+       "Esmaeel"
+      ],
+      "english_used": "Ismail",
+      "expected": "adopt",
+      "expected_spelling": "Ismail",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ismail Muhammad Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad",
+      "expected": "adopt",
+      "expected_spelling": "Muhammad",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ismail Muhammad Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العمري",
+      "position": "family",
+      "english_variants": [
+       "Al Amri"
+      ],
+      "raw_variants": [
+       "Al Amri",
+       "al Omari",
+       "Al Omari",
+       "al Amri"
+      ],
+      "english_used": "Al Amri",
+      "expected": "adopt",
+      "expected_spelling": "Al Amri",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ismail Muhammad Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     20,
+     36
+    ],
+    "token_ids": [
+     86,
+     87,
+     88
+    ],
+    "arabic_full": "محمد سعود العمري",
+    "english_full": "Muhammad Saud Al Amri",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Muhammad Saud Al Amri"
+    },
+    "tokens": [
+     {
+      "token_id": 86,
+      "token_ids": [
+       86
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad",
+      "expected": "adopt",
+      "expected_spelling": "Muhammad",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Muhammad Saud Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 87,
+      "token_ids": [
+       87
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "adopt",
+      "expected_spelling": "Saud",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Muhammad Saud Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 88,
+      "token_ids": [
+       88
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العمري",
+      "position": "family",
+      "english_variants": [
+       "Al Amri"
+      ],
+      "raw_variants": [
+       "Al Amri",
+       "al Omari",
+       "Al Omari",
+       "al Amri"
+      ],
+      "english_used": "Al Amri",
+      "expected": "adopt",
+      "expected_spelling": "Al Amri",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Muhammad Saud Al Amri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Muhammad"
+     },
+     "father": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "family": {
+      "arabic": "العمري",
+      "spelling": "Al Amri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s10",
+      "quote": "Muhammad Saud Al Amri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Muhammad",
+       "father": "Saud",
+       "family": "Al Amri"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "إسماعيل",
+      "spelling": "Ismail"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Muhammad"
+     },
+     "family": {
+      "arabic": "العمري",
+      "spelling": "Al Amri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "Ismail Muhammad Al Amri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Ismail",
+       "father": "Muhammad",
+       "family": "Al Amri"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الزعابي",
+      "spelling": "Al Zaabi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Zaabi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Zaabi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s02",
+    "quote": "www.alzaabi-group.example.com",
+    "kind": "url",
+    "resembles": [
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s12",
+    "quote": "hr@alzaabi.example.com",
+    "kind": "email",
+    "resembles": [
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 64,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   64
+  ]
+ },
+ "case_types": []
+}

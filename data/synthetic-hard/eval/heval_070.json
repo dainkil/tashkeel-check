@@ -1,0 +1,534 @@
+{
+ "doc_id": "heval_070",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Mohammad General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 8412455 | www.almohammad-group.example.com"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة المحمد للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 586925، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد شامي عبد الرحمن المحمد، بحريني الجنسية، ويحمل جواز سفر رقم S1935379، يعمل لديها بوظيفة محاسب منذ 13/04/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد سامي عبد العزيز العوضي"
+  },
+  {
+   "segment_id": "s09",
+   "text": "General Manager: Sami Abdulaziz Al Awadhi"
+  },
+  {
+   "segment_id": "s10",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s11",
+   "text": "Email: hr@almohammad.example.com"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التاريخ: 07/01/2026"
+  }
+ ],
+ "features_planned": [
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 70,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     16
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "المحمد",
+    "english_full": "Al Mohammad",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Mohammad"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "المحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Mohammed",
+       "Al Mohamed",
+       "Al Mohammad",
+       "Al Muhammad",
+       "Mohammed"
+      ],
+      "raw_variants": [
+       "Al Mohammed",
+       "Al Muhammad",
+       "Al Mohammad",
+       "Al Mohamed",
+       "al Mohammed",
+       "Mohammed"
+      ],
+      "english_used": "Al Mohammad",
+      "expected": "adopt",
+      "expected_spelling": "Al Mohammad",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Mohammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     32
+    ],
+    "token_ids": [
+     36,
+     37,
+     38,
+     39
+    ],
+    "arabic_full": "شامي عبد الرحمن المحمد",
+    "english_full": "Shami Abdulrahman Al Mohammed",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "شامي",
+      "position": "given",
+      "english_variants": [
+       "Shami"
+      ],
+      "raw_variants": [
+       "Shami"
+      ],
+      "english_used": "Shami",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       37,
+       38
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 39,
+      "token_ids": [
+       39
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Mohammed",
+       "Al Mohamed",
+       "Al Mohammad",
+       "Al Muhammad",
+       "Mohammed"
+      ],
+      "raw_variants": [
+       "Al Mohammed",
+       "Al Muhammad",
+       "Al Mohammad",
+       "Al Mohamed",
+       "al Mohammed",
+       "Mohammed"
+      ],
+      "english_used": "Al Mohammed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     42
+    ],
+    "token_ids": [
+     78,
+     79,
+     80,
+     81
+    ],
+    "arabic_full": "سامي عبد العزيز العوضي",
+    "english_full": "Sami Abdulaziz Al Awadhi",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Sami Abdulaziz Al Awadhi"
+    },
+    "tokens": [
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "سامي",
+      "position": "given",
+      "english_variants": [
+       "Sami"
+      ],
+      "raw_variants": [
+       "Sami",
+       "sami"
+      ],
+      "english_used": "Sami",
+      "expected": "adopt",
+      "expected_spelling": "Sami",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Sami Abdulaziz Al Awadhi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       79,
+       80
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "عبد العزيز",
+      "position": "middle",
+      "english_variants": [
+       "Abdulaziz",
+       "Abdel Aziz",
+       "Abdullaziz"
+      ],
+      "raw_variants": [
+       "Abdulaziz",
+       "Abdul Aziz",
+       "Abdelaziz",
+       "Abdel Aziz",
+       "Abd Elrahman",
+       "Abdullaziz",
+       "abdulaziz",
+       "Abd al"
+      ],
+      "english_used": "Abdulaziz",
+      "expected": "adopt",
+      "expected_spelling": "Abdulaziz",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Sami Abdulaziz Al Awadhi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 81,
+      "token_ids": [
+       81
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العوضي",
+      "position": "family",
+      "english_variants": [
+       "Al Awadhi",
+       "Al Awadi"
+      ],
+      "raw_variants": [
+       "Al Awadhi",
+       "Al Awadi",
+       "al Awadi",
+       "Alawadhi",
+       "al Awadhi",
+       "Alawadi"
+      ],
+      "english_used": "Al Awadhi",
+      "expected": "adopt",
+      "expected_spelling": "Al Awadhi",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Sami Abdulaziz Al Awadhi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سامي",
+      "spelling": "Sami"
+     },
+     "father": {
+      "arabic": "عبد العزيز",
+      "spelling": "Abdulaziz"
+     },
+     "family": {
+      "arabic": "العوضي",
+      "spelling": "Al Awadhi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s09",
+      "quote": "Sami Abdulaziz Al Awadhi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Sami",
+       "father": "Abdulaziz",
+       "family": "Al Awadhi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "شامي",
+      "spelling": "Shami"
+     },
+     "father": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "family": {
+      "arabic": "المحمد",
+      "spelling": "Al Mohammed"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "المحمد",
+      "spelling": "Al Mohammad"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Mohammad",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Mohammad"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Mohammad",
+    "kind": "company",
+    "resembles": [
+     "p1.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.almohammad-group.example.com",
+    "kind": "url",
+    "resembles": [
+     "p1.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s11",
+    "quote": "hr@almohammad.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 56,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   56
+  ]
+ },
+ "case_types": [
+  "C1",
+  "C2",
+  "D3"
+ ]
+}

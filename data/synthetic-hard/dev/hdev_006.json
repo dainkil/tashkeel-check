@@ -1,0 +1,514 @@
+{
+ "doc_id": "hdev_006",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Jaber General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 1537293 | www.aljaber-group.example.net"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة الجابر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 963078، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيدة آمنة بنت أمين الأنصاري، عمانية الجنسية، وتحمل جواز سفر رقم D4218652، تعمل لديها بوظيفة محاسبة منذ 10/05/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Employee: Amna Al Ansari, Passport No. D4218652"
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد عبد الله بن خلفان بن غلام الجابر"
+  },
+  {
+   "segment_id": "s09",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "Email: hr@aljaber.example.com"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التاريخ: 12/03/2026"
+  }
+ ],
+ "features_planned": [
+  "B3",
+  "B6",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 6,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     16
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "الجابر",
+    "english_full": "Al Jaber",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Jaber"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الجابر",
+      "position": "family",
+      "english_variants": [
+       "Al Jaber",
+       "Jaber"
+      ],
+      "raw_variants": [
+       "Al Jaber",
+       "Jaber",
+       "al Jaber"
+      ],
+      "english_used": "Al Jaber",
+      "expected": "adopt",
+      "expected_spelling": "Al Jaber",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Jaber"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     11,
+     33
+    ],
+    "token_ids": [
+     36,
+     37,
+     38,
+     39
+    ],
+    "arabic_full": "آمنة بنت أمين الأنصاري",
+    "english_full": "Amna Ameen Al Ansari",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Amna Al Ansari"
+    },
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "آمنة",
+      "position": "given",
+      "english_variants": [
+       "Amna"
+      ],
+      "raw_variants": [
+       "Amna",
+       "Amina"
+      ],
+      "english_used": "Amna",
+      "expected": "adopt",
+      "expected_spelling": "Amna",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Amna Al Ansari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "أمين",
+      "position": "middle",
+      "english_variants": [
+       "Amin",
+       "Ameen"
+      ],
+      "raw_variants": [
+       "Amin",
+       "Ameen",
+       "Amine"
+      ],
+      "english_used": "Ameen",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 39,
+      "token_ids": [
+       39
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الأنصاري",
+      "position": "family",
+      "english_variants": [
+       "Al Ansari",
+       "Al Ansary"
+      ],
+      "raw_variants": [
+       "Al Ansari",
+       "al Ansari",
+       "al Ansary"
+      ],
+      "english_used": "Al Ansari",
+      "expected": "adopt",
+      "expected_spelling": "Al Ansari",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Amna Al Ansari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     52
+    ],
+    "token_ids": [
+     77,
+     78,
+     79,
+     80,
+     81,
+     82,
+     83
+    ],
+    "arabic_full": "عبد الله بن خلفان بن غلام الجابر",
+    "english_full": "Abdullah Khalfan Ghulam Al Jaber",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 78,
+      "token_ids": [
+       77,
+       78
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "عبد الله",
+      "position": "given",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdullah",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "خلفان",
+      "position": "middle",
+      "english_variants": [
+       "Khalfan"
+      ],
+      "raw_variants": [
+       "Khalfan",
+       "Khalvan"
+      ],
+      "english_used": "Khalfan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 82,
+      "token_ids": [
+       82
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "غلام",
+      "position": "middle",
+      "english_variants": [
+       "Gholam",
+       "Ghulam"
+      ],
+      "raw_variants": [
+       "Ghulam",
+       "Gholam"
+      ],
+      "english_used": "Ghulam",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 83,
+      "token_ids": [
+       83
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الجابر",
+      "position": "family",
+      "english_variants": [
+       "Al Jaber",
+       "Jaber"
+      ],
+      "raw_variants": [
+       "Al Jaber",
+       "Jaber",
+       "al Jaber"
+      ],
+      "english_used": "Al Jaber",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبد الله",
+      "spelling": "Abdullah"
+     },
+     "father": {
+      "arabic": "خلفان",
+      "spelling": "Khalfan"
+     },
+     "grandfather": {
+      "arabic": "غلام",
+      "spelling": "Ghulam"
+     },
+     "family": {
+      "arabic": "الجابر",
+      "spelling": "Al Jaber"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "آمنة",
+      "spelling": "Amna"
+     },
+     "father": {
+      "arabic": "أمين",
+      "spelling": "Ameen"
+     },
+     "family": {
+      "arabic": "الأنصاري",
+      "spelling": "Al Ansari"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "Amna Al Ansari",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Amna",
+       "family": "Al Ansari"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الجابر",
+      "spelling": "Al Jaber"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Jaber",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Jaber"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Jaber",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.aljaber-group.example.net",
+    "kind": "url",
+    "resembles": [
+     "p2.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s10",
+    "quote": "hr@aljaber.example.com",
+    "kind": "email",
+    "resembles": [
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [],
+  "lookalike_token_ids": []
+ },
+ "case_types": [
+  "B6",
+  "C2",
+  "D3"
+ ]
+}

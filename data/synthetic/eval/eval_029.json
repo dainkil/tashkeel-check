@@ -4,6 +4,12 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "agent",
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,27 +17,27 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 04/11/2026 حضر أمام الكاتب العدل السيدة فاطمة محمد الرفاعي، سعودية الجنسية، وتحمل جواز سفر رقم T2211885."
+   "text": "إنه في يوم 03/03/2026 حضر أمام الكاتب العدل السيدة شعاع محمد المنصور، إماراتية الجنسية، وتحمل جواز سفر رقم A8237668."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Fatima Muhammad al Rifa'i, Passport No. T2211885"
+   "text": "Principal: Shu'a' Muhammad Al Mansor, Passport No. A8237668"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفتها مديرة لشركة العامر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 620546، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفتها مديرة لشركة اليحيى للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 204807، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Amer General Trading L.L.C., Registration No. 620546"
+   "text": "Company: Al Yahya General Trading L.L.C., Registration No. 204807"
   },
   {
    "segment_id": "s06",
-   "text": "وقررت أنها وكّلت السيدة لورا بنت حمد بن أحمد اليحيى، قطرية الجنسية، وتحمل بطاقة هوية رقم 91554655."
+   "text": "وقررت أنها وكّلت السيدة نهلة بنت كميل الفايز، قطرية الجنسية، وتحمل بطاقة هوية رقم 29057722."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Laura bint Hamad bin Ahmed Al Yahya, ID No. 91554655"
+   "text": "Attorney: Nahla bint Kameel Al Fayez, ID No. 29057722"
   },
   {
    "segment_id": "s08",
@@ -39,11 +45,11 @@
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: فاطمة محمد الرفاعي"
+   "text": "الموكلة: شعاع محمد المنصور"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: لورا بنت حمد بن أحمد اليحيى"
+   "text": "الوكيلة: نهلة بنت كميل الفايز"
   },
   {
    "segment_id": "s11",
@@ -51,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 29,
@@ -73,28 +80,24 @@
     "segment_id": "s02",
     "span": [
      51,
-     69
+     68
     ],
     "token_ids": [
      11,
      12,
      13
     ],
-    "arabic_full": "فاطمة محمد الرفاعي",
-    "english_full": "Fatima Muhammad al Rifa'i",
+    "arabic_full": "شعاع محمد المنصور",
+    "english_full": "Shu'a' Muhammad Al Mansor",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "فاطمة",
+      "arabic": "شعاع",
       "position": "given",
       "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
+       "Shu'a'"
       ],
-      "english_used": "Fatima"
+      "english_used": "Shu'a'"
      },
      {
       "token_id": 12,
@@ -120,18 +123,22 @@
      },
      {
       "token_id": 13,
-      "arabic": "الرفاعي",
+      "arabic": "المنصور",
       "position": "family",
       "english_variants": [
-       "Al Rifaie",
-       "al Rifa'i"
+       "Al Mansour",
+       "Al Mansor",
+       "Al Mansoor",
+       "al Mansour",
+       "Al Meaweed",
+       "al Mansur"
       ],
-      "english_used": "al Rifa'i"
+      "english_used": "Al Mansor"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Fatima Muhammad al Rifa'i"
+     "quote": "Shu'a' Muhammad Al Mansor"
     }
    },
    {
@@ -145,80 +152,11 @@
     "token_ids": [
      35
     ],
-    "arabic_full": "العامر",
-    "english_full": "Al Amer",
+    "arabic_full": "اليحيى",
+    "english_full": "Al Yahya",
     "tokens": [
      {
       "token_id": 35,
-      "arabic": "العامر",
-      "position": "family",
-      "english_variants": [
-       "Al Amer",
-       "Amer"
-      ],
-      "english_used": "Al Amer"
-     }
-    ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Amer General Trading"
-    }
-   },
-   {
-    "occurrence_id": "n3",
-    "role": "agent",
-    "segment_id": "s06",
-    "span": [
-     24,
-     51
-    ],
-    "token_ids": [
-     66,
-     67,
-     68,
-     69,
-     70,
-     71
-    ],
-    "arabic_full": "لورا بنت حمد بن أحمد اليحيى",
-    "english_full": "Laura bint Hamad bin Ahmed Al Yahya",
-    "tokens": [
-     {
-      "token_id": 66,
-      "arabic": "لورا",
-      "position": "given",
-      "english_variants": [
-       "Laura"
-      ],
-      "english_used": "Laura"
-     },
-     {
-      "token_id": 68,
-      "arabic": "حمد",
-      "position": "middle",
-      "english_variants": [
-       "Hamad",
-       "Hamed"
-      ],
-      "english_used": "Hamad"
-     },
-     {
-      "token_id": 70,
-      "arabic": "أحمد",
-      "position": "middle",
-      "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
-      ],
-      "english_used": "Ahmed"
-     },
-     {
-      "token_id": 71,
       "arabic": "اليحيى",
       "position": "family",
       "english_variants": [
@@ -228,8 +166,62 @@
      }
     ],
     "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Yahya General Trading"
+    }
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "segment_id": "s06",
+    "span": [
+     24,
+     44
+    ],
+    "token_ids": [
+     66,
+     67,
+     68,
+     69
+    ],
+    "arabic_full": "نهلة بنت كميل الفايز",
+    "english_full": "Nahla bint Kameel Al Fayez",
+    "tokens": [
+     {
+      "token_id": 66,
+      "arabic": "نهلة",
+      "position": "given",
+      "english_variants": [
+       "Nahla"
+      ],
+      "english_used": "Nahla"
+     },
+     {
+      "token_id": 68,
+      "arabic": "كميل",
+      "position": "middle",
+      "english_variants": [
+       "Kamil",
+       "Komail",
+       "Kameel"
+      ],
+      "english_used": "Kameel"
+     },
+     {
+      "token_id": 69,
+      "arabic": "الفايز",
+      "position": "family",
+      "english_variants": [
+       "Al Fayez",
+       "al Fayez",
+       "Al Faiz"
+      ],
+      "english_used": "Al Fayez"
+     }
+    ],
+    "evidence": {
      "segment_id": "s07",
-     "quote": "Laura bint Hamad bin Ahmed Al Yahya"
+     "quote": "Nahla bint Kameel Al Fayez"
     }
    },
    {
@@ -238,31 +230,27 @@
     "segment_id": "s09",
     "span": [
      9,
-     27
+     26
     ],
     "token_ids": [
-     106,
-     107,
-     108
+     102,
+     103,
+     104
     ],
-    "arabic_full": "فاطمة محمد الرفاعي",
-    "english_full": "Fatima Muhammad al Rifa'i",
+    "arabic_full": "شعاع محمد المنصور",
+    "english_full": "Shu'a' Muhammad Al Mansor",
     "tokens": [
      {
-      "token_id": 106,
-      "arabic": "فاطمة",
+      "token_id": 102,
+      "arabic": "شعاع",
       "position": "given",
       "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
+       "Shu'a'"
       ],
-      "english_used": "Fatima"
+      "english_used": "Shu'a'"
      },
      {
-      "token_id": 107,
+      "token_id": 103,
       "arabic": "محمد",
       "position": "middle",
       "english_variants": [
@@ -284,19 +272,23 @@
       "english_used": "Muhammad"
      },
      {
-      "token_id": 108,
-      "arabic": "الرفاعي",
+      "token_id": 104,
+      "arabic": "المنصور",
       "position": "family",
       "english_variants": [
-       "Al Rifaie",
-       "al Rifa'i"
+       "Al Mansour",
+       "Al Mansor",
+       "Al Mansoor",
+       "al Mansour",
+       "Al Meaweed",
+       "al Mansur"
       ],
-      "english_used": "al Rifa'i"
+      "english_used": "Al Mansor"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Fatima Muhammad al Rifa'i"
+     "quote": "Shu'a' Muhammad Al Mansor"
     }
    },
    {
@@ -305,66 +297,52 @@
     "segment_id": "s10",
     "span": [
      9,
-     36
+     29
     ],
     "token_ids": [
-     110,
-     111,
-     112,
-     113,
-     114,
-     115
+     106,
+     107,
+     108,
+     109
     ],
-    "arabic_full": "لورا بنت حمد بن أحمد اليحيى",
-    "english_full": "Laura bint Hamad bin Ahmed Al Yahya",
+    "arabic_full": "نهلة بنت كميل الفايز",
+    "english_full": "Nahla bint Kameel Al Fayez",
     "tokens": [
      {
-      "token_id": 110,
-      "arabic": "لورا",
+      "token_id": 106,
+      "arabic": "نهلة",
       "position": "given",
       "english_variants": [
-       "Laura"
+       "Nahla"
       ],
-      "english_used": "Laura"
+      "english_used": "Nahla"
      },
      {
-      "token_id": 112,
-      "arabic": "حمد",
+      "token_id": 108,
+      "arabic": "كميل",
       "position": "middle",
       "english_variants": [
-       "Hamad",
-       "Hamed"
+       "Kamil",
+       "Komail",
+       "Kameel"
       ],
-      "english_used": "Hamad"
+      "english_used": "Kameel"
      },
      {
-      "token_id": 114,
-      "arabic": "أحمد",
-      "position": "middle",
-      "english_variants": [
-       "Ahmed",
-       "Ahmad",
-       "Al",
-       "Akhmed",
-       "AHMED",
-       "Ali",
-       "Aziz"
-      ],
-      "english_used": "Ahmed"
-     },
-     {
-      "token_id": 115,
-      "arabic": "اليحيى",
+      "token_id": 109,
+      "arabic": "الفايز",
       "position": "family",
       "english_variants": [
-       "Al Yahya"
+       "Al Fayez",
+       "al Fayez",
+       "Al Faiz"
       ],
-      "english_used": "Al Yahya"
+      "english_used": "Al Fayez"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Laura bint Hamad bin Ahmed Al Yahya"
+     "quote": "Nahla bint Kameel Al Fayez"
     }
    }
   ],

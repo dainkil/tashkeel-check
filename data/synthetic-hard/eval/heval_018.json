@@ -1,0 +1,547 @@
+{
+ "doc_id": "heval_018",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Rashidi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s03",
+   "text": "تشهد شركة الرشيدي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 373123، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيد عبد الحميد خليفة المحمد، إماراتي الجنسية، ويحمل جواز سفر رقم D1011584، يعمل لديها بوظيفة مهندس منذ 08/07/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s07",
+   "text": "المدير العام: السيد خليفة بن يوسف بن عبد الحكيم المحمد"
+  },
+  {
+   "segment_id": "s08",
+   "text": "General Manager: Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+  },
+  {
+   "segment_id": "s09",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "Email: hr@alrashidi.example.com"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التاريخ: 19/01/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B3",
+  "B4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 18,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s03",
+    "span": [
+     10,
+     17
+    ],
+    "token_ids": [
+     11
+    ],
+    "arabic_full": "الرشيدي",
+    "english_full": "Al Rashidi",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Rashidi"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الرشيدي",
+      "position": "family",
+      "english_variants": [
+       "Al Rashidi",
+       "Al Rasheedi",
+       "Al Rasheedy",
+       "Al Reshedi",
+       "Rashidi",
+       "Reshedi"
+      ],
+      "raw_variants": [
+       "Al Rashidi",
+       "al Rashidi",
+       "Al Rasheedy",
+       "Rashidi",
+       "Al Rasheedi",
+       "Al Rushaidi",
+       "Al Reshedi",
+       "Reshedi"
+      ],
+      "english_used": "Al Rashidi",
+      "expected": "adopt",
+      "expected_spelling": "Al Rashidi",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Rashidi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     33
+    ],
+    "token_ids": [
+     31,
+     32,
+     33,
+     34
+    ],
+    "arabic_full": "عبد الحميد خليفة المحمد",
+    "english_full": "Abdul Hamid Khalifa Al Muhammad",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 32,
+      "token_ids": [
+       31,
+       32
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "عبد الحميد",
+      "position": "given",
+      "english_variants": [
+       "Abdul Hamid",
+       "Abdulhameed"
+      ],
+      "raw_variants": [
+       "Abdul Hamid",
+       "Abdulhameed",
+       "Abdulhamid",
+       "Abdel Mageed",
+       "Abdelmageed",
+       "Abdul Hameed"
+      ],
+      "english_used": "Abdul Hamid",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 33,
+      "token_ids": [
+       33
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "خليفة",
+      "position": "middle",
+      "english_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "raw_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "english_used": "Khalifa",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 34,
+      "token_ids": [
+       34
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Mohammed",
+       "Al Mohamed",
+       "Al Mohammad",
+       "Al Muhammad",
+       "Mohammed"
+      ],
+      "raw_variants": [
+       "Al Mohammed",
+       "Al Muhammad",
+       "Al Mohammad",
+       "Al Mohamed",
+       "al Mohammed",
+       "Mohammed"
+      ],
+      "english_used": "Al Muhammad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s07",
+    "span": [
+     20,
+     54
+    ],
+    "token_ids": [
+     73,
+     74,
+     75,
+     76,
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "خليفة بن يوسف بن عبد الحكيم المحمد",
+    "english_full": "Khalifa Yousif Abdul Hakim Al Mohammed",
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+    },
+    "tokens": [
+     {
+      "token_id": 73,
+      "token_ids": [
+       73
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "خليفة",
+      "position": "given",
+      "english_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "raw_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "english_used": "Khalifa",
+      "expected": "adopt",
+      "expected_spelling": "Khalifa",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 75,
+      "token_ids": [
+       75
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef"
+      ],
+      "raw_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousif",
+      "expected": "adopt",
+      "expected_spelling": "Yousif",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       77,
+       78
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبد الحكيم",
+      "position": "middle",
+      "english_variants": [
+       "Abdul Hakim",
+       "Abdel Hakim"
+      ],
+      "raw_variants": [
+       "Abdul Hakim",
+       "Abdel Hakim",
+       "Abdulhakim"
+      ],
+      "english_used": "Abdul Hakim",
+      "expected": "adopt",
+      "expected_spelling": "Abdul Hakim",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "المحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Mohammed",
+       "Al Mohamed",
+       "Al Mohammad",
+       "Al Muhammad",
+       "Mohammed"
+      ],
+      "raw_variants": [
+       "Al Mohammed",
+       "Al Muhammad",
+       "Al Mohammad",
+       "Al Mohamed",
+       "al Mohammed",
+       "Mohammed"
+      ],
+      "english_used": "Al Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Al Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "خليفة",
+      "spelling": "Khalifa"
+     },
+     "father": {
+      "arabic": "يوسف",
+      "spelling": "Yousif"
+     },
+     "grandfather": {
+      "arabic": "عبد الحكيم",
+      "spelling": "Abdul Hakim"
+     },
+     "family": {
+      "arabic": "المحمد",
+      "spelling": "Al Mohammed"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s08",
+      "quote": "Khalifa bin Yousif bin Abdul Hakim Al Mohammed",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Khalifa",
+       "father": "Yousif",
+       "grandfather": "Abdul Hakim",
+       "family": "Al Mohammed"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "عبد الحميد",
+      "spelling": "Abdul Hamid"
+     },
+     "father": {
+      "arabic": "خليفة",
+      "spelling": "Khalifa"
+     },
+     "family": {
+      "arabic": "المحمد",
+      "spelling": "Al Muhammad"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الرشيدي",
+      "spelling": "Al Rashidi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Rashidi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Rashidi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s10",
+    "quote": "hr@alrashidi.example.com",
+    "kind": "email",
+    "resembles": [
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   14,
+   15,
+   16,
+   19,
+   20,
+   21,
+   25,
+   26,
+   27,
+   28
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 51,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   51
+  ]
+ },
+ "case_types": [
+  "A1",
+  "D3"
+ ]
+}

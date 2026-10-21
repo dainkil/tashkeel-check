@@ -157,3 +157,42 @@ def test_reused_reviewer_matches_fresh_runs():
         for cond in ("C0", "C1", "C2", "C3"):
             fresh = run_document(doc, cond, FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
             assert strip(reviewer.run(doc, cond)) == strip(fresh), (doc["doc_id"], cond)
+
+
+def test_on_node_callback_reports_every_node_and_keeps_result_identical(mini_doc):
+    """단계 1.5 진행 표시: on_node가 노드마다 불리고, 결과는 invoke 경로와 같다(elapsed 제외)."""
+    from tashkeel_check.runner import Reviewer
+
+    seen: list[tuple[str, int]] = []
+    reviewer = Reviewer(FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze)
+    streamed = reviewer.run(mini_doc, "C2", on_node=lambda node, delta: seen.append((node, delta.get("attempts", -1))))
+    plain = reviewer.run(mini_doc, "C2")
+    assert [n for n, _ in seen] == ["load", "analyze", "agent", "validate", "reconcile", "export"]
+    assert dict(seen)["agent"] == 1
+    strip = lambda r: r.model_dump(exclude={"meta": {"elapsed_s"}})  # noqa: E731
+    assert strip(streamed) == strip(plain)
+
+
+def test_analyze_tool_factory_replaces_builtin_tool_in_c2_only(mini_doc):
+    """MCP 교체 지점: 주어진 팩토리는 C2에서만 쓰이고, C1·C3에는 툴이 붙지 않으며 bundle_search로 표시되지 않는다."""
+    from tashkeel_check.runner import Reviewer
+    from tashkeel_check.tools import make_analyze_tool
+
+    used: list[str] = []
+
+    def factory(tokens, analyses, log, max_candidates):
+        used.append("called")
+        t = make_analyze_tool(tokens, analyses, log, max_candidates)
+        log.append({"tool": "marker", "via": "custom"})
+        return t
+
+    reviewer = Reviewer(FakeAgentModel(), SETTINGS, analyze_fn=fake_analyze, analyze_tool_factory=factory)
+    rec = Recorder(tool_call("AgentOutput", {"translation": _translation(mini_doc), "items": []}))
+    for cond in ("C1", "C3"):
+        r = Reviewer(FakeAgentModel(responder=rec), SETTINGS, analyze_fn=fake_analyze, analyze_tool_factory=factory)
+        rec.responses = [tool_call("AgentOutput", {"translation": _translation(mini_doc), "items": []})]
+        r.run(mini_doc, cond)
+        assert "analyze_tokens" not in rec.bound[-1]
+    assert used == []
+    result = reviewer.run(mini_doc, "C2")
+    assert used == ["called"] and result.meta.bundle_search is False and result.meta.tool_calls == 2

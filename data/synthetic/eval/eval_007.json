@@ -4,6 +4,12 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "agent",
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,39 +17,39 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 24/09/2026 حضر أمام الكاتب العدل السيد مشاري بن سعيد البلوشي، كويتي الجنسية، ويحمل جواز سفر رقم T2807572."
+   "text": "إنه في يوم 24/09/2026 حضر أمام الكاتب العدل السيدة سجى بنت ناصر الكويتية، كويتية الجنسية، وتحمل جواز سفر رقم T2807572."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Mashari Bin Saeed Al Balooshi, Passport No. T2807572"
+   "text": "Principal: Saja Bint Naser El Kuwaitia, Passport No. T2807572"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة العلي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 293577، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفتها مديرة لشركة العلان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 293577، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: al Ali General Trading L.L.C., Registration No. 293577"
+   "text": "Company: al Allan General Trading L.L.C., Registration No. 293577"
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة شهد بنت أحمد بن سعود الفيصل، قطرية الجنسية، وتحمل بطاقة هوية رقم 60415240."
+   "text": "وقررت أنها وكّلت السيد صالح بن أحمد بن سعد الفوزان، قطري الجنسية، ويحمل بطاقة هوية رقم 60415240."
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Shahad bint Ahmed bin Saud Al Faisal, ID No. 60415240"
+   "text": "Attorney: Saleh bin Ahmed bin Saad Al Fawzan, ID No. 60415240"
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s09",
-   "text": "الموكل: مشاري بن سعيد البلوشي"
+   "text": "الموكلة: سجى بنت ناصر الكويتية"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيلة: شهد بنت أحمد بن سعود الفيصل"
+   "text": "الوكيل: صالح بن أحمد بن سعد الفوزان"
   },
   {
    "segment_id": "s11",
@@ -51,7 +57,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 7,
@@ -72,8 +79,8 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
-     71
+     51,
+     72
     ],
     "token_ids": [
      11,
@@ -81,63 +88,48 @@
      13,
      14
     ],
-    "arabic_full": "مشاري بن سعيد البلوشي",
-    "english_full": "Mashari Bin Saeed Al Balooshi",
+    "arabic_full": "سجى بنت ناصر الكويتية",
+    "english_full": "Saja Bint Naser El Kuwaitia",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "مشاري",
+      "arabic": "سجى",
       "position": "given",
       "english_variants": [
-       "Meshari",
-       "Mashari",
-       "Mishari",
-       "Meshary",
-       "Mishary",
-       "Moshari"
+       "Saja"
       ],
-      "english_used": "Mashari"
+      "english_used": "Saja"
      },
      {
       "token_id": 13,
-      "arabic": "سعيد",
+      "arabic": "ناصر",
       "position": "middle",
       "english_variants": [
-       "Saeed",
-       "Said",
-       "Sa'id",
-       "Saied",
-       "SAAED",
-       "saed",
-       "Saaeed",
-       "Saed"
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
       ],
-      "english_used": "Saeed"
+      "english_used": "Naser"
      },
      {
       "token_id": 14,
-      "arabic": "البلوشي",
+      "arabic": "الكويتية",
       "position": "family",
       "english_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
+       "El Kuwaitia"
       ],
-      "english_used": "Al Balooshi"
+      "english_used": "El Kuwaitia"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Mashari Bin Saeed Al Balooshi"
+     "quote": "Saja Bint Naser El Kuwaitia"
     }
    },
    {
@@ -146,33 +138,28 @@
     "segment_id": "s04",
     "span": [
      24,
-     29
+     30
     ],
     "token_ids": [
      37
     ],
-    "arabic_full": "العلي",
-    "english_full": "al Ali",
+    "arabic_full": "العلان",
+    "english_full": "al Allan",
     "tokens": [
      {
       "token_id": 37,
-      "arabic": "العلي",
+      "arabic": "العلان",
       "position": "family",
       "english_variants": [
-       "Al Ali",
-       "al Ali",
-       "Al ali",
-       "El Aly",
-       "AL ALI",
-       "Alali",
-       "Ali"
+       "Allan",
+       "al Allan"
       ],
-      "english_used": "al Ali"
+      "english_used": "al Allan"
      }
     ],
     "evidence": {
      "segment_id": "s05",
-     "quote": "al Ali General Trading"
+     "quote": "al Allan General Trading"
     }
    },
    {
@@ -180,8 +167,8 @@
     "role": "agent",
     "segment_id": "s06",
     "span": [
-     21,
-     48
+     23,
+     50
     ],
     "token_ids": [
      68,
@@ -191,18 +178,19 @@
      72,
      73
     ],
-    "arabic_full": "شهد بنت أحمد بن سعود الفيصل",
-    "english_full": "Shahad bint Ahmed bin Saud Al Faisal",
+    "arabic_full": "صالح بن أحمد بن سعد الفوزان",
+    "english_full": "Saleh bin Ahmed bin Saad Al Fawzan",
     "tokens": [
      {
       "token_id": 68,
-      "arabic": "شهد",
+      "arabic": "صالح",
       "position": "given",
       "english_variants": [
-       "Shahad",
-       "Shammari"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Shahad"
+      "english_used": "Saleh"
      },
      {
       "token_id": 70,
@@ -221,33 +209,32 @@
      },
      {
       "token_id": 72,
-      "arabic": "سعود",
+      "arabic": "سعد",
       "position": "middle",
       "english_variants": [
-       "Saud",
-       "Saoud",
-       "Suod",
-       "Saod",
-       "Soud",
-       "Sooud",
-       "Sa'ud"
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
       ],
-      "english_used": "Saud"
+      "english_used": "Saad"
      },
      {
       "token_id": 73,
-      "arabic": "الفيصل",
+      "arabic": "الفوزان",
       "position": "family",
       "english_variants": [
-       "Al Faisal",
-       "al Faisal"
+       "Al Fawzan",
+       "al Fawzan",
+       "Fawzan",
+       "Al Fozan"
       ],
-      "english_used": "Al Faisal"
+      "english_used": "Al Fawzan"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Shahad bint Ahmed bin Saud Al Faisal"
+     "quote": "Saleh bin Ahmed bin Saad Al Fawzan"
     }
    },
    {
@@ -255,8 +242,8 @@
     "role": "principal",
     "segment_id": "s09",
     "span": [
-     8,
-     29
+     9,
+     30
     ],
     "token_ids": [
      108,
@@ -264,63 +251,48 @@
      110,
      111
     ],
-    "arabic_full": "مشاري بن سعيد البلوشي",
-    "english_full": "Mashari Bin Saeed Al Balooshi",
+    "arabic_full": "سجى بنت ناصر الكويتية",
+    "english_full": "Saja Bint Naser El Kuwaitia",
     "tokens": [
      {
       "token_id": 108,
-      "arabic": "مشاري",
+      "arabic": "سجى",
       "position": "given",
       "english_variants": [
-       "Meshari",
-       "Mashari",
-       "Mishari",
-       "Meshary",
-       "Mishary",
-       "Moshari"
+       "Saja"
       ],
-      "english_used": "Mashari"
+      "english_used": "Saja"
      },
      {
       "token_id": 110,
-      "arabic": "سعيد",
+      "arabic": "ناصر",
       "position": "middle",
       "english_variants": [
-       "Saeed",
-       "Said",
-       "Sa'id",
-       "Saied",
-       "SAAED",
-       "saed",
-       "Saaeed",
-       "Saed"
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
       ],
-      "english_used": "Saeed"
+      "english_used": "Naser"
      },
      {
       "token_id": 111,
-      "arabic": "البلوشي",
+      "arabic": "الكويتية",
       "position": "family",
       "english_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
+       "El Kuwaitia"
       ],
-      "english_used": "Al Balooshi"
+      "english_used": "El Kuwaitia"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Mashari Bin Saeed Al Balooshi"
+     "quote": "Saja Bint Naser El Kuwaitia"
     }
    },
    {
@@ -328,8 +300,8 @@
     "role": "agent",
     "segment_id": "s10",
     "span": [
-     9,
-     36
+     8,
+     35
     ],
     "token_ids": [
      113,
@@ -339,18 +311,19 @@
      117,
      118
     ],
-    "arabic_full": "شهد بنت أحمد بن سعود الفيصل",
-    "english_full": "Shahad bint Ahmed bin Saud Al Faisal",
+    "arabic_full": "صالح بن أحمد بن سعد الفوزان",
+    "english_full": "Saleh bin Ahmed bin Saad Al Fawzan",
     "tokens": [
      {
       "token_id": 113,
-      "arabic": "شهد",
+      "arabic": "صالح",
       "position": "given",
       "english_variants": [
-       "Shahad",
-       "Shammari"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Shahad"
+      "english_used": "Saleh"
      },
      {
       "token_id": 115,
@@ -369,33 +342,32 @@
      },
      {
       "token_id": 117,
-      "arabic": "سعود",
+      "arabic": "سعد",
       "position": "middle",
       "english_variants": [
-       "Saud",
-       "Saoud",
-       "Suod",
-       "Saod",
-       "Soud",
-       "Sooud",
-       "Sa'ud"
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
       ],
-      "english_used": "Saud"
+      "english_used": "Saad"
      },
      {
       "token_id": 118,
-      "arabic": "الفيصل",
+      "arabic": "الفوزان",
       "position": "family",
       "english_variants": [
-       "Al Faisal",
-       "al Faisal"
+       "Al Fawzan",
+       "al Fawzan",
+       "Fawzan",
+       "Al Fozan"
       ],
-      "english_used": "Al Faisal"
+      "english_used": "Al Fawzan"
      }
     ],
     "evidence": {
      "segment_id": "s07",
-     "quote": "Shahad bint Ahmed bin Saud Al Faisal"
+     "quote": "Saleh bin Ahmed bin Saad Al Fawzan"
     }
    }
   ],

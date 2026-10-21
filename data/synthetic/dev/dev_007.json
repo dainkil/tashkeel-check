@@ -4,6 +4,11 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "agent",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +16,44 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 13/07/2026 حضر أمام الكاتب العدل السيدة ابتسام بنت عيد بن مبارك الجاسم، إماراتية الجنسية، وتحمل جواز سفر رقم Y9898698."
+   "text": "إنه في يوم 03/11/2026 حضر أمام الكاتب العدل السيد حامد بن أمجد الشيبي، بحريني الجنسية، ويحمل جواز سفر رقم S9539803."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Ebtisam bint Eid Bin Mubarak Al Jassim, Passport No. Y9898698"
+   "text": "Principal: Hamed Bin Amjad Al Shaibi, Passport No. S9539803"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفتها مديرة لشركة القحطاني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 691061، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الرقبة للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 354654، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Qahtani General Trading L.L.C., Registration No. 691061"
+   "text": "وقرر أنه وكّل السيد محمد بن نجم بن سليمان الهذلول، عماني الجنسية، ويحمل بطاقة هوية رقم 12692095."
   },
   {
    "segment_id": "s06",
-   "text": "وقررت أنها وكّلت السيد محمد بن صقر الرحيلي، كويتي الجنسية، ويحمل بطاقة هوية رقم 49165910."
+   "text": "Attorney: Mohamed bin Najm bin Suleiman Al Hathloul, ID No. 12692095"
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Mohammed bin Saqr Al Ruhaili, ID No. 49165910"
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الموكل: حامد بن أمجد الشيبي"
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: ابتسام بنت عيد بن مبارك الجاسم"
+   "text": "الوكيل: محمد بن نجم بن سليمان الهذلول"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيل: محمد بن صقر الرحيلي"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 7,
@@ -72,72 +74,54 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     51,
-     81
+     50,
+     69
     ],
     "token_ids": [
      11,
      12,
      13,
-     14,
-     15,
-     16
+     14
     ],
-    "arabic_full": "ابتسام بنت عيد بن مبارك الجاسم",
-    "english_full": "Ebtisam bint Eid Bin Mubarak Al Jassim",
+    "arabic_full": "حامد بن أمجد الشيبي",
+    "english_full": "Hamed Bin Amjad Al Shaibi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "ابتسام",
+      "arabic": "حامد",
       "position": "given",
       "english_variants": [
-       "Ebtisam",
-       "Ibtisam",
-       "Ibtesam"
+       "Hamed",
+       "Hamid",
+       "Hamaid"
       ],
-      "english_used": "Ebtisam"
+      "english_used": "Hamed"
      },
      {
       "token_id": 13,
-      "arabic": "عيد",
+      "arabic": "أمجد",
       "position": "middle",
       "english_variants": [
-       "Eid"
+       "Amjad",
+       "Amgad",
+       "Amjed"
       ],
-      "english_used": "Eid"
+      "english_used": "Amjad"
      },
      {
-      "token_id": 15,
-      "arabic": "مبارك",
-      "position": "middle",
-      "english_variants": [
-       "Mubarak",
-       "Mobarak",
-       "MUBARAK",
-       "MABARAK",
-       "Murbarek",
-       "Al Mubarak"
-      ],
-      "english_used": "Mubarak"
-     },
-     {
-      "token_id": 16,
-      "arabic": "الجاسم",
+      "token_id": 14,
+      "arabic": "الشيبي",
       "position": "family",
       "english_variants": [
-       "Al Jassim",
-       "Al Jasem",
-       "Al Jassem",
-       "al Jasim",
-       "Al Jassam",
-       "al Jasem"
+       "Al Shaybi",
+       "Al Shaibi"
       ],
-      "english_used": "Al Jassim"
+      "english_used": "Al Shaibi"
      }
     ],
     "evidence": {
      "segment_id": "s03",
-     "quote": "Ebtisam bint Eid Bin Mubarak Al Jassim"
+     "quote": "Hamed Bin Amjad Al Shaibi"
     }
    },
    {
@@ -146,50 +130,47 @@
     "segment_id": "s04",
     "span": [
      24,
-     32
+     30
     ],
     "token_ids": [
-     41
+     37
     ],
-    "arabic_full": "القحطاني",
-    "english_full": "Al Qahtani",
+    "arabic_full": "الرقبة",
+    "english_full": "al Raqbah",
     "tokens": [
      {
-      "token_id": 41,
-      "arabic": "القحطاني",
+      "token_id": 37,
+      "arabic": "الرقبة",
       "position": "family",
       "english_variants": [
-       "Al Qahtani",
-       "al Qahtani",
-       "al Kahtani"
+       "al Raqbah"
       ],
-      "english_used": "Al Qahtani"
+      "english_used": "al Raqbah"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Qahtani General Trading"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s05",
     "span": [
-     23,
-     42
+     20,
+     49
     ],
     "token_ids": [
-     72,
-     73,
-     74,
-     75
+     59,
+     60,
+     61,
+     62,
+     63,
+     64
     ],
-    "arabic_full": "محمد بن صقر الرحيلي",
-    "english_full": "Mohammed bin Saqr Al Ruhaili",
+    "arabic_full": "محمد بن نجم بن سليمان الهذلول",
+    "english_full": "Mohamed bin Najm bin Suleiman Al Hathloul",
     "tokens": [
      {
-      "token_id": 72,
+      "token_id": 59,
       "arabic": "محمد",
       "position": "given",
       "english_variants": [
@@ -208,125 +189,126 @@
        "Mohmmed",
        "Mo"
       ],
-      "english_used": "Mohammed"
+      "english_used": "Mohamed"
      },
      {
-      "token_id": 74,
-      "arabic": "صقر",
+      "token_id": 61,
+      "arabic": "نجم",
       "position": "middle",
       "english_variants": [
-       "Saqr",
-       "Saqer"
+       "Najm",
+       "Najim",
+       "Najem",
+       "Nejim"
       ],
-      "english_used": "Saqr"
+      "english_used": "Najm"
      },
      {
-      "token_id": 75,
-      "arabic": "الرحيلي",
+      "token_id": 63,
+      "arabic": "سليمان",
+      "position": "middle",
+      "english_variants": [
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
+      ],
+      "english_used": "Suleiman"
+     },
+     {
+      "token_id": 64,
+      "arabic": "الهذلول",
       "position": "family",
       "english_variants": [
-       "Al Ruhaili"
+       "al Hathloul",
+       "Al Hathloul"
       ],
-      "english_used": "Al Ruhaili"
+      "english_used": "Al Hathloul"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Mohammed bin Saqr Al Ruhaili"
+     "segment_id": "s06",
+     "quote": "Mohamed bin Najm bin Suleiman Al Hathloul"
     }
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
-    "span": [
-     9,
-     39
-    ],
-    "token_ids": [
-     108,
-     109,
-     110,
-     111,
-     112,
-     113
-    ],
-    "arabic_full": "ابتسام بنت عيد بن مبارك الجاسم",
-    "english_full": "Ebtisam bint Eid Bin Mubarak Al Jassim",
-    "tokens": [
-     {
-      "token_id": 108,
-      "arabic": "ابتسام",
-      "position": "given",
-      "english_variants": [
-       "Ebtisam",
-       "Ibtisam",
-       "Ibtesam"
-      ],
-      "english_used": "Ebtisam"
-     },
-     {
-      "token_id": 110,
-      "arabic": "عيد",
-      "position": "middle",
-      "english_variants": [
-       "Eid"
-      ],
-      "english_used": "Eid"
-     },
-     {
-      "token_id": 112,
-      "arabic": "مبارك",
-      "position": "middle",
-      "english_variants": [
-       "Mubarak",
-       "Mobarak",
-       "MUBARAK",
-       "MABARAK",
-       "Murbarek",
-       "Al Mubarak"
-      ],
-      "english_used": "Mubarak"
-     },
-     {
-      "token_id": 113,
-      "arabic": "الجاسم",
-      "position": "family",
-      "english_variants": [
-       "Al Jassim",
-       "Al Jasem",
-       "Al Jassem",
-       "al Jasim",
-       "Al Jassam",
-       "al Jasem"
-      ],
-      "english_used": "Al Jassim"
-     }
-    ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Ebtisam bint Eid Bin Mubarak Al Jassim"
-    }
-   },
-   {
-    "occurrence_id": "n5",
-    "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s08",
     "span": [
      8,
      27
     ],
     "token_ids": [
-     115,
-     116,
-     117,
-     118
+     99,
+     100,
+     101,
+     102
     ],
-    "arabic_full": "محمد بن صقر الرحيلي",
-    "english_full": "Mohammed bin Saqr Al Ruhaili",
+    "arabic_full": "حامد بن أمجد الشيبي",
+    "english_full": "Hamed Bin Amjad Al Shaibi",
     "tokens": [
      {
-      "token_id": 115,
+      "token_id": 99,
+      "arabic": "حامد",
+      "position": "given",
+      "english_variants": [
+       "Hamed",
+       "Hamid",
+       "Hamaid"
+      ],
+      "english_used": "Hamed"
+     },
+     {
+      "token_id": 101,
+      "arabic": "أمجد",
+      "position": "middle",
+      "english_variants": [
+       "Amjad",
+       "Amgad",
+       "Amjed"
+      ],
+      "english_used": "Amjad"
+     },
+     {
+      "token_id": 102,
+      "arabic": "الشيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Shaybi",
+       "Al Shaibi"
+      ],
+      "english_used": "Al Shaibi"
+     }
+    ],
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Hamed Bin Amjad Al Shaibi"
+    }
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "segment_id": "s09",
+    "span": [
+     8,
+     37
+    ],
+    "token_ids": [
+     104,
+     105,
+     106,
+     107,
+     108,
+     109
+    ],
+    "arabic_full": "محمد بن نجم بن سليمان الهذلول",
+    "english_full": "Mohamed bin Najm bin Suleiman Al Hathloul",
+    "tokens": [
+     {
+      "token_id": 104,
       "arabic": "محمد",
       "position": "given",
       "english_variants": [
@@ -345,45 +327,62 @@
        "Mohmmed",
        "Mo"
       ],
-      "english_used": "Mohammed"
+      "english_used": "Mohamed"
      },
      {
-      "token_id": 117,
-      "arabic": "صقر",
+      "token_id": 106,
+      "arabic": "نجم",
       "position": "middle",
       "english_variants": [
-       "Saqr",
-       "Saqer"
+       "Najm",
+       "Najim",
+       "Najem",
+       "Nejim"
       ],
-      "english_used": "Saqr"
+      "english_used": "Najm"
      },
      {
-      "token_id": 118,
-      "arabic": "الرحيلي",
+      "token_id": 108,
+      "arabic": "سليمان",
+      "position": "middle",
+      "english_variants": [
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
+      ],
+      "english_used": "Suleiman"
+     },
+     {
+      "token_id": 109,
+      "arabic": "الهذلول",
       "position": "family",
       "english_variants": [
-       "Al Ruhaili"
+       "al Hathloul",
+       "Al Hathloul"
       ],
-      "english_used": "Al Ruhaili"
+      "english_used": "Al Hathloul"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Mohammed bin Saqr Al Ruhaili"
+     "segment_id": "s06",
+     "quote": "Mohamed bin Najm bin Suleiman Al Hathloul"
     }
    }
   ],
   "neutral_token_ids": [
-   44,
+   40,
+   41,
+   42,
    45,
    46,
-   49,
-   50,
+   47,
    51,
-   55,
-   56,
-   57,
-   58
+   52,
+   53,
+   54
   ]
  }
 }

@@ -3,7 +3,9 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
- "bilingual": true,
+ "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +13,36 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 28/06/2026 حضر أمام الكاتب العدل السيد خلف بن محمد البيشي، بحريني الجنسية، ويحمل جواز سفر رقم G3025876."
+   "text": "إنه في يوم 04/04/2026 حضر أمام الكاتب العدل السيدة فوزية بنت خلفان بن محمد القطامي، بحرينية الجنسية، وتحمل جواز سفر رقم D4437633."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Khalaf Bin Muhammad Al Bishi, Passport No. G3025876"
+   "text": "وذلك بصفتها مديرة لشركة الزهراني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 852980، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة اليوحة للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 689009، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وقررت أنها وكّلت السيد جمعة بدر اليوسف، بحريني الجنسية، ويحمل بطاقة هوية رقم 91617386."
   },
   {
    "segment_id": "s05",
-   "text": "Company: al Yoha General Trading L.L.C., Registration No. 689009"
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيدة لولو بنت مبارك بن عباس المطيري، إماراتية الجنسية، وتحمل بطاقة هوية رقم 40321543."
+   "text": "الموكلة: فوزية بنت خلفان بن محمد القطامي"
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Lulu bint Mubarak bin Abbas Al Mutairi, ID No. 40321543"
+   "text": "الوكيل: جمعة بدر اليوسف"
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
-  },
-  {
-   "segment_id": "s09",
-   "text": "الموكل: خلف بن محمد البيشي"
-  },
-  {
-   "segment_id": "s10",
-   "text": "الوكيلة: لولو بنت مبارك بن عباس المطيري"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 19,
@@ -72,29 +63,42 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     50,
-     68
+     51,
+     82
     ],
     "token_ids": [
      11,
      12,
      13,
-     14
+     14,
+     15,
+     16
     ],
-    "arabic_full": "خلف بن محمد البيشي",
-    "english_full": "Khalaf Bin Muhammad Al Bishi",
+    "arabic_full": "فوزية بنت خلفان بن محمد القطامي",
+    "english_full": "Fawziyya Bint Khalvan bin Mohmmad Al Qatami",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "خلف",
+      "arabic": "فوزية",
       "position": "given",
       "english_variants": [
-       "Khalaf"
+       "Fawzia",
+       "Fawziyya"
       ],
-      "english_used": "Khalaf"
+      "english_used": "Fawziyya"
      },
      {
       "token_id": 13,
+      "arabic": "خلفان",
+      "position": "middle",
+      "english_variants": [
+       "Khalfan",
+       "Khalvan"
+      ],
+      "english_used": "Khalvan"
+     },
+     {
+      "token_id": 15,
       "arabic": "محمد",
       "position": "middle",
       "english_variants": [
@@ -113,156 +117,151 @@
        "Mohmmed",
        "Mo"
       ],
-      "english_used": "Muhammad"
+      "english_used": "Mohmmad"
      },
      {
-      "token_id": 14,
-      "arabic": "البيشي",
+      "token_id": 16,
+      "arabic": "القطامي",
       "position": "family",
       "english_variants": [
-       "Al Bishi",
-       "Al Bish",
-       "Al Beshe",
-       "al Beshi"
+       "Al Qatami",
+       "Qatami"
       ],
-      "english_used": "Al Bishi"
+      "english_used": "Al Qatami"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Khalaf Bin Muhammad Al Bishi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
-     30
+     32
     ],
     "token_ids": [
-     37
+     29
     ],
-    "arabic_full": "اليوحة",
-    "english_full": "al Yoha",
+    "arabic_full": "الزهراني",
+    "english_full": "Zahrani",
     "tokens": [
      {
-      "token_id": 37,
-      "arabic": "اليوحة",
+      "token_id": 29,
+      "arabic": "الزهراني",
       "position": "family",
       "english_variants": [
-       "Al Yoha",
-       "Yoha",
-       "al Yoha"
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
       ],
-      "english_used": "al Yoha"
+      "english_used": "Zahrani"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "al Yoha General Trading"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s04",
     "span": [
-     21,
-     51
+     23,
+     38
     ],
     "token_ids": [
-     68,
-     69,
-     70,
-     71,
-     72,
-     73
+     51,
+     52,
+     53
     ],
-    "arabic_full": "لولو بنت مبارك بن عباس المطيري",
-    "english_full": "Lulu bint Mubarak bin Abbas Al Mutairi",
+    "arabic_full": "جمعة بدر اليوسف",
+    "english_full": "Juma Bader Al Yousef",
     "tokens": [
      {
-      "token_id": 68,
-      "arabic": "لولو",
+      "token_id": 51,
+      "arabic": "جمعة",
       "position": "given",
       "english_variants": [
-       "Lulu"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma",
+       "Juma'a",
+       "Jumah"
       ],
-      "english_used": "Lulu"
+      "english_used": "Juma"
      },
      {
-      "token_id": 70,
-      "arabic": "مبارك",
+      "token_id": 52,
+      "arabic": "بدر",
       "position": "middle",
       "english_variants": [
-       "Mubarak",
-       "Mobarak",
-       "MUBARAK",
-       "MABARAK",
-       "Murbarek",
-       "Al Mubarak"
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
       ],
-      "english_used": "Mubarak"
+      "english_used": "Bader"
      },
      {
-      "token_id": 72,
-      "arabic": "عباس",
-      "position": "middle",
-      "english_variants": [
-       "Abbas",
-       "Abass"
-      ],
-      "english_used": "Abbas"
-     },
-     {
-      "token_id": 73,
-      "arabic": "المطيري",
+      "token_id": 53,
+      "arabic": "اليوسف",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Al Yousef",
+       "Al Youssef",
+       "al Yousef",
+       "El Yusif",
+       "Al Yousuf"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Al Yousef"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Lulu bint Mubarak bin Abbas Al Mutairi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s06",
     "span": [
-     8,
-     26
+     9,
+     40
     ],
     "token_ids": [
-     108,
-     109,
-     110,
-     111
+     77,
+     78,
+     79,
+     80,
+     81,
+     82
     ],
-    "arabic_full": "خلف بن محمد البيشي",
-    "english_full": "Khalaf Bin Muhammad Al Bishi",
+    "arabic_full": "فوزية بنت خلفان بن محمد القطامي",
+    "english_full": "Fawziyya Bint Khalvan bin Mohmmad Al Qatami",
     "tokens": [
      {
-      "token_id": 108,
-      "arabic": "خلف",
+      "token_id": 77,
+      "arabic": "فوزية",
       "position": "given",
       "english_variants": [
-       "Khalaf"
+       "Fawzia",
+       "Fawziyya"
       ],
-      "english_used": "Khalaf"
+      "english_used": "Fawziyya"
      },
      {
-      "token_id": 110,
+      "token_id": 79,
+      "arabic": "خلفان",
+      "position": "middle",
+      "english_variants": [
+       "Khalfan",
+       "Khalvan"
+      ],
+      "english_used": "Khalvan"
+     },
+     {
+      "token_id": 81,
       "arabic": "محمد",
       "position": "middle",
       "english_variants": [
@@ -281,109 +280,92 @@
        "Mohmmed",
        "Mo"
       ],
-      "english_used": "Muhammad"
+      "english_used": "Mohmmad"
      },
      {
-      "token_id": 111,
-      "arabic": "البيشي",
+      "token_id": 82,
+      "arabic": "القطامي",
       "position": "family",
       "english_variants": [
-       "Al Bishi",
-       "Al Bish",
-       "Al Beshe",
-       "al Beshi"
+       "Al Qatami",
+       "Qatami"
       ],
-      "english_used": "Al Bishi"
+      "english_used": "Al Qatami"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Khalaf Bin Muhammad Al Bishi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s07",
     "span": [
-     9,
-     39
+     8,
+     23
     ],
     "token_ids": [
-     113,
-     114,
-     115,
-     116,
-     117,
-     118
+     84,
+     85,
+     86
     ],
-    "arabic_full": "لولو بنت مبارك بن عباس المطيري",
-    "english_full": "Lulu bint Mubarak bin Abbas Al Mutairi",
+    "arabic_full": "جمعة بدر اليوسف",
+    "english_full": "Juma Bader Al Yousef",
     "tokens": [
      {
-      "token_id": 113,
-      "arabic": "لولو",
+      "token_id": 84,
+      "arabic": "جمعة",
       "position": "given",
       "english_variants": [
-       "Lulu"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma",
+       "Juma'a",
+       "Jumah"
       ],
-      "english_used": "Lulu"
+      "english_used": "Juma"
      },
      {
-      "token_id": 115,
-      "arabic": "مبارك",
+      "token_id": 85,
+      "arabic": "بدر",
       "position": "middle",
       "english_variants": [
-       "Mubarak",
-       "Mobarak",
-       "MUBARAK",
-       "MABARAK",
-       "Murbarek",
-       "Al Mubarak"
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
       ],
-      "english_used": "Mubarak"
+      "english_used": "Bader"
      },
      {
-      "token_id": 117,
-      "arabic": "عباس",
-      "position": "middle",
-      "english_variants": [
-       "Abbas",
-       "Abass"
-      ],
-      "english_used": "Abbas"
-     },
-     {
-      "token_id": 118,
-      "arabic": "المطيري",
+      "token_id": 86,
+      "arabic": "اليوسف",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Al Yousef",
+       "Al Youssef",
+       "al Yousef",
+       "El Yusif",
+       "Al Yousuf"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Al Yousef"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Lulu bint Mubarak bin Abbas Al Mutairi"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [
-   40,
-   41,
-   42,
+   32,
+   33,
+   34,
+   37,
+   38,
+   39,
+   43,
+   44,
    45,
-   46,
-   47,
-   51,
-   52,
-   53,
-   54
+   46
   ]
  }
 }

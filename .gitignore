@@ -7,3 +7,8 @@ results/debug/
 data/wikidata/raw/
 .idea/
 .DS_Store
+results/web/
+# 실험 산출물(디스크에 보존, git 밖). exp001만 추적
+results/exp002/
+results/exp003/
+results/m0/

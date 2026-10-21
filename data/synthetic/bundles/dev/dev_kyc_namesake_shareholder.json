@@ -1,0 +1,144 @@
+{
+  "bundle_id": "dev_kyc_namesake_shareholder",
+  "customer_id": "customer_dev_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_dev_005": "organization",
+    "person_dev_005_1": "person",
+    "person_dev_005_2": "person",
+    "person_dev_005_3": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة السبيع للتجارة",
+          "entity_id": "org_dev_005",
+          "translated_name": "Al Subaie Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: نوال معمر النجعي",
+          "entity_id": "person_dev_005_1",
+          "translated_name": "Nawal Muammar Al Najei"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: جمعان بن جبران بن بشار العابد",
+          "entity_id": "person_dev_005_2",
+          "translated_name": "Jamaan Bin Jibran Bin Bashar Al Abed"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL NAJEI | Given Names: NAWAL MUAMMAR",
+          "entity_id": "person_dev_005_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<NAJEI<<NAWAL<MUAMMAR<<<<<<<<<<<<<<<<",
+          "entity_id": "person_dev_005_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000051<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL ABED | Given Names: JAMAAN BIN JIBRAN BIN BASHAR",
+          "entity_id": "person_dev_005_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<ABED<<JAMAAN<BIN<JIBRAN<BIN<BASHAR<<",
+          "entity_id": "person_dev_005_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000052<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة السبيع للتجارة | Company Name: Al Subaie Trading Company",
+          "entity_id": "org_dev_005"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: نوال معمر النجعي | Shareholder: Nawal Muammar El Najei",
+          "entity_id": "person_dev_005_3"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "namesake_shareholder",
+    "entity_types": {
+      "org_dev_005": "organization",
+      "person_dev_005_1": "person",
+      "person_dev_005_2": "person",
+      "person_dev_005_3": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "dev_005",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "must_not_link": {
+      "document_id": "aoa_001",
+      "segment_id": "s03",
+      "english": "Nawal Muammar El Najei"
+    },
+    "generator": "bundles-kyc-v1"
+  }
+}

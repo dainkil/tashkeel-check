@@ -1,0 +1,129 @@
+{
+  "bundle_id": "eval_kyc_mrz_only",
+  "customer_id": "customer_eval_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_eval_007": "organization",
+    "person_eval_007_1": "person",
+    "person_eval_007_2": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة العلان للتجارة",
+          "entity_id": "org_eval_007",
+          "translated_name": "al Allan Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: سجى بنت ناصر الكويتية",
+          "entity_id": "person_eval_007_1",
+          "translated_name": "Saja Bint Naser El Kuwaitia"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: صالح بن أحمد بن سعد الفوزان",
+          "entity_id": "person_eval_007_2",
+          "translated_name": "Saleh bin Ahmed bin Saad Al Fawzan"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUEL<KUWAITIA<<SAJA<BINT<NASER<<<<<<<<<<<",
+          "entity_id": "person_eval_007_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000071<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<FAWZAN<<SALEH<BIN<AHMED<BIN<SAAD<<<<",
+          "entity_id": "person_eval_007_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000072<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة العلان للتجارة | Company Name: al Allan Trading Company",
+          "entity_id": "org_eval_007"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: سجى بنت ناصر الكويتية | Shareholder: Saja Bint Naser El Kuwaitia",
+          "entity_id": "person_eval_007_1"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "mrz_only",
+    "entity_types": {
+      "org_eval_007": "organization",
+      "person_eval_007_1": "person",
+      "person_eval_007_2": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "eval_007",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "evidence_only_from": "MRZ",
+    "mrz_lossy": [],
+    "generator": "bundles-kyc-v1"
+  }
+}

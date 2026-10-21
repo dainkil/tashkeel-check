@@ -64,6 +64,14 @@ def split_units(units: list[dict], dev_size: int = DEV_SIZE, seed: int = SPLIT_S
     }
 
 
+def split_by_keys(units: list[dict], dev_keys: set[str]) -> dict[str, list[dict]]:
+    """고정한 dev 키 목록으로 나눈다. 정렬 규칙을 바꿔 단위가 빠져도 이미 본 dev 단위가 main으로 넘어가지 않는다."""
+    return {
+        "dev": [u for u in units if u["key"] in dev_keys],
+        "main": [u for u in units if u["key"] not in dev_keys],
+    }
+
+
 def unit_measure(unit: dict, analyze_fn: AnalyzeFn) -> dict:
     words = unit["arabic"].split()
     per_word = [summarize(i, w, analyze_fn(dediac(w))) for i, w in enumerate(words)]
@@ -129,9 +137,12 @@ def run(
     out_dir: str | Path,
     analyze_fn: AnalyzeFn | None = None,
     coverage_threshold: float = 0.5,
+    dev_keys_path: str | Path | None = None,
 ) -> Path:
     units, stats = collect_units(snapshot_path)
-    rows = [unit_measure(u, analyze_fn or camel_analyze) for u in split_units(units)[split]]
+    dev_keys = set(json.loads(Path(dev_keys_path).read_text(encoding="utf-8"))["keys"]) if dev_keys_path else None
+    parts = split_by_keys(units, dev_keys) if dev_keys is not None else split_units(units)
+    rows = [unit_measure(u, analyze_fn or camel_analyze) for u in parts[split]]
     summary = summarize_measures(rows)
     m5 = summary["all"]["M5_coverage_dialect"]
     report = {
@@ -143,6 +154,8 @@ def run(
         "matcher_version": MATCHER_VERSION,
         "analyzer": analyzer_version(),
         "alignment_stats": stats,
+        "dev_keys": str(dev_keys_path) if dev_keys_path else None,
+        "n_dev_keys_dropped": len(dev_keys - {u["key"] for u in units}) if dev_keys is not None else None,
         "summary": summary,
         "decision_rule": f"M5_coverage_dialect < {coverage_threshold} → 분석기를 이름 독법 근거로 쓰지 않는다",
         "decision": None

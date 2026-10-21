@@ -1,0 +1,502 @@
+{
+ "doc_id": "heval_006",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Munaif General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 6963100 | www.almunaif-group.example.net"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة المنيف للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 507451، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد مشعل سالم المنيف، إماراتي الجنسية، ويحمل جواز سفر رقم H9504559، يعمل لديها بوظيفة محاسب منذ 11/08/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد سالم راشد المنيف"
+  },
+  {
+   "segment_id": "s09",
+   "text": "General Manager: Salem Rashed Al Munaif"
+  },
+  {
+   "segment_id": "s10",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s11",
+   "text": "Email: hr@almunaif.example.com"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التاريخ: 03/02/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 6,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     16
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "المنيف",
+    "english_full": "Al Munaif",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Munaif"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "المنيف",
+      "position": "family",
+      "english_variants": [
+       "Al Munaif"
+      ],
+      "raw_variants": [
+       "Al Munif",
+       "Al Munaif",
+       "Al Muneef"
+      ],
+      "english_used": "Al Munaif",
+      "expected": "adopt",
+      "expected_spelling": "Al Munaif",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Munaif"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     26
+    ],
+    "token_ids": [
+     36,
+     37,
+     38
+    ],
+    "arabic_full": "مشعل سالم المنيف",
+    "english_full": "Mishal Salem Al Munaif",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "مشعل",
+      "position": "given",
+      "english_variants": [
+       "Meshal",
+       "Meshaal",
+       "Mashal",
+       "Mishaal",
+       "Mishal",
+       "Mashel",
+       "Mishel"
+      ],
+      "raw_variants": [
+       "Meshal",
+       "Meshaal",
+       "Mishaal",
+       "Mashal",
+       "Mishal",
+       "Mishel",
+       "Mashel"
+      ],
+      "english_used": "Mishal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سالم",
+      "position": "middle",
+      "english_variants": [
+       "Salem",
+       "Salim"
+      ],
+      "raw_variants": [
+       "Salem",
+       "Salim",
+       "Salen"
+      ],
+      "english_used": "Salem",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المنيف",
+      "position": "family",
+      "english_variants": [
+       "Al Munaif"
+      ],
+      "raw_variants": [
+       "Al Munif",
+       "Al Munaif",
+       "Al Muneef"
+      ],
+      "english_used": "Al Munaif",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     36
+    ],
+    "token_ids": [
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "سالم راشد المنيف",
+    "english_full": "Salem Rashed Al Munaif",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Salem Rashed Al Munaif"
+    },
+    "tokens": [
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "سالم",
+      "position": "given",
+      "english_variants": [
+       "Salem",
+       "Salim"
+      ],
+      "raw_variants": [
+       "Salem",
+       "Salim",
+       "Salen"
+      ],
+      "english_used": "Salem",
+      "expected": "adopt",
+      "expected_spelling": "Salem",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Salem Rashed Al Munaif"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "راشد",
+      "position": "middle",
+      "english_variants": [
+       "Rashid",
+       "Rashed",
+       "Rasheed"
+      ],
+      "raw_variants": [
+       "Rashid",
+       "Rashed",
+       "Rasheed"
+      ],
+      "english_used": "Rashed",
+      "expected": "adopt",
+      "expected_spelling": "Rashed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Salem Rashed Al Munaif"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "المنيف",
+      "position": "family",
+      "english_variants": [
+       "Al Munaif"
+      ],
+      "raw_variants": [
+       "Al Munif",
+       "Al Munaif",
+       "Al Muneef"
+      ],
+      "english_used": "Al Munaif",
+      "expected": "adopt",
+      "expected_spelling": "Al Munaif",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Salem Rashed Al Munaif"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سالم",
+      "spelling": "Salem"
+     },
+     "father": {
+      "arabic": "راشد",
+      "spelling": "Rashed"
+     },
+     "family": {
+      "arabic": "المنيف",
+      "spelling": "Al Munaif"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s09",
+      "quote": "Salem Rashed Al Munaif",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Salem",
+       "father": "Rashed",
+       "family": "Al Munaif"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "مشعل",
+      "spelling": "Mishal"
+     },
+     "father": {
+      "arabic": "سالم",
+      "spelling": "Salem"
+     },
+     "family": {
+      "arabic": "المنيف",
+      "spelling": "Al Munaif"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "المنيف",
+      "spelling": "Al Munaif"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Munaif",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Munaif"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Munaif",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.almunaif-group.example.net",
+    "kind": "url",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s11",
+    "quote": "hr@almunaif.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 55,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   55
+  ]
+ },
+ "case_types": [
+  "A1",
+  "C2"
+ ]
+}

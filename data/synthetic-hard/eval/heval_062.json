@@ -1,0 +1,492 @@
+{
+ "doc_id": "heval_062",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Otaibi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 1157492 | www.alotaibi-group.example.com"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة العتيبي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 805200، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيدة فوزية سعيد الشريم، قطرية الجنسية، وتحمل جواز سفر رقم K2762599، تعمل لديها بوظيفة مهندسة منذ 08/05/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Employee: F. S. Al Shuraim, Passport No. K2762599"
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبها دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المديرة العامة: السيدة مريم فهد العتيبي"
+  },
+  {
+   "segment_id": "s09",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "Email: hr@alotaibi.example.com"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التاريخ: 05/02/2026"
+  }
+ ],
+ "features_planned": [
+  "B4",
+  "B5",
+  "B6",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 62,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     17
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "العتيبي",
+    "english_full": "Al Otaibi",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Otaibi"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaibi",
+      "expected": "adopt",
+      "expected_spelling": "Al Otaibi",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Otaibi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     11,
+     28
+    ],
+    "token_ids": [
+     36,
+     37,
+     38
+    ],
+    "arabic_full": "فوزية سعيد الشريم",
+    "english_full": "Fawzia Saeed Al Shuraim",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "F. S. Al Shuraim"
+    },
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "فوزية",
+      "position": "given",
+      "english_variants": [
+       "Fawzia",
+       "Fawziyya"
+      ],
+      "raw_variants": [
+       "Fawzia",
+       "Fawziyya"
+      ],
+      "english_used": "Fawzia",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سعيد",
+      "position": "middle",
+      "english_variants": [
+       "Saeed",
+       "Said",
+       "Saed",
+       "Saied",
+       "SAAED",
+       "Saaeed"
+      ],
+      "raw_variants": [
+       "Saeed",
+       "Said",
+       "Sa'id",
+       "Saied",
+       "SAAED",
+       "saed",
+       "Saaeed",
+       "Saed"
+      ],
+      "english_used": "Saeed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الشريم",
+      "position": "family",
+      "english_variants": [
+       "Al Shuraim"
+      ],
+      "raw_variants": [
+       "Al Shuraim"
+      ],
+      "english_used": "Al Shuraim",
+      "expected": "adopt",
+      "expected_spelling": "Al Shuraim",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "F. S. Al Shuraim"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     23,
+     39
+    ],
+    "token_ids": [
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "مريم فهد العتيبي",
+    "english_full": "Mariam Fahad Al Otaibi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "مريم",
+      "position": "given",
+      "english_variants": [
+       "Maryam",
+       "Mariam"
+      ],
+      "raw_variants": [
+       "Maryam",
+       "Mariam",
+       "Meriam"
+      ],
+      "english_used": "Mariam",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahed",
+       "Al Fahad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaibi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مريم",
+      "spelling": "Mariam"
+     },
+     "father": {
+      "arabic": "فهد",
+      "spelling": "Fahad"
+     },
+     "family": {
+      "arabic": "العتيبي",
+      "spelling": "Al Otaibi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "فوزية",
+      "spelling": "Fawzia"
+     },
+     "father": {
+      "arabic": "سعيد",
+      "spelling": "Saeed"
+     },
+     "family": {
+      "arabic": "الشريم",
+      "spelling": "Al Shuraim"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "F. S. Al Shuraim",
+      "form": "initials",
+      "labeled": true,
+      "slots": {
+       "family": "Al Shuraim"
+      },
+      "initial_slots": [
+       "given",
+       "father"
+      ]
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العتيبي",
+      "spelling": "Al Otaibi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Otaibi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Otaibi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Otaibi",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.alotaibi-group.example.com",
+    "kind": "url",
+    "resembles": [
+     "p2.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s10",
+    "quote": "hr@alotaibi.example.com",
+    "kind": "email",
+    "resembles": [
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [],
+  "lookalike_token_ids": []
+ },
+ "case_types": [
+  "B4",
+  "C2"
+ ]
+}

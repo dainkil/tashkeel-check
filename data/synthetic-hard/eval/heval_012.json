@@ -1,0 +1,1866 @@
+{
+ "doc_id": "heval_012",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "minutes",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "محضر اجتماع الجمعية العمومية العادية"
+  },
+  {
+   "segment_id": "s02",
+   "text": "لشركة الكويتي للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Kuwaiti General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "عقد الاجتماع في دبي بتاريخ 05/11/2026 برئاسة السيد عبد الكريم سراج المولد."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+  },
+  {
+   "segment_id": "s06",
+   "text": "Passport name: AL MUWALLAD, Abdelkarim Seraj"
+  },
+  {
+   "segment_id": "s07",
+   "text": "وحضر الاجتماع كل من:"
+  },
+  {
+   "segment_id": "s08",
+   "text": "1. السيد مبارك منصور الكويتي"
+  },
+  {
+   "segment_id": "s09",
+   "text": "2. الشيخ عادل جمال قاسم اليامي"
+  },
+  {
+   "segment_id": "s10",
+   "text": "Attendee 2: Adel Al Yami"
+  },
+  {
+   "segment_id": "s11",
+   "text": "3. السيد عبيد بن سعود القاسمي"
+  },
+  {
+   "segment_id": "s12",
+   "text": "4. الشيخ عبد الكريم بن عبد الرحمن الصالح"
+  },
+  {
+   "segment_id": "s13",
+   "text": "Attendee 4: Abdulkareem bin Abdulrahman Al Saleh"
+  },
+  {
+   "segment_id": "s14",
+   "text": "5. السيد سعود بن سرور القاسمي"
+  },
+  {
+   "segment_id": "s15",
+   "text": "Surname: AL QASIMI / Given names: SAUD SUROOR"
+  },
+  {
+   "segment_id": "s16",
+   "text": "Passport name: SAOUD BIN SUROOR AL QASSIMI"
+  },
+  {
+   "segment_id": "s17",
+   "text": "وتولى أمانة السر الدكتور منصور بن نايف بن حمد الكويتي."
+  },
+  {
+   "segment_id": "s18",
+   "text": "Secretary: Mansour bin Nayef bin Hamad Al Kuwaiti"
+  },
+  {
+   "segment_id": "s19",
+   "text": "وبعد التداول قرر المجتمعون بالإجماع ما يلي:"
+  },
+  {
+   "segment_id": "s20",
+   "text": "أولًا: الموافقة على تعيين السيد سعود القاسمي مديرًا للشركة لمدة ثلاث سنوات."
+  },
+  {
+   "segment_id": "s21",
+   "text": "ثانيًا: توزيع الأرباح بشكل عادل بين الشركاء حسب حصصهم."
+  },
+  {
+   "segment_id": "s22",
+   "text": "ثالثًا: اعتماد الميزانية العمومية للسنة المالية المنتهية."
+  },
+  {
+   "segment_id": "s23",
+   "text": "رابعًا: تفويض السيد عبد الكريم الصالح بالتوقيع على محضر الاجتماع وتقديمه للجهات المختصة."
+  },
+  {
+   "segment_id": "s24",
+   "text": "رئيس الاجتماع: عبد الكريم المولد"
+  },
+  {
+   "segment_id": "s25",
+   "text": "أمين السر: منصور الكويتي"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "A2",
+  "B2",
+  "B4",
+  "B6",
+  "C2",
+  "C3",
+  "D5"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 12,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     6,
+     13
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الكويتي",
+    "english_full": "Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Kuwaiti"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "chair",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     51,
+     73
+    ],
+    "token_ids": [
+     26,
+     27,
+     28,
+     29
+    ],
+    "arabic_full": "عبد الكريم سراج المولد",
+    "english_full": "Abdelkarim Seraj Al Mowalad",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+    },
+    "tokens": [
+     {
+      "token_id": 27,
+      "token_ids": [
+       26,
+       27
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "عبد الكريم",
+      "position": "given",
+      "english_variants": [
+       "Abdulkarim",
+       "Abdulkareem",
+       "Abdelkarim"
+      ],
+      "raw_variants": [
+       "Abdulkarim",
+       "Abdul Karim",
+       "Abdulkareem",
+       "Abdul Kareem",
+       "Abdelkarim",
+       "Abdulakreem"
+      ],
+      "english_used": "Abdelkarim",
+      "expected": "adopt",
+      "expected_spelling": "Abdelkarim",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+       },
+       {
+        "segment_id": "s06",
+        "quote": "AL MUWALLAD, Abdelkarim Seraj"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "B2",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 28,
+      "token_ids": [
+       28
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سراج",
+      "position": "middle",
+      "english_variants": [
+       "Seraj",
+       "Siraj"
+      ],
+      "raw_variants": [
+       "Seraj",
+       "Serag",
+       "Siraj"
+      ],
+      "english_used": "Seraj",
+      "expected": "adopt",
+      "expected_spelling": "Seraj",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+       },
+       {
+        "segment_id": "s06",
+        "quote": "AL MUWALLAD, Abdelkarim Seraj"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 29,
+      "token_ids": [
+       29
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المولد",
+      "position": "family",
+      "english_variants": [
+       "Al Muwallad",
+       "Al Mowalad",
+       "Al Mowallad"
+      ],
+      "raw_variants": [
+       "Al Muwallad",
+       "Al Mowalad",
+       "Al Mowallad",
+       "Al Muwallid"
+      ],
+      "english_used": "Al Mowalad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Mowalad",
+       "Al Muwallad"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "attendee",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     9,
+     28
+    ],
+    "token_ids": [
+     49,
+     50,
+     51
+    ],
+    "arabic_full": "مبارك منصور الكويتي",
+    "english_full": "Mubarak Mansour Al Kuwaiti",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 49,
+      "token_ids": [
+       49
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "مبارك",
+      "position": "given",
+      "english_variants": [
+       "Mubarak",
+       "Mobarak",
+       "Al Mubarak"
+      ],
+      "raw_variants": [
+       "Mubarak",
+       "Mobarak",
+       "MUBARAK",
+       "MABARAK",
+       "Murbarek",
+       "Al Mubarak"
+      ],
+      "english_used": "Mubarak",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 50,
+      "token_ids": [
+       50
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur"
+      ],
+      "raw_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 51,
+      "token_ids": [
+       51
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2",
+       "D5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "attendee",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     9,
+     30
+    ],
+    "token_ids": [
+     54,
+     55,
+     56,
+     57
+    ],
+    "arabic_full": "عادل جمال قاسم اليامي",
+    "english_full": "Adel Jamal Qassem Al Yami",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Adel Al Yami"
+    },
+    "tokens": [
+     {
+      "token_id": 54,
+      "token_ids": [
+       54
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "عادل",
+      "position": "given",
+      "english_variants": [
+       "Adel",
+       "Adil"
+      ],
+      "raw_variants": [
+       "Adel",
+       "Adil",
+       "A'del"
+      ],
+      "english_used": "Adel",
+      "expected": "adopt",
+      "expected_spelling": "Adel",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Adel Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 55,
+      "token_ids": [
+       55
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "جمال",
+      "position": "middle",
+      "english_variants": [
+       "Jamal"
+      ],
+      "raw_variants": [
+       "Jamal"
+      ],
+      "english_used": "Jamal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 56,
+      "token_ids": [
+       56
+      ],
+      "unit_id": "n4.grandfather",
+      "slot": "grandfather",
+      "arabic": "قاسم",
+      "position": "middle",
+      "english_variants": [
+       "Qassem",
+       "Qassim",
+       "Kassim",
+       "Qasem",
+       "Qasim"
+      ],
+      "raw_variants": [
+       "Qassem",
+       "Qassim",
+       "Qasem",
+       "Kacem",
+       "Qasim",
+       "Kassim"
+      ],
+      "english_used": "Qassem",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 57,
+      "token_ids": [
+       57
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "اليامي",
+      "position": "family",
+      "english_variants": [
+       "Al Yami"
+      ],
+      "raw_variants": [
+       "Al Yami"
+      ],
+      "english_used": "Al Yami",
+      "expected": "adopt",
+      "expected_spelling": "Al Yami",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Adel Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "attendee",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     65,
+     66,
+     67,
+     68
+    ],
+    "arabic_full": "عبيد بن سعود القاسمي",
+    "english_full": "Obaid Saud Al Qasimi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 65,
+      "token_ids": [
+       65
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "عبيد",
+      "position": "given",
+      "english_variants": [
+       "Obaid",
+       "Obeid",
+       "Ubaid",
+       "Ubayd"
+      ],
+      "raw_variants": [
+       "Obaid",
+       "Obeid",
+       "Ubayd",
+       "Amer",
+       "Abid",
+       "Obied",
+       "Abdulla",
+       "Ubaid"
+      ],
+      "english_used": "Obaid",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 67,
+      "token_ids": [
+       67
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi"
+      ],
+      "raw_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "attendee",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s12",
+    "span": [
+     9,
+     40
+    ],
+    "token_ids": [
+     71,
+     72,
+     73,
+     74,
+     75,
+     76
+    ],
+    "arabic_full": "عبد الكريم بن عبد الرحمن الصالح",
+    "english_full": "Abdulkareem Abdulrahman Al Saleh",
+    "evidence": {
+     "segment_id": "s13",
+     "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+    },
+    "tokens": [
+     {
+      "token_id": 72,
+      "token_ids": [
+       71,
+       72
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "عبد الكريم",
+      "position": "given",
+      "english_variants": [
+       "Abdulkarim",
+       "Abdulkareem",
+       "Abdelkarim"
+      ],
+      "raw_variants": [
+       "Abdulkarim",
+       "Abdul Karim",
+       "Abdulkareem",
+       "Abdul Kareem",
+       "Abdelkarim",
+       "Abdulakreem"
+      ],
+      "english_used": "Abdulkareem",
+      "expected": "adopt",
+      "expected_spelling": "Abdulkareem",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 75,
+      "token_ids": [
+       74,
+       75
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "adopt",
+      "expected_spelling": "Abdulrahman",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 76,
+      "token_ids": [
+       76
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الصالح",
+      "position": "family",
+      "english_variants": [
+       "Al Saleh",
+       "Al Salih",
+       "Salah"
+      ],
+      "raw_variants": [
+       "Al Saleh",
+       "al Saleh",
+       "Salah",
+       "al Salih"
+      ],
+      "english_used": "Al Saleh",
+      "expected": "adopt",
+      "expected_spelling": "Al Saleh",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "attendee",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s14",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     86,
+     87,
+     88,
+     89
+    ],
+    "arabic_full": "سعود بن سرور القاسمي",
+    "english_full": "Saud Suroor Al Qasimi",
+    "evidence": {
+     "segment_id": "s15",
+     "quote": "Surname: AL QASIMI / Given names: SAUD SUROOR"
+    },
+    "tokens": [
+     {
+      "token_id": 86,
+      "token_ids": [
+       86
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Saoud",
+       "Saud"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 88,
+      "token_ids": [
+       88
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "سرور",
+      "position": "middle",
+      "english_variants": [
+       "Suroor",
+       "Surour"
+      ],
+      "raw_variants": [
+       "Suroor",
+       "Surour"
+      ],
+      "english_used": "Suroor",
+      "expected": "adopt",
+      "expected_spelling": "Suroor",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Surname: AL QASIMI / Given names: SAUD SUROOR"
+       },
+       {
+        "segment_id": "s16",
+        "quote": "SAOUD BIN SUROOR AL QASSIMI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 89,
+      "token_ids": [
+       89
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi"
+      ],
+      "raw_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Qasimi",
+       "Al Qassimi"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "secretary",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s17",
+    "span": [
+     25,
+     53
+    ],
+    "token_ids": [
+     108,
+     109,
+     110,
+     111,
+     112,
+     113
+    ],
+    "arabic_full": "منصور بن نايف بن حمد الكويتي",
+    "english_full": "Mansour Nayef Hamad Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s18",
+     "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+    },
+    "tokens": [
+     {
+      "token_id": 108,
+      "token_ids": [
+       108
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "منصور",
+      "position": "given",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur"
+      ],
+      "raw_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour",
+      "expected": "adopt",
+      "expected_spelling": "Mansour",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 110,
+      "token_ids": [
+       110
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "نايف",
+      "position": "middle",
+      "english_variants": [
+       "Nayef",
+       "Naif",
+       "Nayif"
+      ],
+      "raw_variants": [
+       "Nayef",
+       "Naif",
+       "Nayif"
+      ],
+      "english_used": "Nayef",
+      "expected": "adopt",
+      "expected_spelling": "Nayef",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 112,
+      "token_ids": [
+       112
+      ],
+      "unit_id": "n8.grandfather",
+      "slot": "grandfather",
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Hamad",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 113,
+      "token_ids": [
+       113
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "attendee",
+    "person_id": "p7",
+    "mention": "short",
+    "segment_id": "s20",
+    "span": [
+     32,
+     44
+    ],
+    "token_ids": [
+     134,
+     135
+    ],
+    "arabic_full": "سعود القاسمي",
+    "english_full": "Saud Al Qasimi",
+    "evidence": {
+     "segment_id": "s15",
+     "quote": "Surname: AL QASIMI / Given names: SAUD SUROOR"
+    },
+    "tokens": [
+     {
+      "token_id": 134,
+      "token_ids": [
+       134
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Saoud",
+       "Saud"
+      ],
+      "case_types": [
+       "A3",
+       "C3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 135,
+      "token_ids": [
+       135
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi"
+      ],
+      "raw_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Qasimi",
+       "Al Qassimi"
+      ],
+      "case_types": [
+       "A3",
+       "C3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "attendee",
+    "person_id": "p6",
+    "mention": "short",
+    "segment_id": "s23",
+    "span": [
+     20,
+     37
+    ],
+    "token_ids": [
+     160,
+     161,
+     162
+    ],
+    "arabic_full": "عبد الكريم الصالح",
+    "english_full": "Abdulkareem Al Saleh",
+    "evidence": {
+     "segment_id": "s13",
+     "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+    },
+    "tokens": [
+     {
+      "token_id": 161,
+      "token_ids": [
+       160,
+       161
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "عبد الكريم",
+      "position": "given",
+      "english_variants": [
+       "Abdulkarim",
+       "Abdulkareem",
+       "Abdelkarim"
+      ],
+      "raw_variants": [
+       "Abdulkarim",
+       "Abdul Karim",
+       "Abdulkareem",
+       "Abdul Kareem",
+       "Abdelkarim",
+       "Abdulakreem"
+      ],
+      "english_used": "Abdulkareem",
+      "expected": "adopt",
+      "expected_spelling": "Abdulkareem",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 162,
+      "token_ids": [
+       162
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الصالح",
+      "position": "family",
+      "english_variants": [
+       "Al Saleh",
+       "Al Salih",
+       "Salah"
+      ],
+      "raw_variants": [
+       "Al Saleh",
+       "al Saleh",
+       "Salah",
+       "al Salih"
+      ],
+      "english_used": "Al Saleh",
+      "expected": "adopt",
+      "expected_spelling": "Al Saleh",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdulkareem bin Abdulrahman Al Saleh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n11",
+    "role": "chair",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s24",
+    "span": [
+     15,
+     32
+    ],
+    "token_ids": [
+     172,
+     173,
+     174
+    ],
+    "arabic_full": "عبد الكريم المولد",
+    "english_full": "Abdelkarim Al Mowalad",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+    },
+    "tokens": [
+     {
+      "token_id": 173,
+      "token_ids": [
+       172,
+       173
+      ],
+      "unit_id": "n11.given",
+      "slot": "given",
+      "arabic": "عبد الكريم",
+      "position": "given",
+      "english_variants": [
+       "Abdulkarim",
+       "Abdulkareem",
+       "Abdelkarim"
+      ],
+      "raw_variants": [
+       "Abdulkarim",
+       "Abdul Karim",
+       "Abdulkareem",
+       "Abdul Kareem",
+       "Abdelkarim",
+       "Abdulakreem"
+      ],
+      "english_used": "Abdelkarim",
+      "expected": "adopt",
+      "expected_spelling": "Abdelkarim",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ"
+       },
+       {
+        "segment_id": "s06",
+        "quote": "AL MUWALLAD, Abdelkarim Seraj"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3",
+       "B2",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 174,
+      "token_ids": [
+       174
+      ],
+      "unit_id": "n11.family",
+      "slot": "family",
+      "arabic": "المولد",
+      "position": "family",
+      "english_variants": [
+       "Al Muwallad",
+       "Al Mowalad",
+       "Al Mowallad"
+      ],
+      "raw_variants": [
+       "Al Muwallad",
+       "Al Mowalad",
+       "Al Mowallad",
+       "Al Muwallid"
+      ],
+      "english_used": "Al Mowalad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Mowalad",
+       "Al Muwallad"
+      ],
+      "case_types": [
+       "A3",
+       "C3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n12",
+    "role": "secretary",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s25",
+    "span": [
+     11,
+     24
+    ],
+    "token_ids": [
+     177,
+     178
+    ],
+    "arabic_full": "منصور الكويتي",
+    "english_full": "Mansour Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s18",
+     "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+    },
+    "tokens": [
+     {
+      "token_id": 177,
+      "token_ids": [
+       177
+      ],
+      "unit_id": "n12.given",
+      "slot": "given",
+      "arabic": "منصور",
+      "position": "given",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur"
+      ],
+      "raw_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour",
+      "expected": "adopt",
+      "expected_spelling": "Mansour",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 178,
+      "token_ids": [
+       178
+      ],
+      "unit_id": "n12.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "D5"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عادل",
+      "spelling": "Adel"
+     },
+     "father": {
+      "arabic": "جمال",
+      "spelling": "Jamal"
+     },
+     "grandfather": {
+      "arabic": "قاسم",
+      "spelling": "Qassem"
+     },
+     "family": {
+      "arabic": "اليامي",
+      "spelling": "Al Yami"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s10",
+      "quote": "Adel Al Yami",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Adel",
+       "family": "Al Yami"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "father": {
+      "arabic": "سرور",
+      "spelling": "Suroor"
+     },
+     "family": {
+      "arabic": "القاسمي",
+      "spelling": "Al Qasimi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p7",
+      "segment_id": "s15",
+      "quote": "Surname: AL QASIMI / Given names: SAUD SUROOR",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Saud",
+       "father": "Suroor",
+       "family": "Al Qasimi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p7",
+      "segment_id": "s16",
+      "quote": "SAOUD BIN SUROOR AL QASSIMI",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Saoud",
+       "father": "Suroor",
+       "family": "Al Qassimi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "son_of:p7",
+    "slots": {
+     "given": {
+      "arabic": "عبيد",
+      "spelling": "Obaid"
+     },
+     "father": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "family": {
+      "arabic": "القاسمي",
+      "spelling": "Al Qasimi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "secretary",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "منصور",
+      "spelling": "Mansour"
+     },
+     "father": {
+      "arabic": "نايف",
+      "spelling": "Nayef"
+     },
+     "grandfather": {
+      "arabic": "حمد",
+      "spelling": "Hamad"
+     },
+     "family": {
+      "arabic": "الكويتي",
+      "spelling": "Al Kuwaiti"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s18",
+      "quote": "Mansour bin Nayef bin Hamad Al Kuwaiti",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mansour",
+       "father": "Nayef",
+       "grandfather": "Hamad",
+       "family": "Al Kuwaiti"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "مبارك",
+      "spelling": "Mubarak"
+     },
+     "father": {
+      "arabic": "منصور",
+      "spelling": "Mansour"
+     },
+     "family": {
+      "arabic": "الكويتي",
+      "spelling": "Al Kuwaiti"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبد الكريم",
+      "spelling": "Abdulkareem"
+     },
+     "father": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "family": {
+      "arabic": "الصالح",
+      "spelling": "Al Saleh"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s13",
+      "quote": "Abdulkareem bin Abdulrahman Al Saleh",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Abdulkareem",
+       "father": "Abdulrahman",
+       "family": "Al Saleh"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "chair",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبد الكريم",
+      "spelling": "Abdelkarim"
+     },
+     "father": {
+      "arabic": "سراج",
+      "spelling": "Seraj"
+     },
+     "family": {
+      "arabic": "المولد",
+      "spelling": "Al Mowalad"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s05",
+      "quote": "Surname: AL MOWALAD / Given names: ABDELKARIM SERAJ",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Abdelkarim",
+       "father": "Seraj",
+       "family": "Al Mowalad"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "AL MUWALLAD, Abdelkarim Seraj",
+      "form": "reversed_comma",
+      "labeled": true,
+      "slots": {
+       "given": "Abdelkarim",
+       "father": "Seraj",
+       "family": "Al Muwallad"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الكويتي",
+      "spelling": "Al Kuwaiti"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "Al Kuwaiti",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Kuwaiti"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "Al Kuwaiti",
+    "kind": "company",
+    "resembles": [
+     "p2.family",
+     "p3.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   21,
+   53,
+   70,
+   107
+  ],
+  "title_token_ids": [
+   53,
+   70,
+   107
+  ],
+  "lookalikes": [
+   {
+    "token_id": 145,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 175,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   145,
+   175
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A2",
+  "A3",
+  "B1",
+  "B2",
+  "B6",
+  "C2",
+  "C3",
+  "D1",
+  "D3",
+  "D5"
+ ]
+}

@@ -3,6 +3,8 @@
 - 이름은 Wikidata 이름 단위를 무작위로 조합한다. 조합한 전체 이름이 Wikidata 레이블과 같으면 버린다.
 - 서식은 출처가 있는 규칙(R1~R5)만 반영한다. 신분증·등록 번호는 형식 출처가 없어 자리표시 숫자를 쓴다.
 - 정답 라벨(gold)은 생성기가 같이 낸다. 그래프는 gold를 대조 단계에서만 쓴다.
+- 이름의 근거(영문 줄)는 역할마다 붙인다. 문서 유형마다 근거 배치(없음 / 일부 역할만 / 전부)를 같은 수에 가깝게 나눈다.
+  실제 서류 묶음에는 신분증 표기가 있는 사람과 없는 사람이 섞인다고 보고 "일부 역할만"을 둔다(ADR-014).
 - 템플릿의 아랍어 문장은 사람이 검수하지 않았다.
 """
 
@@ -15,7 +17,7 @@ from pathlib import Path
 
 from ..text import Segment, normalize_key, tokenize, tokens_in_span
 
-GENERATOR_VERSION = "synthetic-v0"
+GENERATOR_VERSION = "synthetic-v2"  # v2: 이름 풀을 정렬 규칙 v1로 다시 만듦(ADR-015)
 NOTICE = "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
 RULES = {
     "R1": "위임장은 아랍어 또는 아랍어·영어 이중 언어로 쓴다 (Virtuzone, ADGM 공증 FAQ)",
@@ -38,6 +40,8 @@ AUTHORITY = "دائرة التنمية الاقتصادية"
 COUNTRY = "الإمارات العربية المتحدة"
 LLC = "ذ.م.م"
 CONNECTOR_KEYS = {normalize_key(w) for w in ("بن", "بنت")}
+LAYOUTS = ("none", "mixed", "all")  # 영문 근거 줄이 붙는 역할: 없음 / 일부 / 전부
+ROLES = {"poa": ("principal", "company", "agent"), "company_letter": ("company", "employee", "signatory")}
 
 
 @dataclass
@@ -196,7 +200,7 @@ def _placeholder_ids(rng: random.Random) -> dict[str, str]:
     }
 
 
-def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
+def _poa(rng: random.Random, pool: NamePool, ev: set[str]) -> _Builder:
     gp, ga = rng.choice(["male", "female"]), rng.choice(["male", "female"])
     mp, ma = gp == "male", ga == "male"
     P = pool.person(rng, gp, set())
@@ -220,7 +224,7 @@ def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
         ids["passport"],
         ".",
     )
-    if bilingual:
+    if "principal" in ev:
         b.seg("Principal: ", _en("principal", P), ", Passport No. ", ids["passport"])
     b.seg(
         "وذلك بصفته مديرًا" if mp else "وذلك بصفتها مديرة",
@@ -238,7 +242,7 @@ def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
         _neutral(COUNTRY),
         ".",
     )
-    if bilingual:
+    if "company" in ev:
         b.seg("Company: ", _en("company", C, " General Trading"), " L.L.C., Registration No. ", ids["reg"])
     b.seg(
         "وقرر أنه وكّل " if mp else "وقررت أنها وكّلت ",
@@ -252,7 +256,7 @@ def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
         ids["id"],
         ".",
     )
-    if bilingual:
+    if "agent" in ev:
         b.seg("Attorney: ", _en("agent", A), ", ID No. ", ids["id"])
     b.seg(
         "للقيام نيابة ",
@@ -265,7 +269,7 @@ def _poa(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
     return b
 
 
-def _letter(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
+def _letter(rng: random.Random, pool: NamePool, ev: set[str]) -> _Builder:
     gx, gs = rng.choice(["male", "female"]), rng.choice(["male", "female"])
     mx, ms = gx == "male", gs == "male"
     X = pool.person(rng, gx, set())
@@ -290,7 +294,7 @@ def _letter(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
         _neutral(COUNTRY),
         "،",
     )
-    if bilingual:
+    if "company" in ev:
         b.seg("Company: ", _en("company", C, " General Trading"), " L.L.C., Registration No. ", ids["reg"])
     b.seg(
         "بأن ",
@@ -310,11 +314,11 @@ def _letter(rng: random.Random, pool: NamePool, bilingual: bool) -> _Builder:
         ids["date"],
         ".",
     )
-    if bilingual:
+    if "employee" in ev:
         b.seg("Employee: ", _en("employee", X), ", Passport No. ", ids["passport"])
     b.seg("وقد أعطي هذا الإقرار بناءً على ", "طلبه" if mx else "طلبها", " دون أدنى مسؤولية على الشركة.")
     b.seg("المفوض بالتوقيع: " if ms else "المفوضة بالتوقيع: ", _name("signatory", S))
-    if bilingual:
+    if "signatory" in ev:
         b.seg("Authorized signatory: ", _en("signatory", S))
     b.seg("الصفة: ", "مدير" if ms else "مديرة")
     b.seg("التاريخ: ", ids["date2"])
@@ -357,27 +361,51 @@ def _gold(b: _Builder) -> dict:
     return {"names": names, "neutral_token_ids": neutral}
 
 
-def generate(
-    pool_path: str | Path, out_dir: str | Path, split: str, n: int, seed: int, bilingual_ratio: float = 0.5
-) -> list[Path]:
-    pool = NamePool(json.loads(Path(pool_path).read_text(encoding="utf-8")))
+def _layouts(rng: random.Random, n: int) -> list[str]:
+    """문서 번호(1부터)별 근거 배치. 문서 유형마다 세 배치를 같은 수에 가깝게 나눈 뒤 섞는다."""
+    out = [""] * n
+    for parity in (1, 0):  # 홀수 번호는 위임장, 짝수 번호는 법인 확인서
+        idx = [i for i in range(1, n + 1) if i % 2 == parity]
+        layouts = [LAYOUTS[k % len(LAYOUTS)] for k in range(len(idx))]
+        rng.shuffle(layouts)
+        for i, layout in zip(idx, layouts, strict=True):
+            out[i - 1] = layout
+    return out
+
+
+def _evidence_roles(rng: random.Random, doc_type: str, layout: str) -> set[str]:
+    roles = ROLES[doc_type]
+    if layout == "all":
+        return set(roles)
+    if layout == "mixed":  # 한 역할 이상은 근거가 있고, 한 역할 이상은 없다
+        return set(rng.sample(roles, k=rng.choice((1, 2))))
+    return set()
+
+
+def generate(pool_path: str | Path, out_dir: str | Path, split: str, n: int, seed: int) -> list[Path]:
+    raw_pool = json.loads(Path(pool_path).read_text(encoding="utf-8"))
+    pool = NamePool(raw_pool)
     rng = random.Random(seed)
     out = Path(out_dir) / split
     out.mkdir(parents=True, exist_ok=True)
+    layouts = _layouts(rng, n)
     paths = []
     for i in range(1, n + 1):
         doc_type = "poa" if i % 2 else "company_letter"
-        bilingual = rng.random() < bilingual_ratio
-        b = (_poa if doc_type == "poa" else _letter)(rng, pool, bilingual)
+        ev = _evidence_roles(rng, doc_type, layouts[i - 1])
+        b = (_poa if doc_type == "poa" else _letter)(rng, pool, ev)
         doc = {
             "doc_id": f"{split}_{i:03d}",
             "synthetic": True,
             "notice": NOTICE,
             "doc_type": doc_type,
-            "bilingual": bilingual,
+            "bilingual": bool(ev),  # 영문 근거 줄이 하나라도 있는지
+            "evidence_layout": layouts[i - 1],
+            "evidence_roles": sorted(ev),
             "segments": b.segments,
             "meta": {
                 "generator": GENERATOR_VERSION,
+                "name_pool_align_version": raw_pool.get("align_version"),
                 "seed": seed,
                 "split": split,
                 "index": i,

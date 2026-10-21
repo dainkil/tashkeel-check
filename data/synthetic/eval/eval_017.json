@@ -4,6 +4,11 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "agent",
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +16,44 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 08/02/2026 حضر أمام الكاتب العدل السيدة فاطمة بنت بندر المطيري، سعودية الجنسية، وتحمل جواز سفر رقم Z3078102."
+   "text": "إنه في يوم 08/02/2026 حضر أمام الكاتب العدل السيد عادل أحمد السابق، سعودي الجنسية، ويحمل جواز سفر رقم Z3078102."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Fatma Bint Bander Al Mutairi, Passport No. Z3078102"
+   "text": "وذلك بصفته مديرًا لشركة البلوشي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 828892، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفتها مديرة لشركة النمر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 828892، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+   "text": "Company: al Balushi General Trading L.L.C., Registration No. 828892"
   },
   {
    "segment_id": "s05",
-   "text": "Company: al Nimr General Trading L.L.C., Registration No. 828892"
+   "text": "وقرر أنه وكّل السيد عمرو بن مبارك الكندري، سعودي الجنسية، ويحمل بطاقة هوية رقم 26260817."
   },
   {
    "segment_id": "s06",
-   "text": "وقررت أنها وكّلت السيد شخبوط جميل العزما، سعودي الجنسية، ويحمل بطاقة هوية رقم 26260817."
+   "text": "Attorney: Amr Bin Mubarak Al Kandari, ID No. 26260817"
   },
   {
    "segment_id": "s07",
-   "text": "Attorney: Shakhbut Jamil Al Azma, ID No. 26260817"
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s08",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "الموكل: عادل أحمد السابق"
   },
   {
    "segment_id": "s09",
-   "text": "الموكلة: فاطمة بنت بندر المطيري"
+   "text": "الوكيل: عمرو بن مبارك الكندري"
   },
   {
    "segment_id": "s10",
-   "text": "الوكيل: شخبوط جميل العزما"
-  },
-  {
-   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 17,
@@ -72,264 +74,273 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     51,
-     73
+     50,
+     66
     ],
     "token_ids": [
      11,
      12,
-     13,
-     14
+     13
     ],
-    "arabic_full": "فاطمة بنت بندر المطيري",
-    "english_full": "Fatma Bint Bander Al Mutairi",
+    "arabic_full": "عادل أحمد السابق",
+    "english_full": "Adel Ahmed Sabiq",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "فاطمة",
+      "arabic": "عادل",
       "position": "given",
       "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
+       "Adel",
+       "Adil",
+       "A'del"
       ],
-      "english_used": "Fatma"
+      "english_used": "Adel"
+     },
+     {
+      "token_id": 12,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
      },
      {
       "token_id": 13,
-      "arabic": "بندر",
-      "position": "middle",
-      "english_variants": [
-       "Bandar",
-       "Bander"
-      ],
-      "english_used": "Bander"
-     },
-     {
-      "token_id": 14,
-      "arabic": "المطيري",
+      "arabic": "السابق",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Sabiq"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Sabiq"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Fatma Bint Bander Al Mutairi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
-     29
+     31
     ],
     "token_ids": [
-     37
+     26
     ],
-    "arabic_full": "النمر",
-    "english_full": "al Nimr",
+    "arabic_full": "البلوشي",
+    "english_full": "al Balushi",
     "tokens": [
      {
-      "token_id": 37,
-      "arabic": "النمر",
+      "token_id": 26,
+      "arabic": "البلوشي",
       "position": "family",
       "english_variants": [
-       "Al Nemer",
-       "Al Namir",
-       "al Nimr"
+       "Al Balushi",
+       "Al Bloushi",
+       "Al Balooshi",
+       "Al Beloushi",
+       "Al Balochi",
+       "Al Buloushi",
+       "Al Baloushi",
+       "Al bloushi",
+       "al Balushi",
+       "Al Boloushi",
+       "Al Bulushi",
+       "Al bloshi"
       ],
-      "english_used": "al Nimr"
+      "english_used": "al Balushi"
      }
     ],
     "evidence": {
-     "segment_id": "s05",
-     "quote": "al Nimr General Trading"
+     "segment_id": "s04",
+     "quote": "al Balushi General Trading"
     }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s05",
     "span": [
-     23,
-     40
+     20,
+     41
     ],
     "token_ids": [
-     68,
-     69,
-     70
+     57,
+     58,
+     59,
+     60
     ],
-    "arabic_full": "شخبوط جميل العزما",
-    "english_full": "Shakhbut Jamil Al Azma",
+    "arabic_full": "عمرو بن مبارك الكندري",
+    "english_full": "Amr Bin Mubarak Al Kandari",
     "tokens": [
      {
-      "token_id": 68,
-      "arabic": "شخبوط",
+      "token_id": 57,
+      "arabic": "عمرو",
       "position": "given",
       "english_variants": [
-       "SHAKHBUT",
-       "Shakhbut"
+       "Amr"
       ],
-      "english_used": "Shakhbut"
+      "english_used": "Amr"
      },
      {
-      "token_id": 69,
-      "arabic": "جميل",
+      "token_id": 59,
+      "arabic": "مبارك",
       "position": "middle",
       "english_variants": [
-       "Jamil",
-       "Jameel"
+       "Mubarak",
+       "Mobarak",
+       "MUBARAK",
+       "MABARAK",
+       "Murbarek",
+       "Al Mubarak"
       ],
-      "english_used": "Jamil"
+      "english_used": "Mubarak"
      },
      {
-      "token_id": 70,
-      "arabic": "العزما",
+      "token_id": 60,
+      "arabic": "الكندري",
       "position": "family",
       "english_variants": [
-       "Al Azma"
+       "Al Kandari",
+       "Al Kandary"
       ],
-      "english_used": "Al Azma"
+      "english_used": "Al Kandari"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Shakhbut Jamil Al Azma"
+     "segment_id": "s06",
+     "quote": "Amr Bin Mubarak Al Kandari"
     }
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s08",
     "span": [
-     9,
-     31
+     8,
+     24
     ],
     "token_ids": [
-     102,
-     103,
-     104,
-     105
+     93,
+     94,
+     95
     ],
-    "arabic_full": "فاطمة بنت بندر المطيري",
-    "english_full": "Fatma Bint Bander Al Mutairi",
+    "arabic_full": "عادل أحمد السابق",
+    "english_full": "Adel Ahmed Sabiq",
     "tokens": [
      {
-      "token_id": 102,
-      "arabic": "فاطمة",
+      "token_id": 93,
+      "arabic": "عادل",
       "position": "given",
       "english_variants": [
-       "Fatima",
-       "Fatma",
-       "Fatimah",
-       "Fatema",
-       "FatimaSaleem"
+       "Adel",
+       "Adil",
+       "A'del"
       ],
-      "english_used": "Fatma"
+      "english_used": "Adel"
      },
      {
-      "token_id": 104,
-      "arabic": "بندر",
+      "token_id": 94,
+      "arabic": "أحمد",
       "position": "middle",
       "english_variants": [
-       "Bandar",
-       "Bander"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Bander"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 105,
-      "arabic": "المطيري",
+      "token_id": 95,
+      "arabic": "السابق",
       "position": "family",
       "english_variants": [
-       "Al Mutairi",
-       "Mansor",
-       "Al Mutairy",
-       "al Mutairi",
-       "al Mutayri"
+       "Sabiq"
       ],
-      "english_used": "Al Mutairi"
+      "english_used": "Sabiq"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Fatma Bint Bander Al Mutairi"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s09",
     "span": [
      8,
-     25
+     29
     ],
     "token_ids": [
-     107,
-     108,
-     109
+     97,
+     98,
+     99,
+     100
     ],
-    "arabic_full": "شخبوط جميل العزما",
-    "english_full": "Shakhbut Jamil Al Azma",
+    "arabic_full": "عمرو بن مبارك الكندري",
+    "english_full": "Amr Bin Mubarak Al Kandari",
     "tokens": [
      {
-      "token_id": 107,
-      "arabic": "شخبوط",
+      "token_id": 97,
+      "arabic": "عمرو",
       "position": "given",
       "english_variants": [
-       "SHAKHBUT",
-       "Shakhbut"
+       "Amr"
       ],
-      "english_used": "Shakhbut"
+      "english_used": "Amr"
      },
      {
-      "token_id": 108,
-      "arabic": "جميل",
+      "token_id": 99,
+      "arabic": "مبارك",
       "position": "middle",
       "english_variants": [
-       "Jamil",
-       "Jameel"
+       "Mubarak",
+       "Mobarak",
+       "MUBARAK",
+       "MABARAK",
+       "Murbarek",
+       "Al Mubarak"
       ],
-      "english_used": "Jamil"
+      "english_used": "Mubarak"
      },
      {
-      "token_id": 109,
-      "arabic": "العزما",
+      "token_id": 100,
+      "arabic": "الكندري",
       "position": "family",
       "english_variants": [
-       "Al Azma"
+       "Al Kandari",
+       "Al Kandary"
       ],
-      "english_used": "Al Azma"
+      "english_used": "Al Kandari"
      }
     ],
     "evidence": {
-     "segment_id": "s07",
-     "quote": "Shakhbut Jamil Al Azma"
+     "segment_id": "s06",
+     "quote": "Amr Bin Mubarak Al Kandari"
     }
    }
   ],
   "neutral_token_ids": [
+   29,
+   30,
+   31,
+   34,
+   35,
+   36,
    40,
    41,
    42,
-   45,
-   46,
-   47,
-   51,
-   52,
-   53,
-   54
+   43
   ]
  }
 }

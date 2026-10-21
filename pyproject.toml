@@ -5,7 +5,10 @@ description = "Single-agent apparatus that measures whether Arabic→English tra
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
+    "alembic>=1.20.0",
     "camel-tools>=1.6.0",
+    "fastapi>=0.156.4",
+    "fastmcp>=4.1.3",
     "langchain>=1.4.5",
     "langchain-core>=1.6.10",
     "langchain-openai>=1.7.1",
@@ -13,8 +16,13 @@ dependencies = [
     "langchain-text-splitters>=1.1.3",
     "langgraph>=1.2.15",
     "langsmith>=0.14.8",
+    "mcp>=2.3.0",
+    "psycopg[binary]>=3.3.6",
+    "pypdf>=6.21.1",
     "python-dotenv>=1.2.4",
     "qdrant-client>=1.19.1",
+    "sqlalchemy>=2",
+    "uvicorn[standard]>=0.54.0",
 ]
 
 [project.scripts]
@@ -32,10 +40,12 @@ testpaths = ["tests"]
 markers = [
     "live: needs a real OpenAI API key (skipped otherwise)",
     "camel: needs camel-tools and the calima-msa-r13 database",
+    "db: needs a reachable Postgres at DATABASE_URL (skipped otherwise)",
 ]
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.1",
     "mypy>=2.4.0",
     "pre-commit>=4.7.0",
     "pytest>=9.1.1",
@@ -46,7 +56,7 @@ dev = [
 [tool.ruff]
 line-length = 120
 target-version = "py311"
-extend-exclude = ["all_total_vue_student", "docs/market"]  # 제공 ZIP, 계산 기록 스크립트는 손대지 않는다
+extend-exclude = ["docs/business/market", "results"]  # 계산 기록 스크립트·실험 산출물은 손대지 않는다
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]

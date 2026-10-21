@@ -1,0 +1,13 @@
+.git
+.venv
+.env
+results/
+all_total_vue_student/
+data/wikidata/raw/
+docs/
+tests/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

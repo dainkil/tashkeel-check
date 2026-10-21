@@ -3,7 +3,11 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,35 +15,40 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 10/06/2026 حضر أمام الكاتب العدل السيد ضياء بن مكي النجعي، عماني الجنسية، ويحمل جواز سفر رقم W4157336."
+   "text": "إنه في يوم 07/08/2026 حضر أمام الكاتب العدل السيد رشاد أحمد يوسف الإدريسي، بحريني الجنسية، ويحمل جواز سفر رقم H6462903."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفته مديرًا لشركة السحيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 978759، وعنوانها الشارقة، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة القاسمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 665341، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وقرر أنه وكّل السيدة صفية بنت رضي بن فهد القحطاني، قطرية الجنسية، وتحمل بطاقة هوية رقم 69228713."
+   "text": "Company: Al Qassemi General Trading L.L.C., Registration No. 665341"
   },
   {
    "segment_id": "s05",
-   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "وقرر أنه وكّل السيد سامي بن محسن الحاج، كويتي الجنسية، ويحمل بطاقة هوية رقم 90738830."
   },
   {
    "segment_id": "s06",
-   "text": "الموكل: ضياء بن مكي النجعي"
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s07",
-   "text": "الوكيلة: صفية بنت رضي بن فهد القحطاني"
+   "text": "الموكل: رشاد أحمد يوسف الإدريسي"
   },
   {
    "segment_id": "s08",
+   "text": "الوكيل: سامي بن محسن الحاج"
+  },
+  {
+   "segment_id": "s09",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 9,
@@ -61,7 +70,7 @@
     "segment_id": "s02",
     "span": [
      50,
-     68
+     73
     ],
     "token_ids": [
      11,
@@ -69,46 +78,59 @@
      13,
      14
     ],
-    "arabic_full": "ضياء بن مكي النجعي",
-    "english_full": "Dia Bin Makki Al Najei",
+    "arabic_full": "رشاد أحمد يوسف الإدريسي",
+    "english_full": "Rashad Ahmed Yousef Al Idrisi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "ضياء",
+      "arabic": "رشاد",
       "position": "given",
       "english_variants": [
-       "Dia",
-       "Dhaya",
-       "Diya",
-       "Dhia",
-       "Diaa",
-       "Dhiyaa"
+       "Rashad"
       ],
-      "english_used": "Dia"
+      "english_used": "Rashad"
+     },
+     {
+      "token_id": 12,
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed"
      },
      {
       "token_id": 13,
-      "arabic": "مكي",
+      "arabic": "يوسف",
       "position": "middle",
       "english_variants": [
-       "Makki",
-       "Macki",
-       "Mackie",
-       "Maki"
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
       ],
-      "english_used": "Makki"
+      "english_used": "Yousef"
      },
      {
       "token_id": 14,
-      "arabic": "النجعي",
+      "arabic": "الإدريسي",
       "position": "family",
       "english_variants": [
-       "Al Najei",
-       "Al Najai",
-       "Naji",
-       "Al Naje"
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
       ],
-      "english_used": "Al Najei"
+      "english_used": "Al Idrisi"
      }
     ],
     "evidence": null
@@ -124,88 +146,78 @@
     "token_ids": [
      27
     ],
-    "arabic_full": "السحيمي",
-    "english_full": "Al Suhaimi",
+    "arabic_full": "القاسمي",
+    "english_full": "Al Qassemi",
     "tokens": [
      {
       "token_id": 27,
-      "arabic": "السحيمي",
+      "arabic": "القاسمي",
       "position": "family",
       "english_variants": [
-       "Al Suhaimi",
-       "al Suhaymi",
-       "Al Sohaymi",
-       "Al Souhaimi",
-       "Al Sehimai"
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
       ],
-      "english_used": "Al Suhaimi"
+      "english_used": "Al Qassemi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s04",
+     "quote": "Al Qassemi General Trading"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s04",
+    "segment_id": "s05",
     "span": [
-     21,
-     49
+     20,
+     38
     ],
     "token_ids": [
-     49,
-     50,
-     51,
-     52,
-     53,
-     54
+     58,
+     59,
+     60,
+     61
     ],
-    "arabic_full": "صفية بنت رضي بن فهد القحطاني",
-    "english_full": "Safiya Bint Razi Bin Fahd Al Qahtani",
+    "arabic_full": "سامي بن محسن الحاج",
+    "english_full": "Sami Bin Mohsen El Hadj",
     "tokens": [
      {
-      "token_id": 49,
-      "arabic": "صفية",
+      "token_id": 58,
+      "arabic": "سامي",
       "position": "given",
       "english_variants": [
-       "Safia",
-       "Safiya"
+       "Sami",
+       "sami"
       ],
-      "english_used": "Safiya"
+      "english_used": "Sami"
      },
      {
-      "token_id": 51,
-      "arabic": "رضي",
+      "token_id": 60,
+      "arabic": "محسن",
       "position": "middle",
       "english_variants": [
-       "Radhi",
-       "Radi",
-       "Razi"
+       "Mohsen",
+       "Mohsin",
+       "Muhsin",
+       "Muhsen"
       ],
-      "english_used": "Razi"
+      "english_used": "Mohsen"
      },
      {
-      "token_id": 53,
-      "arabic": "فهد",
-      "position": "middle",
-      "english_variants": [
-       "Fahad",
-       "Fahd",
-       "Fahed",
-       "Al Fahad",
-       "Fahid"
-      ],
-      "english_used": "Fahd"
-     },
-     {
-      "token_id": 54,
-      "arabic": "القحطاني",
+      "token_id": 61,
+      "arabic": "الحاج",
       "position": "family",
       "english_variants": [
-       "Al Qahtani",
-       "al Qahtani",
-       "al Kahtani"
+       "Hajj",
+       "El Hadj"
       ],
-      "english_used": "Al Qahtani"
+      "english_used": "El Hadj"
      }
     ],
     "evidence": null
@@ -213,57 +225,70 @@
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s06",
+    "segment_id": "s07",
     "span": [
      8,
-     26
+     31
     ],
     "token_ids": [
-     78,
-     79,
-     80,
-     81
+     85,
+     86,
+     87,
+     88
     ],
-    "arabic_full": "ضياء بن مكي النجعي",
-    "english_full": "Dia Bin Makki Al Najei",
+    "arabic_full": "رشاد أحمد يوسف الإدريسي",
+    "english_full": "Rashad Ahmed Yousef Al Idrisi",
     "tokens": [
      {
-      "token_id": 78,
-      "arabic": "ضياء",
+      "token_id": 85,
+      "arabic": "رشاد",
       "position": "given",
       "english_variants": [
-       "Dia",
-       "Dhaya",
-       "Diya",
-       "Dhia",
-       "Diaa",
-       "Dhiyaa"
+       "Rashad"
       ],
-      "english_used": "Dia"
+      "english_used": "Rashad"
      },
      {
-      "token_id": 80,
-      "arabic": "مكي",
+      "token_id": 86,
+      "arabic": "أحمد",
       "position": "middle",
       "english_variants": [
-       "Makki",
-       "Macki",
-       "Mackie",
-       "Maki"
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
       ],
-      "english_used": "Makki"
+      "english_used": "Ahmed"
      },
      {
-      "token_id": 81,
-      "arabic": "النجعي",
+      "token_id": 87,
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 88,
+      "arabic": "الإدريسي",
       "position": "family",
       "english_variants": [
-       "Al Najei",
-       "Al Najai",
-       "Naji",
-       "Al Naje"
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
       ],
-      "english_used": "Al Najei"
+      "english_used": "Al Idrisi"
      }
     ],
     "evidence": null
@@ -271,66 +296,51 @@
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s07",
+    "segment_id": "s08",
     "span": [
-     9,
-     37
+     8,
+     26
     ],
     "token_ids": [
-     83,
-     84,
-     85,
-     86,
-     87,
-     88
+     90,
+     91,
+     92,
+     93
     ],
-    "arabic_full": "صفية بنت رضي بن فهد القحطاني",
-    "english_full": "Safiya Bint Razi Bin Fahd Al Qahtani",
+    "arabic_full": "سامي بن محسن الحاج",
+    "english_full": "Sami Bin Mohsen El Hadj",
     "tokens": [
      {
-      "token_id": 83,
-      "arabic": "صفية",
+      "token_id": 90,
+      "arabic": "سامي",
       "position": "given",
       "english_variants": [
-       "Safia",
-       "Safiya"
+       "Sami",
+       "sami"
       ],
-      "english_used": "Safiya"
+      "english_used": "Sami"
      },
      {
-      "token_id": 85,
-      "arabic": "رضي",
+      "token_id": 92,
+      "arabic": "محسن",
       "position": "middle",
       "english_variants": [
-       "Radhi",
-       "Radi",
-       "Razi"
+       "Mohsen",
+       "Mohsin",
+       "Muhsin",
+       "Muhsen"
       ],
-      "english_used": "Razi"
+      "english_used": "Mohsen"
      },
      {
-      "token_id": 87,
-      "arabic": "فهد",
-      "position": "middle",
-      "english_variants": [
-       "Fahad",
-       "Fahd",
-       "Fahed",
-       "Al Fahad",
-       "Fahid"
-      ],
-      "english_used": "Fahd"
-     },
-     {
-      "token_id": 88,
-      "arabic": "القحطاني",
+      "token_id": 93,
+      "arabic": "الحاج",
       "position": "family",
       "english_variants": [
-       "Al Qahtani",
-       "al Qahtani",
-       "al Kahtani"
+       "Hajj",
+       "El Hadj"
       ],
-      "english_used": "Al Qahtani"
+      "english_used": "El Hadj"
      }
     ],
     "evidence": null

@@ -1,0 +1,736 @@
+{
+ "doc_id": "heval_029",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 21/09/2026 حضر أمام الكاتب العدل السيد كامل بن حسن بن عبد الرحمن البوسعيدية، قطري الجنسية، ويحمل جواز سفر رقم F6183587."
+  },
+  {
+   "segment_id": "s03",
+   "text": "وذلك بصفته مديرًا لشركة المخيني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 672494، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s04",
+   "text": "Company: Al Mukhaini General Trading L.L.C., Registration No. 672494"
+  },
+  {
+   "segment_id": "s05",
+   "text": "وقرر أنه وكّل السيد عيسى بن محمد بن أنور الضويان، بحريني الجنسية، ويحمل بطاقة هوية رقم 89686845."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Attorney: E. M. Al Dowayan, ID No. 89686845"
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: كامل البوسعيدية"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: عيسى الضويان"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B4",
+  "B5",
+  "D2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 29,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     86
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "arabic_full": "كامل بن حسن بن عبد الرحمن البوسعيدية",
+    "english_full": "Kamil Hassan Abdulrahman Al Busaidi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "كامل",
+      "position": "given",
+      "english_variants": [
+       "Kamel",
+       "Kamil"
+      ],
+      "raw_variants": [
+       "Kamel",
+       "Kamil"
+      ],
+      "english_used": "Kamil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan"
+      ],
+      "raw_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 16,
+      "token_ids": [
+       15,
+       16
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 17,
+      "token_ids": [
+       17
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "البوسعيدية",
+      "position": "family",
+      "english_variants": [
+       "Al Busaidi"
+      ],
+      "raw_variants": [
+       "Al Busaidi",
+       "Al Busaidia",
+       "Al Busaidiyah"
+      ],
+      "english_used": "Al Busaidi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s03",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     30
+    ],
+    "arabic_full": "المخيني",
+    "english_full": "Al Mukhaini",
+    "evidence": {
+     "segment_id": "s04",
+     "quote": "Al Mukhaini"
+    },
+    "tokens": [
+     {
+      "token_id": 30,
+      "token_ids": [
+       30
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المخيني",
+      "position": "family",
+      "english_variants": [
+       "Al Mukhaini"
+      ],
+      "raw_variants": [
+       "Al Mukhaini"
+      ],
+      "english_used": "Al Mukhaini",
+      "expected": "adopt",
+      "expected_spelling": "Al Mukhaini",
+      "evidence": [
+       {
+        "segment_id": "s04",
+        "quote": "Al Mukhaini"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     20,
+     48
+    ],
+    "token_ids": [
+     61,
+     62,
+     63,
+     64,
+     65,
+     66
+    ],
+    "arabic_full": "عيسى بن محمد بن أنور الضويان",
+    "english_full": "Eisa Mohammad Anwar Al Dowayan",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "E. M. Al Dowayan"
+    },
+    "tokens": [
+     {
+      "token_id": 61,
+      "token_ids": [
+       61
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "عيسى",
+      "position": "given",
+      "english_variants": [
+       "Eisa",
+       "Essa",
+       "Issa",
+       "Isa",
+       "Eissa",
+       "Eesa",
+       "Esa"
+      ],
+      "raw_variants": [
+       "Essa",
+       "Eisa",
+       "Issa",
+       "Isa",
+       "Eissa",
+       "Esa",
+       "Eesa"
+      ],
+      "english_used": "Eisa",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 63,
+      "token_ids": [
+       63
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 65,
+      "token_ids": [
+       65
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "أنور",
+      "position": "middle",
+      "english_variants": [
+       "Anwar"
+      ],
+      "raw_variants": [
+       "Anwar"
+      ],
+      "english_used": "Anwar",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 66,
+      "token_ids": [
+       66
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الضويان",
+      "position": "family",
+      "english_variants": [
+       "Al Dowayan"
+      ],
+      "raw_variants": [
+       "Al Dowayan"
+      ],
+      "english_used": "Al Dowayan",
+      "expected": "adopt",
+      "expected_spelling": "Al Dowayan",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "E. M. Al Dowayan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     23
+    ],
+    "token_ids": [
+     111,
+     112
+    ],
+    "arabic_full": "كامل البوسعيدية",
+    "english_full": "Kamil Al Busaidi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 111,
+      "token_ids": [
+       111
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "كامل",
+      "position": "given",
+      "english_variants": [
+       "Kamel",
+       "Kamil"
+      ],
+      "raw_variants": [
+       "Kamel",
+       "Kamil"
+      ],
+      "english_used": "Kamil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "D2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 112,
+      "token_ids": [
+       112
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "البوسعيدية",
+      "position": "family",
+      "english_variants": [
+       "Al Busaidi"
+      ],
+      "raw_variants": [
+       "Al Busaidi",
+       "Al Busaidia",
+       "Al Busaidiyah"
+      ],
+      "english_used": "Al Busaidi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     114,
+     115
+    ],
+    "arabic_full": "عيسى الضويان",
+    "english_full": "Eisa Al Dowayan",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "E. M. Al Dowayan"
+    },
+    "tokens": [
+     {
+      "token_id": 114,
+      "token_ids": [
+       114
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "عيسى",
+      "position": "given",
+      "english_variants": [
+       "Eisa",
+       "Essa",
+       "Issa",
+       "Isa",
+       "Eissa",
+       "Eesa",
+       "Esa"
+      ],
+      "raw_variants": [
+       "Essa",
+       "Eisa",
+       "Issa",
+       "Isa",
+       "Eissa",
+       "Esa",
+       "Eesa"
+      ],
+      "english_used": "Eisa",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 115,
+      "token_ids": [
+       115
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الضويان",
+      "position": "family",
+      "english_variants": [
+       "Al Dowayan"
+      ],
+      "raw_variants": [
+       "Al Dowayan"
+      ],
+      "english_used": "Al Dowayan",
+      "expected": "adopt",
+      "expected_spelling": "Al Dowayan",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "E. M. Al Dowayan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "كامل",
+      "spelling": "Kamil"
+     },
+     "father": {
+      "arabic": "حسن",
+      "spelling": "Hassan"
+     },
+     "grandfather": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "family": {
+      "arabic": "البوسعيدية",
+      "spelling": "Al Busaidi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عيسى",
+      "spelling": "Eisa"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammad"
+     },
+     "grandfather": {
+      "arabic": "أنور",
+      "spelling": "Anwar"
+     },
+     "family": {
+      "arabic": "الضويان",
+      "spelling": "Al Dowayan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s06",
+      "quote": "E. M. Al Dowayan",
+      "form": "initials",
+      "labeled": true,
+      "slots": {
+       "family": "Al Dowayan"
+      },
+      "initial_slots": [
+       "given",
+       "father"
+      ]
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "المخيني",
+      "spelling": "Al Mukhaini"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s04",
+      "quote": "Al Mukhaini",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Mukhaini"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   33,
+   34,
+   35,
+   38,
+   39,
+   40,
+   44,
+   45,
+   46,
+   47
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 99,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 106,
+    "kind": "common_word",
+    "twin": "p1.given"
+   }
+  ],
+  "lookalike_token_ids": [
+   99,
+   106
+  ]
+ },
+ "case_types": [
+  "A3",
+  "B4",
+  "B6",
+  "D2",
+  "D3"
+ ]
+}

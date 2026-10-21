@@ -1,0 +1,591 @@
+{
+ "doc_id": "heval_002",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Shehri General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s03",
+   "text": "تشهد شركة الشهري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 268214، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s04",
+   "text": "بأن السيد محمد بن أنس الجمعان، بحريني الجنسية، ويحمل جواز سفر رقم G2400008، يعمل لديها بوظيفة محاسب منذ 22/09/2026."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Employee: Mohammed bin Anas Al Jamaan, Passport No. G2400008"
+  },
+  {
+   "segment_id": "s06",
+   "text": "Surname: AL JAMAAN / Given names: MOHAMMAD ANAS"
+  },
+  {
+   "segment_id": "s07",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s09",
+   "text": "المدير العام: السيد أنس بن محمد بن سلطان الجمعان"
+  },
+  {
+   "segment_id": "s10",
+   "text": "General Manager: Anas bin Mohammed bin Sultan Al Jamaan"
+  },
+  {
+   "segment_id": "s11",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s12",
+   "text": "Email: hr@alshehri.example.com"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التاريخ: 19/01/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "C1",
+  "C3",
+  "D2",
+  "D5"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 2,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s03",
+    "span": [
+     10,
+     16
+    ],
+    "token_ids": [
+     11
+    ],
+    "arabic_full": "الشهري",
+    "english_full": "Al Shehri",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Shehri"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الشهري",
+      "position": "family",
+      "english_variants": [
+       "Al Shehri",
+       "Al Shihri"
+      ],
+      "raw_variants": [
+       "Al Shehri",
+       "al Shehri",
+       "Al shehri",
+       "al Chahri",
+       "al Shihri"
+      ],
+      "english_used": "Al Shehri",
+      "expected": "adopt",
+      "expected_spelling": "Al Shehri",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Shehri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     29
+    ],
+    "token_ids": [
+     31,
+     32,
+     33,
+     34
+    ],
+    "arabic_full": "محمد بن أنس الجمعان",
+    "english_full": "Mohammed Anas Al Jamaan",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Mohammed bin Anas Al Jamaan"
+    },
+    "tokens": [
+     {
+      "token_id": 31,
+      "token_ids": [
+       31
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Mohammad",
+       "Mohammed"
+      ],
+      "case_types": [
+       "A1",
+       "C3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 33,
+      "token_ids": [
+       33
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "أنس",
+      "position": "middle",
+      "english_variants": [
+       "Anas"
+      ],
+      "raw_variants": [
+       "Anas"
+      ],
+      "english_used": "Anas",
+      "expected": "adopt",
+      "expected_spelling": "Anas",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Mohammed bin Anas Al Jamaan"
+       },
+       {
+        "segment_id": "s06",
+        "quote": "Surname: AL JAMAAN / Given names: MOHAMMAD ANAS"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 34,
+      "token_ids": [
+       34
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الجمعان",
+      "position": "family",
+      "english_variants": [
+       "Al Jamaan",
+       "Al Jam'an"
+      ],
+      "raw_variants": [
+       "Al Jamaan",
+       "Al Jam'an"
+      ],
+      "english_used": "Al Jamaan",
+      "expected": "adopt",
+      "expected_spelling": "Al Jamaan",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Mohammed bin Anas Al Jamaan"
+       },
+       {
+        "segment_id": "s06",
+        "quote": "Surname: AL JAMAAN / Given names: MOHAMMAD ANAS"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     20,
+     48
+    ],
+    "token_ids": [
+     90,
+     91,
+     92,
+     93,
+     94,
+     95
+    ],
+    "arabic_full": "أنس بن محمد بن سلطان الجمعان",
+    "english_full": "Anas Mohammed Sultan Al Jamaan",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Anas bin Mohammed bin Sultan Al Jamaan"
+    },
+    "tokens": [
+     {
+      "token_id": 90,
+      "token_ids": [
+       90
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "أنس",
+      "position": "given",
+      "english_variants": [
+       "Anas"
+      ],
+      "raw_variants": [
+       "Anas"
+      ],
+      "english_used": "Anas",
+      "expected": "adopt",
+      "expected_spelling": "Anas",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Anas bin Mohammed bin Sultan Al Jamaan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 92,
+      "token_ids": [
+       92
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Anas bin Mohammed bin Sultan Al Jamaan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 94,
+      "token_ids": [
+       94
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "سلطان",
+      "position": "middle",
+      "english_variants": [
+       "Sultan"
+      ],
+      "raw_variants": [
+       "Sultan",
+       "Al Sharji",
+       "Sultsn"
+      ],
+      "english_used": "Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Sultan",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Anas bin Mohammed bin Sultan Al Jamaan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 95,
+      "token_ids": [
+       95
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الجمعان",
+      "position": "family",
+      "english_variants": [
+       "Al Jamaan",
+       "Al Jam'an"
+      ],
+      "raw_variants": [
+       "Al Jamaan",
+       "Al Jam'an"
+      ],
+      "english_used": "Al Jamaan",
+      "expected": "adopt",
+      "expected_spelling": "Al Jamaan",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Anas bin Mohammed bin Sultan Al Jamaan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "أنس",
+      "spelling": "Anas"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "grandfather": {
+      "arabic": "سلطان",
+      "spelling": "Sultan"
+     },
+     "family": {
+      "arabic": "الجمعان",
+      "spelling": "Al Jamaan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s10",
+      "quote": "Anas bin Mohammed bin Sultan Al Jamaan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Anas",
+       "father": "Mohammed",
+       "grandfather": "Sultan",
+       "family": "Al Jamaan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "father": {
+      "arabic": "أنس",
+      "spelling": "Anas"
+     },
+     "family": {
+      "arabic": "الجمعان",
+      "spelling": "Al Jamaan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s05",
+      "quote": "Mohammed bin Anas Al Jamaan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mohammed",
+       "father": "Anas",
+       "family": "Al Jamaan"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "Surname: AL JAMAAN / Given names: MOHAMMAD ANAS",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Mohammad",
+       "father": "Anas",
+       "family": "Al Jamaan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الشهري",
+      "spelling": "Al Shehri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Shehri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Shehri"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s12",
+    "quote": "hr@alshehri.example.com",
+    "kind": "email",
+    "resembles": [
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   14,
+   15,
+   16,
+   19,
+   20,
+   21,
+   25,
+   26,
+   27,
+   28
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 68,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   68
+  ]
+ },
+ "case_types": [
+  "A1",
+  "C3"
+ ]
+}

@@ -1,0 +1,772 @@
+{
+ "doc_id": "heval_061",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 28/01/2026 حضر أمام الكاتب العدل السيد حمد بن عبد الله بن خليفة السكران، كويتي الجنسية، ويحمل جواز سفر رقم T7419742."
+  },
+  {
+   "segment_id": "s03",
+   "text": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة العتيبي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 217869، وعنوانها أبوظبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Otaibi General Trading L.L.C., Registration No. 217869"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد حامد عبد العزيز يوسف العتيبي، إماراتي الجنسية، ويحمل بطاقة هوية رقم 78327622."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: حمد السكران"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: حامد العتيبي"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B3",
+  "B5",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 61,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     82
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17
+    ],
+    "arabic_full": "حمد بن عبد الله بن خليفة السكران",
+    "english_full": "Hamad Abdulla Khalifa El-Sakran",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "حمد",
+      "position": "given",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Hamad",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 14,
+      "token_ids": [
+       13,
+       14
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "عبد الله",
+      "position": "middle",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdulla",
+      "expected": "adopt",
+      "expected_spelling": "Abdulla",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "خليفة",
+      "position": "middle",
+      "english_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "raw_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "english_used": "Khalifa",
+      "expected": "adopt",
+      "expected_spelling": "Khalifa",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 17,
+      "token_ids": [
+       17
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "السكران",
+      "position": "family",
+      "english_variants": [
+       "Al Sakran"
+      ],
+      "raw_variants": [
+       "al Sakran"
+      ],
+      "english_used": "El-Sakran",
+      "expected": "adopt",
+      "expected_spelling": "El-Sakran",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3",
+       "B5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     36
+    ],
+    "arabic_full": "العتيبي",
+    "english_full": "Al Otaibi",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Otaibi"
+    },
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaibi",
+      "expected": "adopt",
+      "expected_spelling": "Al Otaibi",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Otaibi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     48
+    ],
+    "token_ids": [
+     67,
+     68,
+     69,
+     70,
+     71
+    ],
+    "arabic_full": "حامد عبد العزيز يوسف العتيبي",
+    "english_full": "Hamed Abdulaziz Yousuf Al Otaibi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 67,
+      "token_ids": [
+       67
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "حامد",
+      "position": "given",
+      "english_variants": [
+       "Hamed",
+       "Hamid"
+      ],
+      "raw_variants": [
+       "Hamed",
+       "Hamid",
+       "Hamaid"
+      ],
+      "english_used": "Hamed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 69,
+      "token_ids": [
+       68,
+       69
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "عبد العزيز",
+      "position": "middle",
+      "english_variants": [
+       "Abdulaziz",
+       "Abdel Aziz",
+       "Abdullaziz"
+      ],
+      "raw_variants": [
+       "Abdulaziz",
+       "Abdul Aziz",
+       "Abdelaziz",
+       "Abdel Aziz",
+       "Abd Elrahman",
+       "Abdullaziz",
+       "abdulaziz",
+       "Abd al"
+      ],
+      "english_used": "Abdulaziz",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 70,
+      "token_ids": [
+       70
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef"
+      ],
+      "raw_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousuf",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaibi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     19
+    ],
+    "token_ids": [
+     108,
+     109
+    ],
+    "arabic_full": "حمد السكران",
+    "english_full": "Hamad El-Sakran",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 108,
+      "token_ids": [
+       108
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "حمد",
+      "position": "given",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Hamad",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 109,
+      "token_ids": [
+       109
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "السكران",
+      "position": "family",
+      "english_variants": [
+       "Al Sakran"
+      ],
+      "raw_variants": [
+       "al Sakran"
+      ],
+      "english_used": "El-Sakran",
+      "expected": "adopt",
+      "expected_spelling": "El-Sakran",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B3",
+       "B5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     111,
+     112
+    ],
+    "arabic_full": "حامد العتيبي",
+    "english_full": "Hamed Al Otaibi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 111,
+      "token_ids": [
+       111
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "حامد",
+      "position": "given",
+      "english_variants": [
+       "Hamed",
+       "Hamid"
+      ],
+      "raw_variants": [
+       "Hamed",
+       "Hamid",
+       "Hamaid"
+      ],
+      "english_used": "Hamed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 112,
+      "token_ids": [
+       112
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaibi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حمد",
+      "spelling": "Hamad"
+     },
+     "father": {
+      "arabic": "عبد الله",
+      "spelling": "Abdulla"
+     },
+     "grandfather": {
+      "arabic": "خليفة",
+      "spelling": "Khalifa"
+     },
+     "family": {
+      "arabic": "السكران",
+      "spelling": "El-Sakran"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "P<KWTEL<SAKRAN<<HAMAD<ABDULLA<KHALIFA<<<<<<<",
+      "form": "mrz",
+      "labeled": true,
+      "slots": {
+       "given": "Hamad",
+       "father": "Abdulla",
+       "grandfather": "Khalifa",
+       "family": "El-Sakran"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حامد",
+      "spelling": "Hamed"
+     },
+     "father": {
+      "arabic": "عبد العزيز",
+      "spelling": "Abdulaziz"
+     },
+     "grandfather": {
+      "arabic": "يوسف",
+      "spelling": "Yousuf"
+     },
+     "family": {
+      "arabic": "العتيبي",
+      "spelling": "Al Otaibi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العتيبي",
+      "spelling": "Al Otaibi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Otaibi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Otaibi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Otaibi",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   39,
+   40,
+   41,
+   44,
+   45,
+   46,
+   50,
+   51,
+   52,
+   53
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 96,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 103,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   96,
+   103
+  ]
+ },
+ "case_types": [
+  "A3",
+  "B3",
+  "B5",
+  "C1",
+  "C2",
+  "D3"
+ ]
+}

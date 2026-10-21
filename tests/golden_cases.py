@@ -2,7 +2,7 @@
 
 dev 문서 10개 × C0~C3를 가짜 모델로 돌려 반환값과 산출 파일 4종을 그대로 남긴다.
 기준값은 `uv run python -m tests.golden_cases`로 만든다. 리팩토링 중에는 다시 만들지 않는다(ADR-013).
-기준값을 다시 만들어야 한다면 그 변경은 리팩토링이 아니다. 이유를 PROJECT_PLAN 변경 이력에 남긴다.
+기준값을 다시 만들어야 한다면 그 변경은 리팩토링이 아니다. 이유를 docs/changelog.md에 남긴다.
 """
 
 from __future__ import annotations
@@ -147,7 +147,9 @@ def snapshot(doc_index: int, condition: str, analyzer: str, responder: str) -> A
     model = FakeAgentModel(responder=RESPONDERS[responder](doc_index))
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp)
-        result = run_document(doc, condition, model, Settings(), out_dir=out, analyze_fn=ANALYZERS[analyzer])
+        # 골든은 EXP-002 설정(지시문 p0)으로 기록했다. 서비스 기본이 p1로 바뀌어도(ADR-021) 기준값은 그대로다(ADR-013)
+        settings = Settings(prompt_version="p0")
+        result = run_document(doc, condition, model, settings, out_dir=out, analyze_fn=ANALYZERS[analyzer])
         files: dict[str, Any] = {name: json.loads((out / name).read_text(encoding="utf-8")) for name in OUTPUT_FILES}
         files["proper_nouns.csv"] = (out / "proper_nouns.csv").read_text(encoding="utf-8-sig")
     return _dedupe(_normalize({"result": _as_dict(result), "files": files}))

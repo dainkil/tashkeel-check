@@ -1,0 +1,710 @@
+{
+ "doc_id": "heval_041",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 11/02/2026 حضر أمام الكاتب العدل السيد خليل بن خالد الشعلان، بحريني الجنسية، ويحمل جواز سفر رقم C6321825."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Khalil bin Khalid Al Shaalan, Passport No. C6321825"
+  },
+  {
+   "segment_id": "s04",
+   "text": "Surname: AL SHAALAN / Given names: KHALEEL KHALID"
+  },
+  {
+   "segment_id": "s05",
+   "text": "وذلك بصفته مديرًا لشركة الشملان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 235462، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Company: Al Shamlan General Trading L.L.C., Registration No. 235462"
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقرر أنه وكّل السيد سهيل بن خليفة بن منصور الشملان، إماراتي الجنسية، ويحمل بطاقة هوية رقم 68372207."
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s11",
+   "text": "الموكل: خليل الشعلان"
+  },
+  {
+   "segment_id": "s12",
+   "text": "الوكيل: سهيل الشملان"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B4",
+  "B6",
+  "C1",
+  "C2",
+  "C3"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 41,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     70
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "خليل بن خالد الشعلان",
+    "english_full": "Khalil Khalid Al Shaalan",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Khalil bin Khalid Al Shaalan"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "خليل",
+      "position": "given",
+      "english_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khaleil",
+       "Khalel"
+      ],
+      "raw_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khalel",
+       "Khaleil"
+      ],
+      "english_used": "Khalil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Khaleel",
+       "Khalil"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid",
+      "expected": "adopt",
+      "expected_spelling": "Khalid",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khalil bin Khalid Al Shaalan"
+       },
+       {
+        "segment_id": "s04",
+        "quote": "Surname: AL SHAALAN / Given names: KHALEEL KHALID"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 14,
+      "token_ids": [
+       14
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الشعلان",
+      "position": "family",
+      "english_variants": [
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
+      ],
+      "raw_variants": [
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
+      ],
+      "english_used": "Al Shaalan",
+      "expected": "adopt",
+      "expected_spelling": "Al Shaalan",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khalil bin Khalid Al Shaalan"
+       },
+       {
+        "segment_id": "s04",
+        "quote": "Surname: AL SHAALAN / Given names: KHALEEL KHALID"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     44
+    ],
+    "arabic_full": "الشملان",
+    "english_full": "Al Shamlan",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Al Shamlan"
+    },
+    "tokens": [
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الشملان",
+      "position": "family",
+      "english_variants": [
+       "Al Shamlan"
+      ],
+      "raw_variants": [
+       "al Shamlan",
+       "Al Shamlan"
+      ],
+      "english_used": "Al Shamlan",
+      "expected": "adopt",
+      "expected_spelling": "Al Shamlan",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Al Shamlan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s07",
+    "span": [
+     20,
+     50
+    ],
+    "token_ids": [
+     75,
+     76,
+     77,
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "سهيل بن خليفة بن منصور الشملان",
+    "english_full": "Suhail Khalifa Mansour Al Shamlan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 75,
+      "token_ids": [
+       75
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "سهيل",
+      "position": "given",
+      "english_variants": [
+       "Suhail"
+      ],
+      "raw_variants": [
+       "Suhail"
+      ],
+      "english_used": "Suhail",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "خليفة",
+      "position": "middle",
+      "english_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "raw_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "english_used": "Khalifa",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "منصور",
+      "position": "middle",
+      "english_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur"
+      ],
+      "raw_variants": [
+       "Mansour",
+       "Mansoor",
+       "Mansor",
+       "Mansur",
+       "Al Mutairi"
+      ],
+      "english_used": "Mansour",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الشملان",
+      "position": "family",
+      "english_variants": [
+       "Al Shamlan"
+      ],
+      "raw_variants": [
+       "al Shamlan",
+       "Al Shamlan"
+      ],
+      "english_used": "Al Shamlan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1",
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     117,
+     118
+    ],
+    "arabic_full": "خليل الشعلان",
+    "english_full": "Khalil Al Shaalan",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Khalil bin Khalid Al Shaalan"
+    },
+    "tokens": [
+     {
+      "token_id": 117,
+      "token_ids": [
+       117
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "خليل",
+      "position": "given",
+      "english_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khaleil",
+       "Khalel"
+      ],
+      "raw_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khalel",
+       "Khaleil"
+      ],
+      "english_used": "Khalil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Khaleel",
+       "Khalil"
+      ],
+      "case_types": [
+       "A3",
+       "C3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 118,
+      "token_ids": [
+       118
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الشعلان",
+      "position": "family",
+      "english_variants": [
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
+      ],
+      "raw_variants": [
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
+      ],
+      "english_used": "Al Shaalan",
+      "expected": "adopt",
+      "expected_spelling": "Al Shaalan",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khalil bin Khalid Al Shaalan"
+       },
+       {
+        "segment_id": "s04",
+        "quote": "Surname: AL SHAALAN / Given names: KHALEEL KHALID"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s12",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     120,
+     121
+    ],
+    "arabic_full": "سهيل الشملان",
+    "english_full": "Suhail Al Shamlan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 120,
+      "token_ids": [
+       120
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "سهيل",
+      "position": "given",
+      "english_variants": [
+       "Suhail"
+      ],
+      "raw_variants": [
+       "Suhail"
+      ],
+      "english_used": "Suhail",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 121,
+      "token_ids": [
+       121
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الشملان",
+      "position": "family",
+      "english_variants": [
+       "Al Shamlan"
+      ],
+      "raw_variants": [
+       "al Shamlan",
+       "Al Shamlan"
+      ],
+      "english_used": "Al Shamlan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "خليل",
+      "spelling": "Khalil"
+     },
+     "father": {
+      "arabic": "خالد",
+      "spelling": "Khalid"
+     },
+     "family": {
+      "arabic": "الشعلان",
+      "spelling": "Al Shaalan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Khalil bin Khalid Al Shaalan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Khalil",
+       "father": "Khalid",
+       "family": "Al Shaalan"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p1",
+      "segment_id": "s04",
+      "quote": "Surname: AL SHAALAN / Given names: KHALEEL KHALID",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Khaleel",
+       "father": "Khalid",
+       "family": "Al Shaalan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سهيل",
+      "spelling": "Suhail"
+     },
+     "father": {
+      "arabic": "خليفة",
+      "spelling": "Khalifa"
+     },
+     "grandfather": {
+      "arabic": "منصور",
+      "spelling": "Mansour"
+     },
+     "family": {
+      "arabic": "الشملان",
+      "spelling": "Al Shamlan"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الشملان",
+      "spelling": "Al Shamlan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s06",
+      "quote": "Al Shamlan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Shamlan"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s06",
+    "quote": "Al Shamlan",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   47,
+   48,
+   49,
+   52,
+   53,
+   54,
+   58,
+   59,
+   60,
+   61
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 105,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 112,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   105,
+   112
+  ]
+ },
+ "case_types": [
+  "A3",
+  "C1",
+  "C2",
+  "C3"
+ ]
+}

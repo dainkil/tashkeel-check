@@ -3,7 +3,13 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "agent",
+  "company",
+  "principal"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,35 +17,48 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيدة سعاد بنت حمدي بن ناصر الجودر، عمانية الجنسية، وتحمل جواز سفر رقم P3246144."
+   "text": "إنه في يوم 22/03/2026 حضر أمام الكاتب العدل السيدة سعاد بنت حمزة بن ناصر الجودر، عمانية الجنسية، وتحمل جواز سفر رقم P3246144."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفتها مديرة لشركة النعيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 358845، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "Principal: Suad Bint Hamza Bin Nasser al Jowder, Passport No. P3246144"
   },
   {
    "segment_id": "s04",
-   "text": "وقررت أنها وكّلت السيد جمال مسفر منصور الرميحي، بحريني الجنسية، ويحمل بطاقة هوية رقم 40678426."
+   "text": "وذلك بصفتها مديرة لشركة النعيمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 358845، وعنوانها دبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "Company: Al Nuaimi General Trading L.L.C., Registration No. 358845"
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: سعاد بنت حمدي بن ناصر الجودر"
+   "text": "وقررت أنها وكّلت السيد جمال مسفر منصور الرميحي، بحريني الجنسية، ويحمل بطاقة هوية رقم 40678426."
   },
   {
    "segment_id": "s07",
-   "text": "الوكيل: جمال مسفر منصور الرميحي"
+   "text": "Attorney: Jamal Mesfer Mansour Al Rumaihi, ID No. 40678426"
   },
   {
    "segment_id": "s08",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: سعاد بنت حمزة بن ناصر الجودر"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: جمال مسفر منصور الرميحي"
+  },
+  {
+   "segment_id": "s11",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 23,
@@ -71,8 +90,8 @@
      15,
      16
     ],
-    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
-    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "arabic_full": "سعاد بنت حمزة بن ناصر الجودر",
+    "english_full": "Suad Bint Hamza Bin Nasser al Jowder",
     "tokens": [
      {
       "token_id": 11,
@@ -89,12 +108,13 @@
      },
      {
       "token_id": 13,
-      "arabic": "حمدي",
+      "arabic": "حمزة",
       "position": "middle",
       "english_variants": [
-       "Hamdi"
+       "Hamza",
+       "Hamzah"
       ],
-      "english_used": "Hamdi"
+      "english_used": "Hamza"
      },
      {
       "token_id": 15,
@@ -125,24 +145,27 @@
       "english_used": "al Jowder"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Suad Bint Hamza Bin Nasser al Jowder"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
      24,
      31
     ],
     "token_ids": [
-     29
+     41
     ],
     "arabic_full": "النعيمي",
     "english_full": "Al Nuaimi",
     "tokens": [
      {
-      "token_id": 29,
+      "token_id": 41,
       "arabic": "النعيمي",
       "position": "family",
       "english_variants": [
@@ -154,27 +177,30 @@
       "english_used": "Al Nuaimi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Nuaimi General Trading"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s04",
+    "segment_id": "s06",
     "span": [
      23,
      46
     ],
     "token_ids": [
-     51,
-     52,
-     53,
-     54
+     72,
+     73,
+     74,
+     75
     ],
     "arabic_full": "جمال مسفر منصور الرميحي",
     "english_full": "Jamal Mesfer Mansour Al Rumaihi",
     "tokens": [
      {
-      "token_id": 51,
+      "token_id": 72,
       "arabic": "جمال",
       "position": "given",
       "english_variants": [
@@ -183,7 +209,7 @@
       "english_used": "Jamal"
      },
      {
-      "token_id": 52,
+      "token_id": 73,
       "arabic": "مسفر",
       "position": "middle",
       "english_variants": [
@@ -196,7 +222,7 @@
       "english_used": "Mesfer"
      },
      {
-      "token_id": 53,
+      "token_id": 74,
       "arabic": "منصور",
       "position": "middle",
       "english_variants": [
@@ -209,7 +235,7 @@
       "english_used": "Mansour"
      },
      {
-      "token_id": 54,
+      "token_id": 75,
       "arabic": "الرميحي",
       "position": "family",
       "english_variants": [
@@ -219,29 +245,32 @@
       "english_used": "Al Rumaihi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Jamal Mesfer Mansour Al Rumaihi"
+    }
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s06",
+    "segment_id": "s09",
     "span": [
      9,
      37
     ],
     "token_ids": [
-     78,
-     79,
-     80,
-     81,
-     82,
-     83
+     108,
+     109,
+     110,
+     111,
+     112,
+     113
     ],
-    "arabic_full": "سعاد بنت حمدي بن ناصر الجودر",
-    "english_full": "Suad Bint Hamdi Bin Nasser al Jowder",
+    "arabic_full": "سعاد بنت حمزة بن ناصر الجودر",
+    "english_full": "Suad Bint Hamza Bin Nasser al Jowder",
     "tokens": [
      {
-      "token_id": 78,
+      "token_id": 108,
       "arabic": "سعاد",
       "position": "given",
       "english_variants": [
@@ -254,16 +283,17 @@
       "english_used": "Suad"
      },
      {
-      "token_id": 80,
-      "arabic": "حمدي",
+      "token_id": 110,
+      "arabic": "حمزة",
       "position": "middle",
       "english_variants": [
-       "Hamdi"
+       "Hamza",
+       "Hamzah"
       ],
-      "english_used": "Hamdi"
+      "english_used": "Hamza"
      },
      {
-      "token_id": 82,
+      "token_id": 112,
       "arabic": "ناصر",
       "position": "middle",
       "english_variants": [
@@ -280,7 +310,7 @@
       "english_used": "Nasser"
      },
      {
-      "token_id": 83,
+      "token_id": 113,
       "arabic": "الجودر",
       "position": "family",
       "english_variants": [
@@ -291,27 +321,30 @@
       "english_used": "al Jowder"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Suad Bint Hamza Bin Nasser al Jowder"
+    }
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s07",
+    "segment_id": "s10",
     "span": [
      8,
      31
     ],
     "token_ids": [
-     85,
-     86,
-     87,
-     88
+     115,
+     116,
+     117,
+     118
     ],
     "arabic_full": "جمال مسفر منصور الرميحي",
     "english_full": "Jamal Mesfer Mansour Al Rumaihi",
     "tokens": [
      {
-      "token_id": 85,
+      "token_id": 115,
       "arabic": "جمال",
       "position": "given",
       "english_variants": [
@@ -320,7 +353,7 @@
       "english_used": "Jamal"
      },
      {
-      "token_id": 86,
+      "token_id": 116,
       "arabic": "مسفر",
       "position": "middle",
       "english_variants": [
@@ -333,7 +366,7 @@
       "english_used": "Mesfer"
      },
      {
-      "token_id": 87,
+      "token_id": 117,
       "arabic": "منصور",
       "position": "middle",
       "english_variants": [
@@ -346,7 +379,7 @@
       "english_used": "Mansour"
      },
      {
-      "token_id": 88,
+      "token_id": 118,
       "arabic": "الرميحي",
       "position": "family",
       "english_variants": [
@@ -356,20 +389,23 @@
       "english_used": "Al Rumaihi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Jamal Mesfer Mansour Al Rumaihi"
+    }
    }
   ],
   "neutral_token_ids": [
-   32,
-   33,
-   34,
-   37,
-   38,
-   39,
-   43,
    44,
    45,
-   46
+   46,
+   49,
+   50,
+   51,
+   55,
+   56,
+   57,
+   58
   ]
  }
 }

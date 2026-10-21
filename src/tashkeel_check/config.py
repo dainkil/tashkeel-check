@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from typing import Literal
 
 from dotenv import find_dotenv, load_dotenv
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -15,6 +16,9 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from .errors import ConfigError
 
 CONDITIONS = ("C0", "C1", "C2", "C3")
+# 완제품 엔진 조건(ADR-019). 실험 계획·골든·해시 열거가 CONDITIONS에 묶여 있어 따로 둔다.
+ENGINE_CONDITIONS = ("M1",)  # M1: 번역자 → 격리 검증자 → 규칙 중재자
+ALL_CONDITIONS = (*CONDITIONS, *ENGINE_CONDITIONS)
 
 
 class Settings(BaseModel):
@@ -27,10 +31,32 @@ class Settings(BaseModel):
     # EXP-001 판단 기준: M5(방언 허용)가 이보다 낮으면 분석기를 이름 근거로 쓰지 않는다
     coverage_threshold: float = Field(0.5, ge=0, le=1)
     high_confidence: float = Field(0.8, ge=0, le=1)  # 근거 없이 이 확신도 이상으로 확정하면 "고확신 무근거 확정"
+    # 지시문 판과 근거 검사 규칙(ADR-017). EXP-002는 p0·v1, EXP-003은 p1·v2로 실험 코드가 정한다.
+    # 서비스 기본은 EXP-003에서 99% 기준을 넘긴 p1(ADR-021). `prompts.PROMPT_VERSION`(p0)은 EXP-002 기록용이라 그대로다
+    prompt_version: Literal["p0", "p1"] = "p1"
+    evidence_rule: Literal["v1", "v2"] = "v1"
     dev_docs: int = Field(10, ge=1)
     eval_docs: int = Field(30, ge=1)
     repeats: int = Field(3, ge=1)
     max_candidates: int = Field(10, ge=1)  # 토큰당 LLM에게 보여 줄 분석기 후보 수 상한
+    # 달러/100만 토큰. 둘 다 있으면 exp002 진행 로그와 exp002-status에 추정 금액을 같이 보인다(청구 기준 아님)
+    price_input_per_mtok: float | None = Field(None, ge=0)
+    price_output_per_mtok: float | None = Field(None, ge=0)
+    # 단계 1.5 서비스(ADR-012). 실험 경로(CLI run·exp001·exp002)는 이 값을 읽지 않는다.
+    llm_backend: Literal["openai", "fake"] = "openai"  # fake는 명시할 때만. 키가 없다고 조용히 가짜로 떨어지지 않는다
+    use_mcp_tools: bool = False  # true면 서비스 경로의 C2가 analyze_tokens를 MCP 서버 툴로 바꿔 쓴다
+    database_url: str | None = None  # 없으면 DB 없이(메모리·파일만) 돈다
+    web_host: str = "127.0.0.1"
+    web_port: int = Field(8000, ge=1, le=65535)
+    # 완제품 패키지(ADR-019). auto: 고객이 하나라도 있으면 API 키 필수, 없으면 열림. required / disabled
+    auth: Literal["auto", "required", "disabled"] = "auto"
+    multi_agent: bool = False  # true면 서비스 경로에서 조건 M1(멀티 에이전트 틀)을 받는다
+    # 스캔·PDF 입력의 문자 인식(ADR-021). none: 텍스트 층이 없는 PDF·이미지는 400. ocrspace: 무료 OCR API(외부 전송)
+    ocr_backend: Literal["none", "ocrspace"] = "none"
+    ocr_api_key: str | None = None
+    ocr_endpoint: str = "https://api.ocr.space/parse/image"
+    ocr_max_bytes: int = Field(1024 * 1024, ge=1)  # 무료 등급 파일 상한(공식 문서 기준으로 조정)
+    upload_max_bytes: int = Field(5 * 1024 * 1024, ge=1)  # 단일 문서 업로드 상한
     enable_bundle_search: bool = False  # 단계 2 틀(ADR-007). 단계 1 조건 C0~C3에서는 쓰지 않는다
     embedding_model: str = "text-embedding-3-small"
     langsmith_project: str = "tashkeel-check"

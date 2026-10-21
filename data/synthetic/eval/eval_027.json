@@ -3,7 +3,9 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
- "bilingual": true,
+ "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,47 +13,36 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 19/02/2026 حضر أمام الكاتب العدل السيد صالح بن سعيد العواجي، إماراتي الجنسية، ويحمل جواز سفر رقم U2097607."
+   "text": "إنه في يوم 19/02/2026 حضر أمام الكاتب العدل السيد يوسف صالح محمود السيابي، إماراتي الجنسية، ويحمل جواز سفر رقم U2097607."
   },
   {
    "segment_id": "s03",
-   "text": "Principal: Salih bin Said Al Awaji, Passport No. U2097607"
-  },
-  {
-   "segment_id": "s04",
    "text": "وذلك بصفته مديرًا لشركة البيشي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 829401، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
+   "segment_id": "s04",
+   "text": "وقرر أنه وكّل السيد سالم راشد الشراح، سعودي الجنسية، ويحمل بطاقة هوية رقم 40605455."
+  },
+  {
    "segment_id": "s05",
-   "text": "Company: Al Bishi General Trading L.L.C., Registration No. 829401"
-  },
-  {
-   "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيد يونس بن علي الحريري، سعودي الجنسية، ويحمل بطاقة هوية رقم 40605455."
-  },
-  {
-   "segment_id": "s07",
-   "text": "Attorney: Younis Bin Ali al Hariri, ID No. 40605455"
-  },
-  {
-   "segment_id": "s08",
    "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
-   "segment_id": "s09",
-   "text": "الموكل: صالح بن سعيد العواجي"
+   "segment_id": "s06",
+   "text": "الموكل: يوسف صالح محمود السيابي"
   },
   {
-   "segment_id": "s10",
-   "text": "الوكيل: يونس بن علي الحريري"
+   "segment_id": "s07",
+   "text": "الوكيل: سالم راشد الشراح"
   },
   {
-   "segment_id": "s11",
+   "segment_id": "s08",
    "text": "التوقيع: ____________"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 27,
@@ -73,7 +64,7 @@
     "segment_id": "s02",
     "span": [
      50,
-     70
+     73
     ],
     "token_ids": [
      11,
@@ -81,68 +72,78 @@
      13,
      14
     ],
-    "arabic_full": "صالح بن سعيد العواجي",
-    "english_full": "Salih bin Said Al Awaji",
+    "arabic_full": "يوسف صالح محمود السيابي",
+    "english_full": "Yousef Saleh Mahmoud Al Siyabi",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "صالح",
+      "arabic": "يوسف",
       "position": "given",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 12,
+      "arabic": "صالح",
+      "position": "middle",
       "english_variants": [
        "Saleh",
        "Salih",
        "Salem"
       ],
-      "english_used": "Salih"
+      "english_used": "Saleh"
      },
      {
       "token_id": 13,
-      "arabic": "سعيد",
+      "arabic": "محمود",
       "position": "middle",
       "english_variants": [
-       "Saeed",
-       "Said",
-       "Sa'id",
-       "Saied",
-       "SAAED",
-       "saed",
-       "Saaeed",
-       "Saed"
+       "Mahmoud",
+       "Mahmud",
+       "Mahmood",
+       "Mehmood"
       ],
-      "english_used": "Said"
+      "english_used": "Mahmoud"
      },
      {
       "token_id": 14,
-      "arabic": "العواجي",
+      "arabic": "السيابي",
       "position": "family",
       "english_variants": [
-       "Al Awaji",
-       "al Awaji"
+       "Al Siyabi",
+       "al Siyabi",
+       "al Sayyabi"
       ],
-      "english_used": "Al Awaji"
+      "english_used": "Al Siyabi"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Salih bin Said Al Awaji"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n2",
     "role": "company",
-    "segment_id": "s04",
+    "segment_id": "s03",
     "span": [
      24,
      30
     ],
     "token_ids": [
-     37
+     27
     ],
     "arabic_full": "البيشي",
     "english_full": "Al Bishi",
     "tokens": [
      {
-      "token_id": 37,
+      "token_id": 27,
       "arabic": "البيشي",
       "position": "family",
       "english_variants": [
@@ -154,207 +155,190 @@
       "english_used": "Al Bishi"
      }
     ],
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Al Bishi General Trading"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n3",
     "role": "agent",
-    "segment_id": "s06",
+    "segment_id": "s04",
     "span": [
      20,
-     39
+     36
     ],
     "token_ids": [
-     68,
-     69,
-     70,
-     71
+     49,
+     50,
+     51
     ],
-    "arabic_full": "يونس بن علي الحريري",
-    "english_full": "Younis Bin Ali al Hariri",
+    "arabic_full": "سالم راشد الشراح",
+    "english_full": "Salem Rashed Al Sharah",
     "tokens": [
      {
-      "token_id": 68,
-      "arabic": "يونس",
+      "token_id": 49,
+      "arabic": "سالم",
       "position": "given",
       "english_variants": [
-       "Younes",
-       "Younis",
-       "Younousse"
+       "Salem",
+       "Salim",
+       "Salen"
       ],
-      "english_used": "Younis"
+      "english_used": "Salem"
      },
      {
-      "token_id": 70,
-      "arabic": "علي",
+      "token_id": 50,
+      "arabic": "راشد",
       "position": "middle",
       "english_variants": [
-       "Ali",
-       "Ahmed",
-       "Alireza",
-       "Amro",
-       "Alamin",
-       "Alamine",
-       "al Amin",
-       "Aly"
+       "Rashid",
+       "Rashed",
+       "Rasheed"
       ],
-      "english_used": "Ali"
+      "english_used": "Rashed"
      },
      {
-      "token_id": 71,
-      "arabic": "الحريري",
+      "token_id": 51,
+      "arabic": "الشراح",
       "position": "family",
       "english_variants": [
-       "Hariri",
-       "Al Hariri",
-       "al Hariri",
-       "el Hariri"
+       "Al Sharah"
       ],
-      "english_used": "al Hariri"
+      "english_used": "Al Sharah"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Younis Bin Ali al Hariri"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n4",
     "role": "principal",
-    "segment_id": "s09",
+    "segment_id": "s06",
     "span": [
      8,
-     28
+     31
     ],
     "token_ids": [
-     104,
-     105,
-     106,
-     107
+     75,
+     76,
+     77,
+     78
     ],
-    "arabic_full": "صالح بن سعيد العواجي",
-    "english_full": "Salih bin Said Al Awaji",
+    "arabic_full": "يوسف صالح محمود السيابي",
+    "english_full": "Yousef Saleh Mahmoud Al Siyabi",
     "tokens": [
      {
-      "token_id": 104,
-      "arabic": "صالح",
+      "token_id": 75,
+      "arabic": "يوسف",
       "position": "given",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef"
+     },
+     {
+      "token_id": 76,
+      "arabic": "صالح",
+      "position": "middle",
       "english_variants": [
        "Saleh",
        "Salih",
        "Salem"
       ],
-      "english_used": "Salih"
+      "english_used": "Saleh"
      },
      {
-      "token_id": 106,
-      "arabic": "سعيد",
+      "token_id": 77,
+      "arabic": "محمود",
       "position": "middle",
       "english_variants": [
-       "Saeed",
-       "Said",
-       "Sa'id",
-       "Saied",
-       "SAAED",
-       "saed",
-       "Saaeed",
-       "Saed"
+       "Mahmoud",
+       "Mahmud",
+       "Mahmood",
+       "Mehmood"
       ],
-      "english_used": "Said"
+      "english_used": "Mahmoud"
      },
      {
-      "token_id": 107,
-      "arabic": "العواجي",
+      "token_id": 78,
+      "arabic": "السيابي",
       "position": "family",
       "english_variants": [
-       "Al Awaji",
-       "al Awaji"
+       "Al Siyabi",
+       "al Siyabi",
+       "al Sayyabi"
       ],
-      "english_used": "Al Awaji"
+      "english_used": "Al Siyabi"
      }
     ],
-    "evidence": {
-     "segment_id": "s03",
-     "quote": "Salih bin Said Al Awaji"
-    }
+    "evidence": null
    },
    {
     "occurrence_id": "n5",
     "role": "agent",
-    "segment_id": "s10",
+    "segment_id": "s07",
     "span": [
      8,
-     27
+     24
     ],
     "token_ids": [
-     109,
-     110,
-     111,
-     112
+     80,
+     81,
+     82
     ],
-    "arabic_full": "يونس بن علي الحريري",
-    "english_full": "Younis Bin Ali al Hariri",
+    "arabic_full": "سالم راشد الشراح",
+    "english_full": "Salem Rashed Al Sharah",
     "tokens": [
      {
-      "token_id": 109,
-      "arabic": "يونس",
+      "token_id": 80,
+      "arabic": "سالم",
       "position": "given",
       "english_variants": [
-       "Younes",
-       "Younis",
-       "Younousse"
+       "Salem",
+       "Salim",
+       "Salen"
       ],
-      "english_used": "Younis"
+      "english_used": "Salem"
      },
      {
-      "token_id": 111,
-      "arabic": "علي",
+      "token_id": 81,
+      "arabic": "راشد",
       "position": "middle",
       "english_variants": [
-       "Ali",
-       "Ahmed",
-       "Alireza",
-       "Amro",
-       "Alamin",
-       "Alamine",
-       "al Amin",
-       "Aly"
+       "Rashid",
+       "Rashed",
+       "Rasheed"
       ],
-      "english_used": "Ali"
+      "english_used": "Rashed"
      },
      {
-      "token_id": 112,
-      "arabic": "الحريري",
+      "token_id": 82,
+      "arabic": "الشراح",
       "position": "family",
       "english_variants": [
-       "Hariri",
-       "Al Hariri",
-       "al Hariri",
-       "el Hariri"
+       "Al Sharah"
       ],
-      "english_used": "al Hariri"
+      "english_used": "Al Sharah"
      }
     ],
-    "evidence": {
-     "segment_id": "s07",
-     "quote": "Younis Bin Ali al Hariri"
-    }
+    "evidence": null
    }
   ],
   "neutral_token_ids": [
-   40,
+   30,
+   31,
+   32,
+   35,
+   36,
+   37,
    41,
    42,
-   45,
-   46,
-   47,
-   51,
-   52,
-   53,
-   54
+   43,
+   44
   ]
  }
 }

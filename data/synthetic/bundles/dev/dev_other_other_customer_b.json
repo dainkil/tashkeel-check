@@ -1,0 +1,56 @@
+{
+  "bundle_id": "dev_other_other_customer_b",
+  "customer_id": "customer_dev_b",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "other_dev_001": "other"
+  },
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "عقد خدمات بين الطرفين المذكورين أدناه."
+        },
+        {
+          "segment_id": "s02",
+          "text": "الاسم: مشروع فاطمة أحمد القحطاني",
+          "entity_id": "other_dev_001",
+          "translated_name": "Fatma Ahmed Al Qahtani Project"
+        }
+      ]
+    },
+    {
+      "document_id": "evidence_001",
+      "document_type": "registry_extract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "الاسم: مشروع فاطمة أحمد القحطاني | Name: Fatma Ahmed Al Qahtani Project",
+          "entity_id": "other_dev_001"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "other_customer",
+    "entity_type": "other",
+    "requires_llm": false,
+    "related_bundle": "dev_other_other_customer",
+    "review_items": [
+      {
+        "mention_id": "contract_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "generator": "bundles-v1"
+  }
+}

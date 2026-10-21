@@ -11,7 +11,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from .analyzer import TokenAnalysis
-from .romanize import match_spelling, normalize_latin, spelling_in_text
+from .romanize import canonical_latin, match_spelling, spelling_in_text, strict_words_in_quote
 from .text import Segment, Token, has_latin, normalize_key
 
 MARKER_RE = re.compile(r"\[\?\]|\(\?\)|\?|/|\bor\b|\bunclear\b|\buncertain\b", re.I)
@@ -25,8 +25,7 @@ def _squash(s: str) -> str:
 
 
 def _canon(spelling: str) -> str:
-    forms = normalize_latin(spelling)
-    return min(forms) if forms else spelling.lower()
+    return canonical_latin(spelling) or spelling.lower()
 
 
 def _rate(n: int, d: int) -> float | None:
@@ -42,7 +41,13 @@ def _analysis_count(analyses: dict[int, TokenAnalysis], tid: int, default: int |
 # ---------- 항목 검사 ----------
 
 
-def verify_evidence(item: dict, seg_text: dict[str, str]) -> tuple[bool, str]:
+def verify_evidence(item: dict, seg_text: dict[str, str], rule: str = "v1") -> tuple[bool, str]:
+    """인용이 그 구간에 그대로 있고 채택 표기가 인용과 맞는지.
+
+    v1: 채택 표기가 인용 안의 연속 단어열과 일치 규칙 v1로 맞아야 한다(EXP-002).
+    v2: 채택 표기의 단어 묶음마다 인용 안 단어열과 엄격 철자가 같아야 한다. 순서·대소문자·MRZ '<'는 무시한다(EXP-003).
+    gold를 보지 않는다. 서비스에서도 같은 검사를 쓴다.
+    """
     ev = item.get("evidence") or {}
     sid = ev.get("segment_id")
     quote = (ev.get("quote") or "").strip()
@@ -55,12 +60,15 @@ def verify_evidence(item: dict, seg_text: dict[str, str]) -> tuple[bool, str]:
         return False, "quote_not_in_segment"
     if not adopted:
         return False, "no_adopted_spelling"
-    if not spelling_in_text(adopted, quote):
+    ok = strict_words_in_quote(adopted, quote) if rule == "v2" else spelling_in_text(adopted, quote)
+    if not ok:
         return False, "adopted_not_in_quote"
     return True, ""
 
 
-def check_items(raw_items: list[dict], tokens: list[Token], segments: list[Segment]) -> list[dict]:
+def check_items(
+    raw_items: list[dict], tokens: list[Token], segments: list[Segment], evidence_rule: str = "v1"
+) -> list[dict]:
     by_id = {t["id"]: t for t in tokens}
     seg_text = {s["segment_id"]: s["text"] for s in segments}
     checked = []
@@ -90,7 +98,7 @@ def check_items(raw_items: list[dict], tokens: list[Token], segments: list[Segme
                 final = "hold"
                 flags.append("type_decision_mismatch")
             elif dec == "evidence_adopt":
-                ok, failure = verify_evidence(raw, seg_text)
+                ok, failure = verify_evidence(raw, seg_text, evidence_rule)
                 if not ok:
                     final = "hold"
                     flags.append("evidence_failed")
@@ -118,12 +126,14 @@ def gold_name_tokens(gold: dict | None) -> dict[int, dict]:
         return out
     for occ in gold.get("names", []):
         for tk in occ["tokens"]:
+            # gold 형식 2(synthetic-hard)는 부분마다 기대 처분이 있다. 없으면 등장 단위 근거 유무로 정한다
+            has_ev = tk["expected"] == "adopt" if "expected" in tk else occ.get("evidence") is not None
             out[tk["token_id"]] = {
                 **tk,
                 "occurrence_id": occ["occurrence_id"],
                 "role": occ["role"],
                 "segment_id": occ["segment_id"],
-                "has_evidence": occ.get("evidence") is not None,
+                "has_evidence": has_ev,
             }
     return out
 
@@ -161,10 +171,10 @@ def _coverage(items: list[dict]) -> dict[int, list[dict]]:
     return cover
 
 
-def _is_unsupported(it: dict, gold_ids: set[int]) -> bool:
-    """근거 없는 확정. 정답 이름을 일반 단어로 adopt한 것도 센다."""
+def _unsupported_at(tid: int, it: dict, gold_ids: set[int]) -> bool:
+    """토큰 tid를 대표하는 항목 it이 근거 없는 확정인지. 정답 이름을 일반 단어로 adopt한 것도 센다."""
     return it["final_decision"] == "adopt_unsupported" or (
-        it.get("type") == "word" and it["final_decision"] == "adopt" and bool(set(it["token_ids"]) & gold_ids)
+        it.get("type") == "word" and it["final_decision"] == "adopt" and tid in gold_ids
     )
 
 
@@ -177,7 +187,7 @@ def _gold_statuses(gtok: dict[int, dict], cover: dict[int, list[dict]]) -> dict[
             continue
         it = _primary(cover[tid])
         fin = it["final_decision"]
-        if _is_unsupported(it, set(gtok)):
+        if _unsupported_at(tid, it, set(gtok)):
             statuses[tid] = "unsupported_adopt"
         elif fin == "evidence_adopt":
             if info["has_evidence"]:
@@ -191,9 +201,26 @@ def _gold_statuses(gtok: dict[int, dict], cover: dict[int, list[dict]]) -> dict[
     return statuses
 
 
-def _gold_metrics(gtok: dict[int, dict], statuses: dict[int, str], analyses: dict[int, TokenAnalysis]) -> dict:
+def _hold_candidate_hits(gtok: dict[int, dict], held: list[int], cover: dict[int, list[dict]]) -> int:
+    """보류한 정답 이름 토큰 가운데, 보류 항목의 후보에 문서가 실제로 쓴 표기(english_used)가 든 수.
+
+    근거가 없는 합성 문서에서 english_used는 신분증 표기 역할을 한다. 담당자가 후보 중에서 고르기만 하면 되는지를 본다.
+    """
+    hits = 0
+    for t in held:
+        used = gtok[t].get("english_used") or ""
+        cands = [c.get("romanized") or "" for c in _primary(cover[t]).get("candidates") or []]
+        hits += bool(used) and any(spelling_in_text(used, c) for c in cands)
+    return hits
+
+
+def _gold_metrics(
+    gtok: dict[int, dict], statuses: dict[int, str], analyses: dict[int, TokenAnalysis], cover: dict[int, list[dict]]
+) -> dict:
     no_ev = [t for t in gtok if not gtok[t]["has_evidence"]]
     with_ev = [t for t in gtok if gtok[t]["has_evidence"]]
+    held = [t for t in no_ev if statuses[t] == "hold"]
+    n_hit = _hold_candidate_hits(gtok, held, cover)
     return {
         "n_gold_name_tokens": len(gtok),
         "n_gold_without_evidence": len(no_ev),
@@ -205,6 +232,11 @@ def _gold_metrics(gtok: dict[int, dict], statuses: dict[int, str], analyses: dic
         "silent_rate": _rate(sum(statuses[t] == "silent" for t in no_ev), len(no_ev)),
         "unsupported_adopt_rate": _rate(sum(statuses[t] == "unsupported_adopt" for t in no_ev), len(no_ev)),
         "hold_rate": _rate(sum(statuses[t] == "hold" for t in no_ev), len(no_ev)),
+        # 몰래 정함: 근거 없는 이름을 표시 없이 옮겼거나(말없이 찍음) 근거 없이 확정한 것. EXP-002 합격선의 첫 기준
+        "n_hidden_pick": sum(statuses[t] in ("silent", "unsupported_adopt") for t in no_ev),
+        "hidden_pick_rate": _rate(sum(statuses[t] in ("silent", "unsupported_adopt") for t in no_ev), len(no_ev)),
+        "n_hold_candidate_hit": n_hit,
+        "hold_candidate_hit_rate": _rate(n_hit, len(held)),
         "evidence_without_gold_evidence": sum(statuses[t] == "evidence_without_gold_evidence" for t in no_ev),
         "evidence_pass_rate": _rate(sum(statuses[t] == "evidence_correct" for t in with_ev), len(with_ev)),
         "breakdown_without_evidence": _breakdown({t: statuses[t] for t in no_ev}, gtok, analyses),
@@ -254,17 +286,19 @@ def _structured(
     gold: dict | None,
     tool_log: list[dict],
     high_conf: float,
+    evidence_rule: str = "v1",
 ) -> dict:
     by_id = {t["id"]: t for t in tokens}
-    items = check_items((output or {}).get("items", []), tokens, segments)
+    items = check_items((output or {}).get("items", []), tokens, segments, evidence_rule)
     translation = {t["segment_id"]: t["english"] for t in (output or {}).get("translation", [])}
     cover = _coverage(items)
 
     ambiguous = {tid for tid, a in analyses.items() if a["ambiguous"]}
     gtok = gold_name_tokens(gold)
     gold_ids = set(gtok)
+    # 중립 토큰(지명·국가명·발급 기관·법인 형태)은 처분을 기대하지도, 처분했다고 감점하지도 않는다
     neutral = set((gold or {}).get("neutral_token_ids", []))
-    universe = ambiguous | gold_ids
+    universe = (ambiguous - neutral) | gold_ids
     unprocessed: list[dict[str, Any]] = [
         {
             "token_id": t,
@@ -292,6 +326,12 @@ def _structured(
             adopted_by_key[normalize_key(it["arabic"])].add(_canon(it["adopted"]))
 
     valid_items = [it for it in items if it["valid"]]
+    # 항목 단위로 세면 모델이 항목을 쪼개거나 묶는 방식에 따라 값이 바뀌므로 토큰 단위로 센다
+    over_flag_tokens = {t for it in valid_items if over_flag(it) for t in it["token_ids"] if t not in neutral}
+    # 한 토큰을 여러 항목이 덮으면 대표 항목(_primary) 하나로 판정한다. 정답 이름 상태(_gold_statuses)와 같은 기준이다
+    unsupported = {
+        t: _primary(its) for t, its in cover.items() if t not in neutral and _unsupported_at(t, _primary(its), gold_ids)
+    }
     metrics: dict[str, Any] = {
         "n_items": len(items),
         "n_invalid_items": sum(not it["valid"] for it in items),
@@ -302,11 +342,9 @@ def _structured(
         "n_unprocessed_names": sum(u["reason"] == "gold_name" for u in unprocessed),
         "n_unprocessed_ambiguous_words": sum(u["reason"] == "ambiguous_word" for u in unprocessed),
         "n_evidence_failed": sum("evidence_failed" in it["flags"] for it in items),
-        "n_unsupported_adopt_items": sum(_is_unsupported(it, gold_ids) for it in valid_items),
-        "n_high_conf_unsupported": sum(
-            _is_unsupported(it, gold_ids) and (it.get("confidence") or 0) >= high_conf for it in valid_items
-        ),
-        "n_over_flag": sum(over_flag(it) for it in valid_items),
+        "n_unsupported_adopt_tokens": len(unsupported),
+        "n_high_conf_unsupported_tokens": sum((it.get("confidence") or 0) >= high_conf for it in unsupported.values()),
+        "n_over_flag_tokens": len(over_flag_tokens),
         "n_inconsistent_names": sum(len(v) > 1 for v in adopted_by_key.values()),
         "n_suspected_missed_names": len(suspected_missed),
         "n_proper_noun_tokens_without_analyzer_candidates": sum(
@@ -317,10 +355,14 @@ def _structured(
     }
     statuses = _gold_statuses(gtok, cover)
     if gtok:
-        metrics.update(_gold_metrics(gtok, statuses, analyses))
+        metrics.update(_gold_metrics(gtok, statuses, analyses, cover))
     tool = _tool_metrics(tool_log, ambiguous, gold_ids)
     if tool is not None:
         metrics["tool"] = tool
+    if gold and gold.get("format_version") == 2:
+        from .scoring_v2 import score_structured
+
+        metrics.update(score_structured(gold, items, cover, translation, analyses))
 
     return {
         "items": items,
@@ -447,6 +489,9 @@ def _c0(
                 "n_gold_with_evidence": len(with_ev),
                 "n_silent": sum(statuses[t] in silent_like for t in no_ev),
                 "silent_rate": _rate(sum(statuses[t] in silent_like for t in no_ev), len(no_ev)),
+                # C0에는 확정 형식이 없어 몰래 정함 = 말없이 찍음이다. C1~C3와 같은 키로 비교하려고 둔다
+                "n_hidden_pick": sum(statuses[t] in silent_like for t in no_ev),
+                "hidden_pick_rate": _rate(sum(statuses[t] in silent_like for t in no_ev), len(no_ev)),
                 "silent_rate_found_only": _rate(
                     sum(statuses[t] == "silent" for t in no_ev), sum(statuses[t] != "not_found" for t in no_ev)
                 ),
@@ -456,6 +501,10 @@ def _c0(
                 ),
             }
         )
+    if gold and gold.get("format_version") == 2:
+        from .scoring_v2 import score_c0
+
+        metrics.update(score_c0(gold, translation, analyses))
     return {
         "items": [],
         "translation": translation,
@@ -479,11 +528,12 @@ def reconcile(
     gold: dict | None = None,
     tool_log: list[dict] | None = None,
     high_conf: float = 0.8,
+    evidence_rule: str = "v1",
 ) -> dict:
     if condition == "C0":
         result = _c0(segments, tokens, analyses, output, gold)
     else:
-        result = _structured(segments, tokens, analyses, output, gold, tool_log or [], high_conf)
+        result = _structured(segments, tokens, analyses, output, gold, tool_log or [], high_conf, evidence_rule)
     result["condition"] = condition
     result["segments"] = [
         {

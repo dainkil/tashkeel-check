@@ -1,0 +1,735 @@
+{
+ "doc_id": "heval_049",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 15/11/2026 حضر أمام الكاتب العدل السيدة سارة محمد علي الحماد، عمانية الجنسية، وتحمل جواز سفر رقم C1083760."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Sara Mohammed Ali Al Hammad, Passport No. C1083760"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفتها مديرة لشركة الحمد للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 775919، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Hamad General Trading L.L.C., Registration No. 775919"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقررت أنها وكّلت السيدة هند عطية سالم الحمد، كويتية الجنسية، وتحمل بطاقة هوية رقم 53992573."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: سارة الحماد"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: هند الحمد"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B4",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 49,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     51,
+     71
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "arabic_full": "سارة محمد علي الحماد",
+    "english_full": "Sara Mohammed Ali Al Hammad",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Sara Mohammed Ali Al Hammad"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "سارة",
+      "position": "given",
+      "english_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "raw_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "english_used": "Sara",
+      "expected": "adopt",
+      "expected_spelling": "Sara",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali"
+      ],
+      "raw_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali",
+      "expected": "adopt",
+      "expected_spelling": "Ali",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 14,
+      "token_ids": [
+       14
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الحماد",
+      "position": "family",
+      "english_variants": [
+       "Al Hamad",
+       "Al Hammad",
+       "Al Hamaad"
+      ],
+      "raw_variants": [
+       "Al Hammad",
+       "Al Hamaad",
+       "al Hamad",
+       "Al Hamad"
+      ],
+      "english_used": "Al Hammad",
+      "expected": "adopt",
+      "expected_spelling": "Al Hammad",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     29
+    ],
+    "token_ids": [
+     37
+    ],
+    "arabic_full": "الحمد",
+    "english_full": "Al Hamad",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Hamad"
+    },
+    "tokens": [
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Hamad",
+       "Al Hamed"
+      ],
+      "raw_variants": [
+       "Al Hamad",
+       "Al Hamed",
+       "Al Hamd",
+       "al Hamad"
+      ],
+      "english_used": "Al Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Al Hamad",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Hamad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     24,
+     43
+    ],
+    "token_ids": [
+     68,
+     69,
+     70,
+     71
+    ],
+    "arabic_full": "هند عطية سالم الحمد",
+    "english_full": "Hind Attia Salem Al Hamad",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "هند",
+      "position": "given",
+      "english_variants": [
+       "Hind",
+       "Hend"
+      ],
+      "raw_variants": [
+       "Hind",
+       "Hend"
+      ],
+      "english_used": "Hind",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "عطية",
+      "position": "middle",
+      "english_variants": [
+       "Attia",
+       "Attiyah",
+       "Ateyyah",
+       "Atiah",
+       "Atiyah",
+       "Atiyyah",
+       "Attiya"
+      ],
+      "raw_variants": [
+       "Attia",
+       "Attiyah",
+       "Attiya",
+       "Atiah",
+       "Atiyah",
+       "Atiyyah",
+       "Ateyyah"
+      ],
+      "english_used": "Attia",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 70,
+      "token_ids": [
+       70
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "سالم",
+      "position": "middle",
+      "english_variants": [
+       "Salem",
+       "Salim"
+      ],
+      "raw_variants": [
+       "Salem",
+       "Salim",
+       "Salen"
+      ],
+      "english_used": "Salem",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Hamad",
+       "Al Hamed"
+      ],
+      "raw_variants": [
+       "Al Hamad",
+       "Al Hamed",
+       "Al Hamd",
+       "al Hamad"
+      ],
+      "english_used": "Al Hamad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1",
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s09",
+    "span": [
+     9,
+     20
+    ],
+    "token_ids": [
+     103,
+     104
+    ],
+    "arabic_full": "سارة الحماد",
+    "english_full": "Sara Al Hammad",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Sara Mohammed Ali Al Hammad"
+    },
+    "tokens": [
+     {
+      "token_id": 103,
+      "token_ids": [
+       103
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "سارة",
+      "position": "given",
+      "english_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "raw_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "english_used": "Sara",
+      "expected": "adopt",
+      "expected_spelling": "Sara",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الحماد",
+      "position": "family",
+      "english_variants": [
+       "Al Hamad",
+       "Al Hammad",
+       "Al Hamaad"
+      ],
+      "raw_variants": [
+       "Al Hammad",
+       "Al Hamaad",
+       "al Hamad",
+       "Al Hamad"
+      ],
+      "english_used": "Al Hammad",
+      "expected": "adopt",
+      "expected_spelling": "Al Hammad",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Sara Mohammed Ali Al Hammad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     9,
+     18
+    ],
+    "token_ids": [
+     106,
+     107
+    ],
+    "arabic_full": "هند الحمد",
+    "english_full": "Hind Al Hamad",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 106,
+      "token_ids": [
+       106
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "هند",
+      "position": "given",
+      "english_variants": [
+       "Hind",
+       "Hend"
+      ],
+      "raw_variants": [
+       "Hind",
+       "Hend"
+      ],
+      "english_used": "Hind",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 107,
+      "token_ids": [
+       107
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الحمد",
+      "position": "family",
+      "english_variants": [
+       "Al Hamad",
+       "Al Hamed"
+      ],
+      "raw_variants": [
+       "Al Hamad",
+       "Al Hamed",
+       "Al Hamd",
+       "al Hamad"
+      ],
+      "english_used": "Al Hamad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سارة",
+      "spelling": "Sara"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "grandfather": {
+      "arabic": "علي",
+      "spelling": "Ali"
+     },
+     "family": {
+      "arabic": "الحماد",
+      "spelling": "Al Hammad"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Sara Mohammed Ali Al Hammad",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Sara",
+       "father": "Mohammed",
+       "grandfather": "Ali",
+       "family": "Al Hammad"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "هند",
+      "spelling": "Hind"
+     },
+     "father": {
+      "arabic": "عطية",
+      "spelling": "Attia"
+     },
+     "grandfather": {
+      "arabic": "سالم",
+      "spelling": "Salem"
+     },
+     "family": {
+      "arabic": "الحمد",
+      "spelling": "Al Hamad"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الحمد",
+      "spelling": "Al Hamad"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Hamad",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Hamad"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Hamad",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   40,
+   41,
+   42,
+   45,
+   46,
+   47,
+   51,
+   52,
+   53,
+   54
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 96,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   96
+  ]
+ },
+ "case_types": [
+  "A3",
+  "C1",
+  "C2"
+ ]
+}

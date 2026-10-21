@@ -3,7 +3,12 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "company",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -15,27 +20,36 @@
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيد علي بن حسين الماس، عماني الجنسية، ويحمل جواز سفر رقم C7571007، يعمل لديها بوظيفة محاسب منذ 12/03/2026."
+   "text": "Company: Al Habsi General Trading L.L.C., Registration No. 656036"
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "بأن السيد علي بن حسين الماس، عماني الجنسية، ويحمل جواز سفر رقم C7571007، يعمل لديها بوظيفة محاسب منذ 12/03/2026."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: أحمد بن إبراهيم القوس"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "المفوض بالتوقيع: أحمد بن إبراهيم القوس"
   },
   {
    "segment_id": "s07",
+   "text": "Authorized signatory: Ahmed bin Ibrahim Al Goos"
+  },
+  {
+   "segment_id": "s08",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s09",
    "text": "التاريخ: 24/10/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 6,
@@ -75,27 +89,30 @@
       "english_used": "Al Habsi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Habsi General Trading"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
      10,
      27
     ],
     "token_ids": [
-     23,
-     24,
-     25,
-     26
+     32,
+     33,
+     34,
+     35
     ],
     "arabic_full": "علي بن حسين الماس",
     "english_full": "Ali Bin hussein Al Mas",
     "tokens": [
      {
-      "token_id": 23,
+      "token_id": 32,
       "arabic": "علي",
       "position": "given",
       "english_variants": [
@@ -111,7 +128,7 @@
       "english_used": "Ali"
      },
      {
-      "token_id": 25,
+      "token_id": 34,
       "arabic": "حسين",
       "position": "middle",
       "english_variants": [
@@ -130,7 +147,7 @@
       "english_used": "hussein"
      },
      {
-      "token_id": 26,
+      "token_id": 35,
       "arabic": "الماس",
       "position": "family",
       "english_variants": [
@@ -144,22 +161,22 @@
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s06",
     "span": [
      17,
      38
     ],
     "token_ids": [
-     55,
-     56,
-     57,
-     58
+     64,
+     65,
+     66,
+     67
     ],
     "arabic_full": "أحمد بن إبراهيم القوس",
     "english_full": "Ahmed bin Ibrahim Al Goos",
     "tokens": [
      {
-      "token_id": 55,
+      "token_id": 64,
       "arabic": "أحمد",
       "position": "given",
       "english_variants": [
@@ -174,7 +191,7 @@
       "english_used": "Ahmed"
      },
      {
-      "token_id": 57,
+      "token_id": 66,
       "arabic": "إبراهيم",
       "position": "middle",
       "english_variants": [
@@ -184,13 +201,12 @@
        "Ibrahmi",
        "Ibraheem",
        "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Al Ibrahim"
       ],
       "english_used": "Ibrahim"
      },
      {
-      "token_id": 58,
+      "token_id": 67,
       "arabic": "القوس",
       "position": "family",
       "english_variants": [
@@ -199,7 +215,10 @@
       "english_used": "Al Goos"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Ahmed bin Ibrahim Al Goos"
+    }
    }
   ],
   "neutral_token_ids": [

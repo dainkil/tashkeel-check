@@ -1,0 +1,55 @@
+{
+  "bundle_id": "eval_other_extraction_failed",
+  "customer_id": "customer_eval_a",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "other_eval_001": "other"
+  },
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "عقد خدمات بين الطرفين المذكورين أدناه."
+        },
+        {
+          "segment_id": "s02",
+          "text": "الاسم: ",
+          "entity_id": "other_eval_001",
+          "translated_name": "Abdullah Al Ibrahim Al Zahrani Project"
+        }
+      ]
+    },
+    {
+      "document_id": "evidence_001",
+      "document_type": "registry_extract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "الاسم: مشروع عبدالله إبراهيم الزهراني | Name: Abdullah Al Ibrahim Al Zahrani Project",
+          "entity_id": "other_eval_001"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "extraction_failed",
+    "entity_type": "other",
+    "requires_llm": false,
+    "review_items": [
+      {
+        "mention_id": "contract_001:s02:1",
+        "status": "pending",
+        "reason": "extraction_failed"
+      }
+    ],
+    "generator": "bundles-v1"
+  }
+}

@@ -3,7 +3,13 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "company",
+  "employee",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +17,44 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الشنقيطي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 476816، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الجابر للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 464009، وعنوانها الشارقة، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيد عمر فيحان الشمراني، بحريني الجنسية، ويحمل جواز سفر رقم G8089514، يعمل لديها بوظيفة مهندس منذ 24/08/2026."
+   "text": "Company: Al Jaber General Trading L.L.C., Registration No. 464009"
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "بأن السيدة زهرة بنت بندر البشري، إماراتية الجنسية، وتحمل جواز سفر رقم B9737305، تعمل لديها بوظيفة مهندسة منذ 07/10/2026."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: ماجد سلمان السليطين"
+   "text": "Employee: Zahrah bint Bander Al Bishri, Passport No. B9737305"
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s07",
-   "text": "التاريخ: 04/10/2026"
+   "text": "المفوضة بالتوقيع: فدوى حمزة الصفار"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Fedwa Hamza Al Saffar"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s10",
+   "text": "التاريخ: 26/02/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 6,
@@ -57,133 +76,135 @@
     "segment_id": "s02",
     "span": [
      9,
-     17
+     15
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "الشنقيطي",
-    "english_full": "Shenqeeti",
+    "arabic_full": "الجابر",
+    "english_full": "Al Jaber",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الشنقيطي",
+      "arabic": "الجابر",
       "position": "family",
       "english_variants": [
-       "Al Shanqiti",
-       "Al Shanqeeti",
-       "Shenqeeti",
-       "Shengeeti",
-       "Al Shengeeti",
-       "Al Shangeati",
-       "Al Shankiti",
-       "Shanqeeti"
+       "Al Jaber",
+       "Jaber",
+       "al Jaber"
       ],
-      "english_used": "Shenqeeti"
+      "english_used": "Al Jaber"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Jaber General Trading"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
-     10,
-     28
+     11,
+     31
     ],
     "token_ids": [
-     23,
-     24,
-     25
+     32,
+     33,
+     34,
+     35
     ],
-    "arabic_full": "عمر فيحان الشمراني",
-    "english_full": "Omar Fayhan Al Shamrani",
+    "arabic_full": "زهرة بنت بندر البشري",
+    "english_full": "Zahrah bint Bander Al Bishri",
     "tokens": [
      {
-      "token_id": 23,
-      "arabic": "عمر",
+      "token_id": 32,
+      "arabic": "زهرة",
       "position": "given",
       "english_variants": [
-       "Omar",
-       "Omer",
-       "Umar",
-       "Amr",
-       "Ismaeel",
-       "Umer"
+       "Zahra",
+       "Zahrah"
       ],
-      "english_used": "Omar"
+      "english_used": "Zahrah"
      },
      {
-      "token_id": 24,
-      "arabic": "فيحان",
+      "token_id": 34,
+      "arabic": "بندر",
       "position": "middle",
       "english_variants": [
-       "Fayhan"
+       "Bandar",
+       "Bander"
       ],
-      "english_used": "Fayhan"
+      "english_used": "Bander"
      },
      {
-      "token_id": 25,
-      "arabic": "الشمراني",
+      "token_id": 35,
+      "arabic": "البشري",
       "position": "family",
       "english_variants": [
-       "Al Shamrani"
+       "Al Bishri",
+       "Al Bashri"
       ],
-      "english_used": "Al Shamrani"
+      "english_used": "Al Bishri"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Zahrah bint Bander Al Bishri"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s07",
     "span": [
-     17,
-     36
+     18,
+     34
     ],
     "token_ids": [
-     54,
-     55,
-     56
+     74,
+     75,
+     76
     ],
-    "arabic_full": "ماجد سلمان السليطين",
-    "english_full": "Majed Salman Al Sulaitin",
+    "arabic_full": "فدوى حمزة الصفار",
+    "english_full": "Fedwa Hamza Al Saffar",
     "tokens": [
      {
-      "token_id": 54,
-      "arabic": "ماجد",
+      "token_id": 74,
+      "arabic": "فدوى",
       "position": "given",
       "english_variants": [
-       "Majed",
-       "Majid",
-       "Magid",
-       "Madjid"
+       "Fadwa",
+       "Fedwa"
       ],
-      "english_used": "Majed"
+      "english_used": "Fedwa"
      },
      {
-      "token_id": 55,
-      "arabic": "سلمان",
+      "token_id": 75,
+      "arabic": "حمزة",
       "position": "middle",
       "english_variants": [
-       "Salman",
-       "Selman"
+       "Hamza",
+       "Hamzah"
       ],
-      "english_used": "Salman"
+      "english_used": "Hamza"
      },
      {
-      "token_id": 56,
-      "arabic": "السليطين",
+      "token_id": 76,
+      "arabic": "الصفار",
       "position": "family",
       "english_variants": [
-       "Al Sulaitin"
+       "Al Saffar",
+       "al Saffar"
       ],
-      "english_used": "Al Sulaitin"
+      "english_used": "Al Saffar"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Fedwa Hamza Al Saffar"
+    }
    }
   ],
   "neutral_token_ids": [

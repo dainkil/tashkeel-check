@@ -1,0 +1,623 @@
+{
+ "doc_id": "heval_053",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 01/01/2026 حضر أمام الكاتب العدل السيدة ريم سالم السديري، بحرينية الجنسية، وتحمل جواز سفر رقم W9673670."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Reem Al Sudairy, Passport No. W9673670"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفتها مديرة لشركة العزيزي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 281702، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Azizi General Trading L.L.C., Registration No. 281702"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقررت أنها وكّلت السيدة نورا بنت زياد العزيزي، سعودية الجنسية، وتحمل بطاقة هوية رقم 30202201."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكلة: ريم السديري"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيلة: نورا العزيزي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B4",
+  "B6",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 53,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     51,
+     67
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "ريم سالم السديري",
+    "english_full": "Reem Salem Al Sudairy",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Reem Al Sudairy"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "ريم",
+      "position": "given",
+      "english_variants": [
+       "Reem",
+       "Rim"
+      ],
+      "raw_variants": [
+       "Reem",
+       "Rim"
+      ],
+      "english_used": "Reem",
+      "expected": "adopt",
+      "expected_spelling": "Reem",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Reem Al Sudairy"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "سالم",
+      "position": "middle",
+      "english_variants": [
+       "Salem",
+       "Salim"
+      ],
+      "raw_variants": [
+       "Salem",
+       "Salim",
+       "Salen"
+      ],
+      "english_used": "Salem",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "السديري",
+      "position": "family",
+      "english_variants": [
+       "Al Sudairi",
+       "Al Sudairy"
+      ],
+      "raw_variants": [
+       "Al Sudairy",
+       "Al Sudairi",
+       "al Sudairi",
+       "Al Sedairy"
+      ],
+      "english_used": "Al Sudairy",
+      "expected": "adopt",
+      "expected_spelling": "Al Sudairy",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Reem Al Sudairy"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     34
+    ],
+    "arabic_full": "العزيزي",
+    "english_full": "Al Azizi",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Azizi"
+    },
+    "tokens": [
+     {
+      "token_id": 34,
+      "token_ids": [
+       34
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العزيزي",
+      "position": "family",
+      "english_variants": [
+       "Al Azizi"
+      ],
+      "raw_variants": [
+       "Al Azizi",
+       "Al Ozaizi"
+      ],
+      "english_used": "Al Azizi",
+      "expected": "adopt",
+      "expected_spelling": "Al Azizi",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Azizi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     24,
+     45
+    ],
+    "token_ids": [
+     65,
+     66,
+     67,
+     68
+    ],
+    "arabic_full": "نورا بنت زياد العزيزي",
+    "english_full": "Noura Ziyad Al Azizi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 65,
+      "token_ids": [
+       65
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "نورا",
+      "position": "given",
+      "english_variants": [
+       "Nora",
+       "Noura"
+      ],
+      "raw_variants": [
+       "Nora",
+       "Noura"
+      ],
+      "english_used": "Noura",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 67,
+      "token_ids": [
+       67
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "زياد",
+      "position": "middle",
+      "english_variants": [
+       "Ziyad",
+       "Zeyad",
+       "Ziad"
+      ],
+      "raw_variants": [
+       "Ziyad",
+       "Zeyad",
+       "Ziad"
+      ],
+      "english_used": "Ziyad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العزيزي",
+      "position": "family",
+      "english_variants": [
+       "Al Azizi"
+      ],
+      "raw_variants": [
+       "Al Azizi",
+       "Al Ozaizi"
+      ],
+      "english_used": "Al Azizi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s09",
+    "span": [
+     9,
+     20
+    ],
+    "token_ids": [
+     100,
+     101
+    ],
+    "arabic_full": "ريم السديري",
+    "english_full": "Reem Al Sudairy",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Reem Al Sudairy"
+    },
+    "tokens": [
+     {
+      "token_id": 100,
+      "token_ids": [
+       100
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "ريم",
+      "position": "given",
+      "english_variants": [
+       "Reem",
+       "Rim"
+      ],
+      "raw_variants": [
+       "Reem",
+       "Rim"
+      ],
+      "english_used": "Reem",
+      "expected": "adopt",
+      "expected_spelling": "Reem",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Reem Al Sudairy"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 101,
+      "token_ids": [
+       101
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "السديري",
+      "position": "family",
+      "english_variants": [
+       "Al Sudairi",
+       "Al Sudairy"
+      ],
+      "raw_variants": [
+       "Al Sudairy",
+       "Al Sudairi",
+       "al Sudairi",
+       "Al Sedairy"
+      ],
+      "english_used": "Al Sudairy",
+      "expected": "adopt",
+      "expected_spelling": "Al Sudairy",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Reem Al Sudairy"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     9,
+     21
+    ],
+    "token_ids": [
+     103,
+     104
+    ],
+    "arabic_full": "نورا العزيزي",
+    "english_full": "Noura Al Azizi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 103,
+      "token_ids": [
+       103
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "نورا",
+      "position": "given",
+      "english_variants": [
+       "Nora",
+       "Noura"
+      ],
+      "raw_variants": [
+       "Nora",
+       "Noura"
+      ],
+      "english_used": "Noura",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العزيزي",
+      "position": "family",
+      "english_variants": [
+       "Al Azizi"
+      ],
+      "raw_variants": [
+       "Al Azizi",
+       "Al Ozaizi"
+      ],
+      "english_used": "Al Azizi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "ريم",
+      "spelling": "Reem"
+     },
+     "father": {
+      "arabic": "سالم",
+      "spelling": "Salem"
+     },
+     "family": {
+      "arabic": "السديري",
+      "spelling": "Al Sudairy"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Reem Al Sudairy",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Reem",
+       "family": "Al Sudairy"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "نورا",
+      "spelling": "Noura"
+     },
+     "father": {
+      "arabic": "زياد",
+      "spelling": "Ziyad"
+     },
+     "family": {
+      "arabic": "العزيزي",
+      "spelling": "Al Azizi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العزيزي",
+      "spelling": "Al Azizi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Azizi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Azizi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Azizi",
+    "kind": "company",
+    "resembles": [
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   37,
+   38,
+   39,
+   42,
+   43,
+   44,
+   48,
+   49,
+   50,
+   51
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 93,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   93
+  ]
+ },
+ "case_types": [
+  "A3",
+  "B6",
+  "C2"
+ ]
+}

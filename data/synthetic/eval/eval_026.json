@@ -3,7 +3,13 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "all",
+ "evidence_roles": [
+  "company",
+  "employee",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -15,27 +21,40 @@
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيد منصور طارق السالم، كويتي الجنسية، ويحمل جواز سفر رقم G2464026، يعمل لديها بوظيفة مندوب مبيعات منذ 18/07/2026."
+   "text": "Company: Al Mousa General Trading L.L.C., Registration No. 119946"
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
+   "text": "بأن السيد منصور طارق السالم، كويتي الجنسية، ويحمل جواز سفر رقم G2464026، يعمل لديها بوظيفة مندوب مبيعات منذ 18/07/2026."
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: عيد سالم ناصر الحبسي"
+   "text": "Employee: Mansoor Tarek Al Salim, Passport No. G2464026"
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s07",
+   "text": "المفوض بالتوقيع: عيد سالم ناصر الحبسي"
+  },
+  {
+   "segment_id": "s08",
+   "text": "Authorized signatory: Eid Salem Nassir Al Habsi"
+  },
+  {
+   "segment_id": "s09",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s10",
    "text": "التاريخ: 10/01/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 26,
@@ -78,26 +97,29 @@
       "english_used": "Al Mousa"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Mousa General Trading"
+    }
    },
    {
     "occurrence_id": "n2",
     "role": "employee",
-    "segment_id": "s03",
+    "segment_id": "s04",
     "span": [
      10,
      27
     ],
     "token_ids": [
-     23,
-     24,
-     25
+     32,
+     33,
+     34
     ],
     "arabic_full": "منصور طارق السالم",
     "english_full": "Mansoor Tarek Al Salim",
     "tokens": [
      {
-      "token_id": 23,
+      "token_id": 32,
       "arabic": "منصور",
       "position": "given",
       "english_variants": [
@@ -110,7 +132,7 @@
       "english_used": "Mansoor"
      },
      {
-      "token_id": 24,
+      "token_id": 33,
       "arabic": "طارق",
       "position": "middle",
       "english_variants": [
@@ -123,7 +145,7 @@
       "english_used": "Tarek"
      },
      {
-      "token_id": 25,
+      "token_id": 34,
       "arabic": "السالم",
       "position": "family",
       "english_variants": [
@@ -134,27 +156,30 @@
       "english_used": "Al Salim"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Mansoor Tarek Al Salim"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s07",
     "span": [
      17,
      37
     ],
     "token_ids": [
-     55,
-     56,
-     57,
-     58
+     73,
+     74,
+     75,
+     76
     ],
     "arabic_full": "عيد سالم ناصر الحبسي",
     "english_full": "Eid Salem Nassir Al Habsi",
     "tokens": [
      {
-      "token_id": 55,
+      "token_id": 73,
       "arabic": "عيد",
       "position": "given",
       "english_variants": [
@@ -163,7 +188,7 @@
       "english_used": "Eid"
      },
      {
-      "token_id": 56,
+      "token_id": 74,
       "arabic": "سالم",
       "position": "middle",
       "english_variants": [
@@ -174,7 +199,7 @@
       "english_used": "Salem"
      },
      {
-      "token_id": 57,
+      "token_id": 75,
       "arabic": "ناصر",
       "position": "middle",
       "english_variants": [
@@ -191,7 +216,7 @@
       "english_used": "Nassir"
      },
      {
-      "token_id": 58,
+      "token_id": 76,
       "arabic": "الحبسي",
       "position": "family",
       "english_variants": [
@@ -200,7 +225,10 @@
       "english_used": "Al Habsi"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Eid Salem Nassir Al Habsi"
+    }
    }
   ],
   "neutral_token_ids": [

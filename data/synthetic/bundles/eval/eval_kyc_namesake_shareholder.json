@@ -1,0 +1,144 @@
+{
+  "bundle_id": "eval_kyc_namesake_shareholder",
+  "customer_id": "customer_eval_kyc",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "org_eval_005": "organization",
+    "person_eval_005_1": "person",
+    "person_eval_005_2": "person",
+    "person_eval_005_3": "person"
+  },
+  "documents": [
+    {
+      "document_id": "register_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الدريبي للتجارة",
+          "entity_id": "org_eval_005",
+          "translated_name": "al Daribi Trading Company"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم المالك: خلفان فيصل الدوسري",
+          "entity_id": "person_eval_005_1",
+          "translated_name": "Khalfan Faisel Al Dowsri"
+        },
+        {
+          "segment_id": "s04",
+          "text": "اسم المدير: نوال صالح البحراني",
+          "entity_id": "person_eval_005_2",
+          "translated_name": "Nawal Saleh Al Bahrani"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p1",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL DOWSRI | Given Names: KHALFAN FAISEL",
+          "entity_id": "person_eval_005_1"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<DOWSRI<<KHALFAN<FAISEL<<<<<<<<<<<<<<",
+          "entity_id": "person_eval_005_1"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000051<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "passport_p2",
+      "document_type": "passport",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "Surname: AL BAHRANI | Given Names: NAWAL SALEH",
+          "entity_id": "person_eval_005_2"
+        },
+        {
+          "segment_id": "s03",
+          "text": "P<SAUAL<BAHRANI<<NAWAL<SALEH<<<<<<<<<<<<<<<<",
+          "entity_id": "person_eval_005_2"
+        },
+        {
+          "segment_id": "s04",
+          "text": "A0000052<0SAU9001015F3501015<<<<<<<<<<<<<<<<"
+        }
+      ]
+    },
+    {
+      "document_id": "aoa_001",
+      "document_type": "articles_of_association",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الدريبي للتجارة | Company Name: al Daribi Trading Company",
+          "entity_id": "org_eval_005"
+        },
+        {
+          "segment_id": "s03",
+          "text": "اسم الشريك: خلفان فيصل الدوسري | Shareholder: Khalfan Faisel El Dowsri",
+          "entity_id": "person_eval_005_3"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "namesake_shareholder",
+    "entity_types": {
+      "org_eval_005": "organization",
+      "person_eval_005_1": "person",
+      "person_eval_005_2": "person",
+      "person_eval_005_3": "person"
+    },
+    "requires_llm": false,
+    "base_doc": "eval_005",
+    "review_items": [
+      {
+        "mention_id": "register_001:s02:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s03:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      },
+      {
+        "mention_id": "register_001:s04:1",
+        "status": "confirmed",
+        "reason": "evidence_match"
+      }
+    ],
+    "must_not_link": {
+      "document_id": "aoa_001",
+      "segment_id": "s03",
+      "english": "Khalfan Faisel El Dowsri"
+    },
+    "generator": "bundles-kyc-v1"
+  }
+}

@@ -3,7 +3,11 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "employee"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +15,36 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة العزما للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 548929، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة الأكرف للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 548929، وعنوانها أبوظبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة علياء بنت عيضة الهاشمي، بحرينية الجنسية، وتحمل جواز سفر رقم W5886442، تعمل لديها بوظيفة مهندسة منذ 28/03/2026."
+   "text": "بأن السيد ناصر كريم العبيدلي، عماني الجنسية، ويحمل جواز سفر رقم L5886442، يعمل لديها بوظيفة مندوب مبيعات منذ 28/03/2026."
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+   "text": "Employee: Nasser Karim Al Obaidly, Passport No. L5886442"
   },
   {
    "segment_id": "s05",
-   "text": "المفوض بالتوقيع: سليمان بن نايف السبتي"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبه دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مدير"
+   "text": "المفوضة بالتوقيع: زهرة راضي عيسى المياد"
   },
   {
    "segment_id": "s07",
+   "text": "الصفة: مديرة"
+  },
+  {
+   "segment_id": "s08",
    "text": "التاريخ: 24/04/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 20,
@@ -62,17 +71,17 @@
     "token_ids": [
      3
     ],
-    "arabic_full": "العزما",
-    "english_full": "Al Azma",
+    "arabic_full": "الأكرف",
+    "english_full": "Al akraf",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "العزما",
+      "arabic": "الأكرف",
       "position": "family",
       "english_variants": [
-       "Al Azma"
+       "Al akraf"
       ],
-      "english_used": "Al Azma"
+      "english_used": "Al akraf"
      }
     ],
     "evidence": null
@@ -82,108 +91,119 @@
     "role": "employee",
     "segment_id": "s03",
     "span": [
-     11,
-     33
+     10,
+     28
     ],
     "token_ids": [
      23,
      24,
-     25,
-     26
+     25
     ],
-    "arabic_full": "علياء بنت عيضة الهاشمي",
-    "english_full": "Alia Bint Aida Al Hashimi",
+    "arabic_full": "ناصر كريم العبيدلي",
+    "english_full": "Nasser Karim Al Obaidly",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "علياء",
+      "arabic": "ناصر",
       "position": "given",
       "english_variants": [
-       "Alia",
-       "Alyaa",
-       "Alya"
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
       ],
-      "english_used": "Alia"
+      "english_used": "Nasser"
+     },
+     {
+      "token_id": 24,
+      "arabic": "كريم",
+      "position": "middle",
+      "english_variants": [
+       "Karim"
+      ],
+      "english_used": "Karim"
      },
      {
       "token_id": 25,
-      "arabic": "عيضة",
-      "position": "middle",
-      "english_variants": [
-       "Eida",
-       "Aida"
-      ],
-      "english_used": "Aida"
-     },
-     {
-      "token_id": 26,
-      "arabic": "الهاشمي",
+      "arabic": "العبيدلي",
       "position": "family",
       "english_variants": [
-       "Al Hashemi",
-       "Al Hashimi",
-       "Al Hashmi",
-       "Al Hashimy",
-       "al Hashimi",
-       "al Hashemi",
-       "Hashimi"
+       "Al Obaidly",
+       "Al Obaidli"
       ],
-      "english_used": "Al Hashimi"
+      "english_used": "Al Obaidly"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s04",
+     "quote": "Nasser Karim Al Obaidly"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s06",
     "span": [
-     17,
-     38
+     18,
+     39
     ],
     "token_ids": [
-     55,
-     56,
-     57,
-     58
+     64,
+     65,
+     66,
+     67
     ],
-    "arabic_full": "سليمان بن نايف السبتي",
-    "english_full": "Suliman bin Nayef Al Sabti",
+    "arabic_full": "زهرة راضي عيسى المياد",
+    "english_full": "Zahra Radhi Essa Al Mayyad",
     "tokens": [
      {
-      "token_id": 55,
-      "arabic": "سليمان",
+      "token_id": 64,
+      "arabic": "زهرة",
       "position": "given",
       "english_variants": [
-       "Sulaiman",
-       "Suleiman",
-       "Sulayman",
-       "Suliman",
-       "Soulaiman",
-       "Sulaymanjaydh"
+       "Zahra",
+       "Zahrah"
       ],
-      "english_used": "Suliman"
+      "english_used": "Zahra"
      },
      {
-      "token_id": 57,
-      "arabic": "نايف",
+      "token_id": 65,
+      "arabic": "راضي",
       "position": "middle",
       "english_variants": [
-       "Nayef",
-       "Naif",
-       "Nayif"
+       "Radhi",
+       "Radhy"
       ],
-      "english_used": "Nayef"
+      "english_used": "Radhi"
      },
      {
-      "token_id": 58,
-      "arabic": "السبتي",
+      "token_id": 66,
+      "arabic": "عيسى",
+      "position": "middle",
+      "english_variants": [
+       "Essa",
+       "Eisa",
+       "Issa",
+       "Isa",
+       "Eissa",
+       "Esa",
+       "Eesa"
+      ],
+      "english_used": "Essa"
+     },
+     {
+      "token_id": 67,
+      "arabic": "المياد",
       "position": "family",
       "english_variants": [
-       "al Sabti",
-       "Al Sabti"
+       "Al Mayyad"
       ],
-      "english_used": "Al Sabti"
+      "english_used": "Al Mayyad"
      }
     ],
     "evidence": null

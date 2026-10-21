@@ -3,7 +3,12 @@
  "synthetic": true,
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "company_letter",
- "bilingual": false,
+ "bilingual": true,
+ "evidence_layout": "mixed",
+ "evidence_roles": [
+  "employee",
+  "signatory"
+ ],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,31 +16,40 @@
   },
   {
    "segment_id": "s02",
-   "text": "تقر شركة الوحداني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 825024، وعنوانها دبي، الإمارات العربية المتحدة،"
+   "text": "تقر شركة المهندس للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 237803، وعنوانها دبي، الإمارات العربية المتحدة،"
   },
   {
    "segment_id": "s03",
-   "text": "بأن السيدة سمية حمد القصبي، بحرينية الجنسية، وتحمل جواز سفر رقم F4235914، تعمل لديها بوظيفة مندوبة مبيعات منذ 05/04/2026."
+   "text": "بأن السيدة سارة عبيد أحمد الطريفي، بحرينية الجنسية، وتحمل جواز سفر رقم B2214986، تعمل لديها بوظيفة مندوبة مبيعات منذ 04/05/2026."
   },
   {
    "segment_id": "s04",
-   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
+   "text": "Employee: Sarah Obaid Ahmad al Tarefe, Passport No. B2214986"
   },
   {
    "segment_id": "s05",
-   "text": "المفوضة بالتوقيع: شما بنت علي الذيابي"
+   "text": "وقد أعطي هذا الإقرار بناءً على طلبها دون أدنى مسؤولية على الشركة."
   },
   {
    "segment_id": "s06",
-   "text": "الصفة: مديرة"
+   "text": "المفوض بالتوقيع: ماجد بن خالد الدلهمي"
   },
   {
    "segment_id": "s07",
-   "text": "التاريخ: 17/05/2026"
+   "text": "Authorized signatory: Majid bin Khalid Al Dalhami"
+  },
+  {
+   "segment_id": "s08",
+   "text": "الصفة: مدير"
+  },
+  {
+   "segment_id": "s09",
+   "text": "التاريخ: 06/04/2026"
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 1001,
   "split": "dev",
   "index": 10,
@@ -57,22 +71,25 @@
     "segment_id": "s02",
     "span": [
      9,
-     17
+     16
     ],
     "token_ids": [
      3
     ],
-    "arabic_full": "الوحداني",
-    "english_full": "Al Wahdani",
+    "arabic_full": "المهندس",
+    "english_full": "Al Mohandis",
     "tokens": [
      {
       "token_id": 3,
-      "arabic": "الوحداني",
+      "arabic": "المهندس",
       "position": "family",
       "english_variants": [
-       "Al Wahdani"
+       "Al Muhandes",
+       "Al Mohandis",
+       "Al Mohandes",
+       "El Mohandes"
       ],
-      "english_used": "Al Wahdani"
+      "english_used": "Al Mohandis"
      }
     ],
     "evidence": null
@@ -83,107 +100,129 @@
     "segment_id": "s03",
     "span": [
      11,
-     26
+     33
     ],
     "token_ids": [
      23,
      24,
-     25
+     25,
+     26
     ],
-    "arabic_full": "سمية حمد القصبي",
-    "english_full": "Somayya Hamad Al Qasabi",
+    "arabic_full": "سارة عبيد أحمد الطريفي",
+    "english_full": "Sarah Obaid Ahmad al Tarefe",
     "tokens": [
      {
       "token_id": 23,
-      "arabic": "سمية",
+      "arabic": "سارة",
       "position": "given",
       "english_variants": [
-       "Somaya",
-       "Sumayyah",
-       "Somayya",
-       "Sumaya"
+       "Sarah",
+       "Sara"
       ],
-      "english_used": "Somayya"
+      "english_used": "Sarah"
      },
      {
       "token_id": 24,
-      "arabic": "حمد",
+      "arabic": "عبيد",
       "position": "middle",
       "english_variants": [
-       "Hamad",
-       "Hamed"
+       "Obaid",
+       "Obeid",
+       "Ubayd",
+       "Amer",
+       "Abid",
+       "Obied",
+       "Abdulla",
+       "Ubaid"
       ],
-      "english_used": "Hamad"
+      "english_used": "Obaid"
      },
      {
       "token_id": 25,
-      "arabic": "القصبي",
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmad"
+     },
+     {
+      "token_id": 26,
+      "arabic": "الطريفي",
       "position": "family",
       "english_variants": [
-       "Al Qasabi",
-       "Al Kasabi",
-       "al Qasabi"
+       "al Tarefe",
+       "Al Toraifi",
+       "Al Traifi"
       ],
-      "english_used": "Al Qasabi"
+      "english_used": "al Tarefe"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s04",
+     "quote": "Sarah Obaid Ahmad al Tarefe"
+    }
    },
    {
     "occurrence_id": "n3",
     "role": "signatory",
-    "segment_id": "s05",
+    "segment_id": "s06",
     "span": [
-     18,
+     17,
      37
     ],
     "token_ids": [
-     55,
-     56,
-     57,
-     58
+     66,
+     67,
+     68,
+     69
     ],
-    "arabic_full": "شما بنت علي الذيابي",
-    "english_full": "Shamma bint Ali Al Thiabi",
+    "arabic_full": "ماجد بن خالد الدلهمي",
+    "english_full": "Majid bin Khalid Al Dalhami",
     "tokens": [
      {
-      "token_id": 55,
-      "arabic": "شما",
+      "token_id": 66,
+      "arabic": "ماجد",
       "position": "given",
       "english_variants": [
-       "Shamma",
-       "Shammah"
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
       ],
-      "english_used": "Shamma"
+      "english_used": "Majid"
      },
      {
-      "token_id": 57,
-      "arabic": "علي",
+      "token_id": 68,
+      "arabic": "خالد",
       "position": "middle",
       "english_variants": [
-       "Ali",
-       "Ahmed",
-       "Alireza",
-       "Amro",
-       "Alamin",
-       "Alamine",
-       "al Amin",
-       "Aly"
+       "Khalid",
+       "Khaled",
+       "Halid"
       ],
-      "english_used": "Ali"
+      "english_used": "Khalid"
      },
      {
-      "token_id": 58,
-      "arabic": "الذيابي",
+      "token_id": 69,
+      "arabic": "الدلهمي",
       "position": "family",
       "english_variants": [
-       "Al Dhiyabi",
-       "Al Thiabi"
+       "Al Dalhami"
       ],
-      "english_used": "Al Thiabi"
+      "english_used": "Al Dalhami"
      }
     ],
-    "evidence": null
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Majid bin Khalid Al Dalhami"
+    }
    }
   ],
   "neutral_token_ids": [

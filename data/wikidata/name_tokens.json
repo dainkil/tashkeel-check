@@ -1,162 +1,13 @@
 {
  "source": "data/wikidata/gcc_persons.json",
  "retrieved_at": "2026-10-13T06:03:31+00:00",
- "align_version": "v0",
+ "align_version": "v1",
  "stats": {
-  "label_aligned": 5613,
-  "label_unaligned": 2065
+  "label_aligned": 5599,
+  "label_unaligned": 2079
  },
- "n_units": 3338,
+ "n_units": 3321,
  "tokens": {
-  "Afeaki": {
-   "arabic": "Afeaki",
-   "english_variants": {
-    "Afeaki": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Ant": {
-   "arabic": "Ant",
-   "english_variants": {
-    "Ant": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Azeezi": {
-   "arabic": "Azeezi",
-   "english_variants": {
-    "Azeezi": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Frank": {
-   "arabic": "Frank",
-   "english_variants": {
-    "Frank": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Holland": {
-   "arabic": "Holland",
-   "english_variants": {
-    "Holland": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Jafar": {
-   "arabic": "Jafar",
-   "english_variants": {
-    "Jafar": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Khaleghian": {
-   "arabic": "Khaleghian",
-   "english_variants": {
-    "Khaleghian": 1,
-    "Manager": 1,
-    "Producer": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "female": 1
-   }
-  },
-  "Loren": {
-   "arabic": "Loren",
-   "english_variants": {
-    "Loren": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Martland": {
-   "arabic": "Martland",
-   "english_variants": {
-    "Martland": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Mohamed": {
-   "arabic": "Mohamed",
-   "english_variants": {
-    "Mohamed": 2
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Nas": {
-   "arabic": "Nas",
-   "english_variants": {
-    "Nas": 1,
-    "Naser": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "Tinoosh": {
-   "arabic": "Tinoosh",
-   "english_variants": {
-    "Tinoosh": 1,
-    "Dub": 1,
-    "Sound": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "female": 1
-   }
-  },
   "ابانمي": {
    "arabic": "أبانمي",
    "english_variants": {
@@ -231,8 +82,7 @@
     "Ibrahmi": 1,
     "Ibraheem": 1,
     "Ibraheam": 1,
-    "Al Ibrahim": 1,
-    "Abu Aws": 1
+    "Al Ibrahim": 1
    },
    "positions": {
     "given": 93,
@@ -334,18 +184,6 @@
    "arabic": "أبو الشامات",
    "english_variants": {
     "Aboulshamat": 2
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
-  "ابو العلا": {
-   "arabic": "أبو العلا",
-   "english_variants": {
-    "Essam": 1
    },
    "positions": {
     "family": 1
@@ -636,7 +474,7 @@
   "ابو عيسي": {
    "arabic": "أبو عيسى",
    "english_variants": {
-    "Abu Issa": 2
+    "Abu Issa": 1
    },
    "positions": {
     "family": 1
@@ -1809,16 +1647,16 @@
   "ال سعود": {
    "arabic": "آل سعود",
    "english_variants": {
-    "Al Saud": 161,
+    "Al Saud": 160,
     "al Saud": 5,
     "al saud": 1
    },
    "positions": {
-    "family": 105
+    "family": 104
    },
    "genders": {
     "female": 28,
-    "male": 77
+    "male": 76
    }
   },
   "ال سعيد": {
@@ -10172,7 +10010,7 @@
   "الشمسان": {
    "arabic": "الشمسان",
    "english_variants": {
-    "Al Shamsan": 3
+    "Al Shamsan": 2
    },
    "positions": {
     "family": 2
@@ -16640,14 +16478,13 @@
   "المشعان": {
    "arabic": "المشعان",
    "english_variants": {
-    "Mashaan": 1,
     "al Masha'an": 1
    },
    "positions": {
-    "family": 2
+    "family": 1
    },
    "genders": {
-    "male": 2
+    "male": 1
    }
   },
   "المشعل": {
@@ -21657,18 +21494,6 @@
     "male": 1
    }
   },
-  "بهارات": {
-   "arabic": "بهارات",
-   "english_variants": {
-    "Bharath": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
   "بهباني": {
    "arabic": "بهباني",
    "english_variants": {
@@ -26222,18 +26047,6 @@
     "female": 2
    }
   },
-  "ذاكر": {
-   "arabic": "ذاكر",
-   "english_variants": {
-    "Zakir": 1
-   },
-   "positions": {
-    "given": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
   "ذكري": {
    "arabic": "ذكري",
    "english_variants": {
@@ -27727,7 +27540,7 @@
    "arabic": "زياد",
    "english_variants": {
     "Ziyad": 5,
-    "Zeyad": 3,
+    "Zeyad": 2,
     "Ziad": 1
    },
    "positions": {
@@ -27891,7 +27704,7 @@
   "ساره": {
    "arabic": "سارة",
    "english_variants": {
-    "Sarah": 20,
+    "Sarah": 19,
     "Sara": 18
    },
    "positions": {
@@ -28313,7 +28126,6 @@
    "english_variants": {
     "Seraj": 2,
     "Serag": 1,
-    "Surag": 1,
     "Siraj": 1
    },
    "positions": {
@@ -28645,17 +28457,17 @@
   "سلطان": {
    "arabic": "سلطان",
    "english_variants": {
-    "Sultan": 124,
+    "Sultan": 123,
     "Al Sharji": 3,
     "Sultsn": 1
    },
    "positions": {
     "middle": 25,
     "family": 10,
-    "given": 58
+    "given": 57
    },
    "genders": {
-    "male": 84,
+    "male": 83,
     "female": 9
    }
   },
@@ -31836,7 +31648,6 @@
     "Abdulrazak": 2,
     "Abdurisag": 2,
     "Abdul Razzak": 1,
-    "Alkhudhur": 1,
     "Abdulrazaq": 1
    },
    "positions": {
@@ -31879,8 +31690,7 @@
    "arabic": "عبد الرضا",
    "english_variants": {
     "Abdulredha": 1,
-    "Abdulreda": 1,
-    "Asel": 1
+    "Abdulreda": 1
    },
    "positions": {
     "family": 1
@@ -31953,20 +31763,18 @@
     "Abdul Aziz": 43,
     "Abdelaziz": 6,
     "Abdel Aziz": 6,
-    "Aziz": 3,
     "Abd Elrahman": 1,
-    "Aldekmary": 1,
     "Abdullaziz": 1,
     "abdulaziz": 1,
     "Abd al": 1
    },
    "positions": {
-    "middle": 84,
-    "given": 94,
+    "middle": 83,
+    "given": 93,
     "family": 9
    },
    "genders": {
-    "male": 170,
+    "male": 168,
     "female": 16,
     "unknown": 1
    }
@@ -32022,7 +31830,6 @@
     "Abdel Fattah": 1,
     "Abdelfatah": 1,
     "Abdelfattah": 1,
-    "Ali": 1,
     "AbdelFattah": 1
    },
    "positions": {
@@ -32074,16 +31881,15 @@
     "Abdulkareem": 5,
     "Abdul Kareem": 2,
     "Abdelkarim": 2,
-    "Abdulakreem": 1,
-    "Al Abdulkareem": 1
+    "Abdulakreem": 1
    },
    "positions": {
     "given": 13,
-    "family": 7,
+    "family": 6,
     "middle": 1
    },
    "genders": {
-    "male": 19,
+    "male": 18,
     "female": 2
    }
   },
@@ -32108,25 +31914,22 @@
   "عبد الله": {
    "arabic": "عبد الله",
    "english_variants": {
-    "Abdullah": 398,
+    "Abdullah": 397,
     "Abdulla": 63,
     "Abdallah": 8,
     "Abd Allah": 3,
     "Abdalla": 2,
     "ABDULLA": 1,
-    "Abudlla": 1,
     "abdullah": 1,
-    "Al Ameri": 1,
-    "Abdulah": 1,
-    "Omar": 1
+    "Abdulah": 1
    },
    "positions": {
-    "given": 270,
-    "middle": 60,
-    "family": 38
+    "given": 269,
+    "middle": 59,
+    "family": 37
    },
    "genders": {
-    "male": 346,
+    "male": 343,
     "female": 21,
     "unknown": 1
    }
@@ -33394,7 +33197,7 @@
   "علي": {
    "arabic": "علي",
    "english_variants": {
-    "Ali": 335,
+    "Ali": 334,
     "Ahmed": 1,
     "Alireza": 1,
     "Amro": 1,
@@ -33513,7 +33316,6 @@
     "Omer": 3,
     "Umar": 3,
     "Amr": 2,
-    "Ismaeel": 1,
     "Umer": 1
    },
    "positions": {
@@ -33547,8 +33349,7 @@
   "عمرو": {
    "arabic": "عمرو",
    "english_variants": {
-    "Amr": 5,
-    "Amro": 1
+    "Amr": 5
    },
    "positions": {
     "family": 3,
@@ -33893,8 +33694,7 @@
     "Isa": 15,
     "Eissa": 4,
     "Esa": 1,
-    "Eesa": 1,
-    "Abdul Salam": 1
+    "Eesa": 1
    },
    "positions": {
     "given": 34,
@@ -36543,18 +36343,6 @@
     "male": 1
    }
   },
-  "لactiveش": {
-   "arabic": "لactiveش",
-   "english_variants": {
-    "Latheesh": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
   "لؤلؤه": {
    "arabic": "لؤلؤة",
    "english_variants": {
@@ -37387,7 +37175,7 @@
   "مبارك": {
    "arabic": "مبارك",
    "english_variants": {
-    "Mubarak": 80,
+    "Mubarak": 79,
     "Mobarak": 2,
     "MUBARAK": 1,
     "MABARAK": 1,
@@ -37395,12 +37183,12 @@
     "Al Mubarak": 1
    },
    "positions": {
-    "given": 33,
+    "given": 32,
     "middle": 12,
     "family": 23
    },
    "genders": {
-    "male": 63,
+    "male": 62,
     "female": 5
    }
   },
@@ -38415,8 +38203,8 @@
   "مشري": {
    "arabic": "مشري",
    "english_variants": {
-    "Mesharri": 2,
-    "al Mishri": 1
+    "al Mishri": 1,
+    "Mesharri": 1
    },
    "positions": {
     "family": 1
@@ -38564,16 +38352,16 @@
    "arabic": "مصطفى",
    "english_variants": {
     "Mustafa": 12,
-    "Mostafa": 7,
+    "Mostafa": 6,
     "Moustafa": 1
    },
    "positions": {
-    "given": 12,
+    "given": 11,
     "middle": 1,
     "family": 3
    },
    "genders": {
-    "male": 16
+    "male": 15
    }
   },
   "مصعب": {
@@ -40327,18 +40115,6 @@
     "male": 24
    }
   },
-  "نايك.": {
-   "arabic": "نايك.",
-   "english_variants": {
-    "Naik": 1
-   },
-   "positions": {
-    "family": 1
-   },
-   "genders": {
-    "male": 1
-   }
-  },
   "نايله": {
    "arabic": "نايلة",
    "english_variants": {
@@ -40871,15 +40647,13 @@
   "نمر": {
    "arabic": "نمر",
    "english_variants": {
-    "Nemer": 1,
     "Nimr": 1
    },
    "positions": {
-    "family": 1,
     "given": 1
    },
    "genders": {
-    "male": 2
+    "male": 1
    }
   },
   "نهاد": {
@@ -41316,14 +41090,13 @@
   "هداف": {
    "arabic": "هداف",
    "english_variants": {
-    "Haddaf": 2
+    "Haddaf": 1
    },
    "positions": {
-    "given": 1,
     "family": 1
    },
    "genders": {
-    "male": 2
+    "male": 1
    }
   },
   "هدايه": {

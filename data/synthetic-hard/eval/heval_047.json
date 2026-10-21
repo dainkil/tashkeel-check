@@ -1,0 +1,1489 @@
+{
+ "doc_id": "heval_047",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "cr",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "مستخرج من السجل التجاري"
+  },
+  {
+   "segment_id": "s02",
+   "text": "الاسم التجاري: الإدريسي للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Trade name: El Idrissi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "البريد الإلكتروني: info@elidrissi-group.example.net"
+  },
+  {
+   "segment_id": "s05",
+   "text": "رقم الرخصة: 741614، جهة الإصدار: دائرة التنمية الاقتصادية، الإمارة: الشارقة"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الشكل القانوني: شركة ذات مسؤولية محدودة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الشركاء:"
+  },
+  {
+   "segment_id": "s08",
+   "text": "1. المهندس جعفر بدر الإدريسي، عماني الجنسية، الحصة 8٪"
+  },
+  {
+   "segment_id": "s09",
+   "text": "2. الشيخة حواء بنت محمد العييري، سعودية الجنسية، الحصة 20٪"
+  },
+  {
+   "segment_id": "s10",
+   "text": "Partner 2: Hawaa bint Mohamed El Ayeri"
+  },
+  {
+   "segment_id": "s11",
+   "text": "3. الشيخة موزة علي العسيري، بحرينية الجنسية، الحصة 37٪"
+  },
+  {
+   "segment_id": "s12",
+   "text": "4. السيد بدر بن عمر الإدريسي، عماني الجنسية، الحصة 17٪"
+  },
+  {
+   "segment_id": "s13",
+   "text": "Partner 4: Bader bin Omar El Idrissi"
+  },
+  {
+   "segment_id": "s14",
+   "text": "5. الدكتور أحمد ياسين الريامي، بحريني الجنسية، الحصة 15٪"
+  },
+  {
+   "segment_id": "s15",
+   "text": "6. السيد ياسين شهاب الريامي، بحريني الجنسية، الحصة 10٪"
+  },
+  {
+   "segment_id": "s16",
+   "text": "Partner 6: Yaseen Shehab Al Reyami"
+  },
+  {
+   "segment_id": "s17",
+   "text": "7. الشيخة مريم خميس إدريس الزواوي، بحرينية الجنسية، الحصة 22٪"
+  },
+  {
+   "segment_id": "s18",
+   "text": "Partner 7: Maryam Al Zawawi"
+  },
+  {
+   "segment_id": "s19",
+   "text": "المدير: الشريك رقم 5، السيد أحمد الريامي"
+  },
+  {
+   "segment_id": "s20",
+   "text": "المفوضة بالتوقيع: الشريكة رقم 7، السيدة مريم الزواوي"
+  },
+  {
+   "segment_id": "s21",
+   "text": "تاريخ الإصدار: 15/10/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "B5",
+  "B6",
+  "C1",
+  "C2",
+  "D4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 47,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     15,
+     23
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الإدريسي",
+    "english_full": "El Idrissi",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "El Idrissi"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الإدريسي",
+      "position": "family",
+      "english_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "raw_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "english_used": "El Idrissi",
+      "expected": "adopt",
+      "expected_spelling": "El Idrissi",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "El Idrissi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "partner",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     11,
+     28
+    ],
+    "token_ids": [
+     42,
+     43,
+     44
+    ],
+    "arabic_full": "جعفر بدر الإدريسي",
+    "english_full": "Jafar Bader El Idrissi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 42,
+      "token_ids": [
+       42
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "جعفر",
+      "position": "given",
+      "english_variants": [
+       "Jafar",
+       "Jaafer",
+       "Jaafar",
+       "Jafer",
+       "Jaffer"
+      ],
+      "raw_variants": [
+       "Jafar",
+       "Jaafer",
+       "Yahya",
+       "Jaffer",
+       "Jafer",
+       "Jaafar"
+      ],
+      "english_used": "Jafar",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 43,
+      "token_ids": [
+       43
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "بدر",
+      "position": "middle",
+      "english_variants": [
+       "Bader",
+       "Badar",
+       "Bade"
+      ],
+      "raw_variants": [
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
+      ],
+      "english_used": "Bader",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الإدريسي",
+      "position": "family",
+      "english_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "raw_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "english_used": "El Idrissi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     10,
+     31
+    ],
+    "token_ids": [
+     51,
+     52,
+     53,
+     54
+    ],
+    "arabic_full": "حواء بنت محمد العييري",
+    "english_full": "Hawaa Mohamed El Ayeri",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Hawaa bint Mohamed El Ayeri"
+    },
+    "tokens": [
+     {
+      "token_id": 51,
+      "token_ids": [
+       51
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "حواء",
+      "position": "given",
+      "english_variants": [
+       "Hawaa"
+      ],
+      "raw_variants": [
+       "Hawaa"
+      ],
+      "english_used": "Hawaa",
+      "expected": "adopt",
+      "expected_spelling": "Hawaa",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Hawaa bint Mohamed El Ayeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 53,
+      "token_ids": [
+       53
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed",
+      "expected": "adopt",
+      "expected_spelling": "Mohamed",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Hawaa bint Mohamed El Ayeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 54,
+      "token_ids": [
+       54
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العييري",
+      "position": "family",
+      "english_variants": [
+       "Al Ayeri"
+      ],
+      "raw_variants": [
+       "al Ayeri"
+      ],
+      "english_used": "El Ayeri",
+      "expected": "adopt",
+      "expected_spelling": "El Ayeri",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Hawaa bint Mohamed El Ayeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "partner",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     10,
+     26
+    ],
+    "token_ids": [
+     68,
+     69,
+     70
+    ],
+    "arabic_full": "موزة علي العسيري",
+    "english_full": "Mouza Ali Assiri",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "موزة",
+      "position": "given",
+      "english_variants": [
+       "Moza",
+       "Mouza"
+      ],
+      "raw_variants": [
+       "Moza",
+       "Mouza"
+      ],
+      "english_used": "Mouza",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali"
+      ],
+      "raw_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 70,
+      "token_ids": [
+       70
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العسيري",
+      "position": "family",
+      "english_variants": [
+       "Assiri",
+       "Al Asiri",
+       "Asiri"
+      ],
+      "raw_variants": [
+       "Assiri",
+       "Asiri",
+       "Al Asiri"
+      ],
+      "english_used": "Assiri",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s12",
+    "span": [
+     9,
+     28
+    ],
+    "token_ids": [
+     77,
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "بدر بن عمر الإدريسي",
+    "english_full": "Bader Omar El Idrissi",
+    "evidence": {
+     "segment_id": "s13",
+     "quote": "Bader bin Omar El Idrissi"
+    },
+    "tokens": [
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "بدر",
+      "position": "given",
+      "english_variants": [
+       "Bader",
+       "Badar",
+       "Bade"
+      ],
+      "raw_variants": [
+       "Bader",
+       "Badr",
+       "Badar",
+       "Bade"
+      ],
+      "english_used": "Bader",
+      "expected": "adopt",
+      "expected_spelling": "Bader",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Bader bin Omar El Idrissi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "عمر",
+      "position": "middle",
+      "english_variants": [
+       "Omar",
+       "Omer",
+       "Umar",
+       "Umer"
+      ],
+      "raw_variants": [
+       "Omar",
+       "Omer",
+       "Umar",
+       "Amr",
+       "Umer"
+      ],
+      "english_used": "Omar",
+      "expected": "adopt",
+      "expected_spelling": "Omar",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Bader bin Omar El Idrissi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الإدريسي",
+      "position": "family",
+      "english_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "raw_variants": [
+       "El Idrissi",
+       "Al Idrisi",
+       "Idrisi"
+      ],
+      "english_used": "El Idrissi",
+      "expected": "adopt",
+      "expected_spelling": "El Idrissi",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Bader bin Omar El Idrissi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s14",
+    "span": [
+     11,
+     29
+    ],
+    "token_ids": [
+     94,
+     95,
+     96
+    ],
+    "arabic_full": "أحمد ياسين الريامي",
+    "english_full": "Ahmed Yasin Al Riyami",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 94,
+      "token_ids": [
+       94
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "أحمد",
+      "position": "given",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 95,
+      "token_ids": [
+       95
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "ياسين",
+      "position": "middle",
+      "english_variants": [
+       "Yasin",
+       "Yaseen",
+       "Yassin"
+      ],
+      "raw_variants": [
+       "Yasin",
+       "Yaseen",
+       "Yassin"
+      ],
+      "english_used": "Yasin",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 96,
+      "token_ids": [
+       96
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الريامي",
+      "position": "family",
+      "english_variants": [
+       "Al Riyami",
+       "Al Reyami"
+      ],
+      "raw_variants": [
+       "Al Riyami",
+       "Al Reyami",
+       "al reyami"
+      ],
+      "english_used": "Al Riyami",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s15",
+    "span": [
+     9,
+     27
+    ],
+    "token_ids": [
+     103,
+     104,
+     105
+    ],
+    "arabic_full": "ياسين شهاب الريامي",
+    "english_full": "Yaseen Shehab Al Reyami",
+    "evidence": {
+     "segment_id": "s16",
+     "quote": "Yaseen Shehab Al Reyami"
+    },
+    "tokens": [
+     {
+      "token_id": 103,
+      "token_ids": [
+       103
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "ياسين",
+      "position": "given",
+      "english_variants": [
+       "Yasin",
+       "Yaseen",
+       "Yassin"
+      ],
+      "raw_variants": [
+       "Yasin",
+       "Yaseen",
+       "Yassin"
+      ],
+      "english_used": "Yaseen",
+      "expected": "adopt",
+      "expected_spelling": "Yaseen",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Yaseen Shehab Al Reyami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "شهاب",
+      "position": "middle",
+      "english_variants": [
+       "Shehab",
+       "Shihab"
+      ],
+      "raw_variants": [
+       "Shehab",
+       "Shihab",
+       "Saleh"
+      ],
+      "english_used": "Shehab",
+      "expected": "adopt",
+      "expected_spelling": "Shehab",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Yaseen Shehab Al Reyami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 105,
+      "token_ids": [
+       105
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "الريامي",
+      "position": "family",
+      "english_variants": [
+       "Al Riyami",
+       "Al Reyami"
+      ],
+      "raw_variants": [
+       "Al Riyami",
+       "Al Reyami",
+       "al reyami"
+      ],
+      "english_used": "Al Reyami",
+      "expected": "adopt",
+      "expected_spelling": "Al Reyami",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Yaseen Shehab Al Reyami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s17",
+    "span": [
+     10,
+     33
+    ],
+    "token_ids": [
+     118,
+     119,
+     120,
+     121
+    ],
+    "arabic_full": "مريم خميس إدريس الزواوي",
+    "english_full": "Maryam Khames Idris Al Zawawi",
+    "evidence": {
+     "segment_id": "s18",
+     "quote": "Maryam Al Zawawi"
+    },
+    "tokens": [
+     {
+      "token_id": 118,
+      "token_ids": [
+       118
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "مريم",
+      "position": "given",
+      "english_variants": [
+       "Maryam",
+       "Mariam"
+      ],
+      "raw_variants": [
+       "Maryam",
+       "Mariam",
+       "Meriam"
+      ],
+      "english_used": "Maryam",
+      "expected": "adopt",
+      "expected_spelling": "Maryam",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Maryam Al Zawawi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 119,
+      "token_ids": [
+       119
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "خميس",
+      "position": "middle",
+      "english_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "raw_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "english_used": "Khames",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 120,
+      "token_ids": [
+       120
+      ],
+      "unit_id": "n8.grandfather",
+      "slot": "grandfather",
+      "arabic": "إدريس",
+      "position": "middle",
+      "english_variants": [
+       "Idris",
+       "Idrees",
+       "Idriss"
+      ],
+      "raw_variants": [
+       "Idris",
+       "Idrees",
+       "Idriss"
+      ],
+      "english_used": "Idris",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 121,
+      "token_ids": [
+       121
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "الزواوي",
+      "position": "family",
+      "english_variants": [
+       "Al Zawawi"
+      ],
+      "raw_variants": [
+       "Al Zawawi"
+      ],
+      "english_used": "Al Zawawi",
+      "expected": "adopt",
+      "expected_spelling": "Al Zawawi",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Maryam Al Zawawi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "short",
+    "segment_id": "s19",
+    "span": [
+     28,
+     40
+    ],
+    "token_ids": [
+     136,
+     137
+    ],
+    "arabic_full": "أحمد الريامي",
+    "english_full": "Ahmed Al Riyami",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 136,
+      "token_ids": [
+       136
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "أحمد",
+      "position": "given",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 137,
+      "token_ids": [
+       137
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "الريامي",
+      "position": "family",
+      "english_variants": [
+       "Al Riyami",
+       "Al Reyami"
+      ],
+      "raw_variants": [
+       "Al Riyami",
+       "Al Reyami",
+       "al reyami"
+      ],
+      "english_used": "Al Riyami",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "short",
+    "segment_id": "s20",
+    "span": [
+     40,
+     52
+    ],
+    "token_ids": [
+     144,
+     145
+    ],
+    "arabic_full": "مريم الزواوي",
+    "english_full": "Maryam Al Zawawi",
+    "evidence": {
+     "segment_id": "s18",
+     "quote": "Maryam Al Zawawi"
+    },
+    "tokens": [
+     {
+      "token_id": 144,
+      "token_ids": [
+       144
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "مريم",
+      "position": "given",
+      "english_variants": [
+       "Maryam",
+       "Mariam"
+      ],
+      "raw_variants": [
+       "Maryam",
+       "Mariam",
+       "Meriam"
+      ],
+      "english_used": "Maryam",
+      "expected": "adopt",
+      "expected_spelling": "Maryam",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Maryam Al Zawawi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 145,
+      "token_ids": [
+       145
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الزواوي",
+      "position": "family",
+      "english_variants": [
+       "Al Zawawi"
+      ],
+      "raw_variants": [
+       "Al Zawawi"
+      ],
+      "english_used": "Al Zawawi",
+      "expected": "adopt",
+      "expected_spelling": "Al Zawawi",
+      "evidence": [
+       {
+        "segment_id": "s18",
+        "quote": "Maryam Al Zawawi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مريم",
+      "spelling": "Maryam"
+     },
+     "father": {
+      "arabic": "خميس",
+      "spelling": "Khames"
+     },
+     "grandfather": {
+      "arabic": "إدريس",
+      "spelling": "Idris"
+     },
+     "family": {
+      "arabic": "الزواوي",
+      "spelling": "Al Zawawi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p7",
+      "segment_id": "s18",
+      "quote": "Maryam Al Zawawi",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Maryam",
+       "family": "Al Zawawi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "بدر",
+      "spelling": "Bader"
+     },
+     "father": {
+      "arabic": "عمر",
+      "spelling": "Omar"
+     },
+     "family": {
+      "arabic": "الإدريسي",
+      "spelling": "El Idrissi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s13",
+      "quote": "Bader bin Omar El Idrissi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Bader",
+       "father": "Omar",
+       "family": "El Idrissi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p4",
+    "slots": {
+     "given": {
+      "arabic": "جعفر",
+      "spelling": "Jafar"
+     },
+     "father": {
+      "arabic": "بدر",
+      "spelling": "Bader"
+     },
+     "family": {
+      "arabic": "الإدريسي",
+      "spelling": "El Idrissi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "ياسين",
+      "spelling": "Yaseen"
+     },
+     "father": {
+      "arabic": "شهاب",
+      "spelling": "Shehab"
+     },
+     "family": {
+      "arabic": "الريامي",
+      "spelling": "Al Reyami"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s16",
+      "quote": "Yaseen Shehab Al Reyami",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Yaseen",
+       "father": "Shehab",
+       "family": "Al Reyami"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p6",
+    "slots": {
+     "given": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "father": {
+      "arabic": "ياسين",
+      "spelling": "Yasin"
+     },
+     "family": {
+      "arabic": "الريامي",
+      "spelling": "Al Riyami"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حواء",
+      "spelling": "Hawaa"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohamed"
+     },
+     "family": {
+      "arabic": "العييري",
+      "spelling": "El Ayeri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s10",
+      "quote": "Hawaa bint Mohamed El Ayeri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Hawaa",
+       "father": "Mohamed",
+       "family": "El Ayeri"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "موزة",
+      "spelling": "Mouza"
+     },
+     "father": {
+      "arabic": "علي",
+      "spelling": "Ali"
+     },
+     "family": {
+      "arabic": "العسيري",
+      "spelling": "Assiri"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الإدريسي",
+      "spelling": "El Idrissi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "El Idrissi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "El Idrissi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "El Idrissi",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p4.family"
+    ]
+   },
+   {
+    "segment_id": "s04",
+    "quote": "info@elidrissi-group.example.net",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p4.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   28,
+   29,
+   30,
+   32,
+   41,
+   50,
+   67,
+   93,
+   117
+  ],
+  "title_token_ids": [
+   41,
+   50,
+   67,
+   93,
+   117
+  ],
+  "lookalikes": [],
+  "lookalike_token_ids": []
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "B5",
+  "B6",
+  "C1",
+  "C2",
+  "D3"
+ ]
+}

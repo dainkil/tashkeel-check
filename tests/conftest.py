@@ -5,6 +5,7 @@ import os
 import pytest
 
 from tashkeel_check.analyzer import AnalyzerUnavailable, camel_analyze
+from tashkeel_check.config import Settings
 from tashkeel_check.text import Segment, tokenize
 
 
@@ -17,6 +18,21 @@ def _camel_ok() -> bool:
 
 
 CAMEL_OK = _camel_ok()
+DB_URL = os.getenv("DATABASE_URL", "")
+
+
+def _db_ok() -> bool:
+    if not DB_URL:
+        return False
+    try:
+        from tashkeel_check.web.db import Database
+
+        return Database(DB_URL).ping()
+    except Exception:
+        return False
+
+
+DB_OK = _db_ok()
 
 
 def pytest_collection_modifyitems(config, items):
@@ -25,6 +41,18 @@ def pytest_collection_modifyitems(config, items):
             item.add_marker(pytest.mark.skip(reason="camel-tools DB가 설치되지 않음"))
         if "live" in item.keywords and not os.getenv("OPENAI_API_KEY"):
             item.add_marker(pytest.mark.skip(reason="OPENAI_API_KEY 없음"))
+        if "db" in item.keywords and not DB_OK:
+            item.add_marker(pytest.mark.skip(reason="DATABASE_URL이 없거나 연결되지 않음"))
+
+
+@pytest.fixture
+def clean_env(monkeypatch, tmp_path):
+    """저장소의 .env와 이미 읽힌 환경 변수를 떼어 낸다. 실제 키로 API를 부르지 않게 키는 빈 값으로 둔다."""
+    for name in Settings.model_fields:
+        monkeypatch.delenv(name.upper(), raising=False)
+    monkeypatch.setenv("OPENAI_API_KEY", "")
+    monkeypatch.chdir(tmp_path)
+    return tmp_path
 
 
 # 분석기 대역: 테스트가 camel-tools 없이도 돌도록 정해 둔 분석 결과

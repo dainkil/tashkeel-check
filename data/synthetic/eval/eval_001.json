@@ -4,6 +4,8 @@
  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
  "doc_type": "poa",
  "bilingual": false,
+ "evidence_layout": "none",
+ "evidence_roles": [],
  "segments": [
   {
    "segment_id": "s01",
@@ -11,27 +13,27 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 12/08/2026 حضر أمام الكاتب العدل السيدة نهلة بنت منذر بن رضا العطاوي، كويتية الجنسية، وتحمل جواز سفر رقم A6476202."
+   "text": "إنه في يوم 08/11/2026 حضر أمام الكاتب العدل السيد عبدالله إبراهيم الزهراني، بحريني الجنسية، ويحمل جواز سفر رقم T5756412."
   },
   {
    "segment_id": "s03",
-   "text": "وذلك بصفتها مديرة لشركة القحطاني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 503136، وعنوانها دبي، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة الصديقي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 288611، وعنوانها أبوظبي، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s04",
-   "text": "وقررت أنها وكّلت السيد إبراهيم بن حسن السلوم، بحريني الجنسية، ويحمل بطاقة هوية رقم 45117557."
+   "text": "وقرر أنه وكّل السيدة دانية بنت سعود الشعلان، إماراتية الجنسية، وتحمل بطاقة هوية رقم 29607614."
   },
   {
    "segment_id": "s05",
-   "text": "للقيام نيابة عنها بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
   },
   {
    "segment_id": "s06",
-   "text": "الموكلة: نهلة بنت منذر بن رضا العطاوي"
+   "text": "الموكل: عبدالله إبراهيم الزهراني"
   },
   {
    "segment_id": "s07",
-   "text": "الوكيل: إبراهيم بن حسن السلوم"
+   "text": "الوكيلة: دانية بنت سعود الشعلان"
   },
   {
    "segment_id": "s08",
@@ -39,7 +41,8 @@
   }
  ],
  "meta": {
-  "generator": "synthetic-v0",
+  "generator": "synthetic-v2",
+  "name_pool_align_version": "v1",
   "seed": 2002,
   "split": "eval",
   "index": 1,
@@ -60,61 +63,57 @@
     "role": "principal",
     "segment_id": "s02",
     "span": [
-     51,
-     79
+     50,
+     74
     ],
     "token_ids": [
      11,
      12,
-     13,
-     14,
-     15,
-     16
+     13
     ],
-    "arabic_full": "نهلة بنت منذر بن رضا العطاوي",
-    "english_full": "Nahla Bint Munther Bin Reza Al Attawi",
+    "arabic_full": "عبدالله إبراهيم الزهراني",
+    "english_full": "Abdullah Al Ibrahim Al Zahrani",
     "tokens": [
      {
       "token_id": 11,
-      "arabic": "نهلة",
+      "arabic": "عبدالله",
       "position": "given",
       "english_variants": [
-       "Nahla"
+       "Abdullah",
+       "Abdulla",
+       "Abdalla",
+       "Abdallah",
+       "Abdul Al"
       ],
-      "english_used": "Nahla"
+      "english_used": "Abdullah"
+     },
+     {
+      "token_id": 12,
+      "arabic": "إبراهيم",
+      "position": "middle",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Al Ibrahim"
      },
      {
       "token_id": 13,
-      "arabic": "منذر",
-      "position": "middle",
-      "english_variants": [
-       "Munther",
-       "Mondher"
-      ],
-      "english_used": "Munther"
-     },
-     {
-      "token_id": 15,
-      "arabic": "رضا",
-      "position": "middle",
-      "english_variants": [
-       "Redha",
-       "Rida",
-       "Reda",
-       "Reza",
-       "Ridha"
-      ],
-      "english_used": "Reza"
-     },
-     {
-      "token_id": 16,
-      "arabic": "العطاوي",
+      "arabic": "الزهراني",
       "position": "family",
       "english_variants": [
-       "Al Attawi",
-       "Al Atawi"
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
       ],
-      "english_used": "Al Attawi"
+      "english_used": "Al Zahrani"
      }
     ],
     "evidence": null
@@ -125,24 +124,23 @@
     "segment_id": "s03",
     "span": [
      24,
-     32
+     31
     ],
     "token_ids": [
-     29
+     26
     ],
-    "arabic_full": "القحطاني",
-    "english_full": "Al Qahtani",
+    "arabic_full": "الصديقي",
+    "english_full": "al Saddiqi",
     "tokens": [
      {
-      "token_id": 29,
-      "arabic": "القحطاني",
+      "token_id": 26,
+      "arabic": "الصديقي",
       "position": "family",
       "english_variants": [
-       "Al Qahtani",
-       "al Qahtani",
-       "al Kahtani"
+       "al Saddiqi",
+       "Al Siddiqi"
       ],
-      "english_used": "Al Qahtani"
+      "english_used": "al Saddiqi"
      }
     ],
     "evidence": null
@@ -152,54 +150,54 @@
     "role": "agent",
     "segment_id": "s04",
     "span": [
-     23,
-     44
+     21,
+     43
     ],
     "token_ids": [
-     51,
-     52,
-     53,
-     54
+     48,
+     49,
+     50,
+     51
     ],
-    "arabic_full": "إبراهيم بن حسن السلوم",
-    "english_full": "Ibrahim Bin Hassan Al Salloum",
+    "arabic_full": "دانية بنت سعود الشعلان",
+    "english_full": "Danial Bint Saud Shaalan",
     "tokens": [
      {
-      "token_id": 51,
-      "arabic": "إبراهيم",
+      "token_id": 48,
+      "arabic": "دانية",
       "position": "given",
       "english_variants": [
-       "Ibrahim",
-       "Ebrahim",
-       "Ibrahem",
-       "Ibrahmi",
-       "Ibraheem",
-       "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Dania",
+       "Danial",
+       "Danyah"
       ],
-      "english_used": "Ibrahim"
+      "english_used": "Danial"
      },
      {
-      "token_id": 53,
-      "arabic": "حسن",
+      "token_id": 50,
+      "arabic": "سعود",
       "position": "middle",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
       ],
-      "english_used": "Hassan"
+      "english_used": "Saud"
      },
      {
-      "token_id": 54,
-      "arabic": "السلوم",
+      "token_id": 51,
+      "arabic": "الشعلان",
       "position": "family",
       "english_variants": [
-       "Al Salloum"
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
       ],
-      "english_used": "Al Salloum"
+      "english_used": "Shaalan"
      }
     ],
     "evidence": null
@@ -209,61 +207,57 @@
     "role": "principal",
     "segment_id": "s06",
     "span": [
-     9,
-     37
+     8,
+     32
     ],
     "token_ids": [
-     78,
-     79,
-     80,
-     81,
-     82,
-     83
+     75,
+     76,
+     77
     ],
-    "arabic_full": "نهلة بنت منذر بن رضا العطاوي",
-    "english_full": "Nahla Bint Munther Bin Reza Al Attawi",
+    "arabic_full": "عبدالله إبراهيم الزهراني",
+    "english_full": "Abdullah Al Ibrahim Al Zahrani",
     "tokens": [
      {
-      "token_id": 78,
-      "arabic": "نهلة",
+      "token_id": 75,
+      "arabic": "عبدالله",
       "position": "given",
       "english_variants": [
-       "Nahla"
+       "Abdullah",
+       "Abdulla",
+       "Abdalla",
+       "Abdallah",
+       "Abdul Al"
       ],
-      "english_used": "Nahla"
+      "english_used": "Abdullah"
      },
      {
-      "token_id": 80,
-      "arabic": "منذر",
+      "token_id": 76,
+      "arabic": "إبراهيم",
       "position": "middle",
       "english_variants": [
-       "Munther",
-       "Mondher"
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
       ],
-      "english_used": "Munther"
+      "english_used": "Al Ibrahim"
      },
      {
-      "token_id": 82,
-      "arabic": "رضا",
-      "position": "middle",
-      "english_variants": [
-       "Redha",
-       "Rida",
-       "Reda",
-       "Reza",
-       "Ridha"
-      ],
-      "english_used": "Reza"
-     },
-     {
-      "token_id": 83,
-      "arabic": "العطاوي",
+      "token_id": 77,
+      "arabic": "الزهراني",
       "position": "family",
       "english_variants": [
-       "Al Attawi",
-       "Al Atawi"
+       "Al Zahrani",
+       "al Zahrani",
+       "Zahrani",
+       "al Zaharni",
+       "Al Zahiri"
       ],
-      "english_used": "Al Attawi"
+      "english_used": "Al Zahrani"
      }
     ],
     "evidence": null
@@ -273,70 +267,70 @@
     "role": "agent",
     "segment_id": "s07",
     "span": [
-     8,
-     29
+     9,
+     31
     ],
     "token_ids": [
-     85,
-     86,
-     87,
-     88
+     79,
+     80,
+     81,
+     82
     ],
-    "arabic_full": "إبراهيم بن حسن السلوم",
-    "english_full": "Ibrahim Bin Hassan Al Salloum",
+    "arabic_full": "دانية بنت سعود الشعلان",
+    "english_full": "Danial Bint Saud Shaalan",
     "tokens": [
      {
-      "token_id": 85,
-      "arabic": "إبراهيم",
+      "token_id": 79,
+      "arabic": "دانية",
       "position": "given",
       "english_variants": [
-       "Ibrahim",
-       "Ebrahim",
-       "Ibrahem",
-       "Ibrahmi",
-       "Ibraheem",
-       "Ibraheam",
-       "Al Ibrahim",
-       "Abu Aws"
+       "Dania",
+       "Danial",
+       "Danyah"
       ],
-      "english_used": "Ibrahim"
+      "english_used": "Danial"
      },
      {
-      "token_id": 87,
-      "arabic": "حسن",
+      "token_id": 81,
+      "arabic": "سعود",
       "position": "middle",
       "english_variants": [
-       "Hassan",
-       "Hasan",
-       "Husan",
-       "Hussain"
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
       ],
-      "english_used": "Hassan"
+      "english_used": "Saud"
      },
      {
-      "token_id": 88,
-      "arabic": "السلوم",
+      "token_id": 82,
+      "arabic": "الشعلان",
       "position": "family",
       "english_variants": [
-       "Al Salloum"
+       "Al Shaalan",
+       "Al Shalan",
+       "Shaalan"
       ],
-      "english_used": "Al Salloum"
+      "english_used": "Shaalan"
      }
     ],
     "evidence": null
    }
   ],
   "neutral_token_ids": [
-   32,
-   33,
+   29,
+   30,
+   31,
    34,
-   37,
-   38,
-   39,
-   43,
-   44,
-   45,
-   46
+   35,
+   36,
+   40,
+   41,
+   42,
+   43
   ]
  }
 }

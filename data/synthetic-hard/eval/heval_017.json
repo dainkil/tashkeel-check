@@ -1,0 +1,783 @@
+{
+ "doc_id": "heval_017",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 08/10/2026 حضر أمام الكاتب العدل السيد محمد خليفة الكويتي، كويتي الجنسية، ويحمل جواز سفر رقم W5039470."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الشنقيطي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 433451، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Shanqeeti General Trading L.L.C., Registration No. 433451"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد إبراهيم بن فيصل بن ناصر البريه، سعودي الجنسية، ويحمل بطاقة هوية رقم 45186013."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: I. F. Al Breh, ID No. 45186013"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s11",
+   "text": "الموكل: محمد الكويتي"
+  },
+  {
+   "segment_id": "s12",
+   "text": "الوكيل: إبراهيم البريه"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "B2",
+  "B4",
+  "D4",
+  "D5"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 17,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     68
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "محمد خليفة الكويتي",
+    "english_full": "Mohamed Khalifa Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed",
+      "expected": "adopt",
+      "expected_spelling": "Mohamed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "خليفة",
+      "position": "middle",
+      "english_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "raw_variants": [
+       "Khalifa",
+       "Khalifah"
+      ],
+      "english_used": "Khalifa",
+      "expected": "adopt",
+      "expected_spelling": "Khalifa",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B2",
+       "D5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     32
+    ],
+    "token_ids": [
+     33
+    ],
+    "arabic_full": "الشنقيطي",
+    "english_full": "Al Shanqeeti",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Shanqeeti"
+    },
+    "tokens": [
+     {
+      "token_id": 33,
+      "token_ids": [
+       33
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الشنقيطي",
+      "position": "family",
+      "english_variants": [
+       "Al Shanqiti",
+       "Al Shanqeeti",
+       "Shenqeeti",
+       "Al Shankiti",
+       "Shanqeeti"
+      ],
+      "raw_variants": [
+       "Al Shanqiti",
+       "Al Shanqeeti",
+       "Shenqeeti",
+       "Shengeeti",
+       "Al Shengeeti",
+       "Al Shangeati",
+       "Al Shankiti",
+       "Shanqeeti"
+      ],
+      "english_used": "Al Shanqeeti",
+      "expected": "adopt",
+      "expected_spelling": "Al Shanqeeti",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Shanqeeti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     50
+    ],
+    "token_ids": [
+     64,
+     65,
+     66,
+     67,
+     68,
+     69
+    ],
+    "arabic_full": "إبراهيم بن فيصل بن ناصر البريه",
+    "english_full": "Ibrahim Faisal Nassir Al Breh",
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "I. F. Al Breh"
+    },
+    "tokens": [
+     {
+      "token_id": 64,
+      "token_ids": [
+       64
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ibrahim",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 66,
+      "token_ids": [
+       66
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Feisal"
+      ],
+      "raw_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B4"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Naseer",
+       "Nassar"
+      ],
+      "raw_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nassir",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "البريه",
+      "position": "family",
+      "english_variants": [
+       "Al Breh"
+      ],
+      "raw_variants": [
+       "Al Breh",
+       "Al Burayh",
+       "Al Barrih"
+      ],
+      "english_used": "Al Breh",
+      "expected": "adopt",
+      "expected_spelling": "Al Breh",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "I. F. Al Breh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     114,
+     115
+    ],
+    "arabic_full": "محمد الكويتي",
+    "english_full": "Mohamed Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+    },
+    "tokens": [
+     {
+      "token_id": 114,
+      "token_ids": [
+       114
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed",
+      "expected": "adopt",
+      "expected_spelling": "Mohamed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 115,
+      "token_ids": [
+       115
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B2",
+       "D5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s12",
+    "span": [
+     8,
+     22
+    ],
+    "token_ids": [
+     117,
+     118
+    ],
+    "arabic_full": "إبراهيم البريه",
+    "english_full": "Ibrahim Al Breh",
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "I. F. Al Breh"
+    },
+    "tokens": [
+     {
+      "token_id": 117,
+      "token_ids": [
+       117
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ibrahim",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 118,
+      "token_ids": [
+       118
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "البريه",
+      "position": "family",
+      "english_variants": [
+       "Al Breh"
+      ],
+      "raw_variants": [
+       "Al Breh",
+       "Al Burayh",
+       "Al Barrih"
+      ],
+      "english_used": "Al Breh",
+      "expected": "adopt",
+      "expected_spelling": "Al Breh",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "I. F. Al Breh"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohamed"
+     },
+     "father": {
+      "arabic": "خليفة",
+      "spelling": "Khalifa"
+     },
+     "family": {
+      "arabic": "الكويتي",
+      "spelling": "Al Kuwaiti"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Surname: AL KUWAITI / Given names: MOHAMED KHALIFA",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Mohamed",
+       "father": "Khalifa",
+       "family": "Al Kuwaiti"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "إبراهيم",
+      "spelling": "Ibrahim"
+     },
+     "father": {
+      "arabic": "فيصل",
+      "spelling": "Faisal"
+     },
+     "grandfather": {
+      "arabic": "ناصر",
+      "spelling": "Nassir"
+     },
+     "family": {
+      "arabic": "البريه",
+      "spelling": "Al Breh"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s07",
+      "quote": "I. F. Al Breh",
+      "form": "initials",
+      "labeled": true,
+      "slots": {
+       "family": "Al Breh"
+      },
+      "initial_slots": [
+       "given",
+       "father"
+      ]
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الشنقيطي",
+      "spelling": "Al Shanqeeti"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Shanqeeti",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Shanqeeti"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   36,
+   37,
+   38,
+   41,
+   42,
+   43,
+   47,
+   48,
+   49,
+   50
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 14,
+    "kind": "nationality",
+    "twin": "p1.family"
+   },
+   {
+    "token_id": 102,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 109,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   14,
+   102,
+   109
+  ]
+ },
+ "case_types": [
+  "A3",
+  "B2",
+  "B4",
+  "B6",
+  "D5"
+ ]
+}
