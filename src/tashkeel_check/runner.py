@@ -135,6 +135,8 @@ class Reviewer:
             "out_dir": str(out_dir) if out_dir else None,
             "meta": meta,
         }
+        if "bundle_evidence" in doc_in:  # M1 참고용(묶음 LLM 검수). C0~C3 입력은 그대로다
+            state["bundle_evidence"] = doc_in["bundle_evidence"]
         config: RunnableConfig = {
             "recursion_limit": 50,
             "run_name": f"{doc['doc_id']}:{condition}:r{repeat}",

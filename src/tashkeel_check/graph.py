@@ -21,9 +21,10 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
 from .analyzer import AnalyzeFn, TokenAnalysis, analyze_tokens
-from .config import CONDITIONS, Settings
+from .config import ALL_CONDITIONS, ENGINE_CONDITIONS, Settings
 from .errors import InputError
 from .export import write_outputs
+from .multi_agent import build_engine, run_engine
 from .prompts import system_prompt, user_message
 from .reconcile import parse_c0, reconcile
 from .results import ReviewResult
@@ -55,6 +56,8 @@ class GraphState(TypedDict, total=False):
     valid: bool
     reconciled: dict  # reconcile 노드의 결과(검증 전)
     result: ReviewResult  # export 노드가 검증한 최종 결과
+    bundle_evidence: list[dict] | None  # M1 참고용(묶음 LLM 검수에서만 채운다)
+    engine: dict  # M1에서만: 번역자·검증자 사용량과 중재 통계
 
 
 def _add_usage(usage: dict, msg: AIMessage) -> None:
@@ -73,9 +76,10 @@ def build_graph(
 ) -> CompiledStateGraph:
     extra_tool_factories = extra_tool_factories or []
     analyze_factory: AnalyzeToolFactory = analyze_tool_factory or make_analyze_tool
+    engine = build_engine(model, settings, extra_tool_factories)  # M1(ADR-019). C0~C3는 쓰지 않는다
 
     def load(state: GraphState) -> dict:
-        if state["condition"] not in CONDITIONS:
+        if state["condition"] not in ALL_CONDITIONS:
             raise InputError(f"unknown condition {state['condition']!r}")
         segments = [Segment(segment_id=s["segment_id"], text=nfc(s["text"])) for s in state["segments"]]
         if not segments:
@@ -97,6 +101,8 @@ def build_graph(
     def agent(state: GraphState) -> dict:
         condition = state["condition"]
         attempts = state.get("attempts", 0) + 1
+        if condition in ENGINE_CONDITIONS:
+            return run_engine(engine, state, attempts, settings)
         usage = dict(state.get("usage", {}))
         tool_log = list(state.get("tool_log", []))
         errors = list(state.get("errors", []))
@@ -182,6 +188,8 @@ def build_graph(
                 "n_arabic_tokens": len(state["analyses"]),
             }
         )
+        if state.get("engine"):  # M1에서만. C0~C3 덤프는 그대로다(골든)
+            result["metrics"]["engine"] = state["engine"]
         result["doc_id"] = state["doc_id"]
         return {"reconciled": result}
 

@@ -19,6 +19,7 @@ from langchain_core.utils.function_calling import convert_to_openai_tool
 
 Responder = Callable[[list[BaseMessage], list[str]], AIMessage]
 OUTPUT_TOOL = "AgentOutput"
+VERIFIER_TOOL = "VerifierOutput"  # M1 검증자(ADR-019)
 ZERO_USAGE = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
 
 
@@ -38,6 +39,21 @@ def practice_responder(messages: list[BaseMessage], bound: list[str]) -> AIMessa
     """연습 모드 응답. C0는 구간 라벨만 붙인 표시 문장, C1~C3는 최소한의 유효한 구조화 출력."""
     text = _human_text(messages)
     seg_ids = re.findall(r"^\[(s\d+)\]", text, flags=re.M)
+    if VERIFIER_TOOL in bound:  # M1 검증자: 분석기가 모르는 토큰을 보류 항목으로
+        rows = [json.loads(ln) for ln in text.split("ANALYZER", 1)[-1].splitlines() if ln.startswith("{")]
+        items = [
+            {
+                "token_ids": [r["token_id"]],
+                "candidates": [{"reading": None, "romanized": "?", "source": "llm"}],
+                "decision": "hold",
+                "adopted": None,
+                "evidence": None,
+                "reason": "practice mode: unknown to analyzer",
+            }
+            for r in rows
+            if r.get("analysis_count") == 0
+        ]
+        return tool_call(VERIFIER_TOOL, {"items": items})
     if OUTPUT_TOOL not in bound:
         return AIMessage(
             content="\n".join(f"[{s}] [practice mode: no LLM call]" for s in seg_ids), usage_metadata=ZERO_USAGE
