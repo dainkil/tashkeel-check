@@ -52,7 +52,8 @@ def upgrade() -> None:
     # 0002가 만든 전역 유일 키(bundles_bundle_id_key)를 고객 + 묶음 ID로 바꾼다. NULL 고객(인증 끔)도 하나만.
     op.drop_constraint("bundles_bundle_id_key", "bundles", type_="unique")
     op.execute(
-        "ALTER TABLE bundles ADD CONSTRAINT uq_bundles_customer_bundle UNIQUE NULLS NOT DISTINCT (customer_id, bundle_id)"
+        "ALTER TABLE bundles ADD CONSTRAINT uq_bundles_customer_bundle "
+        "UNIQUE NULLS NOT DISTINCT (customer_id, bundle_id)"
     )
     op.create_index("ix_bundles_customer_id", "bundles", ["customer_id"])
 
