@@ -1,0 +1,297 @@
+"""Postgres 연결(SQLAlchemy 2 + psycopg 3). DATABASE_URL이 없으면 서비스는 DB 없이 돈다.
+
+연결이 안 되면 기동은 되지만 /health가 db=false를 보이고, 검수 작업 생성은 503이다(예외 "DB 불통").
+"""
+
+from __future__ import annotations
+
+import hashlib
+import logging
+import uuid
+from collections.abc import Iterator
+from contextlib import contextmanager
+from datetime import UTC, datetime
+from typing import Any
+
+from sqlalchemy import create_engine, func, select, text
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session, sessionmaker
+
+from ..results import ReviewResult
+from ..text import normalize_key
+from .models import Base, BundleRow, Document, Job, NameDictionary, NameItem, ReviewItemRow, Run
+
+logger = logging.getLogger(__name__)
+
+
+def new_id() -> str:
+    return uuid.uuid4().hex
+
+
+def now() -> datetime:
+    return datetime.now(UTC)
+
+
+class Database:
+    def __init__(self, url: str) -> None:
+        self.url = url
+        self.engine: Engine = create_engine(url, pool_pre_ping=True, future=True)
+        self._session = sessionmaker(self.engine, expire_on_commit=False)
+
+    def ping(self) -> bool:
+        try:
+            with self.engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            return True
+        except Exception as exc:
+            logger.warning("DB 연결 실패: %s", exc)
+            return False
+
+    def create_all(self) -> None:
+        """테스트·개발용. 배포는 alembic upgrade head."""
+        Base.metadata.create_all(self.engine)
+
+    @contextmanager
+    def session(self) -> Iterator[Session]:
+        with self._session() as s:
+            yield s
+            s.commit()
+
+    # -- 쓰기 --
+    def insert_document(self, doc: dict, source: str, tokens: list[dict]) -> str:
+        text_norm = "\n".join(s["text"] for s in doc["segments"])
+        row = Document(
+            id=new_id(),
+            source=source,
+            doc_id=doc["doc_id"],
+            sha256=hashlib.sha256(text_norm.encode("utf-8")).hexdigest(),
+            text_normalized=text_norm,
+            segments=[dict(s) for s in doc["segments"]],
+            tokens=[dict(t) for t in tokens],
+            synthetic=bool(doc.get("synthetic")),
+        )
+        with self.session() as s:
+            s.add(row)
+        return row.id
+
+    def insert_job(self, job_id: str, document_id: str, condition: str) -> None:
+        with self.session() as s:
+            s.add(Job(id=job_id, document_id=document_id, condition=condition, status="queued"))
+
+    def update_job(self, job_id: str, **fields: Any) -> None:
+        with self.session() as s:
+            row = s.get(Job, job_id)
+            if row is None:
+                return
+            for k, v in fields.items():
+                setattr(row, k, v)
+
+    def insert_run(self, job_id: str, document_id: str, result: ReviewResult, out_dir: str | None) -> str:
+        dump = result.model_dump(mode="json")
+        run = Run(
+            id=new_id(),
+            job_id=job_id,
+            document_id=document_id,
+            condition=result.condition,
+            model=result.meta.model,
+            prompt_hash=result.meta.prompt_hash,
+            analyzer_version=dump["meta"]["analyzer"],
+            metrics=dump["metrics"],
+            run_meta=dump["meta"],
+            usage=dump["meta"]["usage"],
+            result=dump,
+            out_dir=out_dir,
+        )
+        items = [
+            NameItem(
+                id=new_id(),
+                run_id=run.id,
+                document_id=document_id,
+                token_ids=list(it.token_ids),
+                arabic=it.arabic,
+                arabic_key=normalize_key(it.arabic),
+                candidates=[c.model_dump(mode="json") for c in it.candidates],
+                adopted=it.adopted,
+                decision=it.decision,
+                final_decision=it.final_decision,
+                evidence_source="document" if it.evidence is not None else None,
+                evidence_document_id=document_id if it.evidence is not None else None,
+                evidence_segment_id=it.evidence.segment_id if it.evidence is not None else None,
+                evidence_quote=it.evidence.quote if it.evidence is not None else None,
+                flags=list(it.flags),
+            )
+            for it in result.items
+            if it.type == "proper_noun"
+        ]
+        with self.session() as s:
+            s.add(run)
+            s.add_all(items)
+        return run.id
+
+    # -- 읽기 --
+    def recent_jobs(self, limit: int) -> list[dict]:
+        with self.session() as s:
+            rows = s.execute(select(Job).order_by(Job.created_at.desc()).limit(limit)).scalars().all()
+            return [
+                {
+                    "job_id": r.id,
+                    "document_id": r.document_id,
+                    "condition": r.condition,
+                    "status": r.status,
+                    "node": r.node,
+                    "attempts": r.attempts,
+                    "error": r.error,
+                    "created_at": r.created_at.isoformat() if r.created_at else None,
+                }
+                for r in rows
+            ]
+
+    def run_for_job(self, job_id: str) -> dict | None:
+        with self.session() as s:
+            row = s.execute(select(Run).where(Run.job_id == job_id)).scalars().first()
+            return None if row is None else {"run_id": row.id, "result": row.result, "out_dir": row.out_dir}
+
+    def count_name_items(self, run_id: str) -> int:
+        with self.session() as s:
+            return len(s.execute(select(NameItem.id).where(NameItem.run_id == run_id)).all())
+
+    # -- 묶음 검수(단계 2) --
+    def upsert_bundle(self, bundle: dict, items: list[dict]) -> str:
+        """같은 bundle_id면 입력과 결과를 통째로 바꾼다."""
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle["bundle_id"])).scalars().first()
+            if row is None:
+                row = BundleRow(id=new_id(), bundle_id=bundle["bundle_id"])
+                s.add(row)
+            row.customer_id = bundle.get("customer_id")
+            row.payload = bundle
+            row.updated_at = now()
+            s.flush()
+            for old in s.execute(select(ReviewItemRow).where(ReviewItemRow.bundle_pk == row.id)).scalars().all():
+                s.delete(old)
+            s.add_all(
+                ReviewItemRow(
+                    id=new_id(),
+                    bundle_pk=row.id,
+                    mention_id=it["mention_id"],
+                    document_id=it["document_id"],
+                    segment_id=it["segment_id"],
+                    entity_id=it.get("entity_id"),
+                    entity_type=it["entity_type"],
+                    arabic_name=it["arabic_name"],
+                    arabic_key=normalize_key(it["arabic_name"]),
+                    translated_name=it.get("translated_name"),
+                    status=it["status"],
+                    reason=it["reason"],
+                    evidence=it["evidence"],
+                    suggestion=it.get("suggestion"),
+                    detail=it.get("detail", ""),
+                )
+                for it in items
+            )
+            return row.id
+
+    def get_bundle(self, bundle_id: str) -> dict | None:
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            return None if row is None else dict(row.payload)
+
+    def list_review_items(self, bundle_id: str) -> list[dict] | None:
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            if row is None:
+                return None
+            rows = s.execute(
+                select(ReviewItemRow).where(ReviewItemRow.bundle_pk == row.id).order_by(ReviewItemRow.mention_id)
+            ).scalars()
+            return [
+                {
+                    "mention_id": r.mention_id,
+                    "document_id": r.document_id,
+                    "segment_id": r.segment_id,
+                    "entity_id": r.entity_id,
+                    "entity_type": r.entity_type,
+                    "arabic_name": r.arabic_name,
+                    "translated_name": r.translated_name,
+                    "evidence": r.evidence,
+                    "status": r.status,
+                    "reason": r.reason,
+                    "detail": r.detail,
+                    "suggestion": r.suggestion,
+                }
+                for r in rows
+            ]
+
+    def recent_bundles(self, limit: int) -> list[dict]:
+        with self.session() as s:
+            rows = s.execute(select(BundleRow).order_by(BundleRow.updated_at.desc()).limit(limit)).scalars().all()
+            out = []
+            for r in rows:
+                counts = s.execute(
+                    select(ReviewItemRow.status, func.count())
+                    .where(ReviewItemRow.bundle_pk == r.id)
+                    .group_by(ReviewItemRow.status)
+                ).all()
+                by = {status: n for status, n in counts}
+                out.append(
+                    {
+                        "bundle_id": r.bundle_id,
+                        "customer_id": r.customer_id,
+                        "documents": len(r.payload.get("documents", [])),
+                        "confirmed": by.get("confirmed", 0),
+                        "pending": by.get("pending", 0),
+                        "created_at": r.updated_at.isoformat() if r.updated_at else None,
+                    }
+                )
+            return out
+
+    def upsert_dictionary_entry(self, entry: dict) -> None:
+        with self.session() as s:
+            row = (
+                s.execute(
+                    select(NameDictionary).where(
+                        NameDictionary.customer_id == entry["customer_id"],
+                        NameDictionary.entity_id == entry["entity_id"],
+                        NameDictionary.arabic_key == entry["arabic_key"],
+                    )
+                )
+                .scalars()
+                .first()
+            )
+            if row is None:
+                row = NameDictionary(id=new_id(), **{k: v for k, v in entry.items() if k != "verified_at"})
+                s.add(row)
+            else:
+                for k, v in entry.items():
+                    if k != "verified_at":
+                        setattr(row, k, v)
+            row.verified_at = datetime.fromisoformat(entry["verified_at"]) if entry.get("verified_at") else now()
+
+    def lookup_verified_name(self, customer_id: str, entity_id: str, arabic_key: str) -> dict | None:
+        with self.session() as s:
+            row = (
+                s.execute(
+                    select(NameDictionary).where(
+                        NameDictionary.customer_id == customer_id,
+                        NameDictionary.entity_id == entity_id,
+                        NameDictionary.arabic_key == arabic_key,
+                    )
+                )
+                .scalars()
+                .first()
+            )
+            if row is None:
+                return None
+            return {
+                "customer_id": row.customer_id,
+                "entity_id": row.entity_id,
+                "entity_type": row.entity_type,
+                "arabic_key": row.arabic_key,
+                "arabic_name": row.arabic_name,
+                "english_name": row.english_name,
+                "evidence_document_id": row.evidence_document_id,
+                "evidence_segment_id": row.evidence_segment_id,
+                "evidence_quote": row.evidence_quote,
+                "verified_by": row.verified_by,
+                "verified_at": row.verified_at,
+            }

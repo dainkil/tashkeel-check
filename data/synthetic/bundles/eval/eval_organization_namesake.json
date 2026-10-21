@@ -1,0 +1,59 @@
+{
+  "bundle_id": "eval_organization_namesake",
+  "customer_id": "customer_eval_a",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "organization_eval_001": "organization"
+  },
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "عقد خدمات بين الطرفين المذكورين أدناه."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الصديقي للتجارة",
+          "entity_id": "organization_eval_001",
+          "translated_name": "al Saddiqi Trading Company"
+        }
+      ]
+    },
+    {
+      "document_id": "evidence_001",
+      "document_type": "commercial_register",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الصديقي للتجارة | Company Name: Other al Saddiqi Trading Company",
+          "entity_id": "organization_eval_002"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "namesake",
+    "entity_type": "organization",
+    "requires_llm": false,
+    "review_items": [
+      {
+        "mention_id": "contract_001:s02:1",
+        "status": "pending",
+        "reason": "no_evidence"
+      }
+    ],
+    "must_not_link": {
+      "document_id": "evidence_001",
+      "english": "Other al Saddiqi Trading Company"
+    },
+    "generator": "bundles-v1"
+  }
+}

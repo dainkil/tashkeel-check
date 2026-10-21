@@ -1,0 +1,54 @@
+{
+  "bundle_id": "dev_person_model_error",
+  "customer_id": "customer_dev_a",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "person_dev_001": "person"
+  },
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "عقد خدمات بين الطرفين المذكورين أدناه."
+        },
+        {
+          "segment_id": "s02",
+          "text": "حضر فاطمة أحمد القحطاني بصفته طرفاً أول.",
+          "entity_id": "person_dev_001"
+        }
+      ]
+    },
+    {
+      "document_id": "evidence_001",
+      "document_type": "identity",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다."
+        },
+        {
+          "segment_id": "s02",
+          "text": "الاسم: فاطمة أحمد القحطاني | Name: Fatma Ahmed Al Qahtani",
+          "entity_id": "person_dev_001"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "model_error",
+    "entity_type": "person",
+    "requires_llm": true,
+    "review_items": [
+      {
+        "mention_id": "contract_001:llm",
+        "status": "pending",
+        "reason": "model_error"
+      }
+    ],
+    "generator": "bundles-v1"
+  }
+}

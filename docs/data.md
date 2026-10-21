@@ -146,3 +146,12 @@ EXP-002에서 C1·C2·C3가 모두 만점이었다(반복 1회). synthetic-v2가
   - 아랍어 문장과 단어 함정의 자연스러움은 사람이 검수하지 않았다(Claude가 dev를 읽어 확인, 사람 검수 아님).
   - 유형 구성(어려운 유형 약 2/3, 문서 유형 넷)은 설정값이다. 이 시험지의 99%는 이 구성에서 잰 합성 문서 결과이고, 실제 서류로 일반화하지 않는다.
 
+## 5.4 합성 묶음 (bundles-v1, 2026-10-21, ADR-018)
+
+묶음 검수(단계 2)의 평가 사례다. 생성기 `src/tashkeel_check/data/bundles.py`(`uv run tashkeel make-bundles`)가 합성 문서 1개(`dev_001`, `eval_001`)의 정답 이름으로 묶음 JSON을 만든다. 형식은 가이드의 묶음 구조(`bundle_id`, `customer_id`, `entities`, `documents[document_id, document_type, segments[segment_id, text, entity_id, translated_name]]`)이고, 정답은 `gold{case, entity_type, review_items[{mention_id, status, reason}], …}`로 같은 파일에 두되 입력에서는 뗀다(`bundle.loader.split_bundle_gold`).
+
+- **사례 9개(가이드 14단계 평가 사례):** `match`(일치→확정), `translation_mismatch`(불일치→대기), `no_english`(영문 근거 없음→대기), `conflict`(서류 간 표기 충돌→대기), `namesake`(같은 아랍어 표기·다른 대상 ID→연결하지 않음), `bad_quote`(원문에 없는 인용→거부. `gold.claimed_evidence`), `extraction_failed`(라벨 칸이 비어 있음→추출 실패 기록), `model_error`(LLM 호출 실패→실행 오류. `requires_llm`), `other_customer`(다른 고객 묶음에만 근거→쓰지 않음. 묶음 2개).
+- **대상 종류 3개:** `person`(정답 이름의 비회사 역할), `organization`(회사 역할을 `شركة X للتجارة` / `X Trading Company`로), `other`(`مشروع X` / `X Project`, `entities`로 종류 지정). 같은 사례는 종류와 무관하게 같은 결과여야 하고 테스트가 이를 고정한다(`tests/test_bundle_eval.py`).
+- **구성:** dev 30개, eval 30개(파일 이름 `{split}_{type}_{case}.json`). 계약서(`contract_001`: 안내 문장 + 라벨 칸 + 번역 표기) + 근거 서류(`evidence_001`: 종류별 `identity` / `commercial_register` / `registry_extract`, `라벨: 아랍어 | 영문 라벨: 영문`). 변이 표기는 정답 토큰의 `english_variants`에서 고른다.
+- **손으로 만든 샘플:** `data/bundles/sample_bundle.json`(가이드 예시 `مسلم` / Muslim / Musallam + 회사 한 건). `data/bundles/sample/`의 txt 두 개는 ADR-007 검색 틀용이다.
+- **한계:** 실제 KYC 묶음(상업등기 + 여권 MRZ + 정관)의 서식이 아니다. 대상 ID는 생성기가 붙이므로 "ID를 붙일 수 없는 실제 묶음" 비율은 알 수 없다[미확인]. 결과를 실제 서류 성능으로 일반화하지 않는다.

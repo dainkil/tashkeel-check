@@ -38,6 +38,12 @@ class Settings(BaseModel):
     # 달러/100만 토큰. 둘 다 있으면 exp002 진행 로그와 exp002-status에 추정 금액을 같이 보인다(청구 기준 아님)
     price_input_per_mtok: float | None = Field(None, ge=0)
     price_output_per_mtok: float | None = Field(None, ge=0)
+    # 단계 1.5 서비스(ADR-012). 실험 경로(CLI run·exp001·exp002)는 이 값을 읽지 않는다.
+    llm_backend: Literal["openai", "fake"] = "openai"  # fake는 명시할 때만. 키가 없다고 조용히 가짜로 떨어지지 않는다
+    use_mcp_tools: bool = False  # true면 서비스 경로의 C2가 analyze_tokens를 MCP 서버 툴로 바꿔 쓴다
+    database_url: str | None = None  # 없으면 DB 없이(메모리·파일만) 돈다
+    web_host: str = "127.0.0.1"
+    web_port: int = Field(8000, ge=1, le=65535)
     enable_bundle_search: bool = False  # 단계 2 틀(ADR-007). 단계 1 조건 C0~C3에서는 쓰지 않는다
     embedding_model: str = "text-embedding-3-small"
     langsmith_project: str = "tashkeel-check"

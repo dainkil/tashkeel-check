@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-21): 단계 1 실험 장치를 구현했고, 조건 비교 실험은 보류·준비 중입니다.** 실제 모델로는 개발용 문서 3개로 동작 점검만 했고(마지막 점검은 네 조건 모두 형식 통과), 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 쉬운 합성 문서에서 반복 1회(120/360회) 만에 지시만 준 조건(C1)도 만점이 나와 보류했습니다. 그래서 동명이인·형식이 다른 근거·함정 근거·긴 문서가 섞인 어려운 합성 문서(synthetic-hard)와, 이름 정확도 99%(말없이 틀리지 않음과 기대 처분 일치 둘 다)를 기준으로 한 EXP-003을 준비했습니다. 생성기·채점·판정 코드와 개발용 문서 20개까지 만들었고, 평가 문서와 실제 모델 실행은 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 계획(단계 1.5)에 추가했고, 아직 구현 전입니다.
+> **현재 상태 (2026-10-21): 단계 1 실험 장치를 구현했고, 조건 비교 실험은 보류·준비 중입니다.** 실제 모델로는 개발용 문서 3개로 동작 점검만 했고(마지막 점검은 네 조건 모두 형식 통과), 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 쉬운 합성 문서에서 반복 1회(120/360회) 만에 지시만 준 조건(C1)도 만점이 나와 보류했습니다. 그래서 동명이인·형식이 다른 근거·함정 근거·긴 문서가 섞인 어려운 합성 문서(synthetic-hard)와, 이름 정확도 99%(말없이 틀리지 않음과 기대 처분 일치 둘 다)를 기준으로 한 EXP-003을 준비했습니다. 생성기·채점·판정 코드와 개발용 문서 20개까지 만들었고, 평가 문서와 실제 모델 실행은 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 단계 1.5로 구현했습니다(2026-10-21, 가짜 모델과 Postgres·MCP로 기능·예외 테스트 완료, 실제 모델 실행은 EXP-002 뒤). 같은 날 14단계 개발 가이드를 참고해 **서류 묶음 검수**(단계 2 첫 구현)를 더했습니다: 같은 대상 ID가 붙은 다른 서류의 영문 표기만 근거로 쓰고, 정확히 일치할 때만 확정하며, 나머지는 사유와 함께 확인 대기로 돌립니다([ADR-018](docs/adr/ADR-018.md)). 기록은 `docs/과제2-테스트-기록.md`입니다.
 
 ## 무엇을 하는가
 
@@ -73,11 +73,35 @@ uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4   # 연습 모
 uv run tashkeel exp003-errors                                       # 실행 뒤 사람 확인용 errors.csv
 ```
 
+### 서비스(단계 1.5): API·폼 화면·Postgres·MCP
+
+`.env`에 `LLM_BACKEND`(기본 `openai`, 키 없이 보려면 `fake`), `DATABASE_URL`(없으면 DB 없이 돈다), `USE_MCP_TOOLS`(기본 `false`)를 넣고 `run.sh`로 띄웁니다. `run.sh`는 키·포트를 검사하고 `alembic upgrade head`를 돌린 뒤 `tashkeel serve`를 띄워 `/health`를 기다립니다.
+
+```bash
+createdb tashkeel        # 로컬 Postgres. 또는 docker compose up db
+LLM_BACKEND=fake USE_MCP_TOOLS=true DATABASE_URL=postgresql+psycopg:///tashkeel ./run.sh
+```
+
+화면 `http://127.0.0.1:8000`(샘플 문서 또는 아랍어 붙여넣기 → 조건 → 6단계 진행 → 번역·확인 대기 목록·지표), API 문서 `/docs`, 상태 `/health`. 결과는 `results/web/<작업>/` 네 파일과 DB(`documents`·`jobs`·`runs`·`name_items`) 양쪽에 남습니다. MCP 서버는 `uv run python -m tashkeel_check.mcp.server`로 stdio에서 혼자 띄울 수도 있습니다(툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`, 프롬프트 `review_instructions`). `docker compose up --build`는 앱 + Postgres(pgvector) 구성이고 아직 빌드해 보지 않았습니다[미확인].
+
+### 서류 묶음 검수(단계 2): 같은 대상의 다른 서류와 대조
+
+여러 서류를 한 묶음으로 보내면, 서류의 영문 표기를 **같은 대상 ID(`entity_id`)가 붙은 다른 서류**의 영문 칸과 대조합니다. 대상은 사람·회사·기관·그 밖의 명명된 당사자 모두이고 규칙은 같습니다. 아랍어 표기가 같다는 이유로 다른 대상을 연결하지 않고, 대소문자·공백만 무시한 정확 일치일 때만 확정하며, 그 밖에는 사유(근거 없음, 서류 간 표기 충돌, 번역 표기 불일치, 비교 대상 없음, 검증 실패, 대상 ID 없음 …)와 함께 확인 대기로 돌립니다. 라벨 칸(`الاسم:`, `اسم الشركة:` …)이 있으면 LLM 없이 돌고, 라벨 칸이 없는 문장은 LLM(C1~C3)이 고유명사를 뽑아 같은 판정을 탑니다.
+
+```bash
+uv run tashkeel make-bundles          # 평가 사례 9개 × 대상 종류 3개 합성 묶음 → data/synthetic/bundles/
+curl -s -X POST localhost:8000/v1/bundles/review -H 'content-type: application/json' \
+  -d @data/bundles/sample_bundle.json | python3 -m json.tool
+curl -s localhost:8000/v1/bundles/bundle_sample_001/pending
+```
+
+화면의 "서류 묶음" 탭에서 샘플 묶음이나 JSON을 넣어 전체 결과·확인 대기 목록·항목별 원문·번역·근거를 보고, 담당자가 확인한 표기를 사전에 등록해 항목을 닫을 수 있습니다(`POST /v1/dictionary`. 검수 결과를 자동으로 사전에 넣지 않습니다). 사전은 고객 + 대상 ID + 정규화 아랍어 표기가 키이고 다른 고객의 사전은 보지 않습니다. 저장은 Postgres 표 `bundles`·`review_items`·`name_dictionary`(`DATABASE_URL`이 없으면 메모리)입니다. MCP 서버에는 `search_bundle` 툴이 더해졌습니다.
+
 ```bash
 uv run pytest -m "not live"
 ```
 
-`live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
+`db` 마커 테스트는 `DATABASE_URL`이 닿을 때만 돌고, `live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
 
 개발할 때는 CI와 같은 검사를 돌립니다. `tests/golden/`은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않습니다([ADR-013](docs/adr/ADR-013.md)).
 
@@ -88,31 +112,31 @@ uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 
 ## 하지 않는 것 (단계 1)
 
-스캔본 문자 인식, 고객별 이름 사전, 사람 검토 화면, 멀티 에이전트, 한글 표기, 번역 문장 품질 평가. 서류 묶음 검색(RAG·벡터 DB)은 단계 2용 틀만 있고 꺼져 있습니다. 웹 화면과 API는 단계 1.5로 계획만 있고 아직 없습니다.
+스캔본 문자 인식, 사람 검토 화면(확인 대기 항목을 닫으며 표기를 등록하는 것만 있음), 멀티 에이전트, 한글 표기, 번역 문장 품질 평가, 파일 업로드. 벡터 검색(RAG)은 같은 대상의 구간만 색인하는 후보 힌트이고 근거로 쓰지 않습니다. 묶음에 대상 ID가 없는 고유명사는 근거를 찾지 않고 대기로 둡니다. 서류 종류별 우선순위는 없습니다(서류끼리 다르면 대기).
 
-## 과제 2 안내 파일과의 대응 [계획, 미구현]
+## 과제 2 안내 파일과의 대응 [확인, 2026-10-21 구현]
 
 과제 2는 제공 프로젝트(`all_total_vue_student`: FastAPI + Vue 채팅 UI + LangGraph + MCP + SQLite)의 구조를 재활용해 새 서비스를 만들라고 합니다. 이 레포는 기존 구조를 유지하고 제공 프로젝트에서는 패턴만 가져옵니다. 챗봇 대신 문서 붙여넣기 폼, SQLite 대신 Postgres, LLM 층은 기존 LangChain 방식입니다([ADR-012](docs/adr/ADR-012.md)).
 
 | 제공 프로젝트 파일 | 이 레포에서의 위치 | 상태 |
 | --- | --- | --- |
-| `web_chat.html` | `src/tashkeel_check/web/static/index.html` (Vue 3 CDN 폼 화면) | 계획 |
-| `server.py` | `src/tashkeel_check/web/app.py`, `web/jobs.py` (FastAPI, SSE 진행) | 계획 |
+| `web_chat.html` | `src/tashkeel_check/web/static/index.html` (Vue 3 CDN 폼 화면, `EventSource` 진행 표시) | 구현 |
+| `server.py` | `src/tashkeel_check/web/app.py`(FastAPI, lifespan, `/health`, SSE), `web/jobs.py`(스레드 실행·이벤트) | 구현 |
 | `agent/graph.py` | `src/tashkeel_check/graph.py` | 있음(변경 없음) |
 | `agent/openai_llm.py`, `fake_llm.py` | `src/tashkeel_check/runner.py`의 `make_model`, `fake.py` | 있음(변경 없음) |
 | `agent/ollama_llm.py` | 쓰지 않음 | — |
-| `agent/session_store.py` (SQLite) | `src/tashkeel_check/web/db.py`, `web/models.py` (Postgres) | 계획 |
-| `mcp_server.py`, `agent/mcp_client.py` | `src/tashkeel_check/mcp/` (툴 `analyze_tokens`, 리소스 합성 문서, 프롬프트 조건 지시문) | 계획 |
+| `agent/session_store.py` (SQLite) | `src/tashkeel_check/web/db.py`, `web/models.py`, `alembic/` (Postgres 4테이블) | 구현 |
+| `mcp_server.py`, `agent/mcp_client.py`, `agent/retry.py` | `src/tashkeel_check/mcp/server.py`(FastMCP stdio), `client.py`(한 번 연결·lock·`with_retry`), `tools.py`(C2 툴 교체) | 구현 |
 | `data/` | `data/synthetic/`, `data/wikidata/` | 있음 |
-| `run.sh` | `run.sh` (uv 기준, Postgres 확인 포함) | 계획 |
+| `run.sh` | `run.sh` (uv 기준, 키·포트 검사, alembic, `/health` 대기), `Dockerfile`, `docker-compose.yml` | 구현(compose 빌드는 미확인) |
 
-실행 방법, 실행 화면, 기능별·예외 테스트 결과는 구현 뒤에 이 문서와 `docs/과제2-테스트-기록.md`에 넣습니다.
+기능별 테스트 16건과 예외 테스트 7종(빈 입력, 아랍어 없음, 조건 오류, 형식 오류 재시도, 키 없음 기동 거부, DB 불통, MCP 서버 다운)의 입력·예상·실제 결과와 화면 캡처는 [docs/과제2-테스트-기록.md](docs/과제2-테스트-기록.md)에 있습니다. 전체 동작 흐름: 화면/API → `POST /v1/reviews`(입력 검증) → 작업 스레드에서 LangGraph 그래프(`load → analyze → agent → validate → reconcile → export`) → 노드마다 SSE 이벤트 → 결과 파일 + DB → `GET /v1/jobs/{id}/result`.
 
 ## 알려진 한계
 
 - 에이전트 실험은 합성 문서로 합니다. 결과를 실제 서류의 오류율이나 포착률로 일반화하지 않습니다.
 - Wikidata 인명은 공개 인물 위주라 일반 고객 서류의 이름 분포와 다를 수 있습니다.
-- 단계 1에서 고유명사의 근거로 인정하는 것은 같은 문서 안의 영문 표기뿐입니다.
+- 단계 1(단일 문서)에서 고유명사의 근거로 인정하는 것은 같은 문서 안의 영문 표기뿐입니다. 묶음 검수(단계 2)에서는 같은 대상 ID가 붙은 다른 서류의 영문 칸을 더 봅니다. 대상 ID는 입력 데이터가 줘야 하고, 이름이 같다는 사실로 대신하지 않습니다.
 - 아랍어 사람 검수를 하지 않으므로 실제 고객 서류의 포착률은 재지 않습니다. 실제 문서 측정은 공식 영문본이 함께 공개된 문서로만 계획합니다.
 - 어려운 합성 문서(synthetic-hard)의 99%는 그 유형 구성(어려운 경우 약 2/3, 문서 유형 넷)에서 잰 값입니다. 템플릿 아랍어와 단어 함정 문장은 사람이 검수하지 않았고, 판단이 갈릴 수 있는 정답은 따로 표시해 뺀 값도 함께 냅니다.
 - 현재 모델(`gpt-6.1-sol`)은 temperature를 0으로 고정할 수 없습니다(기본값 1만 허용). 같은 입력에도 결과가 실행마다 달라질 수 있어, 실험은 반복 실행 간 일치율을 함께 보고합니다.

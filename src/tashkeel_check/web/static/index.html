@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tashkeel Check</title>
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1d2330; --mut:#6b7280; --line:#e3e6ea; --acc:#1f5eff; --warn:#b45309; --bad:#b91c1c; --ok:#047857; }
+  * { box-sizing:border-box }
+  body { margin:0; font:14px/1.5 -apple-system, "Noto Sans KR", "Segoe UI", sans-serif; color:var(--ink); background:var(--bg) }
+  header { padding:14px 20px; background:var(--card); border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:baseline; flex-wrap:wrap }
+  header h1 { font-size:18px; margin:0 }
+  header .meta { color:var(--mut); font-size:12px }
+  main { max-width:1200px; margin:0 auto; padding:16px; display:grid; gap:16px; grid-template-columns: 1fr; }
+  @media (min-width: 960px) { main { grid-template-columns: 380px 1fr } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px }
+  .card h2 { font-size:14px; margin:0 0 10px; color:var(--mut); text-transform:uppercase; letter-spacing:.04em }
+  label { display:block; font-size:12px; color:var(--mut); margin:8px 0 4px }
+  textarea, select, button { width:100%; font:inherit; border:1px solid var(--line); border-radius:6px; padding:8px; background:#fff }
+  textarea { min-height:200px; direction:rtl; font-size:15px }
+  button { background:var(--acc); color:#fff; border:0; cursor:pointer; margin-top:10px }
+  button:disabled { opacity:.5; cursor:default }
+  button.ghost { background:#fff; color:var(--ink); border:1px solid var(--line) }
+  .steps { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 }
+  .step { padding:4px 8px; border-radius:999px; border:1px solid var(--line); font-size:12px; color:var(--mut) }
+  .step.done { background:#e8f5ee; color:var(--ok); border-color:#bfe3cf }
+  .step.cur { background:#e9efff; color:var(--acc); border-color:#c6d4ff }
+  .err { color:var(--bad); white-space:pre-wrap }
+  .warn { color:var(--warn) }
+  table { width:100%; border-collapse:collapse; font-size:13px }
+  th, td { text-align:left; vertical-align:top; padding:6px 8px; border-bottom:1px solid var(--line) }
+  th { color:var(--mut); font-weight:600; font-size:12px }
+  td.ar { direction:rtl; text-align:right; font-size:15px }
+  mark { background:#fff3bf; padding:0 2px; border-radius:3px }
+  mark.hold { background:#fde2e2 }
+  mark.adopt { background:#dcfce7 }
+  .seg { padding:8px 0; border-bottom:1px solid var(--line) }
+  .seg .ar { direction:rtl; text-align:right; font-size:16px }
+  .seg .en { color:#374151 }
+  .seg .id { color:var(--mut); font-size:11px }
+  .kv { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:6px }
+  .kv div { background:#f9fafb; border:1px solid var(--line); border-radius:6px; padding:6px 8px }
+  .kv b { display:block; font-size:11px; color:var(--mut); font-weight:600 }
+  .small { font-size:12px; color:var(--mut) }
+  .pill { display:inline-block; padding:1px 6px; border-radius:999px; font-size:11px; border:1px solid var(--line) }
+  .pill.hold { color:var(--bad); border-color:#f5c2c2 }
+  .pill.evidence_adopt, .pill.adopt { color:var(--ok); border-color:#bfe3cf }
+  .pill.adopt_unsupported { color:var(--warn); border-color:#f3d9a4 }
+  ul.jobs { list-style:none; padding:0; margin:0 } ul.jobs li { padding:4px 0; border-bottom:1px solid var(--line); cursor:pointer } ul.jobs li:hover { color:var(--acc) }
+  nav.tabs { display:flex; gap:4px; margin-left:auto } nav.tabs button { width:auto; margin:0; padding:6px 12px; background:#fff; color:var(--ink); border:1px solid var(--line) } nav.tabs button.on { background:var(--acc); color:#fff; border-color:var(--acc) }
+  .pill.confirmed { color:var(--ok); border-color:#bfe3cf } .pill.pending { color:var(--warn); border-color:#f3d9a4 } .pill.person { color:#1d4ed8 } .pill.organization { color:#7c3aed } .pill.other { color:var(--mut) }
+  tr.sel td { background:#f1f5ff } tr.click { cursor:pointer }
+  .quote { background:#f9fafb; border-left:3px solid var(--line); padding:6px 8px; margin:4px 0; font-size:13px } .quote.bad { border-left-color:var(--bad) } .quote.ok { border-left-color:var(--ok) }
+  textarea.json { direction:ltr; font-family:ui-monospace, Menlo, monospace; font-size:12px; min-height:160px }
+  .row { display:flex; gap:8px; align-items:center } .row label { margin:0 } .row input[type=checkbox] { width:auto }
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <h1>Tashkeel Check</h1>
+  <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 분석기 {{ health.analyzer.tool }} {{ health.analyzer.version }} / {{ health.analyzer.db }} · DB {{ fmt(health.db) }} · MCP {{ fmt(health.mcp) }}</span>
+  <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
+  <nav class="tabs"><button :class="{on: tab==='doc'}" @click="tab='doc'">단일 문서</button><button :class="{on: tab==='bundle'}" @click="tab='bundle'; loadBundles()">서류 묶음</button></nav>
+</header>
+<main v-show="tab==='doc'">
+  <section>
+    <div class="card">
+      <h2>입력</h2>
+      <label>샘플 문서(합성 dev)</label>
+      <select v-model="sampleId" @change="loadSample">
+        <option value="">직접 입력</option>
+        <option v-for="s in samples" :value="s.doc_id">{{ s.doc_id }} · {{ s.doc_type }} · 근거 {{ s.evidence_layout }}</option>
+      </select>
+      <label>아랍어 문서 (빈 줄·줄 단위로 구간이 나뉜다)</label>
+      <textarea v-model="text" :disabled="!!sampleId" placeholder="아랍어 텍스트를 붙여 넣으세요"></textarea>
+      <label>조건</label>
+      <select v-model="condition">
+        <option value="C0">C0 · 번역만(기준)</option>
+        <option value="C1">C1 · 지시만</option>
+        <option value="C2">C2 · 지시 + 분석기 툴</option>
+        <option value="C3">C3 · 지시 + 분석기 결과 미리 제공</option>
+      </select>
+      <button :disabled="running" @click="submit">{{ running ? '실행 중…' : '검수 실행' }}</button>
+      <p class="err" v-if="submitError">{{ submitError }}</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>최근 작업</h2>
+      <ul class="jobs">
+        <li v-for="j in jobs" @click="openJob(j.job_id)"><span class="pill">{{ j.status }}</span> {{ j.doc_id }} {{ j.condition }} <span class="small">{{ j.created_at.slice(11,19) }}</span><span class="small err" v-if="j.error"> · {{ j.error.slice(0,60) }}</span></li>
+        <li v-if="!jobs.length" class="small">아직 없음</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="card">
+      <h2>진행 <span class="small" v-if="job">· 작업 {{ job.job_id.slice(0,8) }} · {{ job.condition }} · {{ job.doc_id }}</span></h2>
+      <div class="steps">
+        <span v-for="n in nodes" class="step" :class="{done: doneNodes.has(n), cur: curNode===n}">{{ n }}<span v-if="n==='agent' && attempts>1"> ×{{ attempts }}</span></span>
+      </div>
+      <div class="small" v-if="attempts>1" >재시도 {{ attempts-1 }}회 (형식 오류 뒤 다시 요청)</div>
+      <div class="err" v-if="jobError">실패: {{ jobError }}</div>
+      <details v-if="events.length" style="margin-top:6px"><summary class="small">이벤트 {{ events.length }}건</summary>
+        <pre class="small" style="white-space:pre-wrap">{{ events.map(e => JSON.stringify(e)).join('\n') }}</pre></details>
+    </div>
+
+    <template v-if="result">
+      <div class="card" style="margin-top:16px">
+        <h2>지표 요약</h2>
+        <div class="kv">
+          <div v-for="(v,k) in metricsView"><b>{{ k }}</b>{{ v }}</div>
+        </div>
+        <p class="warn" v-if="result.errors && result.errors.length">오류·재시도 기록: {{ result.errors.join(' | ') }}</p>
+        <p class="small">모델 {{ result.meta.model }} · 프롬프트 {{ result.meta.prompt_version }}/{{ result.meta.prompt_hash.slice(0,8) }} · 분석기 {{ result.meta.analyzer.db }} · {{ result.meta.elapsed_s }}s · 툴 호출 {{ result.meta.tool_calls }} · 산출 {{ job && job.out_dir }}</p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>확인 대기 목록 (이름별)</h2>
+        <table>
+          <thead><tr><th>아랍어</th><th>토큰</th><th>후보(출처)</th><th>채택 표기</th><th>처분</th><th>근거 인용</th><th>분석 수</th><th>플래그</th></tr></thead>
+          <tbody>
+            <tr v-for="r in result.proper_nouns">
+              <td class="ar">{{ r.arabic }}</td><td class="small">{{ r.token_ids }}</td><td>{{ r.candidates }}</td><td>{{ r.adopted }}</td>
+              <td><span class="pill" :class="r.decision">{{ r.decision }}</span></td><td class="small">{{ r.evidence }}</td><td class="small">{{ r.analyzer_counts }}</td><td class="small">{{ r.flags }}</td>
+            </tr>
+            <tr v-if="!result.proper_nouns.length"><td colspan="8" class="small">이름 항목 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>구간별 원문·번역 (항목 토큰 강조: 빨강 보류, 초록 근거 확정, 노랑 그 외)</h2>
+        <div class="seg" v-for="s in result.segments">
+          <div class="id">{{ s.segment_id }}<span v-if="s.unprocessed.length"> · 미처리 {{ s.unprocessed.map(u => u.text + '(' + u.reason + ')').join(', ') }}</span></div>
+          <div class="ar" v-html="highlight(s)"></div>
+          <div class="en">{{ s.english === null ? '(번역 없음)' : s.english }}</div>
+        </div>
+      </div>
+    </template>
+  </section>
+</main>
+
+<main v-show="tab==='bundle'">
+  <section>
+    <div class="card">
+      <h2>묶음 입력</h2>
+      <label>샘플 묶음(합성 dev · 사례 × 대상 종류)</label>
+      <select v-model="bundleSampleId" @change="loadBundleSample">
+        <option value="">직접 입력(JSON)</option>
+        <option v-for="b in bundleSamples" :value="b.bundle_id">{{ b.bundle_id }}</option>
+      </select>
+      <label>묶음 JSON (bundle_id · documents[document_id, document_type, segments[segment_id, text, entity_id, translated_name]])</label>
+      <textarea class="json" v-model="bundleJson" placeholder='{"bundle_id": "...", "documents": [...]}'></textarea>
+      <div class="row" style="margin-top:8px"><input type="checkbox" id="useLlm" v-model="useLlm"><label for="useLlm">라벨 칸이 없는 문장의 고유명사도 LLM으로 뽑는다</label></div>
+      <select v-model="condition" v-if="useLlm" style="margin-top:6px">
+        <option value="C1">C1 · 지시만</option><option value="C2">C2 · 지시 + 분석기 툴</option><option value="C3">C3 · 지시 + 분석기 결과 미리 제공</option>
+      </select>
+      <button :disabled="bundleRunning" @click="submitBundle">{{ bundleRunning ? '실행 중…' : '묶음 검수 실행' }}</button>
+      <p class="err" v-if="bundleError">{{ bundleError }}</p>
+      <p class="small">규칙: 같은 대상 ID(entity_id)가 붙은 다른 서류의 영문 칸만 근거로 쓴다. 대소문자·공백만 무시하고 정확히 같을 때만 확정한다.</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>최근 묶음</h2>
+      <ul class="jobs">
+        <li v-for="b in bundles" @click="openBundle(b.bundle_id)">{{ b.bundle_id }} <span class="small">서류 {{ b.documents }} · <span class="pill confirmed">확정 {{ b.confirmed }}</span> <span class="pill pending">대기 {{ b.pending }}</span></span></li>
+        <li v-if="!bundles.length" class="small">아직 없음</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="card" v-if="bundleReview">
+      <h2>LLM 추출 진행 <span class="small">· 검수 {{ bundleReview.review_id.slice(0,8) }} · {{ bundleReview.condition }} · {{ bundleReview.status }}</span></h2>
+      <div class="steps"><span v-for="(st, d) in bundleReview.job_status" class="step" :class="{done: st==='done', cur: st==='running'}">{{ d }}: {{ st }}</span><span v-for="d in bundleReview.skipped" class="step">{{ d }}: 아랍어 없음(건너뜀)</span></div>
+      <div class="err" v-for="(e, d) in bundleReview.errors">{{ d }}: {{ e }}</div>
+    </div>
+
+    <template v-if="bundleResult">
+      <div class="card" :style="bundleReview ? 'margin-top:16px' : ''">
+        <h2>전체 결과 <span class="small">· {{ bundleResult.bundle_id }} · <span class="pill confirmed">확정 {{ bundleResult.counts.confirmed }}</span> <span class="pill pending">대기 {{ bundleResult.counts.pending }}</span></span></h2>
+        <table>
+          <thead><tr><th>상태</th><th>사유</th><th>대상</th><th>아랍어 표기</th><th>번역 표기</th><th>근거 표기</th><th>제안</th><th>서류·구간</th></tr></thead>
+          <tbody>
+            <tr v-for="it in bundleResult.items" class="click" :class="{sel: selected && selected.mention_id===it.mention_id}" @click="select(it)">
+              <td><span class="pill" :class="it.status">{{ it.status==='confirmed' ? '확정' : '대기' }}</span></td>
+              <td>{{ it.reason_label }}</td>
+              <td><span class="pill" :class="it.entity_type">{{ it.entity_type }}</span> <span class="small">{{ it.entity_id || '(ID 없음)' }}</span></td>
+              <td class="ar">{{ it.arabic_name }}</td><td>{{ it.translated_name ?? '—' }}</td>
+              <td>{{ it.evidence.filter(e => e.valid).map(e => e.english_name).join(' / ') || '—' }}</td>
+              <td>{{ it.suggestion || '' }}</td><td class="small">{{ it.document_id }}/{{ it.segment_id }}</td>
+            </tr>
+            <tr v-if="!bundleResult.items.length"><td colspan="8" class="small">항목 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>확인 대기 목록</h2>
+        <table>
+          <thead><tr><th>사유</th><th>대상</th><th>아랍어 표기</th><th>번역 표기</th><th>근거·제안</th></tr></thead>
+          <tbody>
+            <tr v-for="it in bundleResult.items.filter(i => i.status==='pending')" class="click" @click="select(it)">
+              <td>{{ it.reason_label }}</td><td class="small">{{ it.entity_id || '(ID 없음)' }}</td><td class="ar">{{ it.arabic_name }}</td><td>{{ it.translated_name ?? '—' }}</td>
+              <td class="small">{{ it.evidence.filter(e => e.valid).map(e => e.english_name).join(' / ') || it.suggestion || it.detail }}</td>
+            </tr>
+            <tr v-if="!bundleResult.items.some(i => i.status==='pending')"><td colspan="5" class="small">대기 항목 없음</td></tr>
+          </tbody>
+        </table>
+        <p class="small">항목을 누르면 아래에서 원문·번역·근거를 비교하고, 담당자가 확인한 표기를 사전에 등록해 닫을 수 있다. 검수 결과를 자동으로 사전에 넣지 않는다.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px" v-if="selected">
+        <h2>항목 비교 · {{ selected.mention_id }}</h2>
+        <div class="kv">
+          <div><b>원문 구간</b><span class="ar" style="display:block;direction:rtl;text-align:right">{{ segmentText(selected) }}</span></div>
+          <div><b>번역 표기</b>{{ selected.translated_name ?? '(없음)' }}</div>
+          <div><b>상태 · 사유</b>{{ selected.status }} · {{ selected.reason_label }} ({{ selected.reason }})</div>
+          <div><b>보조 설명</b>{{ selected.detail || '—' }}</div>
+        </div>
+        <h2 style="margin-top:10px">근거 {{ selected.evidence.length }}건</h2>
+        <div v-for="e in selected.evidence" class="quote" :class="e.valid ? 'ok' : 'bad'">
+          <div class="small">{{ e.document_id }} / {{ e.segment_id }} · 영문 <b>{{ e.english_name }}</b> · {{ e.valid ? '검증 통과' : '검증 실패: ' + e.failure }}</div>
+          <div style="direction:rtl;text-align:right">{{ e.quote }}</div>
+        </div>
+        <div class="small" v-if="!selected.evidence.length">근거 없음</div>
+        <template v-if="selected.status==='pending' && selected.entity_id">
+          <h2 style="margin-top:10px">닫기 · 확인한 표기를 사전에 등록</h2>
+          <div class="row"><input v-model="closeName" placeholder="확인된 영문 표기" style="flex:1;font:inherit;border:1px solid var(--line);border-radius:6px;padding:8px"><button class="ghost" style="margin:0;width:auto" @click="closeItem(selected)">등록</button></div>
+          <p class="err" v-if="closeError">{{ closeError }}</p><p class="small" v-if="closeOk">{{ closeOk }}</p>
+        </template>
+      </div>
+    </template>
+  </section>
+</main>
+</div>
+<script>
+const { createApp } = Vue;
+createApp({
+  data() { return {
+    health: null, healthError: null, samples: [], sampleId: '', text: '', condition: 'C3',
+    nodes: ['load','analyze','agent','validate','reconcile','export'],
+    running: false, submitError: null, job: null, jobError: null, events: [], doneNodes: new Set(), curNode: null, attempts: 0,
+    result: null, jobs: [], es: null,
+    tab: 'doc', bundleSamples: [], bundleSampleId: '', bundleJson: '', useLlm: false, bundleRunning: false, bundleError: null,
+    bundles: [], bundleResult: null, bundleReview: null, selected: null, bundleObj: null, closeError: null, closeOk: null, closeName: '',
+  }},
+  computed: {
+    metricsView() {
+      const m = this.result.metrics; const keys = ['valid_output','attempts','n_tokens','n_arabic_tokens','n_ambiguous_tokens','n_items','hold_rate','silent_rate','unsupported_adopt_rate','hold_candidate_hit_rate','n_unprocessed_names','n_unprocessed_ambiguous_words','n_evidence_failed','n_over_flag_tokens'];
+      const out = {}; for (const k of keys) if (k in m && m[k] !== null && typeof m[k] !== 'object') out[k] = typeof m[k] === 'number' && !Number.isInteger(m[k]) ? m[k].toFixed(3) : String(m[k]);
+      if (m.usage) out.tokens = (m.usage.total_tokens ?? 0) + ' (' + (m.usage.llm_calls ?? 0) + ' calls)';
+      return out;
+    }
+  },
+  methods: {
+    fmt(v) { return v === 'disabled' ? '없음' : v === true ? 'OK' : v === false ? '불통' : String(v) },
+    async api(path, opts) {
+      const r = await fetch(path, opts); const body = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error((body && body.error) ? body.error : (r.status + ' ' + r.statusText));
+      return body;
+    },
+    async loadHealth() { try { this.health = await this.api('/health') } catch (e) { this.healthError = '서버 상태를 읽지 못했습니다: ' + e.message } },
+    async loadSamples() { try { this.samples = await this.api('/v1/samples') } catch (e) { this.submitError = e.message } },
+    async loadJobs() { try { this.jobs = await this.api('/v1/jobs?limit=20') } catch (e) {} },
+    async loadSample() {
+      if (!this.sampleId) { this.text = ''; return }
+      try { const d = await this.api('/v1/samples/' + this.sampleId); this.text = d.segments.map(s => s.text).join('\n') } catch (e) { this.submitError = e.message }
+    },
+    resetProgress() { this.job = null; this.jobError = null; this.events = []; this.doneNodes = new Set(); this.curNode = null; this.attempts = 0; this.result = null; if (this.es) { this.es.close(); this.es = null } },
+    async submit() {
+      this.submitError = null; this.resetProgress(); this.running = true;
+      try {
+        const body = this.sampleId ? { doc_id: this.sampleId, condition: this.condition } : { text: this.text, condition: this.condition };
+        const j = await this.api('/v1/reviews', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        this.job = { job_id: j.job_id, condition: j.condition, doc_id: j.doc_id };
+        this.loadJobs();
+        this.listen(j.job_id);
+      } catch (e) { this.submitError = e.message; this.running = false }
+    },
+    listen(id) {
+      const es = new EventSource('/v1/jobs/' + id + '/events'); this.es = es;
+      const push = (ev) => { const d = JSON.parse(ev.data); this.events.push(d); return d };
+      es.addEventListener('queued', push);
+      es.addEventListener('node', (ev) => { const d = push(ev); this.doneNodes.add(d.node); this.curNode = d.node; if (d.attempts) this.attempts = d.attempts; if (d.mcp_error) this.jobError = 'MCP: ' + d.mcp_error });
+      es.addEventListener('done', async (ev) => { push(ev); es.close(); this.es = null; this.curNode = null; await this.openJob(id); this.running = false; this.loadJobs() });
+      es.addEventListener('error', (ev) => { if (ev.data) { const d = push(ev); this.jobError = d.error } else if (es.readyState === EventSource.CLOSED) { this.jobError = this.jobError || '연결이 끊겼습니다' } es.close(); this.es = null; this.running = false; this.loadJobs() });
+    },
+    async openJob(id) {
+      try {
+        const j = await this.api('/v1/jobs/' + id); this.job = j; this.attempts = j.attempts || 0; this.jobError = j.error;
+        if (j.status === 'done') { this.result = await this.api('/v1/jobs/' + id + '/result'); this.doneNodes = new Set(this.nodes); this.jobError = j.error }
+        else if (j.status === 'failed') { this.result = null }
+        else { this.resetProgress(); this.job = j; this.running = true; this.listen(id) }
+      } catch (e) { this.jobError = e.message }
+    },
+    // ---- 서류 묶음 ----
+    async loadBundles() {
+      try { this.bundles = await this.api('/v1/bundles?limit=20'); if (!this.bundleSamples.length) this.bundleSamples = await this.api('/v1/bundles/samples') } catch (e) { this.bundleError = e.message }
+    },
+    async loadBundleSample() {
+      if (!this.bundleSampleId) { this.bundleJson = ''; return }
+      try { const b = await this.api('/v1/bundles/samples/' + this.bundleSampleId); this.bundleJson = JSON.stringify(b, null, 2) } catch (e) { this.bundleError = e.message }
+    },
+    async submitBundle() {
+      this.bundleError = null; this.closeError = null; this.closeOk = null; this.selected = null; this.bundleReview = null; this.bundleResult = null; this.bundleRunning = true;
+      let obj;
+      try { obj = JSON.parse(this.bundleJson) } catch (e) { this.bundleError = 'JSON 형식 오류: ' + e.message; this.bundleRunning = false; return }
+      try {
+        this.bundleObj = obj;
+        this.bundleResult = await this.api('/v1/bundles/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(obj) });
+        this.loadBundles();
+        if (this.useLlm) {
+          const r = await this.api('/v1/bundles/' + encodeURIComponent(obj.bundle_id) + '/reviews?condition=' + this.condition, { method: 'POST' });
+          this.bundleReview = r; this.pollBundleReview(obj.bundle_id, r.review_id); return;
+        }
+      } catch (e) { this.bundleError = e.message }
+      this.bundleRunning = false;
+    },
+    async pollBundleReview(bundleId, reviewId) {
+      try {
+        const r = await this.api('/v1/bundles/' + encodeURIComponent(bundleId) + '/reviews/' + reviewId); this.bundleReview = r;
+        if (r.status === 'done') { this.bundleResult = { bundle_id: bundleId, counts: r.counts, items: r.items }; this.bundleRunning = false; this.loadBundles(); return }
+        setTimeout(() => this.pollBundleReview(bundleId, reviewId), 700);
+      } catch (e) { this.bundleError = e.message; this.bundleRunning = false }
+    },
+    async openBundle(id) {
+      this.selected = null; this.bundleReview = null; this.closeError = null; this.closeOk = null;
+      try {
+        const [items, obj] = await Promise.all([this.api('/v1/bundles/' + encodeURIComponent(id) + '/items'), this.api('/v1/bundles/' + encodeURIComponent(id))]);
+        this.bundleObj = obj; this.bundleJson = JSON.stringify(obj, null, 2); this.bundleSampleId = '';
+        this.bundleResult = { bundle_id: id, counts: { confirmed: items.filter(i => i.status==='confirmed').length, pending: items.filter(i => i.status==='pending').length }, items };
+      } catch (e) { this.bundleError = e.message }
+    },
+    select(it) { this.selected = it; this.closeError = null; this.closeOk = null; this.closeName = it.suggestion || (it.evidence.find(e => e.valid) || {}).english_name || it.translated_name || '' },
+    segmentText(it) {
+      const doc = (this.bundleObj && this.bundleObj.documents || []).find(d => d.document_id === it.document_id);
+      const seg = doc && doc.segments.find(s => s.segment_id === it.segment_id);
+      return seg ? seg.text : '(원문 없음)';
+    },
+    async closeItem(it) {
+      this.closeError = null; this.closeOk = null;
+      const english = (this.closeName || '').trim();
+      if (!english) { this.closeError = '등록할 영문 표기를 입력하세요'; return }
+      try {
+        const e = await this.api('/v1/dictionary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bundle_id: this.bundleResult.bundle_id, mention_id: it.mention_id, english_name: english }) });
+        this.closeOk = '사전 등록: ' + e.customer_id + ' / ' + e.entity_id + ' → ' + e.english_name + ' (다음 묶음부터 근거 없이도 이 표기로 확정)';
+      } catch (e) { this.closeError = e.message }
+    },
+    highlight(seg) {
+      const esc = (s) => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+      const tokens = []; const re = /[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]+/g; let m;
+      const marks = new Map();
+      for (const it of seg.items) for (const tid of it.token_ids) marks.set(tid, it.final_decision);
+      // 토큰 ID는 문서 전체 순번이라, 구간 안 토큰을 결과의 items.arabic로 다시 맞춘다
+      let html = esc(seg.arabic);
+      for (const it of seg.items) {
+        const cls = it.final_decision === 'hold' ? 'hold' : (it.final_decision === 'evidence_adopt' || it.final_decision === 'adopt') ? 'adopt' : '';
+        const a = esc(it.arabic); if (a && html.includes(a)) html = html.replace(a, '<mark class="' + cls + '" title="' + esc(it.final_decision + ' · ' + (it.reason || '')) + '">' + a + '</mark>');
+      }
+      return html;
+    }
+  },
+  async mounted() {
+    this.loadHealth(); this.loadSamples(); this.loadJobs();
+    // 딥링크: #bundle 또는 #bundle?sample=<id>&run=1&llm=C1 (화면 캡처·시연용)
+    const h = location.hash.replace(/^#/, ''); const [name, q] = h.split('?'); const params = new URLSearchParams(q || '');
+    if (name === 'bundle') {
+      this.tab = 'bundle'; await this.loadBundles();
+      if (params.get('sample')) { this.bundleSampleId = params.get('sample'); await this.loadBundleSample() }
+      if (params.get('llm')) { this.useLlm = true; this.condition = params.get('llm') }
+      if (params.get('run') && this.bundleJson) { await this.submitBundle(); if (this.bundleResult && this.bundleResult.items.length) this.select(this.bundleResult.items.find(i => i.status==='pending') || this.bundleResult.items[0]) }
+    }
+  }
+}).mount('#app');
+</script>
+</body>
+</html>

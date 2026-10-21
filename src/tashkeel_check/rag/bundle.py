@@ -65,6 +65,8 @@ class BundleHit:
     text: str
     latin_candidates: list[str]
     score: float | None = None
+    document_id: str | None = None  # from_documents로 만든 색인에서만 채워진다(인용 검증용)
+    segment_id: str | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -99,6 +101,25 @@ class BundleIndex:
         index.add(docs)
         return index
 
+    @classmethod
+    def from_documents(cls, documents: Any, entity_id: str | None = None, **kwargs: Any) -> BundleIndex:
+        """묶음 서류(bundle.schemas.Document)를 구간 단위로 색인한다. entity_id를 주면 그 대상의 구간만 넣는다.
+
+        같은 아랍어 표기가 다른 대상에 있어도 섞이지 않게 하려는 것이다(ADR-018). 결과는 후보 힌트일 뿐
+        근거가 아니다. 근거는 bundle.evidence.search_evidence가 대상 ID로 찾고 검증한다."""
+        docs = [
+            Document(
+                page_content=seg.text,
+                metadata={"source": doc.document_id, "document_id": doc.document_id, "segment_id": seg.segment_id},
+            )
+            for doc in documents
+            for seg in doc.segments
+            if entity_id is None or seg.entity_id == entity_id
+        ]
+        index = cls(**kwargs)
+        index.add(docs)
+        return index
+
     def add(self, docs: list[Document]) -> None:
         from langchain_qdrant import QdrantVectorStore
 
@@ -122,6 +143,12 @@ class BundleIndex:
             for i, line in enumerate(lines):
                 yield pid, parent.metadata["source"], i, line, lines
 
+    def _hit(self, method: str, pid: str, source: str, line_no: int | None, text: str, latin: list[str], score=None):  # type: ignore[no-untyped-def]
+        meta = self.parents[pid].metadata
+        return BundleHit(
+            method, source, pid, line_no, text, latin, score, meta.get("document_id"), meta.get("segment_id")
+        )
+
     def search(self, arabic: str, romanized: list[str], k: int = 4) -> list[BundleHit]:
         hits: list[BundleHit] = []
         key = normalize_key(arabic)
@@ -129,11 +156,11 @@ class BundleIndex:
             if key and key in normalize_key(line):
                 window = " ".join(lines[i : i + 2])
                 latin = [m.group(0).strip() for m in LATIN_SPAN_RE.finditer(window)] if has_latin(window) else []
-                hits.append(BundleHit("arabic_exact", source, pid, i, line, latin))
+                hits.append(self._hit("arabic_exact", pid, source, i, line, latin))
             spans = [m.group(0).strip() for m in LATIN_SPAN_RE.finditer(line)]
             matched = [s for s in spans for r in romanized if r and spelling_in_text(r, s)]
             if matched:
-                hits.append(BundleHit("romanized", source, pid, i, line, sorted(set(matched))))
+                hits.append(self._hit("romanized", pid, source, i, line, sorted(set(matched))))
         if self.store is not None:
             query = " ".join([arabic, *romanized]).strip()
             seen = set()
@@ -144,7 +171,7 @@ class BundleIndex:
                 seen.add(pid)
                 parent = self.parents[pid]
                 hits.append(
-                    BundleHit("vector", parent.metadata["source"], pid, None, parent.page_content, [], float(score))
+                    self._hit("vector", pid, parent.metadata["source"], None, parent.page_content, [], float(score))
                 )
         return hits
 

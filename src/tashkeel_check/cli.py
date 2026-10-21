@@ -87,6 +87,16 @@ def _cmd_synthetic(args: argparse.Namespace, settings: Settings) -> int:
     return 0
 
 
+def _cmd_make_bundles(args: argparse.Namespace, settings: Settings) -> int:
+    from .data.bundles import generate_bundles
+
+    made = []
+    for split in ("dev", "eval"):
+        made += generate_bundles(Path(args.synthetic) / split / f"{split}_001.json", args.out, split)
+    print(f"{len(made)} bundles → {args.out}")
+    return 0
+
+
 def _cmd_bundle_search(args: argparse.Namespace, settings: Settings) -> int:
     from .rag import BundleIndex
 
@@ -269,6 +279,24 @@ def _cmd_inspect_gold(args: argparse.Namespace, settings: Settings) -> int:
     return 0
 
 
+def _cmd_serve(args: argparse.Namespace, settings: Settings) -> int:
+    """단계 1.5 서비스. 구성(모델·분석기·DB·MCP)을 먼저 만들어 실패하면 기동하지 않는다(종료 코드 3)."""
+    import uvicorn
+
+    from .web.app import build_runtime, create_app
+
+    runtime = build_runtime(settings)
+    host = args.host or settings.web_host
+    port = args.port or settings.web_port
+    print(
+        f"모델 {runtime.backend}, DB {'있음' if runtime.db else '없음'}, MCP {'켬' if runtime.mcp else '끔'} → "
+        f"http://{host}:{port}  (API 문서 /docs, 상태 /health)",
+        file=sys.stderr,
+    )
+    uvicorn.run(create_app(runtime), host=host, port=port, log_level="info")
+    return 0
+
+
 def _parser(settings: Settings) -> argparse.ArgumentParser:
     data, results = settings.data_dir, settings.results_dir
     parser = argparse.ArgumentParser(prog="tashkeel", description="아랍어 문서 모호성 은폐 측정 장치")
@@ -315,6 +343,11 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--n", type=int, default=2)
     p.set_defaults(func=_cmd_inspect_gold)
 
+    p = sub.add_parser("make-bundles", help="합성 묶음(평가 사례 9개 × 대상 종류 3개, dev·eval)을 만든다")
+    p.add_argument("--synthetic", default=str(data / "synthetic"))
+    p.add_argument("--out", default=str(data / "synthetic" / "bundles"))
+    p.set_defaults(func=_cmd_make_bundles)
+
     p = sub.add_parser("bundle-search", help="단계 2 틀: 묶음 검색을 직접 시험한다")
     p.add_argument("--bundle", default=str(data / "bundles" / "sample"))
     p.add_argument("--arabic", required=True)
@@ -343,6 +376,11 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--token-budget", type=int, help="이번에 쓸 토큰 상한(입력+출력). 넘으면 새 실행을 시작하지 않는다")
     p.add_argument("--finalize", action="store_true", help="--resume과 함께: 더 돌리지 않고 지금까지로 summary를 쓴다")
     p.set_defaults(func=_cmd_experiment)
+
+    p = sub.add_parser("serve", help="단계 1.5 서비스: API·폼 화면(.env의 LLM_BACKEND·DATABASE_URL·USE_MCP_TOOLS)")
+    p.add_argument("--host", help=f"기본 {settings.web_host}")
+    p.add_argument("--port", type=int, help=f"기본 {settings.web_port}")
+    p.set_defaults(func=_cmd_serve)
 
     p = sub.add_parser("exp002-status", help="EXP-002 실행의 진행과 사용량(결과 지표는 보이지 않는다)")
     p.add_argument("dir", nargs="?", help="실행 폴더(없으면 그 split의 최근 실행)")
