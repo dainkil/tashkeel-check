@@ -10,14 +10,14 @@
 | [problem-and-goals.md](problem-and-goals.md) | 정의, 문제의 세 층, 대상 고객, 서비스 목표 G1~G6, 질문 Q0~Q3, 기능·비기능 요구사항 | 제품이 약속하는 것, 목표값, 요구사항 |
 | [scope.md](scope.md) | 단계 1 / 1.5 / 2 / 3의 위치, 단계 1에 넣는 것·뺀 것, 사용자가 확정한 것과 확인한 것 | 범위, 합격선·중단 기준, 모델·규모 결정 |
 | [architecture.md](architecture.md) | 설계 원칙, 그래프, 산출물, 조건 C0~C3, 출력 스키마·강등 규칙, 툴, 스택, 저장소 구조, 코드 대조 | 노드·조건·스키마·툴·모듈 구조 |
-| [data.md](data.md) | Wikidata 걸프 인명(스냅숏·이름 풀·정렬 규칙), 합성 문서(규칙·근거 배치·정답·분할) | 데이터 출처·생성 규칙·버전 |
-| [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것 | 지표 정의, 판정 규칙, 기록 항목 |
+| [data.md](data.md) | Wikidata 걸프 인명(스냅숏·이름 풀·정렬 규칙), 합성 문서(규칙·근거 배치·정답·분할), 합성 묶음(사례 9 × 종류 3) | 데이터 출처·생성 규칙·버전 |
+| [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것, 묶음 검수 지표(6.4) | 지표 정의, 판정 규칙, 기록 항목 |
 | [roadmap.md](roadmap.md) | 기능 F1~F14, 제품 스택·시스템 구성·API 초안·데이터 모델, 마일스톤 M0~M6, 테스트 전략, 단계별 체크리스트, 위험 | 기능·일정·제품 설계, 체크리스트 |
 | [changelog.md](changelog.md) | 계획 변경 이력 표와 날짜별 완료 기록 | 모든 계획·범위·구조 변경(이유와 영향을 함께) |
-| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~016, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
+| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~018, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
 | [troubleshooting.md](troubleshooting.md) | TS-001~003 | 재현 가능한 오류와 해결 과정 |
 | [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
-| [과제2-테스트-기록.md](과제2-테스트-기록.md) | 단계 1.5 서비스의 실행 방법, 기능별 테스트 16건, 예외 테스트 7종, 화면 캡처(`images/`) | API·화면·DB·MCP 동작이 바뀌면 다시 실행해 갱신 |
+| [과제2-테스트-기록.md](과제2-테스트-기록.md) | 단계 1.5 서비스의 실행 방법, 기능별 테스트 16건, 예외 테스트 7종, 단계 2 묶음 검수 기능 19건·예외 9종(5절), 화면 캡처(`images/`) | API·화면·DB·MCP 동작이 바뀌면 다시 실행해 갱신 |
 | [business/feasibility.md](business/feasibility.md) | 사업성 검토(시장성·기술성·경제성) | 사업 판단, 가격·고객 수 가정 |
 | [business/market/](business/market/) | 시장 조사 기록, 출처 목록, 재계산 스크립트 | 조사 추가·출처 갱신 |
 | [../data/synthetic/README.md](../data/synthetic/README.md) | 합성 문서 파일 형식 | 생성기 출력 형식 |

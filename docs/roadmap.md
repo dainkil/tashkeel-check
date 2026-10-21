@@ -29,11 +29,11 @@
 | F2 | 모호 구간 탐지 | 형태소 분석기로 모든 토큰의 독법 후보를 열거하고, 모호 토큰을 코드가 표시한다. LLM 판단과 독립된 신호 | G1 | 핵심 | 1 | [확인] 구현. 이름에서 유효한지는 EXP-001이 정함 |
 | F3 | 번역과 항목별 처분 | 영어 번역과 함께, 갈리는 구간마다 후보·채택·이유·확신도 또는 기권, 고유명사마다 근거 채택 또는 보류 | G1, G2 | 핵심 | 1 | [확인] 구현(C1~C3) |
 | F4 | 코드 검증과 강등 | 스키마·토큰 ID·인용을 코드가 확인하고, 근거 없는 확정을 실패로 센다. 미처리·과잉 표시·표기 불일치 집계 | G2, G3 | 핵심 | 1 | [확인] 구현 |
-| F5 | 묶음 근거 검색 | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 이중 언어 문서)에서 이름의 라틴 문자 표기를 찾아 근거로 쓴다. 아랍어 정확 일치 → 로마자 유사 일치 → 벡터 검색 순 | G2, G3, G5 | 핵심 | 2 | 틀만 있음(`rag/bundle.py`, 꺼짐) |
-| F6 | 확인 대기 목록 | 결과를 이름 단위로 묶어 돌려준다. 이름마다 채택 표기, 근거 위치·인용, 확정/보류, 서류 간 표기 불일치. 담당자가 여권을 보고 항목을 닫을 수 있는 형태 | G5 | 핵심 | 2 | 설계 전. 단계 1 산출물(`proper_nouns.csv`)을 묶음 단위로 확장 |
+| F5 | 묶음 근거 검색 | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 이중 언어 문서)에서 이름의 라틴 문자 표기를 찾아 근거로 쓴다. 아랍어 정확 일치 → 로마자 유사 일치 → 벡터 검색 순 | G2, G3, G5 | 핵심 | 2 | [확인] 2026-10-21 구현(`bundle/evidence.py`, 대상 ID 기준, ADR-018). 벡터 경로는 후보 힌트(`rag/bundle.py`), pgvector 이전은 남음 |
+| F6 | 확인 대기 목록 | 결과를 이름 단위로 묶어 돌려준다. 이름마다 채택 표기, 근거 위치·인용, 확정/보류, 서류 간 표기 불일치. 담당자가 여권을 보고 항목을 닫을 수 있는 형태 | G5 | 핵심 | 2 | [확인] 2026-10-21 구현(`ReviewItem` 확정/대기 + 사유, `/v1/bundles/{id}/pending`, 화면 대기 목록). 서류 간 충돌은 `cross_document_conflict` |
 | F7 | API | 서류 묶음 업로드 → 검수 작업 → 보고서 조회. 진행 상태 스트림. 판매 형태(ADR-009) | G5 | 핵심 | 1.5 → 2 | [확인] 단일 문서 범위(2.3절 "M1.5 부분집합") 2026-10-21 구현(`web/app.py`). 묶음 API는 단계 2 |
 | F8 | 측정과 추적 | 실행마다 지표·실행 메타(모델, 프롬프트 해시, 데이터 범위)를 남기고 LangSmith에 묶는다. 제품 경로에서도 끄지 않는다 | G6 | 핵심 | 1~3 | [확인] 구현(단계 1) |
-| F9 | 이름 사전 | 고객이 여권 등 외부 근거로 확정한 표기를 정규화 아랍어 키 + 고객 ID로 저장한다. 같은 고객의 다음 묶음에서 적중하면 근거 출처 `glossary`로 자동 확정한다. 다른 고객의 사전은 보지 않는다(ADR-010) | G2, G5 | 지원 | 2 | 설계 전. 규칙은 아래 "고유명사 확정 규칙" |
+| F9 | 이름 사전 | 고객이 여권 등 외부 근거로 확정한 표기를 정규화 아랍어 키 + 고객 ID로 저장한다. 같은 고객의 다음 묶음에서 적중하면 근거 출처 `glossary`로 자동 확정한다. 다른 고객의 사전은 보지 않는다(ADR-010) | G2, G5 | 지원 | 2 | [확인] 2026-10-21 구현(`name_dictionary`, 키에 대상 ID 추가, `POST /v1/dictionary`, ADR-018) |
 | F10 | 합성 KYC 묶음 생성기 | 아랍어 상업등기 + 영문 여권 MRZ + 정관으로 된 묶음과 정답을 만든다. F5·F6의 측정 데이터 | G6 | 지원 | 2 | 설계 전 [제안] |
 | F11 | 업로드 화면 | 셀프서브 체험용 최소 화면. 묶음 올리기, 진행 보기, 확인 대기 목록 보기 | G5(2순위 고객) | 지원 | 1.5 → 2 | [확인] M1.5 단일 문서 붙여넣기 폼(`web/static/index.html`) 2026-10-21 구현: 입력·샘플·조건 → 6단계 진행 → 번역·확인 대기 목록·지표·오류. 묶음 업로드는 단계 2 |
 | F12 | 멀티 에이전트 검증 | 번역자 / 번역 결과를 보지 않는 격리된 검증자 / 근거 없으면 보류하는 중재자. 같은 지표로 단일 에이전트와 비교 | G1, G4 | 조건부 | 3 | 설계 전. 단계 3 비교를 통과할 때만 판매 형태 |
@@ -60,8 +60,8 @@
 | 순서 | 근거 | 단계 | 상태 |
 | --- | --- | --- | --- |
 | ① | 같은 문서 안의 라틴 문자 표기(이중 언어 서류의 영문 줄) | 1 | [확인] 구현. `prompts.py` C1 규칙 4, `reconcile.verify_evidence` |
-| ② | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 정관의 영문본) | 2 | 틀만 있음(F5 `search_bundle`) |
-| ③ | 같은 고객의 이름 사전(F9) | 2 | 설계 전 |
+| ② | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 정관의 영문본) | 2 | [확인] 2026-10-21 구현(`bundle/evidence.py`). 같은 대상 ID(`entity_id`)가 붙은 다른 서류의 영문 칸만 근거이고, 이름이 같다고 연결하지 않는다(ADR-018). `rag/bundle.py`는 후보 힌트 |
+| ③ | 같은 고객의 이름 사전(F9) | 2 | [확인] 2026-10-21 구현(`bundle/dictionary.py`, `name_dictionary`). 키는 고객 + 대상 ID + 정규화 아랍어(ADR-018). 근거와 다르면 충돌로 대기 |
 | ④ | 없음 → 보류. 번역문에는 `[Musallam/Muslim]`처럼 후보를 나란히 쓴다 | 1 | [확인] 구현 |
 
 근거로 치지 않는 것: 가장 흔한 표기, 형태소 분석기 후보, LLM이 말한 확신도. 분석기 후보는 "갈리는 자리를 찾는 신호"이고, 확신도는 기록만 한다.
@@ -70,15 +70,15 @@
 
 - 인용이 그 서류 원문에 실제로 있는지, 채택 표기와 맞는지 확인한다. 실패하면 보류로 내리고 "근거 검증 실패"로 센다.
 - 에이전트가 근거 없이 `adopt`를 쓰면 보류로 고쳐 주지 않고 `adopt_unsupported`로 집계한다. 실패를 지우지 않기 위해서다.
-- 단계 2에서는 근거가 가리키는 서류가 같은 묶음의 다른 파일일 수 있으므로, 인용 대조 범위를 묶음 전체로 넓힌다.
+- 단계 2에서는 근거가 가리키는 서류가 같은 묶음의 다른 파일일 수 있으므로, 인용 대조 범위를 묶음 전체로 넓힌다. [확인] 2026-10-21: `bundle.evidence.validate_evidence`가 서류 존재·구간 존재·인용 포함·영문 포함을 대조한다. 확정 비교는 정확 일치(대소문자·공백만 무시)이고, 변이 일치는 제안에만 쓴다(ADR-018).
 
 출력 스키마 확장 [제안, 단계 2]: `Evidence`에 `source: "document" | "bundle" | "glossary"`와 `document_id`를 더한다. 단계 1 스키마(`schemas.py`)는 실험 비교를 위해 그대로 둔다.
 
 이름 사전(F9)의 규칙(ADR-010):
 
-- 키는 `text.normalize_key`로 정규화한 아랍어 전체 이름 + 고객 ID다. 같은 철자라도 다른 고객이면 적중하지 않는다.
+- 키는 `text.normalize_key`로 정규화한 아랍어 전체 이름 + 고객 ID + **대상 ID**(2026-10-21, ADR-018)다. 같은 철자라도 다른 고객이거나 다른 대상이면 적중하지 않는다.
 - 적중하면 근거 출처 `glossary`로 자동 확정하고, 보고서에 `glossary_hit`를 표시한다. 담당자가 한 번 여권으로 확정한 이름을 다음 묶음에서 다시 보류하면 도구의 가치가 없기 때문이다.
-- 등록은 담당자가 보류 항목을 닫을 때(`POST /v1/glossary`)만 한다. 근거 채택 결과를 사람 확인 없이 자동 등록하지 않는다. 오류가 사전에 굳으면 이후 묶음 전체로 번진다.
+- 등록은 담당자가 보류 항목을 닫을 때(`POST /v1/dictionary`, 구 `/v1/glossary`)만 한다. 근거 채택 결과를 사람 확인 없이 자동 등록하지 않는다. 오류가 사전에 굳으면 이후 묶음 전체로 번진다.
 - 같은 고객 안에서 같은 철자가 다른 사람인 경우는 막지 못한다. 이 위험은 "서류 간 표기 불일치"로 드러나므로, 불일치 항목은 사전 적중이어도 확인 대기 목록에 올린다 [제안].
 
 ## 2. 기술 스택과 시스템 구성
@@ -174,17 +174,18 @@ flowchart LR
 
 그래프 노드가 동기이므로 작업은 스레드에서 돌리고(`asyncio.to_thread`), 진행은 노드 단위 이벤트만 큐로 받아 SSE로 보낸다. 토큰 스트리밍은 넣지 않는다. 아래 묶음 API는 단계 2에서 이 위에 더한다.
 
-**단계 2 전체:**
+**단계 2 묶음 검수 [확인, 2026-10-21 구현, ADR-018] (가이드 8단계 경로 `/bundles/...`에 `/v1` 접두사):**
 
 | 메서드·경로 | 입력 | 출력 |
 | --- | --- | --- |
-| `POST /v1/bundles` | 문서 파일들(텍스트), 문서 유형, 고객 ID | `bundle_id` |
-| `POST /v1/bundles/{id}/reviews` | 조건(기본 C3 또는 단계 3 구조), 이름 사전 사용 여부 | `job_id` |
-| `GET /v1/jobs/{id}` | — | 상태(대기·실행·완료·실패), 문서별 진행, 오류 |
-| `GET /v1/jobs/{id}/events` | — | SSE: 문서·노드 단위 진행, 완료 시 보고서 링크 |
-| `GET /v1/bundles/{id}/report` | — | 이름별 확인 대기 목록(F6), 서류 간 불일치, 문서별 번역·항목, 지표, 실행 메타. 이름 항목마다 `evidence.source`(document / bundle / glossary)와 `glossary_hit` |
-| `POST /v1/glossary` | `customer_id`, 정규화 아랍어 키, 확정 영문 표기, 근거 출처(여권·등기 등) | 저장된 항목. 담당자가 보류 항목을 닫을 때 호출 |
-| `GET /v1/glossary?customer=` | — | 고객의 확정 표기 목록 |
+| `POST /v1/bundles/review` | 묶음 JSON(`bundle_id`, `customer_id`?, `entities`?, `documents[document_id, document_type, segments[segment_id, text, entity_id?, translated_name?]]`) | 동기. `counts{confirmed, pending}`, `items[]`(상태·사유·근거·제안). 구조 오류 400, DB 불통 503 |
+| `GET /v1/bundles/{id}/items` · `/pending` · `/` | — | 전체 결과 / 대기만 / 묶음 입력. 없는 묶음 404 |
+| `GET /v1/bundles`, `GET /v1/bundles/samples[/{id}]` | — | 최근 묶음 요약 / 합성 샘플 묶음(gold 제외) |
+| `POST /v1/bundles/{id}/reviews?condition=` | 저장된 묶음, 조건 C1~C3 | 202 `review_id`, 서류별 `job_id`. 라벨 칸 없는 문장의 고유명사를 LLM이 뽑아 합류 |
+| `GET /v1/bundles/{id}/reviews/{review_id}` | — | 서류별 작업 상태, 끝나면 합류한 `items`·`counts`, 실행 오류(`errors`) |
+| `POST /v1/dictionary` | `bundle_id`, `mention_id`, `english_name`? | 담당자가 대기 항목을 닫으며 등록한 사전 항목(201). 자동 등록 없음 |
+
+아직 없는 것: 파일 업로드(`POST /v1/bundles`에 텍스트 파일), 묶음 단위 SSE, `GET /v1/dictionary?customer=`, 인증.
 
 - 인증은 API 키 헤더로 시작한다. 조직·권한 모델, 감사 로그, 키 회전은 엔터프라이즈 단계로 둔다.
 - 보고서의 이름 항목 형식은 단계 1 `proper_nouns.csv` 열(아랍어 원문, 토큰 ID, 후보와 출처, 채택 표기, 처분, 근거 위치, 분석 수)에 `document_id`, `evidence_document_id`, `inconsistent_with[]`, `glossary_hit`을 더한다.
@@ -205,13 +206,14 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 | 테이블 | 주요 열 | 비고 |
 | --- | --- | --- |
 | `customers` | id, name, api_key_hash, created_at | API 키 인증 |
-| `bundles` | id, customer_id, status, created_at | 서류 묶음 |
+| `bundles` | id, bundle_id UNIQUE, customer_id, payload JSONB, created_at, updated_at | [확인] 2026-10-21(Alembic 0002). 묶음 입력 전체. 같은 bundle_id는 덮어쓴다 |
+| `review_items` | id, bundle_pk, mention_id, document_id, segment_id, entity_id, entity_type, arabic_name, arabic_key, translated_name, status(confirmed / pending), reason, evidence JSONB, suggestion, detail | [확인] 2026-10-21. 묶음 검수 결과(`bundle.schemas.ReviewItem`) |
 | `documents` | id, bundle_id, doc_type, file_path, sha256, text_normalized, segments JSONB, tokens JSONB | 원문은 파일, 정규화 텍스트·구간·토큰 표는 DB |
 | `jobs` | id, bundle_id, condition, status, started_at, finished_at, error | 작업 상태. SSE는 이 행의 변화를 흘린다 |
 | `runs` | id, job_id, document_id, condition, model, prompt_hash, analyzer_version, metrics JSONB, run_meta JSONB, usage JSONB | 지금의 `metrics.json`·`run_meta.json` |
 | `segments_out` | run_id, segment_id, english, items JSONB | 지금의 `segments.json` |
 | `name_items` | id, run_id, document_id, token_ids int[], arabic_key, candidates JSONB, adopted, decision, final_decision, evidence_source(document / bundle / glossary), evidence_document_id, evidence_quote, glossary_hit, flags text[] | 지금의 `proper_nouns.csv` + 단계 2 확장. F6 확인 대기 목록의 원천 |
-| `glossary` | id, customer_id, arabic_key, adopted, evidence_kind, evidence_ref, created_by, created_at. UNIQUE(customer_id, arabic_key) | ADR-010. 고객 단위가 고유 키로 강제된다 |
+| `name_dictionary` (구 `glossary`) | id, customer_id, entity_id, entity_type, arabic_key, arabic_name, english_name, evidence_document_id, evidence_segment_id, evidence_quote, verified_by, verified_at. UNIQUE(customer_id, entity_id, arabic_key) | [확인] 2026-10-21. ADR-010 + ADR-018(대상 ID가 키에 들어감) |
 | `bundle_chunks` | id, document_id, parent_id, child_text, embedding vector(1536) | pgvector. `search_bundle`의 세 번째 경로 |
 
 - `arabic_key`는 `text.normalize_key`의 결과다.
@@ -324,11 +326,22 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 
 ### 단계 2 — 제품화와 공개 문서 측정 (단계 1 판정 통과 뒤, ADR-008)
 
-- [ ] 묶음 내 서류 검색 툴: 아랍어 철자 정확 일치로 이중 언어 필드 찾기, 로마자 유사 일치, 필요하면 벡터 검색(pgvector, ADR-011)
-- [ ] 이름 사전(정규화 아랍어 키 + 고객 ID, 정확 일치, 담당자가 보류 항목을 닫을 때만 등록, 같은 고객의 적중은 근거 출처 `glossary`로 자동 확정, ADR-010)
-- [ ] API(주력): 서류 묶음을 받아 이름별 영문 표기, 근거 위치, 확정·보류, 서류 간 표기 불일치를 돌려줌. 보류는 근거 위치가 붙은 확인 대기 항목으로 설계(ADR-009). 저장은 Postgres + Alembic(ADR-011)
-- [ ] 업로드 화면(셀프서브 체험용)
-- [ ] 합성 KYC 온보딩 묶음 생성기: 아랍어 상업등기 + 영문 여권 MRZ + 정관, 정답은 생성기가 냄 [제안]
+가이드(14단계) 번호와 대응. 2026-10-21 구현분은 ADR-018, 기록은 `docs/과제2-테스트-기록.md` 5절.
+
+- [x] 가이드 1·2 — 묶음 JSON 로더(파일 없음·형식 오류 구분)와 구조 `Bundle → Document → Segment(entity_id, translated_name)`, `NameMention`·`BundleEvidence`·`ReviewItem(confirmed/pending, reason)` (`bundle/schemas.py`, `loader.py`)
+- [x] 가이드 3 — 라벨 칸 추출(`الاسم`·`اسم الشركة`·`الجهة`·`Name`·`Company Name`·`Organization` …, `|` 분리, 종류 표시) LLM 없이 (`bundle/extractor.py`)
+- [x] 가이드 4·5 — 같은 대상 ID의 다른 서류에서만 근거 검색, 서류·구간·인용·영문 대조 (`bundle/evidence.py`). 이름이 같다고 연결하지 않음. `rag/bundle.py`는 `from_documents(entity_id=…)`로 같은 대상만 색인하는 후보 힌트. 벡터 검색의 pgvector 이전은 남음
+- [x] 가이드 6 — 판정 규칙(근거 없음 / 서류 간 표기 충돌 / 번역 표기 불일치 / 비교 대상 없음 / 검증 실패 / 근거 일치 + 추출 실패 / 대상 ID 없음 / 실행 오류), 확정은 정확 일치만 (`bundle/rules.py`, `pipeline.py`). 샘플 묶음의 Muslim/Musallam 차이를 대기로 잡음
+- [x] 가이드 7 — 표기 사전(고객 + 대상 ID + 정규화 아랍어, 사람이 닫을 때만 등록, 근거와 다르면 충돌) 와 Postgres 표 3개(Alembic 0002), DB 없으면 메모리 (`bundle/dictionary.py`, `web/bundles.py`, `web/models.py`)
+- [x] 가이드 8 — API `POST /v1/bundles/review`, `GET /v1/bundles/{id}/items`·`/pending`, 404, `POST /v1/dictionary` (2.3절)
+- [x] 가이드 9 — 라벨 칸 없는 문장은 LLM(C1~C3)이 뽑아 같은 판정을 탐. 서류별 작업, API 호출 실패는 `model_error`로 구분 (`web/bundle_jobs.py`, `bundle.pipeline.mentions_from_result`)
+- [x] 가이드 10 — 형태소 분석은 기존 그대로(C2 툴·MCP). 별도 래퍼는 두지 않음
+- [x] 가이드 12 — MCP `search_bundle` 툴(대상 ID 기준, 없는 ID는 오류)과 리소스 `document://synthetic/bundles/{split}[/{bundle_id}]`
+- [x] 가이드 14 — 화면 "서류 묶음" 탭(샘플/JSON → 실행 → 전체 결과 → 대기 목록 → 항목별 원문·번역·근거 비교 → 닫기·사전 등록, 딥링크 `#bundle?sample=…&run=1`), 평가 사례 9개 × 대상 종류 3개 합성 묶음(`tashkeel make-bundles`, `data/synthetic/bundles/`)과 테스트. 캡처 `docs/images/screen-bundle_*.jpg`
+- [ ] 가이드 11 나머지 — 벡터 검색을 pgvector로 옮기고 고객·묶음 범위 제한을 DB 수준에서(ADR-011 M3)
+- [ ] 파일 업로드(`POST /v1/bundles`), 묶음 단위 SSE, 인증, 서류 종류별 우선순위(지금은 서류끼리 다르면 무조건 대기)
+- [ ] 합성 KYC 온보딩 묶음 생성기: 아랍어 상업등기 + 영문 여권 MRZ + 정관, 정답은 생성기가 냄 [제안]. 지금 생성기(`bundles-v1`)는 합성 문서 1개를 base로 계약서 + 근거 서류 사례만 만든다
+- [ ] 실제 모델로 묶음 LLM 경로 1회 실행(EXP-002 보류 중이라 미실행)
 - [ ] 공개 이중언어 문서(공식 영문본을 정답으로)에서 EXP-002 지표 재측정 [제안, 문서 공개 여부·이용 조건 미확인]
 - [ ] 추후 과제: 보류 항목의 사람 검토(interrupt), 실제 고객 서류로 재측정, SOC 2, 설치형 배포 시 형태소 DB 교체(`glf-01` 검토)
 

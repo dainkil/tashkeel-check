@@ -99,7 +99,7 @@ reconcile이 코드로 적용하는 규칙:
 
 ## 4.6 툴 (단계 1)
 
-LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수다. 단계 2용 `search_bundle`은 틀만 있고 꺼져 있다(ADR-007). 상세는 4.9절.
+LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수다. 단계 2용 `search_bundle`(LangChain 툴, `rag/bundle.py`)은 틀만 있고 꺼져 있다(ADR-007). 묶음 검수(단계 2, 2026-10-21)는 LLM 툴이 아니라 코드 경로다(`bundle/`, 아래 4.8절 "단계 2에서 더한 것"). 상세는 4.9절.
 
 | 이름 | 입력 | 출력 | 호출 시점 | 실패 시 |
 | --- | --- | --- | --- | --- |
@@ -109,7 +109,7 @@ LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수�
 
 툴 설계 문서에는 툴마다 이름, 입력과 출력 스키마, 호출 시점, 실패했을 때의 동작을 적는다.
 
-**MCP 노출 [확인, 단계 1.5, 2026-10-21 구현]:** 과제 2 안내는 MCP를 필수로 하지 않지만(ZIP README: "LangGraph/MCP 없이 구현해도 됩니다") 사용자가 범위에 넣기로 했으므로(2026-10-20) 최소 범위로 둔다. 실험 경로(CLI `run`, `exp001`, `exp002`)는 지금처럼 in-process 툴을 쓴다(ADR-004: 분석기는 코드에서 항상 돈다). 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2의 `analyze_tokens`를 MCP 서버의 같은 이름 툴로 바꿔 끼우고(`build_graph(analyze_tool_factory=…)`. `extra_tool_factories`는 `bundle_search`로 표시되므로 쓰지 않는다), 툴 로그에 `via: "mcp"`를 남긴다. LLM이 보는 툴 이름·인자·설명은 in-process 툴과 글자 단위로 같다(`tests/test_mcp.py`). 서버는 `python -m tashkeel_check.mcp.server`(FastMCP, stdio)이고, 리소스 `document://synthetic/{split}`(목록)도 더했다. 클라이언트(`mcp/client.py`)는 전용 스레드의 이벤트 루프에서 한 번 연결해 잠금으로 하나씩 보내고, 타임아웃만 지수 백오프로 재시도한다. 노출 항목은 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`(합성 문서, gold 제외), 프롬프트 `review_instructions(condition)`(`prompts.system_prompt`) 세 개다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다.
+**MCP 노출 [확인, 단계 1.5, 2026-10-21 구현]:** 과제 2 안내는 MCP를 필수로 하지 않지만(ZIP README: "LangGraph/MCP 없이 구현해도 됩니다") 사용자가 범위에 넣기로 했으므로(2026-10-20) 최소 범위로 둔다. 실험 경로(CLI `run`, `exp001`, `exp002`)는 지금처럼 in-process 툴을 쓴다(ADR-004: 분석기는 코드에서 항상 돈다). 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2의 `analyze_tokens`를 MCP 서버의 같은 이름 툴로 바꿔 끼우고(`build_graph(analyze_tool_factory=…)`. `extra_tool_factories`는 `bundle_search`로 표시되므로 쓰지 않는다), 툴 로그에 `via: "mcp"`를 남긴다. LLM이 보는 툴 이름·인자·설명은 in-process 툴과 글자 단위로 같다(`tests/test_mcp.py`). 서버는 `python -m tashkeel_check.mcp.server`(FastMCP, stdio)이고, 리소스 `document://synthetic/{split}`(목록)도 더했다. 클라이언트(`mcp/client.py`)는 전용 스레드의 이벤트 루프에서 한 번 연결해 잠금으로 하나씩 보내고, 타임아웃만 지수 백오프로 재시도한다. 노출 항목은 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`(합성 문서, gold 제외), 프롬프트 `review_instructions(condition)`(`prompts.system_prompt`) 세 개다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다. 단계 2(2026-10-21)에 툴 `search_bundle(documents, entity_id, arabic_name)`(같은 대상 ID의 다른 서류에서 영문 칸을 찾아 검증 결과와 함께 돌려줌, 없는 ID는 `error`)과 리소스 `document://synthetic/bundles/{split}[/{bundle_id}]`를 더했다. C2 그래프에는 끼우지 않고 외부 에이전트용 부품이다.
 
 ## 4.7 기술 스택
 
@@ -185,6 +185,31 @@ docs/과제2-테스트-기록.md    기능별 입력·결과, 예외 테스트(�
 
 CLI에 `tashkeel serve`, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더했다(실험 경로는 읽지 않는다). 의존성: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.Reviewer.run`에 `on_node` 콜백을 더했다. 콜백이 있을 때만 `graph.stream(stream_mode="updates")`로 돌고 결과는 `invoke`와 같다(`tests/test_graph_fake.py`, 골든 160건 그대로). `analyzer.thread_safe_analyze()`(exp002의 잠금 래퍼를 옮김)를 서비스와 MCP 서버가 같이 쓴다. 서비스는 `web.app.build_runtime(settings)`가 모델·분석기·DB·MCP·`Reviewer`를 먼저 만들고(실패는 ConfigError → `serve` 종료 코드 3), `create_app(runtime)`이 엔드포인트를 붙인다. `InputError`는 400, `ConfigError`는 503, 응답은 `ReviewResult.model_dump()` + `errors` + `job`. 번역을 포함한 결과 전체는 `runs.result`(JSONB)에 두고 `name_items`는 LLM이 낸 `proper_noun` 항목만 펼친다. `DATABASE_URL`이 없으면 DB 없이(메모리·파일만) 돌고, 있는데 닿지 않으면 기동은 하되 `/health db:false`·작업 생성 503이다. MCP 서버가 죽으면 작업을 failed로 기록한다(in-process 대체 없음). 과제 안내 파일과의 대응표는 README에 둔다.
 
+단계 2(묶음 검수)에서 더한 것 [확인, 2026-10-21, ADR-018]:
+
+```text
+src/tashkeel_check/
+  bundle/                    schemas.py(Bundle·Document·Segment·NameMention·BundleEvidence·ReviewItem, 사유 코드와 한국어 표시명)
+                             loader.py(파일 없음 BundleNotFound / 형식 오류 InvalidBundle, gold 분리)
+                             extractor.py(라벨 칸 추출, 라벨 표 LABELS → 대상 종류)
+                             evidence.py(같은 대상 ID의 다른 서류에서 영문 칸 검색, 인용 검증, strict_form)
+                             rules.py(판정 순서, 정확 일치 확정, 변이 일치는 제안)
+                             dictionary.py(DictionaryLookup 프로토콜, 메모리 사전)
+                             pipeline.py(review_bundle, LLM 결과 합류 mentions_from_result·merge_mentions, model_error_item)
+  data/bundles.py            합성 묶음 생성기(사례 9 × 종류 3, gold 포함) — tashkeel make-bundles
+  web/bundles.py             BundleStore(메모리 / Postgres), DbDictionary
+  web/bundle_jobs.py         묶음 LLM 검수: 서류별 JobManager 작업 → 합류 → 저장
+  web/app.py                 /v1/bundles/*, /v1/dictionary 엔드포인트
+  web/static/index.html      "서류 묶음" 탭(딥링크 #bundle?sample=…&run=1[&llm=C2])
+  mcp/server.py              search_bundle 툴, document://synthetic/bundles/{split}[/{bundle_id}]
+  rag/bundle.py              BundleIndex.from_documents(entity_id=…), BundleHit.document_id·segment_id
+alembic/versions/0002_bundles.py   bundles, review_items, name_dictionary; name_items.evidence_document_id
+data/bundles/sample_bundle.json    가이드 예시(개인 + 회사)   data/synthetic/bundles/{dev,eval}/   사례 묶음 60개
+tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,api,llm}.py
+```
+
+데이터 흐름(라벨 경로, LLM 없음): 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값, 같은 구간에 영문 칸이 있으면 근거 출처라 검수 대상에서 제외) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸) → `validate_evidence`(서류·구간·인용·영문 대조) → `decide_status` → `ReviewItem`. LLM 경로: 서류마다 단일 문서 그래프(C1~C3)를 돌려 `proper_noun` 항목을 `NameMention(source="llm")`으로 바꾸되, 라벨 칸이 있는 구간은 라벨 결과만 쓴다. 두 경로의 판정 함수는 같다.
+
 주요 명령:
 
 | 명령 | 하는 일 |
@@ -193,12 +218,13 @@ CLI에 `tashkeel serve`, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` �
 | `uv run tashkeel run --doc ... --condition C2` | 실제 OpenAI 모델로 실행(키 필요) |
 | `uv run tashkeel fetch-wikidata` | Wikidata 스냅숏과 이름 풀 (`--pool-only`: 재조회 없이 저장된 스냅숏으로 이름 풀만) |
 | `uv run tashkeel make-synthetic` | 합성 문서 dev 10개·eval 30개와 샘플 묶음 |
+| `uv run tashkeel make-bundles` | 합성 묶음(평가 사례 9개 × 대상 종류 3개, dev·eval 60개) → `data/synthetic/bundles/` |
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
 | `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
 | `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
 | `uv run tashkeel serve` 또는 `./run.sh` | 단계 1.5 서비스(API·폼 화면). `.env`의 `LLM_BACKEND`·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_PORT`. 키·분석기·MCP가 없으면 기동 거부(종료 코드 3) |
 | `uv run python -m tashkeel_check.mcp.server` | MCP 서버(stdio) 단독 실행 |
-| `uv run alembic upgrade head` | Postgres 테이블 4개 생성·갱신(`DATABASE_URL` 필요) |
+| `uv run alembic upgrade head` | Postgres 테이블 7개 생성·갱신(`DATABASE_URL` 필요). 0001 단계 1.5, 0002 묶음 검수 |
 | `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 

@@ -48,6 +48,12 @@
   .pill.evidence_adopt, .pill.adopt { color:var(--ok); border-color:#bfe3cf }
   .pill.adopt_unsupported { color:var(--warn); border-color:#f3d9a4 }
   ul.jobs { list-style:none; padding:0; margin:0 } ul.jobs li { padding:4px 0; border-bottom:1px solid var(--line); cursor:pointer } ul.jobs li:hover { color:var(--acc) }
+  nav.tabs { display:flex; gap:4px; margin-left:auto } nav.tabs button { width:auto; margin:0; padding:6px 12px; background:#fff; color:var(--ink); border:1px solid var(--line) } nav.tabs button.on { background:var(--acc); color:#fff; border-color:var(--acc) }
+  .pill.confirmed { color:var(--ok); border-color:#bfe3cf } .pill.pending { color:var(--warn); border-color:#f3d9a4 } .pill.person { color:#1d4ed8 } .pill.organization { color:#7c3aed } .pill.other { color:var(--mut) }
+  tr.sel td { background:#f1f5ff } tr.click { cursor:pointer }
+  .quote { background:#f9fafb; border-left:3px solid var(--line); padding:6px 8px; margin:4px 0; font-size:13px } .quote.bad { border-left-color:var(--bad) } .quote.ok { border-left-color:var(--ok) }
+  textarea.json { direction:ltr; font-family:ui-monospace, Menlo, monospace; font-size:12px; min-height:160px }
+  .row { display:flex; gap:8px; align-items:center } .row label { margin:0 } .row input[type=checkbox] { width:auto }
 </style>
 </head>
 <body>
@@ -56,8 +62,9 @@
   <h1>Tashkeel Check</h1>
   <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 분석기 {{ health.analyzer.tool }} {{ health.analyzer.version }} / {{ health.analyzer.db }} · DB {{ fmt(health.db) }} · MCP {{ fmt(health.mcp) }}</span>
   <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
+  <nav class="tabs"><button :class="{on: tab==='doc'}" @click="tab='doc'">단일 문서</button><button :class="{on: tab==='bundle'}" @click="tab='bundle'; loadBundles()">서류 묶음</button></nav>
 </header>
-<main>
+<main v-show="tab==='doc'">
   <section>
     <div class="card">
       <h2>입력</h2>
@@ -134,6 +141,99 @@
     </template>
   </section>
 </main>
+
+<main v-show="tab==='bundle'">
+  <section>
+    <div class="card">
+      <h2>묶음 입력</h2>
+      <label>샘플 묶음(합성 dev · 사례 × 대상 종류)</label>
+      <select v-model="bundleSampleId" @change="loadBundleSample">
+        <option value="">직접 입력(JSON)</option>
+        <option v-for="b in bundleSamples" :value="b.bundle_id">{{ b.bundle_id }}</option>
+      </select>
+      <label>묶음 JSON (bundle_id · documents[document_id, document_type, segments[segment_id, text, entity_id, translated_name]])</label>
+      <textarea class="json" v-model="bundleJson" placeholder='{"bundle_id": "...", "documents": [...]}'></textarea>
+      <div class="row" style="margin-top:8px"><input type="checkbox" id="useLlm" v-model="useLlm"><label for="useLlm">라벨 칸이 없는 문장의 고유명사도 LLM으로 뽑는다</label></div>
+      <select v-model="condition" v-if="useLlm" style="margin-top:6px">
+        <option value="C1">C1 · 지시만</option><option value="C2">C2 · 지시 + 분석기 툴</option><option value="C3">C3 · 지시 + 분석기 결과 미리 제공</option>
+      </select>
+      <button :disabled="bundleRunning" @click="submitBundle">{{ bundleRunning ? '실행 중…' : '묶음 검수 실행' }}</button>
+      <p class="err" v-if="bundleError">{{ bundleError }}</p>
+      <p class="small">규칙: 같은 대상 ID(entity_id)가 붙은 다른 서류의 영문 칸만 근거로 쓴다. 대소문자·공백만 무시하고 정확히 같을 때만 확정한다.</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>최근 묶음</h2>
+      <ul class="jobs">
+        <li v-for="b in bundles" @click="openBundle(b.bundle_id)">{{ b.bundle_id }} <span class="small">서류 {{ b.documents }} · <span class="pill confirmed">확정 {{ b.confirmed }}</span> <span class="pill pending">대기 {{ b.pending }}</span></span></li>
+        <li v-if="!bundles.length" class="small">아직 없음</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="card" v-if="bundleReview">
+      <h2>LLM 추출 진행 <span class="small">· 검수 {{ bundleReview.review_id.slice(0,8) }} · {{ bundleReview.condition }} · {{ bundleReview.status }}</span></h2>
+      <div class="steps"><span v-for="(st, d) in bundleReview.job_status" class="step" :class="{done: st==='done', cur: st==='running'}">{{ d }}: {{ st }}</span><span v-for="d in bundleReview.skipped" class="step">{{ d }}: 아랍어 없음(건너뜀)</span></div>
+      <div class="err" v-for="(e, d) in bundleReview.errors">{{ d }}: {{ e }}</div>
+    </div>
+
+    <template v-if="bundleResult">
+      <div class="card" :style="bundleReview ? 'margin-top:16px' : ''">
+        <h2>전체 결과 <span class="small">· {{ bundleResult.bundle_id }} · <span class="pill confirmed">확정 {{ bundleResult.counts.confirmed }}</span> <span class="pill pending">대기 {{ bundleResult.counts.pending }}</span></span></h2>
+        <table>
+          <thead><tr><th>상태</th><th>사유</th><th>대상</th><th>아랍어 표기</th><th>번역 표기</th><th>근거 표기</th><th>제안</th><th>서류·구간</th></tr></thead>
+          <tbody>
+            <tr v-for="it in bundleResult.items" class="click" :class="{sel: selected && selected.mention_id===it.mention_id}" @click="select(it)">
+              <td><span class="pill" :class="it.status">{{ it.status==='confirmed' ? '확정' : '대기' }}</span></td>
+              <td>{{ it.reason_label }}</td>
+              <td><span class="pill" :class="it.entity_type">{{ it.entity_type }}</span> <span class="small">{{ it.entity_id || '(ID 없음)' }}</span></td>
+              <td class="ar">{{ it.arabic_name }}</td><td>{{ it.translated_name ?? '—' }}</td>
+              <td>{{ it.evidence.filter(e => e.valid).map(e => e.english_name).join(' / ') || '—' }}</td>
+              <td>{{ it.suggestion || '' }}</td><td class="small">{{ it.document_id }}/{{ it.segment_id }}</td>
+            </tr>
+            <tr v-if="!bundleResult.items.length"><td colspan="8" class="small">항목 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>확인 대기 목록</h2>
+        <table>
+          <thead><tr><th>사유</th><th>대상</th><th>아랍어 표기</th><th>번역 표기</th><th>근거·제안</th></tr></thead>
+          <tbody>
+            <tr v-for="it in bundleResult.items.filter(i => i.status==='pending')" class="click" @click="select(it)">
+              <td>{{ it.reason_label }}</td><td class="small">{{ it.entity_id || '(ID 없음)' }}</td><td class="ar">{{ it.arabic_name }}</td><td>{{ it.translated_name ?? '—' }}</td>
+              <td class="small">{{ it.evidence.filter(e => e.valid).map(e => e.english_name).join(' / ') || it.suggestion || it.detail }}</td>
+            </tr>
+            <tr v-if="!bundleResult.items.some(i => i.status==='pending')"><td colspan="5" class="small">대기 항목 없음</td></tr>
+          </tbody>
+        </table>
+        <p class="small">항목을 누르면 아래에서 원문·번역·근거를 비교하고, 담당자가 확인한 표기를 사전에 등록해 닫을 수 있다. 검수 결과를 자동으로 사전에 넣지 않는다.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px" v-if="selected">
+        <h2>항목 비교 · {{ selected.mention_id }}</h2>
+        <div class="kv">
+          <div><b>원문 구간</b><span class="ar" style="display:block;direction:rtl;text-align:right">{{ segmentText(selected) }}</span></div>
+          <div><b>번역 표기</b>{{ selected.translated_name ?? '(없음)' }}</div>
+          <div><b>상태 · 사유</b>{{ selected.status }} · {{ selected.reason_label }} ({{ selected.reason }})</div>
+          <div><b>보조 설명</b>{{ selected.detail || '—' }}</div>
+        </div>
+        <h2 style="margin-top:10px">근거 {{ selected.evidence.length }}건</h2>
+        <div v-for="e in selected.evidence" class="quote" :class="e.valid ? 'ok' : 'bad'">
+          <div class="small">{{ e.document_id }} / {{ e.segment_id }} · 영문 <b>{{ e.english_name }}</b> · {{ e.valid ? '검증 통과' : '검증 실패: ' + e.failure }}</div>
+          <div style="direction:rtl;text-align:right">{{ e.quote }}</div>
+        </div>
+        <div class="small" v-if="!selected.evidence.length">근거 없음</div>
+        <template v-if="selected.status==='pending' && selected.entity_id">
+          <h2 style="margin-top:10px">닫기 · 확인한 표기를 사전에 등록</h2>
+          <div class="row"><input v-model="closeName" placeholder="확인된 영문 표기" style="flex:1;font:inherit;border:1px solid var(--line);border-radius:6px;padding:8px"><button class="ghost" style="margin:0;width:auto" @click="closeItem(selected)">등록</button></div>
+          <p class="err" v-if="closeError">{{ closeError }}</p><p class="small" v-if="closeOk">{{ closeOk }}</p>
+        </template>
+      </div>
+    </template>
+  </section>
+</main>
 </div>
 <script>
 const { createApp } = Vue;
@@ -143,6 +243,8 @@ createApp({
     nodes: ['load','analyze','agent','validate','reconcile','export'],
     running: false, submitError: null, job: null, jobError: null, events: [], doneNodes: new Set(), curNode: null, attempts: 0,
     result: null, jobs: [], es: null,
+    tab: 'doc', bundleSamples: [], bundleSampleId: '', bundleJson: '', useLlm: false, bundleRunning: false, bundleError: null,
+    bundles: [], bundleResult: null, bundleReview: null, selected: null, bundleObj: null, closeError: null, closeOk: null, closeName: '',
   }},
   computed: {
     metricsView() {
@@ -193,6 +295,59 @@ createApp({
         else { this.resetProgress(); this.job = j; this.running = true; this.listen(id) }
       } catch (e) { this.jobError = e.message }
     },
+    // ---- 서류 묶음 ----
+    async loadBundles() {
+      try { this.bundles = await this.api('/v1/bundles?limit=20'); if (!this.bundleSamples.length) this.bundleSamples = await this.api('/v1/bundles/samples') } catch (e) { this.bundleError = e.message }
+    },
+    async loadBundleSample() {
+      if (!this.bundleSampleId) { this.bundleJson = ''; return }
+      try { const b = await this.api('/v1/bundles/samples/' + this.bundleSampleId); this.bundleJson = JSON.stringify(b, null, 2) } catch (e) { this.bundleError = e.message }
+    },
+    async submitBundle() {
+      this.bundleError = null; this.closeError = null; this.closeOk = null; this.selected = null; this.bundleReview = null; this.bundleResult = null; this.bundleRunning = true;
+      let obj;
+      try { obj = JSON.parse(this.bundleJson) } catch (e) { this.bundleError = 'JSON 형식 오류: ' + e.message; this.bundleRunning = false; return }
+      try {
+        this.bundleObj = obj;
+        this.bundleResult = await this.api('/v1/bundles/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(obj) });
+        this.loadBundles();
+        if (this.useLlm) {
+          const r = await this.api('/v1/bundles/' + encodeURIComponent(obj.bundle_id) + '/reviews?condition=' + this.condition, { method: 'POST' });
+          this.bundleReview = r; this.pollBundleReview(obj.bundle_id, r.review_id); return;
+        }
+      } catch (e) { this.bundleError = e.message }
+      this.bundleRunning = false;
+    },
+    async pollBundleReview(bundleId, reviewId) {
+      try {
+        const r = await this.api('/v1/bundles/' + encodeURIComponent(bundleId) + '/reviews/' + reviewId); this.bundleReview = r;
+        if (r.status === 'done') { this.bundleResult = { bundle_id: bundleId, counts: r.counts, items: r.items }; this.bundleRunning = false; this.loadBundles(); return }
+        setTimeout(() => this.pollBundleReview(bundleId, reviewId), 700);
+      } catch (e) { this.bundleError = e.message; this.bundleRunning = false }
+    },
+    async openBundle(id) {
+      this.selected = null; this.bundleReview = null; this.closeError = null; this.closeOk = null;
+      try {
+        const [items, obj] = await Promise.all([this.api('/v1/bundles/' + encodeURIComponent(id) + '/items'), this.api('/v1/bundles/' + encodeURIComponent(id))]);
+        this.bundleObj = obj; this.bundleJson = JSON.stringify(obj, null, 2); this.bundleSampleId = '';
+        this.bundleResult = { bundle_id: id, counts: { confirmed: items.filter(i => i.status==='confirmed').length, pending: items.filter(i => i.status==='pending').length }, items };
+      } catch (e) { this.bundleError = e.message }
+    },
+    select(it) { this.selected = it; this.closeError = null; this.closeOk = null; this.closeName = it.suggestion || (it.evidence.find(e => e.valid) || {}).english_name || it.translated_name || '' },
+    segmentText(it) {
+      const doc = (this.bundleObj && this.bundleObj.documents || []).find(d => d.document_id === it.document_id);
+      const seg = doc && doc.segments.find(s => s.segment_id === it.segment_id);
+      return seg ? seg.text : '(원문 없음)';
+    },
+    async closeItem(it) {
+      this.closeError = null; this.closeOk = null;
+      const english = (this.closeName || '').trim();
+      if (!english) { this.closeError = '등록할 영문 표기를 입력하세요'; return }
+      try {
+        const e = await this.api('/v1/dictionary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ bundle_id: this.bundleResult.bundle_id, mention_id: it.mention_id, english_name: english }) });
+        this.closeOk = '사전 등록: ' + e.customer_id + ' / ' + e.entity_id + ' → ' + e.english_name + ' (다음 묶음부터 근거 없이도 이 표기로 확정)';
+      } catch (e) { this.closeError = e.message }
+    },
     highlight(seg) {
       const esc = (s) => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
       const tokens = []; const re = /[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]+/g; let m;
@@ -207,7 +362,17 @@ createApp({
       return html;
     }
   },
-  mounted() { this.loadHealth(); this.loadSamples(); this.loadJobs() }
+  async mounted() {
+    this.loadHealth(); this.loadSamples(); this.loadJobs();
+    // 딥링크: #bundle 또는 #bundle?sample=<id>&run=1&llm=C1 (화면 캡처·시연용)
+    const h = location.hash.replace(/^#/, ''); const [name, q] = h.split('?'); const params = new URLSearchParams(q || '');
+    if (name === 'bundle') {
+      this.tab = 'bundle'; await this.loadBundles();
+      if (params.get('sample')) { this.bundleSampleId = params.get('sample'); await this.loadBundleSample() }
+      if (params.get('llm')) { this.useLlm = true; this.condition = params.get('llm') }
+      if (params.get('run') && this.bundleJson) { await this.submitBundle(); if (this.bundleResult && this.bundleResult.items.length) this.select(this.bundleResult.items.find(i => i.status==='pending') || this.bundleResult.items[0]) }
+    }
+  }
 }).mount('#app');
 </script>
 </body>
