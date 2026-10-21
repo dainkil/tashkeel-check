@@ -234,7 +234,7 @@ def test_flex_model_retries_then_falls_back_to_the_default_tier(monkeypatch):
     def fake_generate(self, messages, stop=None, run_manager=None, **kwargs):
         calls.append(kwargs.get("service_tier", self.service_tier))
         if plan.pop(0):
-            raise rate_limited(tiers.FLEX_UNAVAILABLE + ". Please try again later.")
+            raise rate_limited(tiers.FLEX_UNAVAILABLE[plan_msgs.pop(0) if plan_msgs else 0] + ". Try later.")
         return ChatResult(generations=[ChatGeneration(message=AIMessage("ok"))])
 
     monkeypatch.setattr(ChatOpenAI, "_generate", fake_generate)
@@ -242,6 +242,7 @@ def test_flex_model_retries_then_falls_back_to_the_default_tier(monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
     tiers.reset_fallback_counts()
     model = tiers.FlexChatOpenAI(model="gpt-test")
+    plan_msgs = [1]  # eval에서 본 두 번째 문구
     plan = [True, False]  # 한 번 막히고 다시 부르면 된다
     assert model.invoke([HumanMessage("hi")]).content == "ok" and calls == ["flex", "flex"]
     plan, calls[:] = [True, True, True, False], []  # flex가 계속 막히면 그 호출만 기본 등급
@@ -259,3 +260,23 @@ def test_flex_model_retries_then_falls_back_to_the_default_tier(monkeypatch):
         pass
     else:
         raise AssertionError("보통 속도 제한은 그대로 올라가야 한다")
+
+
+def test_wrapped_api_errors_are_not_counted_as_done():
+    """langchain-openai가 감싼 429(OpenAIRateLimitError)도 API 오류다. 그런 줄은 완료가 아니라 재개 때 다시 돈다."""
+    err = "attempt 1: OpenAIRateLimitError: Error code: 429 - {'error': {'code': 'flex_unavailable'}}"
+    failed = {"valid_output": False, "errors": [err, err.replace("attempt 1", "attempt 2")]}
+    assert harness.is_api_failure(failed)
+    assert not harness.is_api_failure({**failed, "valid_output": True})
+    rows = [
+        {"type": "run", "status": "done", "condition": "C0", "doc_id": "d1", "repeat": 0, "metrics": failed},
+        {
+            "type": "run",
+            "status": "done",
+            "condition": "C1",
+            "doc_id": "d1",
+            "repeat": 0,
+            "metrics": {"valid_output": True},
+        },
+    ]
+    assert list(harness.done_runs(rows)) == [("C1", "d1", 0)]

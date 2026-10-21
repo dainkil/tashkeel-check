@@ -36,6 +36,22 @@
 - 관련 코드·ADR·실험: `reconcile.find_spellings`, `_c0`, EXP-002 C0 판정 규칙, ADR-013(골든 테스트)
 
 ```markdown
+## TS-004 — langchain이 감싼 API 오류를 실행 장치가 형식 실패로 기록함 (EXP-003, 2026-10-21)
+
+- 증상:
+  - EXP-003 eval에서 flex 용량 부족 429로 두 번 다 실패한 실행(heval_013 C0)이 `status: done`, `valid_output: false`로 기록됐다.
+  - API 오류면 실행 환경 문제라 완료로 치지 않고 멈춰야 하는데(ADR-016), 형식 실패로 집계됐다.
+- 재현: langchain-openai 1.7.1에서 429를 받으면 `OpenAIRateLimitError`(openai.RateLimitError의 하위 클래스, langchain 모듈에 있음)로 감싸 올린다. graph는 오류를 `attempt N: OpenAIRateLimitError: …`로 남긴다.
+- 원인:
+  - `harness.API_ERRORS`가 `openai` 모듈에 있는 클래스 이름만 모아서, 감싼 클래스 이름이 빠졌다.
+  - 같은 날 flex 429 문구도 둘이었다("Flex processing is temporarily unavailable" / "Flex does not have sufficient resources …"). `tiers.FlexChatOpenAI`가 앞 문구만 봐서 뒤 문구를 놓쳤다.
+- 해결:
+  - `API_ERRORS`를 `openai.APIError`의 하위 클래스 전부(감싼 클래스 포함)로 모은다(`_api_error_names`).
+  - `done_runs`는 status가 done이어도 지표로 API 실패면 완료로 치지 않는다. 재개하면 그 실행만 다시 돈다.
+  - flex 판별은 오류 코드 `flex_unavailable`을 먼저 보고, 두 문구도 본다(`tiers.is_flex_unavailable`).
+- 확인: `tests/test_exp003.py`(`test_wrapped_api_errors_are_not_counted_as_done`, flex 문구 둘). EXP-003 eval은 그 한 회만 다시 돌려 350/350으로 다시 집계했다.
+- 영향: EXP-002 기록의 실행은 모두 API 오류 없이 끝나 바뀌지 않는다.
+
 ## TS-XXX — 문제 제목
 - 발생일 / 해결일:
 - 상태: 조사 중 / 임시 대응 / 해결 / 재발

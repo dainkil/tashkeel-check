@@ -24,6 +24,7 @@ from pathlib import Path
 from types import FrameType
 from typing import Any
 
+import langchain_openai.chat_models.base  # noqa: F401  (감싼 API 오류 클래스를 API_ERRORS에 넣으려고 불러 둔다)
 import openai
 from langchain_core.language_models.chat_models import BaseChatModel
 
@@ -152,10 +153,24 @@ STAGE_LABELS = {"continue": "계속(다음 회차를 돈다)", "stop": "끝(사�
 # 처리 등급별 단가 배수. flex는 Batch와 같은 약 50% 할인으로 본다(추정, 청구 기준 아님)
 TIER_PRICE = {"flex": 0.5}
 PLAN_SETTINGS = ("temperature", "max_retries", "recursion_limit", "max_candidates", "high_confidence")
-# graph.agent는 예외를 "attempt N: <클래스 이름>: <메시지>"로 errors에 남긴다. 이름이 openai 오류면 API 오류다
-API_ERRORS = frozenset(
-    name for name, obj in dict(vars(openai)).items() if isinstance(obj, type) and issubclass(obj, openai.APIError)
-)
+
+
+def _api_error_names() -> frozenset[str]:
+    """openai.APIError와 그 하위 클래스 이름 전부. langchain-openai가 감싼 오류(OpenAIRateLimitError 등)도 들어간다.
+
+    처음에는 openai 모듈에 있는 이름만 봐서, 감싼 429가 형식 실패로 기록됐다(EXP-003 eval 2026-10-21, C0 1회).
+    """
+    names: set[str] = set()
+    stack: list[type] = [openai.APIError]
+    while stack:
+        cls = stack.pop()
+        names.add(cls.__name__)
+        stack.extend(cls.__subclasses__())
+    return frozenset(names)
+
+
+# graph.agent는 예외를 "attempt N: <클래스 이름>: <메시지>"로 errors에 남긴다. 이름이 API 오류 클래스면 API 오류다
+API_ERRORS = _api_error_names()
 _ERROR_NAME = re.compile(r"^attempt \d+: (\w+):")
 
 
@@ -249,11 +264,14 @@ def _append(run_dir: Path, row: dict) -> None:
 
 
 def done_runs(rows: list[dict]) -> dict[tuple[str, str, int], dict]:
-    """(조건, 문서, 회차) → 완료 기록. API 오류로 끝난 실행은 완료가 아니다."""
+    """(조건, 문서, 회차) → 완료 기록. API 오류로 끝난 실행은 완료가 아니다.
+
+    기록 당시 API 오류를 못 알아본 줄(status는 done이지만 지표로는 API 실패)도 완료로 치지 않아, 재개하면 다시 돈다.
+    """
     return {
         (r["condition"], r["doc_id"], r["repeat"]): r
         for r in rows
-        if r.get("type") == "run" and r.get("status") == "done"
+        if r.get("type") == "run" and r.get("status") == "done" and not is_api_failure(r.get("metrics", {}))
     }
 
 
@@ -358,7 +376,7 @@ def _progress(run_dir: Path, plan: dict, rows: list[dict], settings: Settings, w
         "planned": planned,
         "complete": len(done) == planned,
         "conditions": conds,
-        "api_error_runs": sum(r.get("status") == "api_error" for r in runs),
+        "api_error_runs": sum(r.get("status") == "api_error" or is_api_failure(r.get("metrics", {})) for r in runs),
         "tokens": {"input": used_in, "output": used_out, "total": used_in + used_out},
         "estimate": {
             "total_tokens": round(used_in + used_out + rem_in + rem_out) if done else None,
@@ -497,7 +515,10 @@ def write_summary(spec: Spec, run_dir: str | Path) -> Path:
         "n_runs_done": len(done),
         "n_runs_planned": planned,
         "sessions": sum(r.get("type") == "session" for r in rows),
-        "api_error_runs": sum(r.get("type") == "run" and r.get("status") == "api_error" for r in rows),
+        "api_error_runs": sum(
+            r.get("type") == "run" and (r.get("status") == "api_error" or is_api_failure(r.get("metrics", {})))
+            for r in rows
+        ),
         "pauses": [{"at": r.get("at"), "reason": r.get("reason")} for r in rows if r.get("type") == "pause"],
     }
     if (stage := stage_row(rows)) is not None:
