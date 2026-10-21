@@ -16,6 +16,9 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 from .errors import ConfigError
 
 CONDITIONS = ("C0", "C1", "C2", "C3")
+# 완제품 엔진 조건(ADR-019). 실험 계획·골든·해시 열거가 CONDITIONS에 묶여 있어 따로 둔다.
+ENGINE_CONDITIONS = ("M1",)  # M1: 번역자 → 격리 검증자 → 규칙 중재자
+ALL_CONDITIONS = (*CONDITIONS, *ENGINE_CONDITIONS)
 
 
 class Settings(BaseModel):
@@ -44,6 +47,9 @@ class Settings(BaseModel):
     database_url: str | None = None  # 없으면 DB 없이(메모리·파일만) 돈다
     web_host: str = "127.0.0.1"
     web_port: int = Field(8000, ge=1, le=65535)
+    # 완제품 패키지(ADR-019). auto: 고객이 하나라도 있으면 API 키 필수, 없으면 열림. required / disabled
+    auth: Literal["auto", "required", "disabled"] = "auto"
+    multi_agent: bool = False  # true면 서비스 경로에서 조건 M1(멀티 에이전트 틀)을 받는다
     enable_bundle_search: bool = False  # 단계 2 틀(ADR-007). 단계 1 조건 C0~C3에서는 쓰지 않는다
     embedding_model: str = "text-embedding-3-small"
     langsmith_project: str = "tashkeel-check"

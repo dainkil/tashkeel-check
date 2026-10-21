@@ -1,6 +1,7 @@
 """Postgres 테이블(docs/roadmap.md 2.5절).
 
 단계 1.5: documents, jobs, runs, name_items. 단계 2: bundles, review_items, name_dictionary.
+완제품(ADR-019): customers, usage, jobs.customer_id, bundles 유일 키 (customer_id, bundle_id).
 
 번역을 포함한 결과 전체는 runs.result(JSONB, ReviewResult dump)에 두고, 확인 대기 목록은 name_items로 펼친다.
 """
@@ -41,6 +42,7 @@ class Job(Base):
     id: Mapped[str] = mapped_column(String(32), primary_key=True)
     document_id: Mapped[str] = mapped_column(ForeignKey("documents.id"))
     condition: Mapped[str] = mapped_column(String(2))
+    customer_id: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)  # ADR-019
     status: Mapped[str] = mapped_column(String(16))  # queued | running | done | failed
     node: Mapped[str | None] = mapped_column(String(16), nullable=True)
     attempts: Mapped[int] = mapped_column(Integer, default=0)
@@ -89,13 +91,18 @@ class NameItem(Base):
 
 
 class BundleRow(Base):
-    """서류 묶음 입력 전체(JSONB). 같은 bundle_id를 다시 검수하면 덮어쓴다."""
+    """서류 묶음 입력 전체(JSONB). 같은 고객의 같은 bundle_id를 다시 검수하면 덮어쓴다(ADR-019)."""
 
     __tablename__ = "bundles"
+    __table_args__ = (
+        UniqueConstraint(
+            "customer_id", "bundle_id", name="uq_bundles_customer_bundle", postgresql_nulls_not_distinct=True
+        ),
+    )
 
     id: Mapped[str] = mapped_column(String(32), primary_key=True)
-    bundle_id: Mapped[str] = mapped_column(String(64), unique=True)
-    customer_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    bundle_id: Mapped[str] = mapped_column(String(64))
+    customer_id: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
     payload: Mapped[dict[str, Any]] = mapped_column(JSONB)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
@@ -142,3 +149,38 @@ class NameDictionary(Base):
     evidence_quote: Mapped[str | None] = mapped_column(Text, nullable=True)
     verified_by: Mapped[str] = mapped_column(String(16))  # reviewer | auto
     verified_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class Customer(Base):
+    """고객과 API 키 해시(ADR-019). 평문 키는 저장하지 않는다."""
+
+    __tablename__ = "customers"
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    name: Mapped[str] = mapped_column(String(128))
+    api_key_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    key_prefix: Mapped[str] = mapped_column(String(12))  # 표시용(tk_ + 앞 글자)
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    revoked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class UsageRow(Base):
+    """사용량 한 줄: 작업(document / bundle_document) 또는 라벨 경로 묶음 검수(bundle_label)마다 하나."""
+
+    __tablename__ = "usage"
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    customer_id: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)
+    kind: Mapped[str] = mapped_column(String(24))
+    job_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    bundle_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    review_id: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    condition: Mapped[str | None] = mapped_column(String(2), nullable=True)
+    input_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    output_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    total_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    llm_calls: Mapped[int] = mapped_column(Integer, default=0)
+    n_segments: Mapped[int] = mapped_column(Integer, default=0)
+    n_arabic_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), index=True)

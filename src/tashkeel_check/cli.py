@@ -281,6 +281,31 @@ def _cmd_inspect_gold(args: argparse.Namespace, settings: Settings) -> int:
     return 0
 
 
+def _cmd_customers(args: argparse.Namespace, settings: Settings) -> int:
+    """고객과 API 키(ADR-019). HTTP 없이 DB에 직접 쓰므로 첫 키 발급에 쓴다."""
+    from .web.customers import DbCustomerStore
+    from .web.db import Database
+
+    if not settings.database_url:
+        raise ConfigError("DATABASE_URL이 필요합니다. 고객과 API 키는 Postgres에만 저장합니다.")
+    store = DbCustomerStore(Database(settings.database_url))
+    if args.action == "add":
+        customer, key = store.add(args.name)
+        print(f"customer_id: {customer.id}\nname: {customer.name}\napi_key: {key}")
+        print("이 키는 다시 보여 주지 않는다. 지금 안전한 곳에 적어 두세요.")
+    elif args.action == "list":
+        rows = store.list()
+        if not rows:
+            print("고객 없음")
+        for c in rows:
+            print(f"{c.id}  {c.name}  {c.key_prefix}…  {'active' if c.active else 'revoked'}  {c.created_at}")
+    elif args.action == "revoke":
+        if not store.revoke(args.customer_id):
+            raise InputError(f"활성 고객이 없습니다: {args.customer_id!r}")
+        print(f"revoked: {args.customer_id}")
+    return 0
+
+
 def _cmd_serve(args: argparse.Namespace, settings: Settings) -> int:
     """단계 1.5 서비스. 구성(모델·분석기·DB·MCP)을 먼저 만들어 실패하면 기동하지 않는다(종료 코드 3)."""
     import uvicorn
@@ -380,6 +405,17 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--token-budget", type=int, help="이번에 쓸 토큰 상한(입력+출력). 넘으면 새 실행을 시작하지 않는다")
     p.add_argument("--finalize", action="store_true", help="--resume과 함께: 더 돌리지 않고 지금까지로 summary를 쓴다")
     p.set_defaults(func=_cmd_experiment)
+
+    p = sub.add_parser(
+        "customers", help="고객과 API 키(ADR-019): add --name / list / revoke <customer_id>. DATABASE_URL 필요"
+    )
+    csub = p.add_subparsers(dest="action", required=True)
+    c = csub.add_parser("add", help="고객을 만들고 API 키를 한 번만 출력한다")
+    c.add_argument("--name", required=True)
+    csub.add_parser("list", help="고객 목록(키는 앞 글자만)")
+    c = csub.add_parser("revoke", help="키를 비활성화한다")
+    c.add_argument("customer_id")
+    p.set_defaults(func=_cmd_customers)
 
     p = sub.add_parser("serve", help="단계 1.5 서비스: API·폼 화면(.env의 LLM_BACKEND·DATABASE_URL·USE_MCP_TOOLS)")
     p.add_argument("--host", help=f"기본 {settings.web_host}")

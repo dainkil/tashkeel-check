@@ -19,7 +19,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from ..results import ReviewResult
 from ..text import normalize_key
-from .models import Base, BundleRow, Document, Job, NameDictionary, NameItem, ReviewItemRow, Run
+from .models import Base, BundleRow, Customer, Document, Job, NameDictionary, NameItem, ReviewItemRow, Run, UsageRow
 
 logger = logging.getLogger(__name__)
 
@@ -74,9 +74,11 @@ class Database:
             s.add(row)
         return row.id
 
-    def insert_job(self, job_id: str, document_id: str, condition: str) -> None:
+    def insert_job(self, job_id: str, document_id: str, condition: str, customer_id: str | None = None) -> None:
         with self.session() as s:
-            s.add(Job(id=job_id, document_id=document_id, condition=condition, status="queued"))
+            s.add(
+                Job(id=job_id, document_id=document_id, condition=condition, status="queued", customer_id=customer_id)
+            )
 
     def update_job(self, job_id: str, **fields: Any) -> None:
         with self.session() as s:
@@ -295,3 +297,78 @@ class Database:
                 "verified_by": row.verified_by,
                 "verified_at": row.verified_at,
             }
+
+    # -- 고객·API 키·사용량(ADR-019) --
+    @staticmethod
+    def _customer_dict(row: Customer) -> dict:
+        return {
+            "id": row.id,
+            "name": row.name,
+            "key_prefix": row.key_prefix,
+            "active": row.active,
+            "created_at": row.created_at,
+            "revoked_at": row.revoked_at,
+        }
+
+    def insert_customer(self, name: str, api_key_hash: str, key_prefix: str) -> dict:
+        row = Customer(id=new_id(), name=name, api_key_hash=api_key_hash, key_prefix=key_prefix, active=True)
+        with self.session() as s:
+            s.add(row)
+            s.flush()
+            s.refresh(row)
+            return self._customer_dict(row)
+
+    def customer_by_hash(self, api_key_hash: str) -> dict | None:
+        with self.session() as s:
+            row = s.execute(select(Customer).where(Customer.api_key_hash == api_key_hash)).scalars().first()
+            return None if row is None else self._customer_dict(row)
+
+    def list_customers(self) -> list[dict]:
+        with self.session() as s:
+            rows = s.execute(select(Customer).order_by(Customer.created_at)).scalars().all()
+            return [self._customer_dict(r) for r in rows]
+
+    def revoke_customer(self, customer_id: str) -> bool:
+        with self.session() as s:
+            row = s.get(Customer, customer_id)
+            if row is None or not row.active:
+                return False
+            row.active = False
+            row.revoked_at = now()
+            return True
+
+    def count_active_customers(self) -> int:
+        with self.session() as s:
+            return int(s.execute(select(func.count()).select_from(Customer).where(Customer.active)).scalar_one())
+
+    def insert_usage(self, rec: dict) -> None:
+        with self.session() as s:
+            s.add(UsageRow(id=new_id(), **rec))
+
+    def usage_rows(self, customer_id: str | None, start: datetime, end: datetime) -> list[dict]:
+        with self.session() as s:
+            q = select(UsageRow).where(UsageRow.created_at >= start, UsageRow.created_at < end)
+            if customer_id is not None:
+                q = q.where(UsageRow.customer_id == customer_id)
+            rows = s.execute(q.order_by(UsageRow.created_at)).scalars().all()
+            return [
+                {
+                    c: getattr(r, c)
+                    for c in (
+                        "customer_id",
+                        "kind",
+                        "job_id",
+                        "bundle_id",
+                        "review_id",
+                        "condition",
+                        "input_tokens",
+                        "output_tokens",
+                        "total_tokens",
+                        "llm_calls",
+                        "n_segments",
+                        "n_arabic_tokens",
+                        "created_at",
+                    )
+                }
+                for r in rows
+            ]
