@@ -63,6 +63,7 @@
   <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 분석기 {{ health.analyzer.tool }} {{ health.analyzer.version }} / {{ health.analyzer.db }} · DB {{ fmt(health.db) }} · MCP {{ fmt(health.mcp) }}</span>
   <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
   <nav class="tabs"><button :class="{on: tab==='doc'}" @click="tab='doc'">단일 문서</button><button :class="{on: tab==='bundle'}" @click="tab='bundle'; loadBundles()">서류 묶음</button></nav>
+  <div class="row" style="margin-top:8px"><label for="apiKey" style="margin:0">API 키</label><input id="apiKey" type="password" v-model="apiKey" placeholder="tk_… (인증이 켜진 서버에서 필요)" style="width:260px"><button @click="saveKey">저장</button><button @click="clearKey">지우기</button><span class="small" v-if="health">인증 {{ health.auth === 'required' ? '필요' : '꺼짐' }}</span></div>
 </header>
 <main v-show="tab==='doc'">
   <section>
@@ -171,6 +172,11 @@
         <li v-if="!bundles.length" class="small">아직 없음</li>
       </ul>
     </div>
+    <div class="card" style="margin-top:16px" v-if="usage">
+      <h2>사용량 (최근 30일)</h2>
+      <p class="small">작업 {{ usage.totals.jobs }} · 토큰 {{ usage.totals.total_tokens }} · LLM 호출 {{ usage.totals.llm_calls }} · 구간 {{ usage.totals.segments }}<span v-if="usage.customer_id"> · 고객 {{ usage.customer_id.slice(0,8) }}</span></p>
+      <p class="small" v-for="k in usage.by_kind">{{ k.kind }}: {{ k.jobs }}건 · 토큰 {{ k.total_tokens }}</p>
+    </div>
   </section>
 
   <section>
@@ -249,6 +255,7 @@ createApp({
     tab: 'doc', bundleSamples: [], bundleSampleId: '', bundleJson: '', useLlm: false, bundleRunning: false, bundleError: null,
     bundles: [], bundleResult: null, bundleReview: null, selected: null, bundleObj: null, closeError: null, closeOk: null, closeName: '',
     bundleFiles: [], uploadCustomerId: '', bundleEs: null,
+    apiKey: (function () { try { return localStorage.getItem('tashkeel_api_key') || '' } catch (e) { return '' } })(), usage: null,
   }},
   computed: {
     metricsView() {
@@ -261,10 +268,16 @@ createApp({
   methods: {
     fmt(v) { return v === 'disabled' ? '없음' : v === true ? 'OK' : v === false ? '불통' : String(v) },
     async api(path, opts) {
-      const r = await fetch(path, opts); const body = await r.json().catch(() => ({}));
+      opts = opts || {}; const headers = Object.assign({}, opts.headers || {}); if (this.apiKey) headers['X-API-Key'] = this.apiKey;
+      const r = await fetch(path, Object.assign({}, opts, { headers })); const body = await r.json().catch(() => ({}));
+      if (r.status === 401) throw new Error('API 키가 필요합니다. 위 입력칸에 키를 넣고 저장하세요.');
       if (!r.ok) throw new Error((body && body.error) ? body.error : (r.status + ' ' + r.statusText));
       return body;
     },
+    withKey(url) { return this.apiKey ? url + (url.includes('?') ? '&' : '?') + 'api_key=' + encodeURIComponent(this.apiKey) : url },
+    saveKey() { try { localStorage.setItem('tashkeel_api_key', this.apiKey) } catch (e) {} this.loadHealth(); if (this.tab === 'bundle') this.loadBundles(); else this.loadJobs() },
+    clearKey() { this.apiKey = ''; try { localStorage.removeItem('tashkeel_api_key') } catch (e) {} this.loadHealth() },
+    async loadUsage() { try { this.usage = await this.api('/v1/usage') } catch (e) { this.usage = null } },
     async loadHealth() { try { this.health = await this.api('/health') } catch (e) { this.healthError = '서버 상태를 읽지 못했습니다: ' + e.message } },
     async loadSamples() { try { this.samples = await this.api('/v1/samples') } catch (e) { this.submitError = e.message } },
     async loadJobs() { try { this.jobs = await this.api('/v1/jobs?limit=20') } catch (e) {} },
@@ -284,7 +297,7 @@ createApp({
       } catch (e) { this.submitError = e.message; this.running = false }
     },
     listen(id) {
-      const es = new EventSource('/v1/jobs/' + id + '/events'); this.es = es;
+      const es = new EventSource(this.withKey('/v1/jobs/' + id + '/events')); this.es = es;
       const push = (ev) => { const d = JSON.parse(ev.data); this.events.push(d); return d };
       es.addEventListener('queued', push);
       es.addEventListener('node', (ev) => { const d = push(ev); this.doneNodes.add(d.node); this.curNode = d.node; if (d.attempts) this.attempts = d.attempts; if (d.mcp_error) this.jobError = 'MCP: ' + d.mcp_error });
@@ -302,6 +315,7 @@ createApp({
     // ---- 서류 묶음 ----
     async loadBundles() {
       try { this.bundles = await this.api('/v1/bundles?limit=20'); if (!this.bundleSamples.length) this.bundleSamples = await this.api('/v1/bundles/samples') } catch (e) { this.bundleError = e.message }
+      this.loadUsage();
     },
     async loadBundleSample() {
       if (!this.bundleSampleId) { this.bundleJson = ''; return }
@@ -341,7 +355,7 @@ createApp({
     // 묶음 단위 SSE: start → 서류별 작업 이벤트(document) → done. 끊기면 폴링으로 돌아간다
     listenBundle(bundleId, reviewId) {
       const url = '/v1/bundles/' + encodeURIComponent(bundleId) + '/reviews/' + reviewId;
-      const es = new EventSource(url + '/events'); this.bundleEs = es;
+      const es = new EventSource(this.withKey(url + '/events')); this.bundleEs = es;
       const status = (d) => d.job_event === 'done' ? 'done' : d.job_event === 'error' ? 'failed' : d.job_event === 'node' ? 'running' : 'queued';
       es.addEventListener('start', (ev) => { const d = JSON.parse(ev.data); const js = {}; Object.keys(d.jobs).forEach(k => js[k] = 'queued'); this.bundleReview = Object.assign({}, this.bundleReview, { status: 'running', job_status: js, skipped: d.skipped }) });
       es.addEventListener('document', (ev) => { const d = JSON.parse(ev.data); const js = Object.assign({}, this.bundleReview.job_status); js[d.document_id] = status(d) + (d.job_event === 'node' ? ' · ' + d.node : ''); this.bundleReview = Object.assign({}, this.bundleReview, { job_status: js }) });
