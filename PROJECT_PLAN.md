@@ -1,8 +1,8 @@
 # Tashkeel Check — 프로젝트 계획 허브
 
 - 프로젝트/레포 이름: `tashkeel-check`
-- 마지막 업데이트: 2026-10-21
-- 현재 단계: 단계 1 구현 완료, EXP-001 완료, EXP-002 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). 단계 1.5 전 리팩토링 완료(ADR-013, 동작 동일 확인). M0 항목 2·3 완료(실제 모델 C1·C2 첫 실행 통과, temperature 0 미지원 확인). M0 관찰을 바탕으로 EXP-002 전에 채점 정의와 합성 문서를 고침(ADR-014: 모호 판정 규칙은 유지, 일반 단어 미처리는 보조 지표, 중립 토큰 제외, 토큰 단위 집계, 보류 후보 적중률, 합성 문서 synthetic-v1). M0 항목 5로 EXP-002 합격선·중단 기준을 확정해 코드로 고정함(`docs/scope.md` 3절). EXP-001 개발용 표본에서 표기 일치·정렬 규칙을 v1로 고쳐 고정하고, 이름 풀과 합성 문서를 다시 만듦(ADR-015, synthetic-v2). EXP-001 main 측정 완료: M5(방언 허용) 0.502로 기준 0.5를 겨우 넘어(95% 구간 0.485~0.519) 분석기를 이름 후보 출처로 유지, 가문명은 0.418. EXP-002 실행 장치를 재개·동시 실행·사용량 확인 방식으로 바꿈(ADR-016). dev_001로 실제 모델 C0~C3 점검을 마쳐 네 조건 모두 형식 통과, 비용 추정을 $15~20으로 고침. EXP-002 eval 실행 중(2026-10-21, 4개 동시, 360회 중 일부 완료·재개 중). **단계 1.5(서비스화)는 2026-10-21 `feat/stage-1.5-service` 브랜치(worktree)에서 구현·테스트 완료**: API 8개·SSE·Postgres 4테이블·Vue 폼 화면·MCP 3종·`tashkeel serve`·`run.sh`, 테스트 279개 통과, 예외 7종 기록(`docs/과제2-테스트-기록.md`). 실험이 끝나 `results/exp002/`를 커밋한 뒤 병합한다. 실제 모델로 서비스 1회 실행과 compose 빌드는 남음. **EXP-002 결과는 미확인**
+- 마지막 업데이트: 2026-10-21 (묶음 검수 첫 구현)
+- 현재 단계: 단계 1 구현 완료, EXP-001 완료, EXP-002 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). 단계 1.5 전 리팩토링 완료(ADR-013, 동작 동일 확인). M0 항목 2·3 완료(실제 모델 C1·C2 첫 실행 통과, temperature 0 미지원 확인). M0 관찰을 바탕으로 EXP-002 전에 채점 정의와 합성 문서를 고침(ADR-014: 모호 판정 규칙은 유지, 일반 단어 미처리는 보조 지표, 중립 토큰 제외, 토큰 단위 집계, 보류 후보 적중률, 합성 문서 synthetic-v1). M0 항목 5로 EXP-002 합격선·중단 기준을 확정해 코드로 고정함(`docs/scope.md` 3절). EXP-001 개발용 표본에서 표기 일치·정렬 규칙을 v1로 고쳐 고정하고, 이름 풀과 합성 문서를 다시 만듦(ADR-015, synthetic-v2). EXP-001 main 측정 완료: M5(방언 허용) 0.502로 기준 0.5를 겨우 넘어(95% 구간 0.485~0.519) 분석기를 이름 후보 출처로 유지, 가문명은 0.418. EXP-002 실행 장치를 재개·동시 실행·사용량 확인 방식으로 바꿈(ADR-016). dev_001로 실제 모델 C0~C3 점검을 마쳐 네 조건 모두 형식 통과, 비용 추정을 $15~20으로 고침. EXP-002 eval은 120/360(반복 1회)에서 보류 중(2026-10-21, 사용자 결정. 결과 파일은 untracked). **단계 1.5(서비스화)는 2026-10-21 `feat/stage-1.5-service` 브랜치(worktree)에서 구현·테스트 완료**: API 8개·SSE·Postgres 4테이블·Vue 폼 화면·MCP 3종·`tashkeel serve`·`run.sh`, 테스트 279개 통과, 예외 7종 기록(`docs/과제2-테스트-기록.md`). 2026-10-21 작업 브랜치 `feat/bundle-review`(worktree `../tashkeel-check-bundle`)에 병합했다. 실제 모델로 서비스 1회 실행과 compose 빌드는 남음. **EXP-002 결과는 미확인**. 사용자가 가져온 14단계 개발 가이드를 레포에 얹어 **단계 2 묶음 검수를 첫 구현**(2026-10-21, ADR-018, `feat/bundle-review`): 같은 대상 ID의 다른 서류만 근거, 정확 일치만 확정, 사전 키에 대상 ID, 합성 사례 9 × 종류 3, `/v1/bundles/*`·`/v1/dictionary`, Postgres 표 3개, LLM 경로 합류, MCP `search_bundle`, 화면 묶음 탭. 테스트 372개 통과. `exp/grading-data-v2`로의 병합은 메인 체크아웃의 다른 작업(EXP-003, ADR-017) 커밋 뒤 사용자가 정한다
 - 문서 역할: 현재 상태·다음 작업·사용자가 정할 것만 여기 둔다. 본문(정의·범위·구조·데이터·측정·로드맵·ADR·이력)은 `docs/`에 있고, 지도는 [docs/README.md](docs/README.md)다. 2026-10-20에 1,118줄 단일 문서를 이 구조로 분할했다([changelog](docs/changelog.md)).
 
 > **작업을 시작하기 전에 이 문서와 [docs/README.md](docs/README.md)를 읽는다. 작업 중 계획·범위·구조·데이터·평가 방식이 바뀌면 해당 `docs/` 문서를 최신 상태로 수정하고, [docs/changelog.md](docs/changelog.md)에 이유와 영향을 기록한다. 중요한 기술적 결정은 [docs/adr/](docs/adr/README.md)에, 문제와 해결 과정은 [docs/troubleshooting.md](docs/troubleshooting.md)에, 측정 결과는 [docs/experiments/](docs/experiments/README.md)에 남긴다. 작업을 마칠 때 이 문서의 상태·다음 작업과 [docs/roadmap.md](docs/roadmap.md) 체크리스트를 갱신한다.**
@@ -16,11 +16,11 @@
 | 무엇을 왜 만드는가, 목표 G1~G6, 질문 Q0~Q3, 요구사항 | [docs/problem-and-goals.md](docs/problem-and-goals.md) |
 | 단계와 범위, 사용자가 확정한 것 | [docs/scope.md](docs/scope.md) |
 | 그래프·조건·스키마·툴·스택·모듈 구조 | [docs/architecture.md](docs/architecture.md) |
-| Wikidata 인명, 합성 문서 | [docs/data.md](docs/data.md) |
+| Wikidata 인명, 합성 문서, 합성 묶음 | [docs/data.md](docs/data.md) |
 | 지표 정의와 판정 규칙 | [docs/evaluation.md](docs/evaluation.md) |
 | 기능 F1~F14, 제품 스택·API·DB 초안, 마일스톤, 체크리스트, 위험 | [docs/roadmap.md](docs/roadmap.md) |
 | 무엇이 언제 왜 바뀌었나 | [docs/changelog.md](docs/changelog.md) |
-| 기술 결정 ADR-001~016 | [docs/adr/](docs/adr/README.md) |
+| 기술 결정 ADR-001~018 | [docs/adr/](docs/adr/README.md) |
 | 오류 기록, 실험 기록 | [docs/troubleshooting.md](docs/troubleshooting.md), [docs/experiments/](docs/experiments/README.md) |
 | 사업성 검토, 시장 조사 | [docs/business/feasibility.md](docs/business/feasibility.md), [docs/business/market/](docs/business/market/) |
 
@@ -28,6 +28,9 @@
 
 ## 아직 하지 않은 것
 
+- EXP-002 나머지 240회(보류 중. 재개 명령은 "다음 작업" 실험 5번)
+- 실제 모델로 묶음 LLM 경로 1회, 단계 1.5 실제 모델 1회, `docker compose up --build`
+- 묶음 검수의 남은 것: 파일 업로드, 묶음 SSE, pgvector 이전, 서류 우선순위, 합성 KYC 묶음(등기 + 여권 MRZ + 정관) 생성기
 - EXP-002 실행
 - 실제 모델의 실패율, 그리고 한 문서 안에서 확정과 보류를 나누는지. synthetic-v0의 dev_004·dev_001 C1·C2를 각 1회만 돌렸고(`docs/changelog.md` M0 기록), 섞인 문서는 아직 돌리지 않았다 [미확인]
 - 실제 모델로 C0·C3를 eval 규모로 실행. dev_001 1회씩만 돌렸다(2026-10-21, 형식 통과)
@@ -35,9 +38,11 @@
 
 ## 다음 작업
 
-과제 2 서비스화(단계 1.5, 2026-10-21 구현 완료, `feat/stage-1.5-service`):
+묶음 검수(단계 2, `feat/bundle-review`, 2026-10-21 첫 구현 완료 — `docs/roadmap.md` 4절 단계 2 체크리스트):
 
-1. EXP-002 eval이 끝나면 `results/exp002/`·`results/m0/`를 `exp/grading-data-v2`에 커밋하고 `feat/stage-1.5-service`를 병합한다(병합 커밋). 2. 실제 모델(`LLM_BACKEND=openai`)로 dev 문서 1개를 서비스에서 1회 돌려 `docs/과제2-테스트-기록.md` 4절을 채운다(수백 원). 3. `docker compose up --build`를 한 번 돌려 확인한다. 4. `all_total_vue_student/` 삭제(사용자 확인 후).
+1. 브랜치 처리: 메인 체크아웃의 다른 작업(synthetic-hard·EXP-003, ADR-017, 미커밋)이 커밋된 뒤 `feat/bundle-review`를 `exp/grading-data-v2`에 병합한다(병합 커밋. `graph.py`·`runner.py`·`cli.py` 충돌 가능). 그 뒤 worktree `../tashkeel-check-bundle`를 지운다. 단계 1.5 브랜치는 이미 이 브랜치에 병합돼 있다.
+2. 실제 모델(`LLM_BACKEND=openai`)로 묶음 LLM 경로 1회(`POST /v1/bundles/{id}/reviews?condition=C2`, dev 묶음 1개)와 단계 1.5 dev 문서 1회를 돌려 `docs/과제2-테스트-기록.md` 4절·5.3절을 채운다(수백 원). 3. `docker compose up --build`를 한 번 돌려 확인한다. 4. `all_total_vue_student/` 삭제(사용자 확인 후).
+5. 남은 묶음 기능(로드맵 단계 2 미완 항목): 파일 업로드, 묶음 SSE, pgvector 이전, 서류 우선순위, 합성 KYC 묶음 생성기.
 
 실험(기존):
 
@@ -62,7 +67,9 @@
 - `uv run pre-commit install`로 커밋 훅을 켤지
 - `all_total_vue_student/`를 언제 삭제할지(단계 1.5 구현이 끝났으니 삭제 가능. 지금은 untracked로 둠). `feat/stage-1.5-service` 병합 시점(기본: EXP-002 결과 커밋 뒤)
 - ~~MCP를 C2 서비스 경로에 실제로 끼울지(`USE_MCP_TOOLS`)~~ (2026-10-21 결정: 플래그로 끼우되 기본은 끔)
-- EXP-002 eval 시작 시점과 비용 한도. dev 점검(2026-10-21) 기준 추정은 약 2.6~3.5M 토큰, $15~20(단가는 제3자 집계 값, OpenAI 페이지에서 확인 필요)이고, 동시 4개로 1.4~1.9시간이다. 단가를 `.env`에 `PRICE_INPUT_PER_MTOK`·`PRICE_OUTPUT_PER_MTOK`로 넣으면 진행 중 추정 금액이 보인다
+- `feat/bundle-review`를 `exp/grading-data-v2`에 언제 병합할지(메인 체크아웃의 EXP-003 작업 커밋 뒤. `graph.py`·`runner.py`·`cli.py` 충돌 가능)
+- 묶음 검수에서 서류 종류별 우선순위를 둘지(지금은 서류끼리 다르면 무조건 대기), 대상 ID를 붙일 수 없는 묶음에 이름 기반 후보 연결을 "제안"으로 보여 줄지(ADR-018 재검토 조건)
+- EXP-002 재개 시점과 비용 한도. dev 점검(2026-10-21) 기준 추정은 약 2.6~3.5M 토큰, $15~20(단가는 제3자 집계 값, OpenAI 페이지에서 확인 필요)이고, 동시 4개로 1.4~1.9시간이다. 단가를 `.env`에 `PRICE_INPUT_PER_MTOK`·`PRICE_OUTPUT_PER_MTOK`로 넣으면 진행 중 추정 금액이 보인다
 - LangSmith 키 교체 여부(지금 키는 401로 거부됨)
 - `exp/grading-data-v2` 브랜치(ADR-014)를 push·PR·병합할지
 - 개발 계획(`docs/roadmap.md`) M0 시작일, M4의 업로드 화면(F11) 포함 여부
