@@ -58,7 +58,9 @@ class BundleReviewManager:
                 "segments": segments,
                 "meta": {"source": "bundle", "bundle_id": bundle.bundle_id, "document_type": doc.document_type},
             }
-            job_ids[doc.document_id] = self.jobs.submit(doc_in, condition, "bundle").id  # DB 불통 → ConfigError
+            job_ids[doc.document_id] = self.jobs.submit(
+                doc_in, condition, "bundle", bundle.customer_id
+            ).id  # DB 불통 → ConfigError
         rec = BundleReview(id=new_id(), bundle=bundle, condition=condition, job_ids=job_ids, skipped=skipped)
         with self._lock:
             self._reviews[rec.id] = rec

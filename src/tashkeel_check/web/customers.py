@@ -115,4 +115,7 @@ class DbCustomerStore:
         return self.db.revoke_customer(customer_id)
 
     def count_active(self) -> int:
-        return self.db.count_active_customers()
+        try:
+            return self.db.count_active_customers()
+        except Exception:  # DB 불통: 인증은 열어 두고, 작업 생성이 503을 낸다(기존 동작)
+            return 0

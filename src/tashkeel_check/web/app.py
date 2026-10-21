@@ -12,10 +12,11 @@ import sys
 from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Annotated, Any
 
-from fastapi import FastAPI, File, Form, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, Query, Request, UploadFile
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from langchain_core.language_models.chat_models import BaseChatModel
@@ -27,19 +28,23 @@ from ..bundle import Bundle, parse_bundle, review_bundle
 from ..bundle.dictionary import DictionaryEntry, InMemoryDictionary
 from ..bundle.schemas import REASON_LABELS, ReviewItem
 from ..bundle.upload import bundle_from_uploads
-from ..config import CONDITIONS, Settings, configure_tracing, has_openai_key
+from ..config import ALL_CONDITIONS, CONDITIONS, Settings, configure_tracing, has_openai_key
 from ..errors import ConfigError, InputError
 from ..mcp.client import MCPClient, default_server_command
 from ..mcp.tools import make_mcp_analyze_tool_factory
 from ..runner import Reviewer, load_doc, make_model, model_label, split_gold
 from ..text import Segment, normalize_key, segment_text, tokenize
+from .auth import AuthError, Principal, auth_mode, current_customer
 from .bundle_jobs import BundleReviewManager
 from .bundles import BundleStore, DbBundleStore, DbDictionary, Dictionary, MemoryBundleStore
+from .customers import CustomerStore, DbCustomerStore, MemoryCustomerStore
 from .db import Database
 from .jobs import NODES, JobManager
+from .usage import DbUsageStore, MemoryUsageStore, UsageRecord, UsageStore
 
 logger = logging.getLogger(__name__)
 STATIC_DIR = Path(__file__).parent / "static"
+Who = Annotated[Principal, Depends(current_customer)]  # API 키 인증(ADR-019). /health·화면·/docs는 공개
 SAMPLE_SPLIT = "dev"  # eval은 최종 평가용이라 화면에 내지 않는다
 
 
@@ -54,6 +59,8 @@ class Runtime:
     tracing: bool
     bundles: BundleStore
     dictionary: Dictionary
+    customers: CustomerStore
+    usage: UsageStore
 
     @property
     def backend(self) -> str:
@@ -85,7 +92,9 @@ def build_runtime(
     reviewer = Reviewer(model, settings, analyze_fn=fn, analyze_tool_factory=factory)
     bundles: BundleStore = DbBundleStore(db) if db is not None else MemoryBundleStore()
     dictionary: Dictionary = DbDictionary(db) if db is not None else InMemoryDictionary()
-    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary)
+    customers: CustomerStore = DbCustomerStore(db) if db is not None else MemoryCustomerStore()
+    usage: UsageStore = DbUsageStore(db) if db is not None else MemoryUsageStore()
+    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary, customers, usage)
 
 
 class SegmentIn(BaseModel):
@@ -125,6 +134,33 @@ def _not_found(what: str) -> JSONResponse:
     return JSONResponse({"error": what, "kind": "input"}, status_code=404)
 
 
+def _bind_customer(bundle: Bundle, principal: Principal) -> Bundle:
+    """인증된 요청의 묶음은 키의 고객에 묶는다. 본문이 다른 고객을 적었으면 400(ADR-019)."""
+    if not principal.authenticated:
+        return bundle
+    if bundle.customer_id and bundle.customer_id != principal.customer_id:
+        raise InputError("customer_id가 API 키의 고객과 다릅니다")
+    return bundle.model_copy(update={"customer_id": principal.customer_id})
+
+
+def _parse_window(start: str | None, end: str | None) -> tuple[datetime, datetime]:
+    """`from`·`to`(ISO 날짜 또는 일시, to는 제외). 기본은 최근 30일."""
+
+    def parse(v: str, what: str) -> datetime:
+        try:
+            d = datetime.fromisoformat(v)
+        except ValueError as exc:
+            raise InputError(f"{what}은(는) ISO 날짜여야 합니다: {v!r}") from exc
+        return d if d.tzinfo else d.replace(tzinfo=UTC)
+
+    now = datetime.now(UTC)
+    t_end = parse(end, "to") if end else now + timedelta(minutes=1)
+    t_start = parse(start, "from") if start else t_end - timedelta(days=30)
+    if t_start >= t_end:
+        raise InputError("from은 to보다 앞이어야 합니다")
+    return t_start, t_end
+
+
 def _list_samples(rt: Runtime) -> list[dict]:
     if rt.mcp is not None:
         rows = rt.mcp.read_json_resource(f"document://synthetic/{SAMPLE_SPLIT}")
@@ -145,10 +181,21 @@ def _load_sample(rt: Runtime, doc_id: str) -> dict | None:
     return load_doc(path)
 
 
+def _service_conditions(settings: Settings) -> tuple[str, ...]:
+    """서비스가 받는 조건. M1(멀티 에이전트 틀)은 MULTI_AGENT=true일 때만(ADR-019)."""
+    return ALL_CONDITIONS if settings.multi_agent else CONDITIONS
+
+
+def _check_condition(settings: Settings, condition: str) -> None:
+    allowed = _service_conditions(settings)
+    if condition not in allowed:
+        hint = "" if settings.multi_agent else " (M1은 MULTI_AGENT=true일 때만)"
+        raise InputError(f"조건은 {', '.join(allowed)} 중 하나여야 합니다{hint}: {condition!r}")
+
+
 def _build_doc(rt: Runtime, req: ReviewRequest) -> tuple[dict, str]:
     """입력을 검증해 그래프 입력 문서로 만든다. 400 사유: 빈 입력, 아랍어 토큰 0개, 조건 오류, 없는 샘플."""
-    if req.condition not in CONDITIONS:
-        raise InputError(f"조건은 {', '.join(CONDITIONS)} 중 하나여야 합니다: {req.condition!r}")
+    _check_condition(rt.settings, req.condition)
     if req.doc_id:
         doc = _load_sample(rt, req.doc_id)
         if doc is None:
@@ -178,7 +225,12 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         app.state.rt = runtime
         app.state.jobs = JobManager(
-            runtime.reviewer, runtime.settings.results_dir, db=runtime.db, mcp=runtime.mcp, max_workers=max_workers
+            runtime.reviewer,
+            runtime.settings.results_dir,
+            db=runtime.db,
+            mcp=runtime.mcp,
+            max_workers=max_workers,
+            usage=runtime.usage,
         )
         app.state.bundle_reviews = BundleReviewManager(app.state.jobs, runtime.bundles, runtime.dictionary)
         try:
@@ -198,6 +250,10 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
     async def _config_error(request: Request, exc: ConfigError) -> JSONResponse:
         return JSONResponse({"error": str(exc), "kind": "config"}, status_code=503)
 
+    @app.exception_handler(AuthError)
+    async def _auth_error(request: Request, exc: AuthError) -> JSONResponse:
+        return JSONResponse({"error": str(exc), "kind": "auth"}, status_code=401)
+
     def jobs(request: Request) -> JobManager:
         jm: JobManager = request.app.state.jobs
         return jm
@@ -216,14 +272,17 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             "tracing": runtime.tracing,
             "python": sys.version.split()[0],
             "nodes": list(NODES),
+            "auth": auth_mode(runtime.settings, runtime.customers),
+            "multi_agent": runtime.settings.multi_agent,
+            "conditions": list(_service_conditions(runtime.settings)),
         }
 
     @app.get("/v1/samples")
-    def samples() -> list[dict]:
+    def samples(who: Who) -> list[dict]:
         return _list_samples(runtime)
 
     @app.get("/v1/samples/{doc_id}")
-    def sample(doc_id: str) -> JSONResponse:
+    def sample(doc_id: str, who: Who) -> JSONResponse:
         doc = _load_sample(runtime, doc_id)
         if doc is None:
             return JSONResponse({"error": f"샘플 문서가 없습니다: {doc_id!r}", "kind": "input"}, status_code=404)
@@ -232,26 +291,32 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return JSONResponse(public)
 
     @app.post("/v1/reviews", status_code=202)
-    def create_review(req: ReviewRequest, request: Request) -> dict[str, Any]:
+    def create_review(req: ReviewRequest, request: Request, who: Who) -> dict[str, Any]:
         doc, source = _build_doc(runtime, req)
-        job = jobs(request).submit(doc, req.condition, source)  # DB 불통 → ConfigError → 503
+        job = jobs(request).submit(doc, req.condition, source, who.scope)  # DB 불통 → ConfigError → 503
         return {"job_id": job.id, "status": job.status, "condition": job.condition, "doc_id": doc["doc_id"]}
 
+    def _job_for(request: Request, job_id: str, who: Principal):  # type: ignore[no-untyped-def]
+        job = jobs(request).get(job_id)
+        if job is None or (who.authenticated and job.customer_id != who.customer_id):
+            return None
+        return job
+
     @app.get("/v1/jobs")
-    def list_jobs(request: Request, limit: int = 20) -> list[dict]:
-        return jobs(request).recent(max(1, min(limit, 200)))
+    def list_jobs(request: Request, who: Who, limit: int = 20) -> list[dict]:
+        return jobs(request).recent(max(1, min(limit, 200)), who.scope)
 
     @app.get("/v1/jobs/{job_id}")
-    def get_job(job_id: str, request: Request) -> JSONResponse:
-        job = jobs(request).get(job_id)
+    def get_job(job_id: str, request: Request, who: Who) -> JSONResponse:
+        job = _job_for(request, job_id, who)
         if job is None:
             return JSONResponse({"error": "작업이 없습니다", "kind": "input"}, status_code=404)
         return JSONResponse(job.summary())
 
     @app.get("/v1/jobs/{job_id}/events", response_model=None)
-    def job_events(job_id: str, request: Request) -> StreamingResponse | JSONResponse:
+    def job_events(job_id: str, request: Request, who: Who) -> StreamingResponse | JSONResponse:
         jm = jobs(request)
-        if jm.get(job_id) is None:
+        if _job_for(request, job_id, who) is None:
             return JSONResponse({"error": "작업이 없습니다", "kind": "input"}, status_code=404)
 
         def gen() -> Iterator[str]:
@@ -261,8 +326,8 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return StreamingResponse(gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 
     @app.get("/v1/jobs/{job_id}/result")
-    def job_result(job_id: str, request: Request) -> JSONResponse:
-        job = jobs(request).get(job_id)
+    def job_result(job_id: str, request: Request, who: Who) -> JSONResponse:
+        job = _job_for(request, job_id, who)
         if job is None:
             return JSONResponse({"error": "작업이 없습니다", "kind": "input"}, status_code=404)
         if job.status == "failed":
@@ -281,11 +346,23 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             raise ConfigError("DB에 연결할 수 없습니다(DATABASE_URL). 묶음 검수를 저장할 수 없습니다.")
 
     @app.get("/v1/bundles")
-    def list_bundles(limit: int = 20) -> list[dict]:
-        return runtime.bundles.recent(max(1, min(limit, 200)))
+    def list_bundles(who: Who, limit: int = 20) -> list[dict]:
+        return runtime.bundles.recent(max(1, min(limit, 200)), who.scope)
+
+    @app.get("/v1/usage")
+    def usage_summary(
+        who: Who,
+        from_: Annotated[str | None, Query(alias="from")] = None,
+        to: str | None = None,
+    ) -> dict[str, Any]:
+        """고객의 사용량(작업 수·토큰·구간 수)을 기간으로 본다. 인증을 끈 경우 전체."""
+        start, end = _parse_window(from_, to)
+        body = runtime.usage.summary(who.scope, start, end)
+        body["customer_id"] = who.scope
+        return body
 
     @app.get("/v1/bundles/samples")
-    def bundle_samples() -> list[dict]:
+    def bundle_samples(who: Who) -> list[dict]:
         rows = []
         for path in sorted(_bundle_samples_dir(runtime.settings).glob("*.json")):
             obj = json.loads(path.read_text(encoding="utf-8"))
@@ -296,17 +373,26 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return rows
 
     @app.get("/v1/bundles/samples/{bundle_id}")
-    def bundle_sample(bundle_id: str) -> JSONResponse:
+    def bundle_sample(bundle_id: str, who: Who) -> JSONResponse:
         path = _bundle_samples_dir(runtime.settings) / f"{bundle_id}.json"
         if not path.is_file() or path.name != f"{bundle_id}.json":
             return _not_found(f"샘플 묶음이 없습니다: {bundle_id!r}")
         bundle = parse_bundle(json.loads(path.read_text(encoding="utf-8")))  # gold는 뗀다
         return JSONResponse(bundle.model_dump(mode="json"))
 
-    def _review_and_save(bundle: Bundle, request: Request) -> dict[str, Any]:
+    def _review_and_save(bundle: Bundle, request: Request, who: Principal) -> dict[str, Any]:
+        bundle = _bind_customer(bundle, who)
         _require_db_ok(request)  # DB 불통 → 503
         items = review_bundle(bundle, runtime.dictionary)
         runtime.bundles.save(bundle, items)
+        runtime.usage.record(
+            UsageRecord(
+                customer_id=who.scope,
+                kind="bundle_label",
+                bundle_id=bundle.bundle_id,
+                n_segments=sum(len(d.segments) for d in bundle.documents),
+            )
+        )
         return {
             "bundle_id": bundle.bundle_id,
             "documents": [
@@ -321,13 +407,14 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         }
 
     @app.post("/v1/bundles/review")
-    def review_bundle_endpoint(body: dict[str, Any], request: Request) -> dict[str, Any]:
+    def review_bundle_endpoint(body: dict[str, Any], request: Request, who: Who) -> dict[str, Any]:
         bundle: Bundle = parse_bundle(body)  # 구조 오류 → InputError → 400
-        return _review_and_save(bundle, request)
+        return _review_and_save(bundle, request, who)
 
     @app.post("/v1/bundles", status_code=201)
     def upload_bundle(
         request: Request,
+        who: Who,
         files: Annotated[list[UploadFile], File(description="묶음 JSON 하나, 또는 서류 파일(.json/.txt/.md) 여러 개")],
         bundle_id: Annotated[str | None, Form()] = None,
         customer_id: Annotated[str | None, Form()] = None,
@@ -337,18 +424,18 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         """파일 업로드로 묶음을 만들고 바로 라벨 경로로 검수한다. LLM 경로는 이어서 `/reviews`를 부른다."""
         uploads = [(f.filename or f"file_{i}", f.file.read()) for i, f in enumerate(files, start=1)]
         bundle = bundle_from_uploads(uploads, bundle_id, customer_id, document_type, entities)  # 오류 → 400
-        return _review_and_save(bundle, request)
+        return _review_and_save(bundle, request, who)
 
     @app.get("/v1/bundles/{bundle_id}/items")
-    def bundle_items(bundle_id: str) -> JSONResponse:
-        items = runtime.bundles.items(bundle_id)
+    def bundle_items(bundle_id: str, who: Who) -> JSONResponse:
+        items = runtime.bundles.items(bundle_id, who.scope)
         if items is None:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         return JSONResponse([_item_json(i) for i in items])
 
     @app.get("/v1/bundles/{bundle_id}/pending")
-    def bundle_pending(bundle_id: str) -> JSONResponse:
-        items = runtime.bundles.items(bundle_id)
+    def bundle_pending(bundle_id: str, who: Who) -> JSONResponse:
+        items = runtime.bundles.items(bundle_id, who.scope)
         if items is None:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         return JSONResponse([_item_json(i) for i in items if i.status == "pending"])
@@ -358,22 +445,29 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return brm
 
     @app.post("/v1/bundles/{bundle_id}/reviews", status_code=202)
-    def start_bundle_review(bundle_id: str, request: Request, condition: str = "C3") -> JSONResponse:
-        """라벨 칸이 없는 문장의 고유명사를 LLM(C1~C3)으로 뽑아 묶음 판정에 합류시킨다. 서류마다 작업 하나."""
-        if condition not in CONDITIONS:
-            raise InputError(f"조건은 {', '.join(CONDITIONS)} 중 하나여야 합니다: {condition!r}")
-        bundle = runtime.bundles.get(bundle_id)
+    def start_bundle_review(bundle_id: str, request: Request, who: Who, condition: str = "C3") -> JSONResponse:
+        """라벨 칸이 없는 문장의 고유명사를 LLM(C1~C3, 켜면 M1)으로 뽑아 묶음 판정에 합류시킨다. 서류마다 작업 하나."""
+        _check_condition(runtime.settings, condition)
+        bundle = runtime.bundles.get(bundle_id, who.scope)
         if bundle is None:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         brm = bundle_reviews(request)
         rec = brm.start(bundle, condition)  # DB 불통 → ConfigError → 503
         return JSONResponse(brm.summary(rec), status_code=202)
 
-    @app.get("/v1/bundles/{bundle_id}/reviews/{review_id}")
-    def get_bundle_review(bundle_id: str, review_id: str, request: Request) -> JSONResponse:
-        brm = bundle_reviews(request)
-        rec = brm.get(review_id)
+    def _review_for(request: Request, bundle_id: str, review_id: str, who: Principal):  # type: ignore[no-untyped-def]
+        rec = bundle_reviews(request).get(review_id)
         if rec is None or rec.bundle.bundle_id != bundle_id:
+            return None
+        if who.authenticated and rec.bundle.customer_id != who.customer_id:
+            return None
+        return rec
+
+    @app.get("/v1/bundles/{bundle_id}/reviews/{review_id}")
+    def get_bundle_review(bundle_id: str, review_id: str, request: Request, who: Who) -> JSONResponse:
+        brm = bundle_reviews(request)
+        rec = _review_for(request, bundle_id, review_id, who)
+        if rec is None:
             return _not_found(f"묶음 검수가 없습니다: {review_id!r}")
         body = brm.summary(rec)
         if rec.items is not None:
@@ -385,11 +479,12 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return JSONResponse(body)
 
     @app.get("/v1/bundles/{bundle_id}/reviews/{review_id}/events", response_model=None)
-    def bundle_review_events(bundle_id: str, review_id: str, request: Request) -> StreamingResponse | JSONResponse:
+    def bundle_review_events(
+        bundle_id: str, review_id: str, request: Request, who: Who
+    ) -> StreamingResponse | JSONResponse:
         """묶음 단위 SSE: start → 서류별 작업 이벤트 → done. 끝난 검수는 누적 이벤트를 재생하고 바로 done을 낸다."""
         brm = bundle_reviews(request)
-        rec = brm.get(review_id)
-        if rec is None or rec.bundle.bundle_id != bundle_id:
+        if _review_for(request, bundle_id, review_id, who) is None:
             return _not_found(f"묶음 검수가 없습니다: {review_id!r}")
 
         def gen() -> Iterator[str]:
@@ -399,17 +494,17 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return StreamingResponse(gen(), media_type="text/event-stream", headers={"Cache-Control": "no-cache"})
 
     @app.get("/v1/bundles/{bundle_id}")
-    def bundle_detail(bundle_id: str) -> JSONResponse:
-        bundle = runtime.bundles.get(bundle_id)
+    def bundle_detail(bundle_id: str, who: Who) -> JSONResponse:
+        bundle = runtime.bundles.get(bundle_id, who.scope)
         if bundle is None:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         return JSONResponse(bundle.model_dump(mode="json"))
 
     @app.post("/v1/dictionary", status_code=201)
-    def close_pending(req: DictionaryCloseRequest, request: Request) -> JSONResponse:
+    def close_pending(req: DictionaryCloseRequest, request: Request, who: Who) -> JSONResponse:
         """담당자가 확인 대기 항목을 닫으며 표기를 등록한다(ADR-010). 자동 등록은 없다."""
-        bundle = runtime.bundles.get(req.bundle_id)
-        items = runtime.bundles.items(req.bundle_id)
+        bundle = runtime.bundles.get(req.bundle_id, who.scope)
+        items = runtime.bundles.items(req.bundle_id, who.scope)
         if bundle is None or items is None:
             return _not_found(f"묶음이 없습니다: {req.bundle_id!r}")
         item = next((i for i in items if i.mention_id == req.mention_id), None)

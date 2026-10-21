@@ -158,14 +158,29 @@ class Database:
             return len(s.execute(select(NameItem.id).where(NameItem.run_id == run_id)).all())
 
     # -- 묶음 검수(단계 2) --
+    @staticmethod
+    def _bundle_query(bundle_id: str, customer_id: str | None):  # type: ignore[no-untyped-def]
+        q = select(BundleRow).where(BundleRow.bundle_id == bundle_id)
+        if customer_id is not None:
+            q = q.where(BundleRow.customer_id == customer_id)
+        return q.order_by(BundleRow.updated_at.desc())
+
     def upsert_bundle(self, bundle: dict, items: list[dict]) -> str:
-        """같은 bundle_id면 입력과 결과를 통째로 바꾼다."""
+        """같은 고객의 같은 bundle_id면 입력과 결과를 통째로 바꾼다(ADR-019)."""
         with self.session() as s:
-            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle["bundle_id"])).scalars().first()
+            row = (
+                s.execute(
+                    select(BundleRow).where(
+                        BundleRow.bundle_id == bundle["bundle_id"],
+                        BundleRow.customer_id.is_not_distinct_from(bundle.get("customer_id")),
+                    )
+                )
+                .scalars()
+                .first()
+            )
             if row is None:
-                row = BundleRow(id=new_id(), bundle_id=bundle["bundle_id"])
+                row = BundleRow(id=new_id(), bundle_id=bundle["bundle_id"], customer_id=bundle.get("customer_id"))
                 s.add(row)
-            row.customer_id = bundle.get("customer_id")
             row.payload = bundle
             row.updated_at = now()
             s.flush()
@@ -193,14 +208,14 @@ class Database:
             )
             return row.id
 
-    def get_bundle(self, bundle_id: str) -> dict | None:
+    def get_bundle(self, bundle_id: str, customer_id: str | None = None) -> dict | None:
         with self.session() as s:
-            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            row = s.execute(self._bundle_query(bundle_id, customer_id)).scalars().first()
             return None if row is None else dict(row.payload)
 
-    def list_review_items(self, bundle_id: str) -> list[dict] | None:
+    def list_review_items(self, bundle_id: str, customer_id: str | None = None) -> list[dict] | None:
         with self.session() as s:
-            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            row = s.execute(self._bundle_query(bundle_id, customer_id)).scalars().first()
             if row is None:
                 return None
             rows = s.execute(
@@ -224,9 +239,12 @@ class Database:
                 for r in rows
             ]
 
-    def recent_bundles(self, limit: int) -> list[dict]:
+    def recent_bundles(self, limit: int, customer_id: str | None = None) -> list[dict]:
         with self.session() as s:
-            rows = s.execute(select(BundleRow).order_by(BundleRow.updated_at.desc()).limit(limit)).scalars().all()
+            q = select(BundleRow)
+            if customer_id is not None:
+                q = q.where(BundleRow.customer_id == customer_id)
+            rows = s.execute(q.order_by(BundleRow.updated_at.desc()).limit(limit)).scalars().all()
             out = []
             for r in rows:
                 counts = s.execute(

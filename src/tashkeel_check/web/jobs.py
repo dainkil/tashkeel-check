@@ -20,6 +20,7 @@ from ..results import ReviewResult
 from ..runner import Reviewer
 from ..text import tokenize
 from .db import Database, new_id
+from .usage import MemoryUsageStore, UsageRecord, UsageStore
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ class JobRecord:
     doc: dict
     source: str  # paste | sample
     condition: str
+    customer_id: str | None = None  # 인증된 요청이면 키의 고객(ADR-019)
     status: str = "queued"  # queued | running | done | failed
     node: str | None = None
     attempts: int = 0
@@ -52,6 +54,7 @@ class JobRecord:
             "doc_id": self.doc["doc_id"],
             "source": self.source,
             "condition": self.condition,
+            "customer_id": self.customer_id,
             "status": self.status,
             "node": self.node,
             "attempts": self.attempts,
@@ -79,12 +82,14 @@ class JobManager:
         mcp: MCPClient | None = None,
         max_workers: int = 1,
         keep: int = 200,
+        usage: UsageStore | None = None,
     ) -> None:
         self.reviewer = reviewer
         self.results_dir = Path(results_dir)
         self.db = db
         self.mcp = mcp
         self.keep = keep
+        self.usage: UsageStore = usage if usage is not None else MemoryUsageStore()
         self._jobs: dict[str, JobRecord] = {}
         self._order: list[str] = []
         self._lock = threading.Lock()
@@ -94,10 +99,13 @@ class JobManager:
     def get(self, job_id: str) -> JobRecord | None:
         return self._jobs.get(job_id)
 
-    def recent(self, limit: int) -> list[dict]:
+    def recent(self, limit: int, customer_id: str | None = None) -> list[dict]:
         with self._lock:
-            ids = list(reversed(self._order))[:limit]
-        return [self._jobs[i].summary() for i in ids if i in self._jobs]
+            ids = list(reversed(self._order))
+        rows = [self._jobs[i] for i in ids if i in self._jobs]
+        if customer_id is not None:
+            rows = [j for j in rows if j.customer_id == customer_id]
+        return [j.summary() for j in rows[:limit]]
 
     def db_ok(self) -> bool | None:
         """None: DB 없음, True/False: 연결 여부."""
@@ -112,14 +120,14 @@ class JobManager:
             return False
 
     # -- 생성 --
-    def submit(self, doc: dict, condition: str, source: str) -> JobRecord:
+    def submit(self, doc: dict, condition: str, source: str, customer_id: str | None = None) -> JobRecord:
         """doc는 이미 검증된 입력(구간 1개 이상, 아랍어 토큰 1개 이상, 조건 유효)이다."""
-        job = JobRecord(id=new_id(), doc=doc, source=source, condition=condition)
+        job = JobRecord(id=new_id(), doc=doc, source=source, condition=condition, customer_id=customer_id)
         if self.db is not None:
             if not self.db.ping():
                 raise ConfigError("DB에 연결할 수 없습니다(DATABASE_URL). 검수 작업을 만들지 않습니다.")
             job.document_id = self.db.insert_document(doc, source, [dict(t) for t in tokenize(doc["segments"])])
-            self.db.insert_job(job.id, job.document_id, condition)
+            self.db.insert_job(job.id, job.document_id, condition, customer_id)
         with self._lock:
             self._jobs[job.id] = job
             self._order.append(job.id)
@@ -177,6 +185,7 @@ class JobManager:
             job.status = "done"
             job.finished_at = datetime.now(UTC)
             self._db_update(job, status="done", finished_at=job.finished_at, error=job.error)
+            self._record_usage(job, result.metrics.get("usage") or {})
             job.emit(
                 "done",
                 attempts=result.metrics.get("attempts"),
@@ -192,6 +201,26 @@ class JobManager:
             job.status, job.error, job.finished_at = "failed", f"{type(exc).__name__}: {exc}", datetime.now(UTC)
             self._db_update(job, status="failed", error=job.error, finished_at=job.finished_at)
             job.emit("error", kind=kind, error=job.error)
+
+    def _record_usage(self, job: JobRecord, usage: dict[str, Any]) -> None:
+        try:
+            self.usage.record(
+                UsageRecord(
+                    customer_id=job.customer_id,
+                    kind="bundle_document" if job.source == "bundle" else "document",
+                    job_id=job.id,
+                    bundle_id=(job.doc.get("meta") or {}).get("bundle_id"),
+                    condition=job.condition,
+                    input_tokens=int(usage.get("input_tokens", 0) or 0),
+                    output_tokens=int(usage.get("output_tokens", 0) or 0),
+                    total_tokens=int(usage.get("total_tokens", 0) or 0),
+                    llm_calls=int(usage.get("llm_calls", 0) or 0),
+                    n_segments=len(job.doc["segments"]),
+                    n_arabic_tokens=sum(1 for t in tokenize(job.doc["segments"]) if t["script"] == "ar"),
+                )
+            )
+        except Exception as exc:  # 사용량 기록 실패가 작업 결과를 망치지 않는다
+            logger.warning("작업 %s 사용량 기록 실패: %s", job.id, exc)
 
     # -- 이벤트 --
     def iter_events(self, job_id: str, timeout: float = 600.0):  # type: ignore[no-untyped-def]
