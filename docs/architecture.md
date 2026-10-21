@@ -109,7 +109,7 @@ LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수�
 
 툴 설계 문서에는 툴마다 이름, 입력과 출력 스키마, 호출 시점, 실패했을 때의 동작을 적는다.
 
-**MCP 노출 [제안, 단계 1.5, 미구현]:** 과제 2가 MCP Tool·Resource·Prompt를 요구하므로 최소 범위로 둔다. 실험 경로(CLI `run`, `exp001`, `exp002`)는 지금처럼 in-process 툴을 쓴다(ADR-004: 분석기는 코드에서 항상 돈다). 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2의 `analyze_tokens`를 MCP 서버의 같은 이름 툴로 바꿔 끼우고(`build_graph`의 `extra_tool_factories` 경로), 툴 로그에 `via: "mcp"`를 남긴다. 노출 항목은 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`(합성 문서, gold 제외), 프롬프트 `review_instructions(condition)`(`prompts.system_prompt`) 세 개다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다.
+**MCP 노출 [확인, 단계 1.5, 2026-10-21 구현]:** 과제 2 안내는 MCP를 필수로 하지 않지만(ZIP README: "LangGraph/MCP 없이 구현해도 됩니다") 사용자가 범위에 넣기로 했으므로(2026-10-20) 최소 범위로 둔다. 실험 경로(CLI `run`, `exp001`, `exp002`)는 지금처럼 in-process 툴을 쓴다(ADR-004: 분석기는 코드에서 항상 돈다). 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2의 `analyze_tokens`를 MCP 서버의 같은 이름 툴로 바꿔 끼우고(`build_graph(analyze_tool_factory=…)`. `extra_tool_factories`는 `bundle_search`로 표시되므로 쓰지 않는다), 툴 로그에 `via: "mcp"`를 남긴다. LLM이 보는 툴 이름·인자·설명은 in-process 툴과 글자 단위로 같다(`tests/test_mcp.py`). 서버는 `python -m tashkeel_check.mcp.server`(FastMCP, stdio)이고, 리소스 `document://synthetic/{split}`(목록)도 더했다. 클라이언트(`mcp/client.py`)는 전용 스레드의 이벤트 루프에서 한 번 연결해 잠금으로 하나씩 보내고, 타임아웃만 지수 백오프로 재시도한다. 노출 항목은 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`(합성 문서, gold 제외), 프롬프트 `review_instructions(condition)`(`prompts.system_prompt`) 세 개다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다.
 
 ## 4.7 기술 스택
 
@@ -124,9 +124,9 @@ LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수�
 | 추적 | `@traceable`, `.env`의 `LANGSMITH_API_KEY`·`LANGSMITH_TRACING`·`LANGSMITH_PROJECT` | 실행마다 [6.3절](evaluation.md) 메타데이터. 키가 없으면 추적만 꺼지고 나머지는 동작 |
 | 키 없을 때 | 연습 모드(가짜 모델) | 가짜 모델(스크립트된 tool call)로 그래프와 reconcile 테스트. 실제 실험은 키가 필요 |
 | 벡터 DB | Qdrant 메모리 모드, `langchain_qdrant` | 단계 2 틀(`rag/bundle.py`)에만 쓴다. 단계 1 조건에는 붙이지 않음(ADR-003, ADR-007). 제품 경로에서는 M3에서 Postgres pgvector로 교체(ADR-011) |
-| 웹·API [제안, 단계 1.5, 미구현] | 골격에 없음. 제공 ZIP(`all_total_vue_student/`)의 FastAPI lifespan·`/health`·SSE(`graph.astream(stream_mode="updates")` → `data: [DONE]`) 패턴, Vue 3 CDN 무빌드 HTML + `EventSource` 진행 표시 | FastAPI가 정적 HTML을 직접 서빙(ZIP의 프록시 서버는 쓰지 않음). 그래프 노드가 동기이므로 작업은 스레드에서 돌리고, 진행은 노드 단위 이벤트만 SSE로 보낸다. 토큰 스트리밍은 구조화 출력에 의미가 없어 넣지 않는다 |
-| 저장 [제안, 단계 1.5, 미구현] | ZIP은 SQLite(`session_store.py`) | 쓰지 않는다. Postgres + SQLAlchemy 2 + psycopg 3 + Alembic(ADR-011). 단계 1.5에서는 `documents`·`jobs`·`runs`·`name_items` 네 테이블만. `results/` 파일 쓰기는 유지 |
-| MCP [제안, 단계 1.5, 미구현] | ZIP의 FastMCP 서버 + stdio 클라이언트(서버별 세션·lock, `find_prompt`·`find_resource_template`), `with_retry` | 4.6절 "MCP 노출". 서비스 경로에서만 |
+| 웹·API [확인, 단계 1.5, 2026-10-21] | 골격에 없음. 제공 ZIP(`all_total_vue_student/`)의 FastAPI lifespan·`/health`·SSE(`graph.astream(stream_mode="updates")` → `data: [DONE]`) 패턴, Vue 3 CDN 무빌드 HTML + `EventSource` 진행 표시 | FastAPI가 정적 HTML을 직접 서빙(ZIP의 프록시 서버는 쓰지 않음). 그래프 노드가 동기이므로 작업은 스레드에서 돌리고, 진행은 노드 단위 이벤트만 SSE로 보낸다. 토큰 스트리밍은 구조화 출력에 의미가 없어 넣지 않는다 |
+| 저장 [확인, 단계 1.5, 2026-10-21] | ZIP은 SQLite(`session_store.py`) | 쓰지 않는다. Postgres + SQLAlchemy 2 + psycopg 3 + Alembic(ADR-011). 단계 1.5에서는 `documents`·`jobs`·`runs`·`name_items` 네 테이블만. `results/` 파일 쓰기는 유지 |
+| MCP [확인, 단계 1.5, 2026-10-21] | ZIP의 FastMCP 서버 + stdio 클라이언트(서버별 세션·lock, `find_prompt`·`find_resource_template`), `with_retry` | 4.6절 "MCP 노출". 서비스 경로에서만 |
 
 - Python 3.11 이상(camel-tools 1.6.0 요구 사항), uv, pytest.
 - CAMeL Tools 1.6.0과 기본 형태소 DB calima-msa-r13. DB는 `camel_data`로 내려받는다. 패키지 이름은 공식 문서에서 확인한다.
@@ -167,7 +167,7 @@ docs/                        README.md(문서 지도), problem-and-goals, scope,
                              changelog, troubleshooting, adr/, experiments/, business/ (2026-10-20 재구성)
 ```
 
-단계 1.5에서 추가할 것 [제안, 미구현]:
+단계 1.5에서 더한 것 [확인, 2026-10-21]:
 
 ```text
 src/tashkeel_check/
@@ -180,10 +180,10 @@ alembic/, alembic.ini        초기 마이그레이션 1개
 docker-compose.yml, Dockerfile   app + postgres(pgvector 이미지, M3 대비)
 run.sh                       키·포트·DB 검사 → alembic upgrade → uv run tashkeel serve → /health 대기
 tests/test_web_api.py, tests/test_mcp.py
-docs/과제2-테스트-기록.md    기능별 입력·결과, 예외 테스트(실행한 것만)
+docs/과제2-테스트-기록.md    기능별 입력·결과, 예외 테스트(실행한 것만), docs/images/ 캡처
 ```
 
-CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더한다. 의존성 추가 후보: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.Reviewer`에 노드 진행 콜백(`on_node`)을 더하고 내부를 `graph.stream`으로 바꾼다(결과 동일, 골든 테스트로 확인). 서비스는 기동할 때 `Reviewer`를 하나 만들어 두고, `InputError`·`ConfigError`를 400·503으로 바꾸며, 응답은 `ReviewResult`를 그대로 쓴다. 과제 안내 파일과의 대응표는 README에 둔다.
+CLI에 `tashkeel serve`, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더했다(실험 경로는 읽지 않는다). 의존성: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.Reviewer.run`에 `on_node` 콜백을 더했다. 콜백이 있을 때만 `graph.stream(stream_mode="updates")`로 돌고 결과는 `invoke`와 같다(`tests/test_graph_fake.py`, 골든 160건 그대로). `analyzer.thread_safe_analyze()`(exp002의 잠금 래퍼를 옮김)를 서비스와 MCP 서버가 같이 쓴다. 서비스는 `web.app.build_runtime(settings)`가 모델·분석기·DB·MCP·`Reviewer`를 먼저 만들고(실패는 ConfigError → `serve` 종료 코드 3), `create_app(runtime)`이 엔드포인트를 붙인다. `InputError`는 400, `ConfigError`는 503, 응답은 `ReviewResult.model_dump()` + `errors` + `job`. 번역을 포함한 결과 전체는 `runs.result`(JSONB)에 두고 `name_items`는 LLM이 낸 `proper_noun` 항목만 펼친다. `DATABASE_URL`이 없으면 DB 없이(메모리·파일만) 돌고, 있는데 닿지 않으면 기동은 하되 `/health db:false`·작업 생성 503이다. MCP 서버가 죽으면 작업을 failed로 기록한다(in-process 대체 없음). 과제 안내 파일과의 대응표는 README에 둔다.
 
 주요 명령:
 
@@ -196,6 +196,9 @@ CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKE
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
 | `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
 | `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
+| `uv run tashkeel serve` 또는 `./run.sh` | 단계 1.5 서비스(API·폼 화면). `.env`의 `LLM_BACKEND`·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_PORT`. 키·분석기·MCP가 없으면 기동 거부(종료 코드 3) |
+| `uv run python -m tashkeel_check.mcp.server` | MCP 서버(stdio) 단독 실행 |
+| `uv run alembic upgrade head` | Postgres 테이블 4개 생성·갱신(`DATABASE_URL` 필요) |
 | `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
 from langchain.chat_models import init_chat_model
 from langchain_core.language_models.chat_models import BaseChatModel
+from langchain_core.runnables import RunnableConfig
 from langsmith import traceable
 from langsmith.run_helpers import get_current_run_tree
 
@@ -16,7 +18,7 @@ from .analyzer import AnalyzeFn, analyzer_version
 from .config import Settings, has_openai_key, tracing_enabled
 from .errors import ConfigError
 from .fake import FakeAgentModel, Responder
-from .graph import ToolFactory, build_graph
+from .graph import AnalyzeToolFactory, ToolFactory, build_graph
 from .prompts import PROMPT_VERSION, prompt_hash
 from .results import ReviewResult
 from .romanize import MATCHER_VERSION
@@ -65,11 +67,15 @@ def model_label(model: BaseChatModel, settings: Settings) -> str:
     return getattr(model, "model_name", None) or getattr(model, "model", None) or settings.model
 
 
+NodeCallback = Callable[[str, dict], None]
+
+
 class Reviewer:
     """모델·설정·추가 툴을 묶어 그래프를 한 번만 빌드하고, 문서마다 다시 쓴다.
 
     실행 상태는 invoke마다 새로 만들므로 같은 Reviewer로 여러 문서를 돌려도 결과가 섞이지 않는다.
     서비스(단계 1.5)는 기동할 때 하나를 만들어 둔다.
+    analyze_tool_factory는 C2의 analyze_tokens를 MCP 툴로 바꿀 때만 준다.
     """
 
     def __init__(
@@ -78,11 +84,12 @@ class Reviewer:
         settings: Settings,
         analyze_fn: AnalyzeFn | None = None,
         extra_tool_factories: list[ToolFactory] | None = None,
+        analyze_tool_factory: AnalyzeToolFactory | None = None,
     ) -> None:
         self.model = model
         self.settings = settings
         self.bundle_search = bool(extra_tool_factories)
-        self.graph = build_graph(model, settings, analyze_fn, extra_tool_factories)
+        self.graph = build_graph(model, settings, analyze_fn, extra_tool_factories, analyze_tool_factory)
 
     def _meta(self, doc: dict, condition: str, repeat: int) -> dict:
         return {
@@ -109,25 +116,39 @@ class Reviewer:
         run_type="chain",
         process_inputs=lambda inputs: {k: v for k, v in inputs.items() if k != "self"},
     )
-    def run(self, doc: dict, condition: str, out_dir: str | Path | None = None, repeat: int = 0) -> ReviewResult:
+    def run(
+        self,
+        doc: dict,
+        condition: str,
+        out_dir: str | Path | None = None,
+        repeat: int = 0,
+        on_node: NodeCallback | None = None,
+    ) -> ReviewResult:
+        """on_node(노드 이름, 그 노드의 갱신분)는 노드가 끝날 때마다 불린다(단계 1.5 진행 표시). 결과는 같다."""
         doc_in, gold = split_gold(doc)
         meta = self._meta(doc, condition, repeat)
-        final = self.graph.invoke(
-            {
-                "doc_id": doc["doc_id"],
-                "condition": condition,
-                "segments": doc_in["segments"],
-                "gold": gold,
-                "out_dir": str(out_dir) if out_dir else None,
-                "meta": meta,
-            },
-            config={
-                "recursion_limit": 50,
-                "run_name": f"{doc['doc_id']}:{condition}:r{repeat}",
-                "tags": [condition, doc["doc_id"]],
-                "metadata": {k: meta[k] for k in ("doc_id", "condition", "repeat", "model", "prompt_hash")},
-            },
-        )
+        state = {
+            "doc_id": doc["doc_id"],
+            "condition": condition,
+            "segments": doc_in["segments"],
+            "gold": gold,
+            "out_dir": str(out_dir) if out_dir else None,
+            "meta": meta,
+        }
+        config: RunnableConfig = {
+            "recursion_limit": 50,
+            "run_name": f"{doc['doc_id']}:{condition}:r{repeat}",
+            "tags": [condition, doc["doc_id"]],
+            "metadata": {k: meta[k] for k in ("doc_id", "condition", "repeat", "model", "prompt_hash")},
+        }
+        if on_node is None:
+            final = self.graph.invoke(state, config=config)
+        else:
+            final = {}
+            for update in self.graph.stream(state, config=config, stream_mode="updates"):
+                for node, delta in update.items():
+                    on_node(node, delta)
+                    final.update(delta)
         result: ReviewResult = final["result"]
         run_tree = get_current_run_tree()
         if run_tree is not None:  # 추적이 켜져 있을 때만
