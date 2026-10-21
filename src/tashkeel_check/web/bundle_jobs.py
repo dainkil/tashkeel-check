@@ -13,8 +13,10 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any
 
+from ..bundle.evidence import evidence_rows_for_document
 from ..bundle.pipeline import bundle_mentions, mentions_from_result, merge_mentions, model_error_item, review_mentions
 from ..bundle.schemas import Bundle, ReviewItem
+from ..config import ENGINE_CONDITIONS
 from ..experiments.exp002 import is_api_failure
 from ..text import Segment, tokenize
 from .bundles import BundleStore, Dictionary
@@ -58,6 +60,8 @@ class BundleReviewManager:
                 "segments": segments,
                 "meta": {"source": "bundle", "bundle_id": bundle.bundle_id, "document_type": doc.document_type},
             }
+            if condition in ENGINE_CONDITIONS:  # M1: 다른 서류·사전의 영문 표기를 참고로(ADR-019). C1~C3 입력은 그대로
+                doc_in["bundle_evidence"] = evidence_rows_for_document(bundle, doc, self.dictionary)
             job_ids[doc.document_id] = self.jobs.submit(
                 doc_in, condition, "bundle", bundle.customer_id
             ).id  # DB 불통 → ConfigError

@@ -167,3 +167,41 @@ def test_bundle_review_errors(tmp_path):
         c.post("/v1/bundles/review", json=sample)
         assert c.post("/v1/bundles/bundle_sample_001/reviews", params={"condition": "C9"}).status_code == 400
         assert c.get("/v1/bundles/bundle_sample_001/reviews/nope").status_code == 404
+
+
+def test_m1_bundle_review_passes_other_documents_as_context(tmp_path):
+    """M1에서만 BUNDLE EVIDENCE 블록이 두 에이전트의 입력에 들어간다. C1 입력은 그대로다."""
+    from tashkeel_check.bundle.evidence import evidence_rows_for_document
+    from tashkeel_check.bundle.loader import parse_bundle
+    from tashkeel_check.fake import VERIFIER_TOOL, practice_responder
+
+    seen: dict[str, list[str]] = {"translator": [], "verifier": [], "c1": []}
+
+    def responder(messages, bound):
+        text = next((str(m.content) for m in messages if m.type == "human"), "")
+        key = "verifier" if VERIFIER_TOOL in bound else ("translator" if "ANALYZER" in text else "c1")
+        seen[key].append(text)
+        return practice_responder(messages, bound)
+
+    rt = build_runtime(
+        Settings(llm_backend="fake", results_dir=tmp_path, multi_agent=True),
+        model=FakeAgentModel(responder=responder),
+        analyze_fn=fake_analyze,
+    )
+    sample = json.loads((ROOT / "data" / "bundles" / "sample_bundle.json").read_text(encoding="utf-8"))
+    bundle = parse_bundle(sample)
+    rows = evidence_rows_for_document(bundle, bundle.documents[0])
+    assert {r["entity_id"] for r in rows} == {"person_001", "org_001"} and all(
+        r["document_id"] != "contract_001" for r in rows
+    )
+    with TestClient(create_app(rt)) as c:
+        assert c.post("/v1/bundles/review", json=sample).status_code == 200
+        rid = c.post("/v1/bundles/bundle_sample_001/reviews?condition=M1").json()["review_id"]
+        body = _wait(c, "bundle_sample_001", rid)
+        assert body["status"] == "done" and not body["errors"]
+        assert seen["translator"] and seen["verifier"]
+        assert any("BUNDLE EVIDENCE" in t and "Musallam" in t for t in seen["translator"])
+        assert any("BUNDLE EVIDENCE" in t for t in seen["verifier"])
+        rid = c.post("/v1/bundles/bundle_sample_001/reviews?condition=C1").json()["review_id"]
+        _wait(c, "bundle_sample_001", rid)
+        assert seen["c1"] and all("BUNDLE EVIDENCE" not in t for t in seen["c1"])

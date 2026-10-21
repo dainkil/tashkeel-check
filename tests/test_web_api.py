@@ -191,3 +191,15 @@ def test_results_are_stored_in_postgres(tmp_path):
         body = c.get(f"/v1/jobs/{job_id}/result").json()
         assert n_items == sum(1 for it in body["items"] if it["type"] == "proper_noun")
         assert rt.db.recent_jobs(5)[0]["job_id"] == job_id
+
+
+def test_m1_runs_when_multi_agent_is_enabled(tmp_path):
+    rt = build_runtime(_settings(tmp_path, multi_agent=True), analyze_fn=fake_analyze)
+    with TestClient(create_app(rt)) as c:
+        h = c.get("/health").json()
+        assert h["multi_agent"] is True and h["conditions"] == ["C0", "C1", "C2", "C3", "M1"]
+        job_id, events = _finish(c, {"text": ARABIC, "condition": "M1"})
+        assert events[-1]["event"] == "done" and events[-1]["valid_output"]
+        body = c.get(f"/v1/jobs/{job_id}/result").json()
+        assert body["condition"] == "M1" and body["metrics"]["engine"]["translator"]["llm_calls"] == 1
+        assert body["metrics"]["usage"]["llm_calls"] == 2
