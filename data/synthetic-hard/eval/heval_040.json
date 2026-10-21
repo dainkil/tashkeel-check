@@ -1,0 +1,1587 @@
+{
+ "doc_id": "heval_040",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "minutes",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "محضر اجتماع الجمعية العمومية العادية"
+  },
+  {
+   "segment_id": "s02",
+   "text": "لشركة الفرحان للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Company: Al Farhan General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "عقد الاجتماع في دبي بتاريخ 21/06/2026 برئاسة السيد فيصل بن سلمان بن سلطان الفرحان."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Chairman: Faisal bin Salman bin Sultan Al Farhan"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وحضر الاجتماع كل من:"
+  },
+  {
+   "segment_id": "s07",
+   "text": "1. السيد نواف بن فيصل الفرحان"
+  },
+  {
+   "segment_id": "s08",
+   "text": "2. السيد عبد الرحمن حسن العتيبي"
+  },
+  {
+   "segment_id": "s09",
+   "text": "Attendee 2: Abdulrahman Al Otaybi"
+  },
+  {
+   "segment_id": "s10",
+   "text": "3. السيد فاضل بن سعد العمران"
+  },
+  {
+   "segment_id": "s11",
+   "text": "4. السيد سعد بن خالد بن محمد العمران"
+  },
+  {
+   "segment_id": "s12",
+   "text": "Attendee 4: Sa'd bin Khalid bin Mohammed Al Omran"
+  },
+  {
+   "segment_id": "s13",
+   "text": "وتولى أمانة السر الشيخ بخيت قاسم الصبياني."
+  },
+  {
+   "segment_id": "s14",
+   "text": "وبعد التداول قرر المجتمعون بالإجماع ما يلي:"
+  },
+  {
+   "segment_id": "s15",
+   "text": "أولًا: الموافقة على تعيين السيد نواف الفرحان مديرًا للشركة لمدة ثلاث سنوات."
+  },
+  {
+   "segment_id": "s16",
+   "text": "ثانيًا: توزيع الأرباح على الشركاء حسب حصصهم."
+  },
+  {
+   "segment_id": "s17",
+   "text": "ثالثًا: اعتماد الميزانية العمومية للسنة المالية المنتهية."
+  },
+  {
+   "segment_id": "s18",
+   "text": "رابعًا: تفويض السيد فاضل العمران بالتوقيع على محضر الاجتماع وتقديمه للجهات المختصة."
+  },
+  {
+   "segment_id": "s19",
+   "text": "رئيس الاجتماع: فيصل الفرحان"
+  },
+  {
+   "segment_id": "s20",
+   "text": "أمين السر: بخيت الصبياني"
+  },
+  {
+   "segment_id": "s21",
+   "text": "التوقيعات:"
+  },
+  {
+   "segment_id": "s22",
+   "text": "BAKHEET QASSIM AL SIBYANI"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "B6",
+  "C1",
+  "C2",
+  "D4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 40,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     6,
+     13
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الفرحان",
+    "english_full": "Al Farhan",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Farhan"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan"
+      ],
+      "raw_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan",
+      "expected": "adopt",
+      "expected_spelling": "Al Farhan",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "chair",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     51,
+     81
+    ],
+    "token_ids": [
+     26,
+     27,
+     28,
+     29,
+     30,
+     31
+    ],
+    "arabic_full": "فيصل بن سلمان بن سلطان الفرحان",
+    "english_full": "Faisal Salman Sultan Al Farhan",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Faisal bin Salman bin Sultan Al Farhan"
+    },
+    "tokens": [
+     {
+      "token_id": 26,
+      "token_ids": [
+       26
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "فيصل",
+      "position": "given",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Feisal"
+      ],
+      "raw_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal",
+      "expected": "adopt",
+      "expected_spelling": "Faisal",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 28,
+      "token_ids": [
+       28
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "raw_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman",
+      "expected": "adopt",
+      "expected_spelling": "Salman",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 30,
+      "token_ids": [
+       30
+      ],
+      "unit_id": "n2.grandfather",
+      "slot": "grandfather",
+      "arabic": "سلطان",
+      "position": "middle",
+      "english_variants": [
+       "Sultan"
+      ],
+      "raw_variants": [
+       "Sultan",
+       "Al Sharji",
+       "Sultsn"
+      ],
+      "english_used": "Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Sultan",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 31,
+      "token_ids": [
+       31
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan"
+      ],
+      "raw_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan",
+      "expected": "adopt",
+      "expected_spelling": "Al Farhan",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "attendee",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s07",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     46,
+     47,
+     48,
+     49
+    ],
+    "arabic_full": "نواف بن فيصل الفرحان",
+    "english_full": "Nawaf Faisal Al Farhan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 46,
+      "token_ids": [
+       46
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "نواف",
+      "position": "given",
+      "english_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "raw_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "english_used": "Nawaf",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 48,
+      "token_ids": [
+       48
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Feisal"
+      ],
+      "raw_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 49,
+      "token_ids": [
+       49
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan"
+      ],
+      "raw_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "attendee",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     9,
+     31
+    ],
+    "token_ids": [
+     52,
+     53,
+     54,
+     55
+    ],
+    "arabic_full": "عبد الرحمن حسن العتيبي",
+    "english_full": "Abdulrahman Hassan Al Otaybi",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Abdulrahman Al Otaybi"
+    },
+    "tokens": [
+     {
+      "token_id": 53,
+      "token_ids": [
+       52,
+       53
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "عبد الرحمن",
+      "position": "given",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "adopt",
+      "expected_spelling": "Abdulrahman",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Abdulrahman Al Otaybi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 54,
+      "token_ids": [
+       54
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan"
+      ],
+      "raw_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 55,
+      "token_ids": [
+       55
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العتيبي",
+      "position": "family",
+      "english_variants": [
+       "Al Otaibi",
+       "Al Utaybi",
+       "Al Otaybi"
+      ],
+      "raw_variants": [
+       "Al Otaibi",
+       "al Otaibi",
+       "Al Utaybi",
+       "al Utaybi",
+       "al Otaybi",
+       "Al Otaybi",
+       "AlOtaibi",
+       "Alotaibi"
+      ],
+      "english_used": "Al Otaybi",
+      "expected": "adopt",
+      "expected_spelling": "Al Otaybi",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Abdulrahman Al Otaybi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "attendee",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s10",
+    "span": [
+     9,
+     28
+    ],
+    "token_ids": [
+     63,
+     64,
+     65,
+     66
+    ],
+    "arabic_full": "فاضل بن سعد العمران",
+    "english_full": "Fadhel Saad Al Omran",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 63,
+      "token_ids": [
+       63
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "فاضل",
+      "position": "given",
+      "english_variants": [
+       "Fadhel",
+       "Fadel",
+       "Fadhil",
+       "Fadhul"
+      ],
+      "raw_variants": [
+       "Fadhel",
+       "Fadel",
+       "Fadhil",
+       "Fadhul"
+      ],
+      "english_used": "Fadhel",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 65,
+      "token_ids": [
+       65
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "سعد",
+      "position": "middle",
+      "english_variants": [
+       "Saad",
+       "Sa'd"
+      ],
+      "raw_variants": [
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
+      ],
+      "english_used": "Saad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 66,
+      "token_ids": [
+       66
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العمران",
+      "position": "family",
+      "english_variants": [
+       "Al Omran"
+      ],
+      "raw_variants": [
+       "Al Omran",
+       "al Omran"
+      ],
+      "english_used": "Al Omran",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "attendee",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     9,
+     36
+    ],
+    "token_ids": [
+     69,
+     70,
+     71,
+     72,
+     73,
+     74
+    ],
+    "arabic_full": "سعد بن خالد بن محمد العمران",
+    "english_full": "Sa'd Khalid Mohammed Al Omran",
+    "evidence": {
+     "segment_id": "s12",
+     "quote": "Sa'd bin Khalid bin Mohammed Al Omran"
+    },
+    "tokens": [
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "سعد",
+      "position": "given",
+      "english_variants": [
+       "Saad",
+       "Sa'd"
+      ],
+      "raw_variants": [
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
+      ],
+      "english_used": "Sa'd",
+      "expected": "adopt",
+      "expected_spelling": "Sa'd",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Sa'd bin Khalid bin Mohammed Al Omran"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid",
+      "expected": "adopt",
+      "expected_spelling": "Khalid",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Sa'd bin Khalid bin Mohammed Al Omran"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 73,
+      "token_ids": [
+       73
+      ],
+      "unit_id": "n6.grandfather",
+      "slot": "grandfather",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Sa'd bin Khalid bin Mohammed Al Omran"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 74,
+      "token_ids": [
+       74
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "العمران",
+      "position": "family",
+      "english_variants": [
+       "Al Omran"
+      ],
+      "raw_variants": [
+       "Al Omran",
+       "al Omran"
+      ],
+      "english_used": "Al Omran",
+      "expected": "adopt",
+      "expected_spelling": "Al Omran",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Sa'd bin Khalid bin Mohammed Al Omran"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "secretary",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s13",
+    "span": [
+     23,
+     41
+    ],
+    "token_ids": [
+     88,
+     89,
+     90
+    ],
+    "arabic_full": "بخيت قاسم الصبياني",
+    "english_full": "Bakheet Qassim Al Sibyani",
+    "evidence": {
+     "segment_id": "s22",
+     "quote": "BAKHEET QASSIM AL SIBYANI"
+    },
+    "tokens": [
+     {
+      "token_id": 88,
+      "token_ids": [
+       88
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "بخيت",
+      "position": "given",
+      "english_variants": [
+       "Bakheet",
+       "Bakhit",
+       "Bakhet"
+      ],
+      "raw_variants": [
+       "Bakheet",
+       "Bakhit",
+       "Bakhet"
+      ],
+      "english_used": "Bakheet",
+      "expected": "adopt",
+      "expected_spelling": "Bakheet",
+      "evidence": [
+       {
+        "segment_id": "s22",
+        "quote": "BAKHEET QASSIM AL SIBYANI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D3",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 89,
+      "token_ids": [
+       89
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "قاسم",
+      "position": "middle",
+      "english_variants": [
+       "Qassem",
+       "Qassim",
+       "Kassim",
+       "Qasem",
+       "Qasim"
+      ],
+      "raw_variants": [
+       "Qassem",
+       "Qassim",
+       "Qasem",
+       "Kacem",
+       "Qasim",
+       "Kassim"
+      ],
+      "english_used": "Qassim",
+      "expected": "adopt",
+      "expected_spelling": "Qassim",
+      "evidence": [
+       {
+        "segment_id": "s22",
+        "quote": "BAKHEET QASSIM AL SIBYANI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 90,
+      "token_ids": [
+       90
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "الصبياني",
+      "position": "family",
+      "english_variants": [
+       "Al Sibyani",
+       "Al Sebyani"
+      ],
+      "raw_variants": [
+       "Al Sibyani",
+       "Al Subiani",
+       "Al Sabiani",
+       "Al Subyani",
+       "Al Sebyani"
+      ],
+      "english_used": "Al Sibyani",
+      "expected": "adopt",
+      "expected_spelling": "Al Sibyani",
+      "evidence": [
+       {
+        "segment_id": "s22",
+        "quote": "BAKHEET QASSIM AL SIBYANI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "attendee",
+    "person_id": "p3",
+    "mention": "short",
+    "segment_id": "s15",
+    "span": [
+     32,
+     44
+    ],
+    "token_ids": [
+     103,
+     104
+    ],
+    "arabic_full": "نواف الفرحان",
+    "english_full": "Nawaf Al Farhan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 103,
+      "token_ids": [
+       103
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "نواف",
+      "position": "given",
+      "english_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "raw_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "english_used": "Nawaf",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan"
+      ],
+      "raw_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "attendee",
+    "person_id": "p5",
+    "mention": "short",
+    "segment_id": "s18",
+    "span": [
+     20,
+     32
+    ],
+    "token_ids": [
+     127,
+     128
+    ],
+    "arabic_full": "فاضل العمران",
+    "english_full": "Fadhel Al Omran",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 127,
+      "token_ids": [
+       127
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "فاضل",
+      "position": "given",
+      "english_variants": [
+       "Fadhel",
+       "Fadel",
+       "Fadhil",
+       "Fadhul"
+      ],
+      "raw_variants": [
+       "Fadhel",
+       "Fadel",
+       "Fadhil",
+       "Fadhul"
+      ],
+      "english_used": "Fadhel",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 128,
+      "token_ids": [
+       128
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "العمران",
+      "position": "family",
+      "english_variants": [
+       "Al Omran"
+      ],
+      "raw_variants": [
+       "Al Omran",
+       "al Omran"
+      ],
+      "english_used": "Al Omran",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "chair",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s19",
+    "span": [
+     15,
+     27
+    ],
+    "token_ids": [
+     138,
+     139
+    ],
+    "arabic_full": "فيصل الفرحان",
+    "english_full": "Faisal Al Farhan",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Faisal bin Salman bin Sultan Al Farhan"
+    },
+    "tokens": [
+     {
+      "token_id": 138,
+      "token_ids": [
+       138
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "فيصل",
+      "position": "given",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Feisal"
+      ],
+      "raw_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal",
+      "expected": "adopt",
+      "expected_spelling": "Faisal",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 139,
+      "token_ids": [
+       139
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الفرحان",
+      "position": "family",
+      "english_variants": [
+       "Al Farhan"
+      ],
+      "raw_variants": [
+       "Al Farhan",
+       "al Farhan"
+      ],
+      "english_used": "Al Farhan",
+      "expected": "adopt",
+      "expected_spelling": "Al Farhan",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Faisal bin Salman bin Sultan Al Farhan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n11",
+    "role": "secretary",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s20",
+    "span": [
+     11,
+     24
+    ],
+    "token_ids": [
+     142,
+     143
+    ],
+    "arabic_full": "بخيت الصبياني",
+    "english_full": "Bakheet Al Sibyani",
+    "evidence": {
+     "segment_id": "s22",
+     "quote": "BAKHEET QASSIM AL SIBYANI"
+    },
+    "tokens": [
+     {
+      "token_id": 142,
+      "token_ids": [
+       142
+      ],
+      "unit_id": "n11.given",
+      "slot": "given",
+      "arabic": "بخيت",
+      "position": "given",
+      "english_variants": [
+       "Bakheet",
+       "Bakhit",
+       "Bakhet"
+      ],
+      "raw_variants": [
+       "Bakheet",
+       "Bakhit",
+       "Bakhet"
+      ],
+      "english_used": "Bakheet",
+      "expected": "adopt",
+      "expected_spelling": "Bakheet",
+      "evidence": [
+       {
+        "segment_id": "s22",
+        "quote": "BAKHEET QASSIM AL SIBYANI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 143,
+      "token_ids": [
+       143
+      ],
+      "unit_id": "n11.family",
+      "slot": "family",
+      "arabic": "الصبياني",
+      "position": "family",
+      "english_variants": [
+       "Al Sibyani",
+       "Al Sebyani"
+      ],
+      "raw_variants": [
+       "Al Sibyani",
+       "Al Subiani",
+       "Al Sabiani",
+       "Al Subyani",
+       "Al Sebyani"
+      ],
+      "english_used": "Al Sibyani",
+      "expected": "adopt",
+      "expected_spelling": "Al Sibyani",
+      "evidence": [
+       {
+        "segment_id": "s22",
+        "quote": "BAKHEET QASSIM AL SIBYANI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "father": {
+      "arabic": "حسن",
+      "spelling": "Hassan"
+     },
+     "family": {
+      "arabic": "العتيبي",
+      "spelling": "Al Otaybi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s09",
+      "quote": "Abdulrahman Al Otaybi",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Abdulrahman",
+       "family": "Al Otaybi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعد",
+      "spelling": "Sa'd"
+     },
+     "father": {
+      "arabic": "خالد",
+      "spelling": "Khalid"
+     },
+     "grandfather": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "family": {
+      "arabic": "العمران",
+      "spelling": "Al Omran"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s12",
+      "quote": "Sa'd bin Khalid bin Mohammed Al Omran",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Sa'd",
+       "father": "Khalid",
+       "grandfather": "Mohammed",
+       "family": "Al Omran"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "son_of:p6",
+    "slots": {
+     "given": {
+      "arabic": "فاضل",
+      "spelling": "Fadhel"
+     },
+     "father": {
+      "arabic": "سعد",
+      "spelling": "Saad"
+     },
+     "family": {
+      "arabic": "العمران",
+      "spelling": "Al Omran"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "chair",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "فيصل",
+      "spelling": "Faisal"
+     },
+     "father": {
+      "arabic": "سلمان",
+      "spelling": "Salman"
+     },
+     "grandfather": {
+      "arabic": "سلطان",
+      "spelling": "Sultan"
+     },
+     "family": {
+      "arabic": "الفرحان",
+      "spelling": "Al Farhan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s05",
+      "quote": "Faisal bin Salman bin Sultan Al Farhan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Faisal",
+       "father": "Salman",
+       "grandfather": "Sultan",
+       "family": "Al Farhan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "attendee",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "نواف",
+      "spelling": "Nawaf"
+     },
+     "father": {
+      "arabic": "فيصل",
+      "spelling": "Faisal"
+     },
+     "family": {
+      "arabic": "الفرحان",
+      "spelling": "Al Farhan"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "secretary",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "بخيت",
+      "spelling": "Bakheet"
+     },
+     "father": {
+      "arabic": "قاسم",
+      "spelling": "Qassim"
+     },
+     "family": {
+      "arabic": "الصبياني",
+      "spelling": "Al Sibyani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s22",
+      "quote": "BAKHEET QASSIM AL SIBYANI",
+      "form": "unlabeled_caps",
+      "labeled": false,
+      "slots": {
+       "given": "Bakheet",
+       "father": "Qassim",
+       "family": "Al Sibyani"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الفرحان",
+      "spelling": "Al Farhan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "Al Farhan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Farhan"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "Al Farhan",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p3.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   21,
+   87
+  ],
+  "title_token_ids": [
+   87
+  ],
+  "lookalikes": [
+   {
+    "token_id": 140,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   140
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "B1",
+  "B6",
+  "C2",
+  "D3",
+  "D4"
+ ]
+}

@@ -1,0 +1,523 @@
+{
+ "doc_id": "heval_038",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Mansoori General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 4294000 | www.almansoori-group.example.com"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة المنصوري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 201905، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد مازن أحمد المنصوري، قطري الجنسية، ويحمل جواز سفر رقم Y5332350، يعمل لديها بوظيفة محاسب منذ 04/04/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد أحمد إبراهيم المنصوري"
+  },
+  {
+   "segment_id": "s09",
+   "text": "General Manager: Ahmed Ibrahim Al Mansoori"
+  },
+  {
+   "segment_id": "s10",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s11",
+   "text": "Email: hr@almansoori.example.com"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التاريخ: 17/01/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 38,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     18
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "المنصوري",
+    "english_full": "Al Mansoori",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Mansoori"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "المنصوري",
+      "position": "family",
+      "english_variants": [
+       "Al Mansoori",
+       "Al Mansouri",
+       "El Mansoury"
+      ],
+      "raw_variants": [
+       "Al Mansoori",
+       "al Mansoori",
+       "El Mansour",
+       "El Mansoury",
+       "al Mansouri",
+       "Al Mansouri"
+      ],
+      "english_used": "Al Mansoori",
+      "expected": "adopt",
+      "expected_spelling": "Al Mansoori",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Mansoori"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     28
+    ],
+    "token_ids": [
+     36,
+     37,
+     38
+    ],
+    "arabic_full": "مازن أحمد المنصوري",
+    "english_full": "Mazen Ahmed Al Mansoori",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "مازن",
+      "position": "given",
+      "english_variants": [
+       "Mazen",
+       "Mazin"
+      ],
+      "raw_variants": [
+       "Mazen",
+       "Mazin"
+      ],
+      "english_used": "Mazen",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "المنصوري",
+      "position": "family",
+      "english_variants": [
+       "Al Mansoori",
+       "Al Mansouri",
+       "El Mansoury"
+      ],
+      "raw_variants": [
+       "Al Mansoori",
+       "al Mansoori",
+       "El Mansour",
+       "El Mansoury",
+       "al Mansouri",
+       "Al Mansouri"
+      ],
+      "english_used": "Al Mansoori",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     41
+    ],
+    "token_ids": [
+     77,
+     78,
+     79
+    ],
+    "arabic_full": "أحمد إبراهيم المنصوري",
+    "english_full": "Ahmed Ibrahim Al Mansoori",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Ahmed Ibrahim Al Mansoori"
+    },
+    "tokens": [
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "أحمد",
+      "position": "given",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "adopt",
+      "expected_spelling": "Ahmed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Ahmed Ibrahim Al Mansoori"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "إبراهيم",
+      "position": "middle",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ibrahim",
+      "expected": "adopt",
+      "expected_spelling": "Ibrahim",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Ahmed Ibrahim Al Mansoori"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "المنصوري",
+      "position": "family",
+      "english_variants": [
+       "Al Mansoori",
+       "Al Mansouri",
+       "El Mansoury"
+      ],
+      "raw_variants": [
+       "Al Mansoori",
+       "al Mansoori",
+       "El Mansour",
+       "El Mansoury",
+       "al Mansouri",
+       "Al Mansouri"
+      ],
+      "english_used": "Al Mansoori",
+      "expected": "adopt",
+      "expected_spelling": "Al Mansoori",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Ahmed Ibrahim Al Mansoori"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "father": {
+      "arabic": "إبراهيم",
+      "spelling": "Ibrahim"
+     },
+     "family": {
+      "arabic": "المنصوري",
+      "spelling": "Al Mansoori"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s09",
+      "quote": "Ahmed Ibrahim Al Mansoori",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Ahmed",
+       "father": "Ibrahim",
+       "family": "Al Mansoori"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "son_of:p2",
+    "slots": {
+     "given": {
+      "arabic": "مازن",
+      "spelling": "Mazen"
+     },
+     "father": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "family": {
+      "arabic": "المنصوري",
+      "spelling": "Al Mansoori"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "المنصوري",
+      "spelling": "Al Mansoori"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Mansoori",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Mansoori"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Mansoori",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.almansoori-group.example.com",
+    "kind": "url",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s11",
+    "quote": "hr@almansoori.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 55,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   55
+  ]
+ },
+ "case_types": [
+  "A1",
+  "C2"
+ ]
+}

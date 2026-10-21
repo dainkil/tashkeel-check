@@ -2,12 +2,12 @@
 
 이 폴더의 문서는 합성 데이터다. 실존 인물·회사·서류가 아니다. 이메일·URL은 예약 도메인(`example.com`, `example.net`)만 쓴다.
 
-- **생성:** `uv run tashkeel make-synthetic-hard --split dev|eval`. 생성기는 `src/tashkeel_check/data/synthetic_hard.py`, 버전 `synthetic-hard-v1`, gold 형식 2다(2026-10-21, ADR-017).
+- **생성:** `uv run tashkeel make-synthetic-hard --split dev|eval`. 생성기는 `src/tashkeel_check/data/synthetic_hard.py`, 버전 `synthetic-hard-v2`, gold 형식 2다(2026-10-21, ADR-017). v2는 dev 실제 모델 점검 뒤 고친 판이다(`docs/data.md` 5.3절 "v2에서 바뀐 것").
 - **분할:**
   - `dev/` 20개(seed 3001): 프롬프트·형식 점검용이다.
-  - `eval/` 70개(seed 4002): EXP-003 조건 비교에 한 번만 쓴다. **아직 만들지 않았다**(확인 지점 A 뒤). 이미 있으면 다시 만들지 않는다.
+  - `eval/` 70개(seed 4002부터 최소 수량을 처음 채우는 seed, 최대 20번): EXP-003 조건 비교에 한 번만 쓴다. 2026-10-21에 만들었다(seed 4002 첫 시도, 이름 부분 1,457개). 다시 만들지 않는다. 튜닝에 쓰지 않는다.
   - 유형별 수량 보고는 `quota_<split>.json`에 있다.
-- **문서 유형(`doc_type`):** `poa`(여권 칸이 있는 위임장), `letter`(고용 확인서, 레터헤드 URL·문의 이메일), `cr`(상업등기 발췌, 파트너 7~9명), `minutes`(총회 의사록).
+- **문서 유형(`doc_type`):** `poa`(여권 칸이 있는 위임장), `letter`(고용 확인서, 레터헤드 URL·인사부 문의 이메일), `cr`(상업등기 발췌, 파트너 7~9명, 관리자·서명권자 줄에 파트너 번호), `minutes`(총회 의사록).
 - **유형:** `case_types`(문서), `gold.names[].tokens[].case_types`(이름 부분)에 있다. A1~D5 정의와 정답 규칙은 `docs/data.md` 5.3절이다.
 - **이름:** Wikidata 걸프 인명(CC0)의 이름 단위를 조합했다. 전체 이름이 Wikidata 레이블과 같으면 버렸다.
 - **검수:** 템플릿의 아랍어 문장은 사람이 검수하지 않았다(`meta.arabic_reviewed_by_human: false`).

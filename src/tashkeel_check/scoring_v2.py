@@ -4,7 +4,7 @@
 - 안전 오류: 틀린 이름이 표시 없이 나간 것. 미처리, 근거 없는 확정, 틀린 철자, 함정 근거로 맞힌 철자,
   보류 항목인데 번역문에 표시 없는 한 표기, 번역문 철자가 확정 표기와 다름.
 - 엄격 오류: 안전 오류 + 확정해야 할 것을 보류 + 번역문에 확정 표기가 없음.
-- 철자는 엄격 철자(romanize.strict_key)로 본다. 번역문 판정(t1)은 C0 판정 규칙의 단어열 찾기와 표시 판정을 쓴다.
+- 철자는 엄격 철자(romanize.strict_key)로 본다. 번역문 판정(t2)은 C0 판정 규칙의 단어열 찾기와 표시 판정을 쓴다.
 gold 형식 1(synthetic-v2)에는 쓰지 않는다. reconcile이 format_version == 2일 때만 부른다.
 """
 
@@ -19,7 +19,7 @@ from .reconcile import MARKER_RE, _primary, find_spellings
 from .romanize import STRICT_VERSION, strict_in_text, strict_key
 
 SCORING_VERSION = "v2"
-TRANSLATION_RULE = "t1"
+TRANSLATION_RULE = "t2"  # t1에서 바뀐 점은 marked_t2·_hits 주석(2026-10-21, eval 생성 전)
 C0_RULE = "v1"
 SAFETY_KINDS = (
     "unprocessed",
@@ -52,6 +52,13 @@ def gold_units(gold: dict) -> list[dict]:
         for occ in gold.get("names", [])
         for tk in occ["tokens"]
     ]
+
+
+def _by_segment(units: list[dict]) -> dict[str, list[dict]]:
+    out: dict[str, list[dict]] = defaultdict(list)
+    for u in units:
+        out[u["segment_id"]].append(u)
+    return out
 
 
 def _commit_kind(item: dict) -> str | None:
@@ -115,15 +122,25 @@ def _unit_candidates(unit: dict, analyses: dict[int, TokenAnalysis], item: dict 
     return cands
 
 
-def marked_t1(text: str, start: int, end: int) -> bool:
-    """번역문 판정 규칙 t1의 표시 판정. C0 판정 규칙 v0(reconcile._marked)과 같되, 괄호 경계 너머의 표시는
-    옆 이름의 것으로 보고 세지 않는다('[Sultan/?] Al Kuwaiti'의 '?'는 Al Kuwaiti의 표시가 아니다)."""
+def _marker_in(text: str, lo: int, hi: int) -> bool:
+    """text[lo:hi]에 걸친 표시가 있는지. 표시는 원문 전체에서 찾는다(잘린 창에서 찾으면 'Suroor '의 'or '가 단어
+    'or'로 잡힌다)."""
+    return any(m.start() < hi and m.end() > lo for m in MARKER_RE.finditer(text))
+
+
+def marked_t2(text: str, start: int, end: int) -> bool:
+    """번역문 판정 규칙 t2의 표시 판정. C0 판정 규칙 v0(reconcile._marked)과 같되 두 가지가 다르다.
+
+    - 괄호 경계 너머의 표시는 옆 이름의 것으로 보고 세지 않는다('[Sultan/?] Al Kuwaiti'의 '?'는 Al Kuwaiti의
+      표시가 아니다). t1부터.
+    - 단어 표시(or 등)는 원문에서 온전한 단어일 때만 센다. t2에서 고침.
+    """
     if re.match(r"\s*(\(\?\)|\[\?\])", text[end:]) or re.search(r"(\(\?\)|\[\?\])\s*$", text[:start]):
         return True  # 이름 바로 옆의 (?)·[?]
-    before, after = text[max(0, start - 3) : start], text[end : end + 3]
-    if not re.search(r"[\])]", before) and MARKER_RE.search(before):
+    lo, hi = max(0, start - 3), end + 3
+    if not re.search(r"[\])]", text[lo:start]) and _marker_in(text, lo, start):
         return True
-    if not re.search(r"[\[(]", after) and MARKER_RE.search(after):
+    if not re.search(r"[\[(]", text[end:hi]) and _marker_in(text, end, hi):
         return True
     for open_, close in (("[", "]"), ("(", ")")):
         left, right = text.rfind(open_, 0, start), text.find(close, end)
@@ -135,10 +152,32 @@ def marked_t1(text: str, start: int, end: int) -> bool:
     return False
 
 
-def _held_translation(unit: dict, english: str, cands: set[str]) -> tuple[str | None, str]:
+def _own_spellings(unit: dict) -> set[str]:
+    return {s for s in (unit.get("expected_spelling"), unit.get("english_used"), *unit.get("must_include", [])) if s}
+
+
+def _claimed(unit: dict, peers: list[dict], english: str) -> list[tuple[int, int]]:
+    """같은 구간의 다른 이름 부분이 자기 표기로 쓰인 자리."""
+    return [
+        (h[0], h[1])
+        for u in peers
+        if u["unit_id"] != unit["unit_id"]
+        for h in find_spellings(_own_spellings(u), english)
+    ]
+
+
+def _hits(cands: set[str], english: str, claimed: list[tuple[int, int]]) -> list[tuple[int, int, str]]:
+    """후보 표기가 번역문에 나온 자리. 다른 부분의 자리 안에 들어간 것은 뺀다(t2). 분석기 로마자
+    'Al-M'adyd'가 옆 이름 'Abdel Aziz'의 'Aziz'와 맞아 '서로 다른 표기 둘'로 셌다."""
+    return [h for h in find_spellings(cands, english) if not any(a <= h[0] and h[1] <= b for a, b in claimed)]
+
+
+def _held_translation(
+    unit: dict, english: str, cands: set[str], claimed: list[tuple[int, int]]
+) -> tuple[str | None, str]:
     """보류한 부분의 번역문 판정. (안전 오류 종류 또는 None, 감사 상태)."""
-    hits = find_spellings(cands, english)
-    if len({h[2] for h in hits}) >= 2 or (hits and marked_t1(english, hits[0][0], hits[0][1])):
+    hits = _hits(cands, english, claimed)
+    if len({h[2] for h in hits}) >= 2 or (hits and marked_t2(english, hits[0][0], hits[0][1])):
         return None, "marked"
     if not hits:
         return None, "not_found"  # 표시 여부를 판정할 수 없다. 오류로 세지 않고 감사용으로만 센다(사전 등록)
@@ -162,9 +201,11 @@ def _judge_structured(
     analyses: dict[int, TokenAnalysis],
     owners: dict[str, str],
     decoy_segs: set[str],
+    peers: list[dict],
 ) -> dict:
     disp, item = unit_disposition(unit, cover)
     english = translation.get(unit["segment_id"]) or ""
+    claimed = _claimed(unit, peers, english)
     expected, exp_sp = unit["expected"], unit.get("expected_spelling")
     safety: str | None = None
     strict_only: str | None = None
@@ -185,13 +226,12 @@ def _judge_structured(
             if ev.get("segment_id") not in own or not strict_in_text(exp_sp or "", ev.get("quote") or ""):
                 safety = "decoy_evidence_correct_spelling"
             elif not strict_in_text(exp_sp or "", english):
-                hits = find_spellings(_unit_candidates(unit, analyses, None), english)
-                if hits:
+                if _hits(_unit_candidates(unit, analyses, None), english, claimed):
                     safety = "translation_wrong_spelling"
                 else:
                     strict_only = "translation_missing"
     else:
-        safety, audit = _held_translation(unit, english, _unit_candidates(unit, analyses, item))
+        safety, audit = _held_translation(unit, english, _unit_candidates(unit, analyses, item), claimed)
         if safety is None and expected == "adopt":
             strict_only = "hold_instead_of_adopt"
     return {
@@ -204,16 +244,16 @@ def _judge_structured(
     }
 
 
-def _judge_c0(unit: dict, translation: dict[str, str], analyses: dict[int, TokenAnalysis]) -> dict:
+def _judge_c0(unit: dict, translation: dict[str, str], analyses: dict[int, TokenAnalysis], peers: list[dict]) -> dict:
     """C0 판정 규칙 v1. 표시된 것은 보류, 표시 없는 한 표기는 확정으로 보고 엄격 철자로 판정한다."""
     english = translation.get(unit["segment_id"]) or ""
-    hits = find_spellings(_unit_candidates(unit, analyses, None), english)
+    hits = _hits(_unit_candidates(unit, analyses, None), english, _claimed(unit, peers, english))
     safety: str | None = None
     strict_only: str | None = None
     written = ""
     if not hits:
         disp, safety = "not_found", "not_found"
-    elif len({h[2] for h in hits}) >= 2 or marked_t1(english, hits[0][0], hits[0][1]):
+    elif len({h[2] for h in hits}) >= 2 or marked_t2(english, hits[0][0], hits[0][1]):
         disp = "hold"
         if unit["expected"] == "adopt":
             strict_only = "hold_instead_of_adopt"
@@ -298,7 +338,10 @@ def score_structured(
 ) -> dict[str, Any]:
     units = gold_units(gold)
     owners, decoy_segs = _segment_owners(gold)
-    judged = [_judge_structured(u, cover, translation, analyses, owners, decoy_segs) for u in units]
+    peers = _by_segment(units)
+    judged = [
+        _judge_structured(u, cover, translation, analyses, owners, decoy_segs, peers[u["segment_id"]]) for u in units
+    ]
     out = _tally(gold, units, judged)
     must = [(u, j) for u, j in zip(units, judged, strict=True) if u.get("must_include") and j["disposition"] == "hold"]
     out["n_hold_must_include"] = len(must)
@@ -323,6 +366,7 @@ def score_structured(
 
 def score_c0(gold: dict, translation: dict[str, str], analyses: dict[int, TokenAnalysis]) -> dict[str, Any]:
     units = gold_units(gold)
-    out = _tally(gold, units, [_judge_c0(u, translation, analyses) for u in units])
+    peers = _by_segment(units)
+    out = _tally(gold, units, [_judge_c0(u, translation, analyses, peers[u["segment_id"]]) for u in units])
     out["scoring"]["c0_rule"] = C0_RULE
     return out

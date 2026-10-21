@@ -87,11 +87,11 @@
   },
   {
    "segment_id": "s21",
-   "text": "المدير: السيد سامي القبيسي"
+   "text": "المدير: الشريك رقم 6، السيد سامي القبيسي"
   },
   {
    "segment_id": "s22",
-   "text": "المفوض بالتوقيع: السيد إبراهيم العوضي"
+   "text": "المفوض بالتوقيع: الشريك رقم 7، السيد إبراهيم العوضي"
   },
   {
    "segment_id": "s23",
@@ -117,7 +117,7 @@
   "D5"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -1403,21 +1403,21 @@
     "mention": "short",
     "segment_id": "s21",
     "span": [
-     14,
-     26
+     28,
+     40
     ],
     "token_ids": [
-     170,
-     171
+     173,
+     174
     ],
     "arabic_full": "سامي القبيسي",
     "english_full": "Sami Al Qubaisi",
     "evidence": null,
     "tokens": [
      {
-      "token_id": 170,
+      "token_id": 173,
       "token_ids": [
-       170
+       173
       ],
       "unit_id": "n11.given",
       "slot": "given",
@@ -1441,9 +1441,9 @@
       "arguable": true
      },
      {
-      "token_id": 171,
+      "token_id": 174,
       "token_ids": [
-       171
+       174
       ],
       "unit_id": "n11.family",
       "slot": "family",
@@ -1478,21 +1478,21 @@
     "mention": "short",
     "segment_id": "s22",
     "span": [
-     23,
-     37
+     37,
+     51
     ],
     "token_ids": [
-     175,
-     176
+     181,
+     182
     ],
     "arabic_full": "إبراهيم العوضي",
     "english_full": "Ebrahim Al Awadhi",
     "evidence": null,
     "tokens": [
      {
-      "token_id": 175,
+      "token_id": 181,
       "token_ids": [
-       175
+       181
       ],
       "unit_id": "n12.given",
       "slot": "given",
@@ -1525,9 +1525,9 @@
       "arguable": true
      },
      {
-      "token_id": 176,
+      "token_id": 182,
       "token_ids": [
-       176
+       182
       ],
       "unit_id": "n12.family",
       "slot": "family",

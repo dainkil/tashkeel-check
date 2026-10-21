@@ -132,6 +132,18 @@ LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수�
 - CAMeL Tools 1.6.0과 기본 형태소 DB calima-msa-r13. DB는 `camel_data`로 내려받는다. 패키지 이름은 공식 문서에서 확인한다.
 - calima-msa-r13은 GPL v2다(ADR-005). README에 적는다.
 
+## 4.7 멀티 에이전트 틀 M1 [확인, 2026-10-21 구현, ADR-019]
+
+조건 `M1`은 `ENGINE_CONDITIONS`에 있고 `CONDITIONS`(C0~C3)에는 없다(실험 계획·골든·해시 열거가 묶여 있어서). 그래프의 `agent` 노드만 하위 그래프 `translator → verifier → arbiter`로 바뀌고 `validate`·`reconcile`·`export`는 그대로다. 형식 재시도는 둘 다 다시 돈다.
+
+| 노드 | 보는 것 | 지시문 | 출력 |
+| --- | --- | --- | --- |
+| 번역자 | 원문·토큰 표·분석기 블록(C3 입력) + 묶음 참고 블록(있을 때) | C3 지시문 + 묶음 참고 문장 | `AgentOutput`(지금과 같은 `create_agent` 호출) |
+| 격리 검증자 | 번역자와 같은 입력만. **번역자 출력은 보지 않는다** | `M1_VERIFIER_SYSTEM`(번역 안 함, 고유명사마다 처분) | `VerifierOutput(items[token_ids, candidates, decision, adopted, evidence, reason])` |
+| 중재자 | 두 출력 + 원문 | 없음(규칙 함수 `arbitrate`) | `AgentOutput` 모양. 통계 `metrics.engine.arbiter` |
+
+중재 규칙: 번역은 번역자 것. `word`는 통과. `proper_noun`은 토큰 집합이 같은 검증자 항목과 짝지어, **둘 다 근거 채택 + 철자 정확 일치(`strict_form`) + 둘 다 `reconcile.verify_evidence` 통과**일 때만 확정. 아니면 보류(사유 코드 `translator_unsupported_adopt | verifier_missing | verifier_hold | spelling_disagree | evidence_failed`, 후보는 합집합). 검증자만 낸 이름은 보류로 추가. 보류로 바뀐 이름이 번역문에 채택 철자 그대로 있으면 `[c1/c2]`로 고쳐 쓴다(`n_translation_rewritten`). 다수결·근거 생성 없음. 묶음 LLM 검수에서는 다른 서류·사전의 영문 표기를 `BUNDLE EVIDENCE` 블록으로 **참고**만 준다(`bundle.evidence.evidence_rows_for_document`). 교차 서류 확정은 `bundle/rules.decide_status`가 한다.
+
 ## 4.8 저장소 구조 [확인, 2026-10-13 구현, 2026-10-20 리팩토링 반영]
 
 계획 초안의 `scripts/`는 CLI 하위 명령(`uv run tashkeel <명령>`)으로 바꿨다.
@@ -160,7 +172,7 @@ src/tashkeel_check/
   cli.py                     run / fetch-wikidata / make-synthetic / make-synthetic-hard / inspect-gold / bundle-search /
                              exp001 / exp002 / exp002-status / exp003 / exp003-status / exp003-errors / exp003-rescore
   data/                      names.py(이름 정렬), wikidata.py, synthetic.py, synthetic_hard.py(어려운 시험지, ADR-017)
-  experiments/               exp001.py, harness.py(재개·동시 실행 장치, 통계), exp002.py, exp003.py
+  experiments/               exp001.py, harness.py(재개·동시 실행 장치, 통계, 라벨·단계 판단), exp002.py, exp003.py, tiers.py(flex 처리 등급 모델: 용량 부족이면 다시 부르거나 그 호출만 기본 등급, ADR-020)
   rag/                       bundle.py (단계 2 틀)
 data/wikidata/  data/synthetic/{dev,eval}/  data/synthetic-hard/{dev,eval}/  data/bundles/sample/
 results/                     평가 실행 결과는 보존, results/debug/는 git 제외
@@ -204,13 +216,21 @@ src/tashkeel_check/
   data/kyc_bundles.py        합성 KYC 묶음 생성기(상업등기 + 여권 + 정관, 사례 8, gold 포함) — 같은 명령
   web/bundles.py             BundleStore(메모리 / Postgres), DbDictionary
   web/bundle_jobs.py         묶음 LLM 검수: 서류별 JobManager 작업 → 합류 → 저장
-  web/app.py                 /v1/bundles/*(업로드 POST /v1/bundles, 묶음 SSE /reviews/{id}/events 포함), /v1/dictionary 엔드포인트
+  web/app.py                 /v1/bundles/*(업로드, 초안 /draft, 묶음 SSE 포함), /v1/dictionary, /v1/usage 엔드포인트. 모든 /v1/*가 API 키 인증(Who)
+  web/auth.py                API 키 인증(ADR-019): X-API-Key / Bearer / ?api_key, AUTH=auto·required·disabled, Principal
+  web/customers.py           고객·API 키(발급 때만 평문, sha256 저장), 메모리/DB 저장소
+  web/usage.py               사용량 기록·집계(작업·라벨 검수), 메모리/DB 저장소
+  multi_agent.py             M1 틀: 번역자 → 격리 검증자(VerifierOutput) → 규칙 중재자(arbitrate), build_engine·run_engine
+  bundle/draft.py            업로드 초안: 이름 칸과 같은 대상 제안(build_draft). 저장·자동 연결 없음
   web/static/index.html      "서류 묶음" 탭(딥링크 #bundle?sample=…&run=1[&llm=C2])
   mcp/server.py              search_bundle 툴, document://synthetic/bundles/{split}[/{bundle_id}]
   rag/bundle.py              BundleIndex.from_documents(entity_id=…), BundleHit.document_id·segment_id
 alembic/versions/0002_bundles.py   bundles, review_items, name_dictionary; name_items.evidence_document_id
+alembic/versions/0003_customers_usage.py   customers, usage, jobs.customer_id, bundles 유일 키 (customer_id, bundle_id)
+docker-compose.yml  Dockerfile  .dockerignore  scripts/smoke.sh  docs/deploy.md   완제품 패키지(ADR-019)
 data/bundles/sample_bundle.json    가이드 예시(개인 + 회사)   data/synthetic/bundles/{dev,eval}/   사례 묶음 60개 + KYC 묶음 16개
-tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,eval_kyc,mrz,api,llm}.py
+tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,eval_kyc,mrz,api,llm,draft}.py
+tests/test_auth_api.py  test_customers_store.py  test_cli_customers.py  test_multi_agent.py
 ```
 
 데이터 흐름(라벨 경로, LLM 없음): 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값, 같은 구간에 영문 칸이 있으면 근거 출처라 검수 대상에서 제외) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸. 여권의 성·이름 칸은 하나로 합치고 MRZ는 해독하되, 같은 서류에 인쇄 칸이 있으면 MRZ는 뺀다) → `validate_evidence`(서류·구간·인용·영문 대조) → `decide_status` → `ReviewItem`. LLM 경로: 서류마다 단일 문서 그래프(C1~C3)를 돌려 `proper_noun` 항목을 `NameMention(source="llm")`으로 바꾸되, 라벨 칸이 있는 구간은 라벨 결과만 쓴다. 두 경로의 판정 함수는 같다.
@@ -229,11 +249,13 @@ tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,eval_kyc,mrz,ap
 | `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
 | `uv run tashkeel make-synthetic-hard --split dev` | 어려운 합성 문서 synthetic-hard(gold 형식 2). eval은 한 번만 만들고, 이미 있으면 거부(ADR-017) |
 | `uv run tashkeel inspect-gold --case C2 --n 2` | synthetic-hard 문서의 구간별 정답(기대 처분·유형)을 읽기 좋게 출력 |
-| `uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4` | EXP-003(어려운 시험지, 99% 기준). 실행 장치·옵션은 exp002와 같다. 실제 실행은 `--split eval ... --yes` |
+| `uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4` | EXP-003(어려운 시험지, 99% 기준). 실행 장치·옵션은 exp002와 같고, 참고 조건 C1p0(반복 1회)와 단계적 반복(최대 3회)이 더해진다. 실제 실행은 `--split eval --workers 16 --service-tier flex|default --yes`(ADR-020). 처리 등급은 세션 기록에 남는다 |
 | `uv run tashkeel exp003-status` / `exp003-errors` / `exp003-rescore` | 진행·사용량 / 자동 판정 오류 전부와 정답 표본을 사람 확인용 `errors.csv`로 / 저장된 출력을 지금 채점 코드로 다시 채점(참고 값) |
 | `uv run tashkeel serve` 또는 `./run.sh` | 단계 1.5 서비스(API·폼 화면). `.env`의 `LLM_BACKEND`·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_PORT`. 키·분석기·MCP가 없으면 기동 거부(종료 코드 3) |
 | `uv run python -m tashkeel_check.mcp.server` | MCP 서버(stdio) 단독 실행 |
-| `uv run alembic upgrade head` | Postgres 테이블 7개 생성·갱신(`DATABASE_URL` 필요). 0001 단계 1.5, 0002 묶음 검수 |
+| `uv run alembic upgrade head` | Postgres 테이블 9개 생성·갱신(`DATABASE_URL` 필요). 0001 단계 1.5, 0002 묶음 검수, 0003 고객·사용량 |
+| `uv run tashkeel customers add --name X` / `list` / `revoke <id>` | 고객과 API 키(ADR-019). 키는 발급 때 한 번만 출력. `DATABASE_URL` 필요 |
+| `docker compose up -d --build` / `./scripts/smoke.sh` | 완제품 패키지 기동 / 스모크(`docs/deploy.md`) |
 | `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 
@@ -318,7 +340,7 @@ CLI (uv run tashkeel <cmd>)
  ├─ run            → runner.run_document → graph
  ├─ exp002         → experiments/exp002 → runner.run_document(실행마다 모델·그래프 새로) → 반복 × 문서 × 조건, 동시 실행, runs.jsonl로 재개
  ├─ exp002-status  → experiments/exp002.status (plan.json + runs.jsonl만 읽음)
- ├─ exp003(-status·-errors·-rescore) → experiments/exp003 → harness.run(Spec: p1·v2, 99% 판정) → 같은 장치
+ ├─ exp003(-status·-errors·-rescore) → experiments/exp003 → harness.run(Spec: p1·v2, 99% 판정, 라벨 C1p0, 단계 판단) → 같은 장치
  ├─ exp001         → experiments/exp001 (그래프를 쓰지 않음: analyzer + data/names.align + romanize)
  ├─ fetch-wikidata → data/wikidata (SPARQL → gcc_persons.json → name_tokens.json)
  ├─ make-synthetic → data/synthetic (name_tokens.json + 템플릿 → dev 10 / eval 30 + gold)

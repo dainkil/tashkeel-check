@@ -12,9 +12,13 @@ import logging
 import sys
 from pathlib import Path
 from types import ModuleType
+from typing import TYPE_CHECKING
 
 from .config import CONDITIONS, Settings, configure_tracing, load_settings
 from .errors import ConfigError, InputError, TashkeelError
+
+if TYPE_CHECKING:
+    from langchain_core.language_models.chat_models import BaseChatModel
 
 
 def _cmd_run(args: argparse.Namespace, settings: Settings) -> int:
@@ -134,6 +138,7 @@ def _experiment(cmd: str) -> ModuleType:
 
 
 def _cmd_experiment(args: argparse.Namespace, settings: Settings) -> int:
+    from .experiments.harness import planned_runs
     from .runner import make_model
 
     exp = _experiment(args.cmd)
@@ -160,22 +165,41 @@ def _cmd_experiment(args: argparse.Namespace, settings: Settings) -> int:
             return 2
     docs_dir = Path(docs or settings.data_dir / EXPERIMENT_DOCS[args.cmd] / args.split)
     n_docs = len(sorted(docs_dir.glob("*.json"))[:limit])
-    repeats = repeats or settings.repeats
-    n_runs = len(CONDITIONS) * n_docs * repeats
-    n_left = n_runs - (len(exp.done_runs(exp.read_ledger(run_dir))) if run_dir else 0)
+    repeats = repeats or getattr(exp, "REPEATS", None) or settings.repeats
+    labels = getattr(exp, "ARMS", CONDITIONS)  # EXP-003은 참고 조건 C1p0를 더한다(반복 1회만)
+    rows = exp.read_ledger(run_dir) if run_dir else []
+    sketch = {"docs": range(n_docs), "repeats": repeats, "conditions": list(labels)}
+    n_runs = planned_runs({**sketch, "arm_repeats": getattr(exp, "ARM_REPEATS", {})}, rows)
+    n_left = n_runs - len(exp.done_runs(rows))
+    # 처리 등급(flex는 약 50% 할인, 느릴 수 있음)은 모델 출력과 무관해 plan이 아니라 세션 기록에 남긴다(ADR-020)
+    tier = getattr(args, "service_tier", None)
     if args.fake and args.split != "dev":
         print("연습 모드(--fake)는 dev 문서에만 씁니다. 평가 문서는 실제 실행에 한 번만 씁니다.", file=sys.stderr)
         return 2
     if not args.fake and not args.yes:
+        staged = "(단계 판단으로 줄 수 있음)" if hasattr(exp, "STAGE_AFTER") else ""
         print(
-            f"실행 계획: 조건 {len(CONDITIONS)} × 문서 {n_docs} × 반복 {repeats} = {n_runs}회 중 남은 {n_left}회, "
-            f"동시 {args.workers}개, 모델 {settings.model}.\n비용이 듭니다. 실행하려면 --yes를 붙이세요."
+            f"실행 계획: 조건 {len(labels)}({', '.join(labels)}) × 문서 {n_docs} × 반복 최대 {repeats} = "
+            f"{n_runs}회{staged} 중 남은 {n_left}회, 동시 {args.workers}개, 모델 {settings.model}"
+            + (f", 처리 등급 {tier}" if tier else "")
+            + ".\n비용이 듭니다. 실행하려면 --yes를 붙이세요."
         )
         return 1
+
+    def factory() -> BaseChatModel:
+        model = make_model(settings, fake=args.fake)
+        if tier == "flex" and not args.fake:
+            from .experiments.tiers import FlexChatOpenAI  # flex 용량 부족은 모델 안에서 다시 부르거나 기본 등급으로
+
+            # make_model은 키 확인을 겸한다. 모델 이름과 temperature는 make_model과 같게 둔다
+            return FlexChatOpenAI(model=settings.model.split(":", 1)[-1], temperature=settings.temperature)
+        return model
+
+    extra = {"session_info": {"service_tier": tier}} if tier else {}
     status = exp.run(
         docs_dir,
         root,
-        lambda: make_model(settings, fake=args.fake),
+        factory,
         settings,
         repeats=repeats,
         limit=limit,
@@ -183,14 +207,23 @@ def _cmd_experiment(args: argparse.Namespace, settings: Settings) -> int:
         workers=args.workers,
         max_runs=args.max_runs,
         token_budget=args.token_budget,
+        **extra,
     )
+    if tier == "flex" and not args.fake:
+        from .experiments.tiers import fallback_counts
+
+        if counts := fallback_counts():
+            print(
+                f"flex 용량 부족 처리: 다시 부름 {counts.get('flex_retry', 0)}회, 기본 등급으로 보냄 "
+                f"{counts.get('default_fallback', 0)}회"
+            )
     if status.summary_path is None:
         label = exp.PAUSE_LABELS.get(status.paused_reason or "", status.paused_reason)
         again = "--fake" if args.fake else "--yes"
         print(f"중간 정지({label}): {status.done}/{status.planned}회 완료. 기록: {status.run_dir}")
         print(
             f"이어서 실행: uv run tashkeel {args.cmd} --split {args.split} --resume {status.run_dir} "
-            f"--workers {args.workers} {again}"
+            f"--workers {args.workers}" + (f" --service-tier {tier}" if tier else "") + f" {again}"
         )
         return 4
     return _print_summary(status.summary_path)
@@ -428,7 +461,7 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=_cmd_experiment_status)
 
-    p = sub.add_parser("exp003", help="EXP-003 어려운 시험지 조건 비교(99% 기준, 기본: eval 70개)")
+    p = sub.add_parser("exp003", help="EXP-003 어려운 시험지 조건 비교(99% 기준, 기본: eval 70개, ADR-017·020)")
     p.add_argument("--split", choices=["dev", "eval"], default="eval")
     p.add_argument("--docs")
     p.add_argument("--repeats", type=int)
@@ -442,6 +475,12 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--max-runs", type=int, help="이번에 새로 시작할 실행 수 상한. 닿으면 멈춘다")
     p.add_argument("--token-budget", type=int, help="이번에 쓸 토큰 상한(입력+출력). 넘으면 새 실행을 시작하지 않는다")
     p.add_argument("--finalize", action="store_true", help="--resume과 함께: 더 돌리지 않고 지금까지로 summary를 쓴다")
+    p.add_argument(
+        "--service-tier",
+        choices=["default", "flex"],
+        default="default",
+        help="OpenAI 처리 등급. flex는 약 50%% 할인이고 느릴 수 있다(같은 모델·같은 요청, 세션 기록에 남김)",
+    )
     p.set_defaults(func=_cmd_experiment)
 
     p = sub.add_parser("exp003-status", help="EXP-003 실행의 진행과 사용량(결과 지표는 보이지 않는다)")

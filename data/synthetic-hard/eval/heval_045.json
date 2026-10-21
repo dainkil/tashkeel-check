@@ -1,0 +1,698 @@
+{
+ "doc_id": "heval_045",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 28/03/2026 حضر أمام الكاتب العدل السيد إبراهيم ماجد العلي، قطري الجنسية، ويحمل جواز سفر رقم J7114672."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Ebrahim Majid Al Ali, Passport No. J7114672"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة السليطي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 140159، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "وقرر أنه وكّل السيد إبراهيم بن فهد السلطان، كويتي الجنسية، ويحمل بطاقة هوية رقم 48413821."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Attorney: Ibrahim bin Fahad Al Sultan, ID No. 48413821"
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: إبراهيم العلي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: إبراهيم السلطان"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A2",
+  "B4",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 45,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     68
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "إبراهيم ماجد العلي",
+    "english_full": "Ebrahim Majid Al Ali",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Ebrahim Majid Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ebrahim",
+      "expected": "adopt",
+      "expected_spelling": "Ebrahim",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Ebrahim Majid Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "ماجد",
+      "position": "middle",
+      "english_variants": [
+       "Majed",
+       "Majid",
+       "Madjid"
+      ],
+      "raw_variants": [
+       "Majed",
+       "Majid",
+       "Magid",
+       "Madjid"
+      ],
+      "english_used": "Majid",
+      "expected": "adopt",
+      "expected_spelling": "Majid",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Ebrahim Majid Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Ebrahim Majid Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     35
+    ],
+    "arabic_full": "السليطي",
+    "english_full": "Al Sulaiti",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 35,
+      "token_ids": [
+       35
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "السليطي",
+      "position": "family",
+      "english_variants": [
+       "Al Sulaiti"
+      ],
+      "raw_variants": [
+       "Al Sulaiti"
+      ],
+      "english_used": "Al Sulaiti",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     20,
+     42
+    ],
+    "token_ids": [
+     57,
+     58,
+     59,
+     60
+    ],
+    "arabic_full": "إبراهيم بن فهد السلطان",
+    "english_full": "Ibrahim Fahad Al Sultan",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Ibrahim bin Fahad Al Sultan"
+    },
+    "tokens": [
+     {
+      "token_id": 57,
+      "token_ids": [
+       57
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ibrahim",
+      "expected": "adopt",
+      "expected_spelling": "Ibrahim",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ibrahim bin Fahad Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 59,
+      "token_ids": [
+       59
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahed",
+       "Al Fahad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad",
+      "expected": "adopt",
+      "expected_spelling": "Fahad",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ibrahim bin Fahad Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 60,
+      "token_ids": [
+       60
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ibrahim bin Fahad Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     21
+    ],
+    "token_ids": [
+     106,
+     107
+    ],
+    "arabic_full": "إبراهيم العلي",
+    "english_full": "Ebrahim Al Ali",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Ebrahim Majid Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 106,
+      "token_ids": [
+       106
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ebrahim",
+      "expected": "adopt",
+      "expected_spelling": "Ebrahim",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Ebrahim Majid Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 107,
+      "token_ids": [
+       107
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Ebrahim Majid Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     23
+    ],
+    "token_ids": [
+     109,
+     110
+    ],
+    "arabic_full": "إبراهيم السلطان",
+    "english_full": "Ibrahim Al Sultan",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Ibrahim bin Fahad Al Sultan"
+    },
+    "tokens": [
+     {
+      "token_id": 109,
+      "token_ids": [
+       109
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ibrahim",
+      "expected": "adopt",
+      "expected_spelling": "Ibrahim",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ibrahim bin Fahad Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 110,
+      "token_ids": [
+       110
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Ibrahim bin Fahad Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "إبراهيم",
+      "spelling": "Ebrahim"
+     },
+     "father": {
+      "arabic": "ماجد",
+      "spelling": "Majid"
+     },
+     "family": {
+      "arabic": "العلي",
+      "spelling": "Al Ali"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Ebrahim Majid Al Ali",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Ebrahim",
+       "father": "Majid",
+       "family": "Al Ali"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "إبراهيم",
+      "spelling": "Ibrahim"
+     },
+     "father": {
+      "arabic": "فهد",
+      "spelling": "Fahad"
+     },
+     "family": {
+      "arabic": "السلطان",
+      "spelling": "Al Sultan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s06",
+      "quote": "Ibrahim bin Fahad Al Sultan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Ibrahim",
+       "father": "Fahad",
+       "family": "Al Sultan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "السليطي",
+      "spelling": "Al Sulaiti"
+     }
+    },
+    "renderings": []
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   38,
+   39,
+   40,
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 94,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 101,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   94,
+   101
+  ]
+ },
+ "case_types": [
+  "A2",
+  "A3"
+ ]
+}

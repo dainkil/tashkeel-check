@@ -31,12 +31,12 @@
 | F4 | 코드 검증과 강등 | 스키마·토큰 ID·인용을 코드가 확인하고, 근거 없는 확정을 실패로 센다. 미처리·과잉 표시·표기 불일치 집계 | G2, G3 | 핵심 | 1 | [확인] 구현 |
 | F5 | 묶음 근거 검색 | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 이중 언어 문서)에서 이름의 라틴 문자 표기를 찾아 근거로 쓴다. 아랍어 정확 일치 → 로마자 유사 일치 → 벡터 검색 순 | G2, G3, G5 | 핵심 | 2 | [확인] 2026-10-21 구현(`bundle/evidence.py`, 대상 ID 기준, ADR-018). 벡터 경로는 후보 힌트(`rag/bundle.py`), pgvector 이전은 남음 |
 | F6 | 확인 대기 목록 | 결과를 이름 단위로 묶어 돌려준다. 이름마다 채택 표기, 근거 위치·인용, 확정/보류, 서류 간 표기 불일치. 담당자가 여권을 보고 항목을 닫을 수 있는 형태 | G5 | 핵심 | 2 | [확인] 2026-10-21 구현(`ReviewItem` 확정/대기 + 사유, `/v1/bundles/{id}/pending`, 화면 대기 목록). 서류 간 충돌은 `cross_document_conflict` |
-| F7 | API | 서류 묶음 업로드 → 검수 작업 → 보고서 조회. 진행 상태 스트림. 판매 형태(ADR-009) | G5 | 핵심 | 1.5 → 2 | [확인] 단일 문서 범위(2.3절 "M1.5 부분집합") 2026-10-21 구현(`web/app.py`). 묶음 API는 단계 2 |
+| F7 | API | 서류 묶음 업로드 → 검수 작업 → 보고서 조회. 진행 상태 스트림. 판매 형태(ADR-009) | G5 | 핵심 | 1.5 → 2 | [확인] 단일 문서 + 묶음 API(2026-10-21): 업로드·검수·대기 목록·SSE. 2026-10-21 API 키 인증·고객 분리·사용량(ADR-019). 남은 것: `GET /v1/dictionary?customer=` |
 | F8 | 측정과 추적 | 실행마다 지표·실행 메타(모델, 프롬프트 해시, 데이터 범위)를 남기고 LangSmith에 묶는다. 제품 경로에서도 끄지 않는다 | G6 | 핵심 | 1~3 | [확인] 구현(단계 1) |
 | F9 | 이름 사전 | 고객이 여권 등 외부 근거로 확정한 표기를 정규화 아랍어 키 + 고객 ID로 저장한다. 같은 고객의 다음 묶음에서 적중하면 근거 출처 `glossary`로 자동 확정한다. 다른 고객의 사전은 보지 않는다(ADR-010) | G2, G5 | 지원 | 2 | [확인] 2026-10-21 구현(`name_dictionary`, 키에 대상 ID 추가, `POST /v1/dictionary`, ADR-018) |
-| F10 | 합성 KYC 묶음 생성기 | 아랍어 상업등기 + 영문 여권 MRZ + 정관으로 된 묶음과 정답을 만든다. F5·F6의 측정 데이터 | G6 | 지원 | 2 | 설계 전 [제안] |
-| F11 | 업로드 화면 | 셀프서브 체험용 최소 화면. 묶음 올리기, 진행 보기, 확인 대기 목록 보기 | G5(2순위 고객) | 지원 | 1.5 → 2 | [확인] M1.5 단일 문서 붙여넣기 폼(`web/static/index.html`) 2026-10-21 구현: 입력·샘플·조건 → 6단계 진행 → 번역·확인 대기 목록·지표·오류. 묶음 업로드는 단계 2 |
-| F12 | 멀티 에이전트 검증 | 번역자 / 번역 결과를 보지 않는 격리된 검증자 / 근거 없으면 보류하는 중재자. 같은 지표로 단일 에이전트와 비교 | G1, G4 | 조건부 | 3 | 설계 전. 단계 3 비교를 통과할 때만 판매 형태 |
+| F10 | 합성 KYC 묶음 생성기 | 아랍어 상업등기 + 영문 여권 MRZ + 정관으로 된 묶음과 정답을 만든다. F5·F6의 측정 데이터 | G6 | 지원 | 2 | [확인] 2026-10-21 `data/kyc_bundles.py`(상업등기 + 여권 인쇄 칸·MRZ + 정관, 사례 8 × dev·eval). 실제 서식 재현은 아님 |
+| F11 | 업로드 화면 | 셀프서브 체험용 최소 화면. 묶음 올리기, 진행 보기, 확인 대기 목록 보기 | G5(2순위 고객) | 지원 | 1.5 → 2 | [확인] 단일 문서 폼 + 묶음 탭(샘플·JSON·파일 업로드·진행 스트림). 2026-10-21 3단계(파일로 초안 → 대상 지정 → 검수)와 API 키 입력(ADR-019) |
+| F12 | 멀티 에이전트 검증 | 번역자 / 번역 결과를 보지 않는 격리된 검증자 / 근거 없으면 보류하는 중재자. 같은 지표로 단일 에이전트와 비교 | G1, G4 | 조건부 | 3 | 틀 구현(2026-10-21, ADR-019): 조건 `M1`, `multi_agent.py`(번역자 → 격리 검증자 → 규칙 중재자), `MULTI_AGENT=true`일 때만 노출. 비교 실험은 단계 3에서. 판매 형태는 비교 뒤 결정 |
 | F13 | 공개 이중언어 문서 측정 | 공식 영문본이 있는 공개 문서로 EXP-002 지표를 다시 잰다. 사람 라벨 없이 실제 문서를 재는 유일한 경로 | G6 | 지원 | 2 | 문서 공개 여부·이용 조건 [미확인] |
 | F14 | MCP 노출 | 형태소 분석(`analyze_tokens`)을 MCP 서버의 툴로, 합성 문서를 리소스(`document://synthetic/{split}/{doc_id}`)로, 조건 지시문을 프롬프트(`review_instructions(condition)`)로 노출해 다른 에이전트 환경에서 부품으로 쓴다. 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2 툴로 쓰고, 실험 경로는 in-process 툴 유지(ADR-004). 단계 2에서 `search_bundle` 툴을 더한다 | G5, 과제 2 요건 | 지원 | 1.5 → 2 | [확인] 2026-10-21 구현(`mcp/`). `USE_MCP_TOOLS`는 플래그로 끼우되 기본은 끔(사용자 결정 2026-10-21). 리소스 `document://synthetic/{split}`(목록)도 더함 |
 
@@ -186,8 +186,12 @@ flowchart LR
 | `GET /v1/bundles/{id}/reviews/{review_id}/events` | — | 묶음 단위 SSE: `start`(서류별 작업 ID) → `document`(서류별 작업 이벤트, `job_event`·`node`) → `done`(`counts`·`errors`). 끝난 검수는 재생 뒤 바로 `done` |
 | `POST /v1/bundles` | multipart `files`(묶음 JSON 1개, 또는 서류 `.json`/`.txt`/`.md` 여러 개), `bundle_id`?·`customer_id`?·`document_type`?·`entities`? | 201. 업로드한 파일로 묶음을 만들고 바로 라벨 경로로 검수(`documents`·`counts`·`items`). 텍스트 서류는 대상 ID가 없어 "대상 ID 없음" 대기. 형식 오류·UTF-8 아님·2 MB 초과·20개 초과는 400 |
 | `POST /v1/dictionary` | `bundle_id`, `mention_id`, `english_name`? | 담당자가 대기 항목을 닫으며 등록한 사전 항목(201). 자동 등록 없음 |
+| `POST /v1/bundles/draft` | multipart `files`(+ `bundle_id`?·`customer_id`?·`document_type`?) | 업로드 초안(ADR-019): `fields[서류, 구간, 칸, 값, 제안 그룹]`·`groups`·`bundle`(대상 ID 없음). 저장하지 않는다. 화면이 대상을 붙여 `/v1/bundles/review`로 보낸다 |
+| `GET /v1/usage?from=&to=` | ISO 날짜(기본 최근 30일, `to` 제외) | 키의 고객 사용량: `totals{jobs, *_tokens, llm_calls, segments, arabic_tokens}`, `by_day`, `by_kind` |
+| (인증) | `X-API-Key: tk_…` 또는 `Authorization: Bearer`, SSE는 `?api_key=` | 모든 `/v1/*`. 없거나 틀리면 401 `kind:"auth"`. `/health`·화면·`/docs`는 공개. `AUTH=auto`는 활성 고객이 있을 때만 요구. 인증된 요청의 묶음·작업·사전·목록은 키의 고객에 묶이고 본문 `customer_id`가 다르면 400(ADR-019) |
+| (조건 `M1`) | `condition=M1` (`/v1/reviews`, `/v1/bundles/{id}/reviews`) | `MULTI_AGENT=true`일 때만. 결과 `metrics.engine{translator, verifier, arbiter, prompt_version}` |
 
-아직 없는 것: `GET /v1/dictionary?customer=`, 인증, 업로드 서류에 대상 ID를 붙이는 입력(지금은 JSON 서류에만 `entity_id`를 쓸 수 있다).
+아직 없는 것: `GET /v1/dictionary?customer=`, 고객당 여러 사용자·권한, 키 교체(revoke 뒤 add만 있음).
 
 - 인증은 API 키 헤더로 시작한다. 조직·권한 모델, 감사 로그, 키 회전은 엔터프라이즈 단계로 둔다.
 - 보고서의 이름 항목 형식은 단계 1 `proper_nouns.csv` 열(아랍어 원문, 토큰 ID, 후보와 출처, 채택 표기, 처분, 근거 위치, 분석 수)에 `document_id`, `evidence_document_id`, `inconsistent_with[]`, `glossary_hit`을 더한다.
@@ -207,7 +211,7 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 
 | 테이블 | 주요 열 | 비고 |
 | --- | --- | --- |
-| `customers` | id, name, api_key_hash, created_at | API 키 인증 |
+| `customers` | id, name, api_key_hash, key_prefix, active, created_at, revoked_at | API 키 인증 [확인] 2026-10-21 Alembic 0003(ADR-019). `usage(customer_id, kind, job_id, bundle_id, review_id, condition, *_tokens, llm_calls, n_segments, n_arabic_tokens)`도 같이. `jobs.customer_id`, `bundles` 유일 키 `(customer_id, bundle_id)` |
 | `bundles` | id, bundle_id UNIQUE, customer_id, payload JSONB, created_at, updated_at | [확인] 2026-10-21(Alembic 0002). 묶음 입력 전체. 같은 bundle_id는 덮어쓴다 |
 | `review_items` | id, bundle_pk, mention_id, document_id, segment_id, entity_id, entity_type, arabic_name, arabic_key, translated_name, status(confirmed / pending), reason, evidence JSONB, suggestion, detail | [확인] 2026-10-21. 묶음 검수 결과(`bundle.schemas.ReviewItem`) |
 | `documents` | id, bundle_id, doc_type, file_path, sha256, text_normalized, segments JSONB, tokens JSONB | 원문은 파일, 정규화 텍스트·구간·토큰 표는 DB |
@@ -306,9 +310,11 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 - [x] EXP-002 dev 실제 모델 점검: dev_001 C0~C3 각 1회, 모두 첫 시도에 형식 통과, 약 $0.22(2026-10-21)
 - [ ] EXP-002 eval 실행·기록. **보류**(2026-10-21, 120/360회, 반복 1회에서 C1~C3 모두 만점이라 EXP-003으로 넘어감, ADR-017). 판정 없음
 - [x] EXP-003 준비(ADR-017, 2026-10-21): 서비스 목표 G7(99%), 어려운 합성 문서 생성기 synthetic-hard와 dev 20개, 엄격 철자, 근거 검사 v2, 채점 v2, 지시문 p1, 판정·서비스 기준 문구, 실행 장치 공유(`experiments/harness.py`), CLI 6개. 테스트 293개 통과, 실제 모델 실행 없음
-- [ ] EXP-003 확인 지점 A: dev 유형별 정답 예시를 사용자가 검토하고 정답 규칙·유형·수량·p1 문구 고정
-- [ ] (선택, 동의 필요) dev 3~5개로 실제 모델 점검(약 $1~2). 긴 문서 출력 한도 확인
-- [ ] EXP-003 eval 생성(한 번만), 비용 재추정, 반복 횟수·참고 조건(C1+p0) 결정
+- [x] EXP-003 확인 지점 A: dev 유형별 정답 예시를 사용자가 검토하고 정답 규칙·유형·수량·p1 문구 고정(2026-10-21, 규칙 그대로)
+- [x] (선택, 동의 필요) dev 3~5개로 실제 모델 점검(약 $1~2). 긴 문서 출력 한도 확인(2026-10-21, v1 dev 4개 × 4조건, 형식 전부 통과·출력 최대 9.4k 토큰. 오류 6개를 보고 생성기 v2·번역문 판정 t2로 고침)
+- [x] (선택, 동의 필요) v2 문서로 실제 모델 재점검(고용 확인서·상업등기 각 1개 × 4조건, 약 $0.5)(2026-10-21, C1~C3 47/47)
+- [x] EXP-003 eval 생성(한 번만), 비용 재추정(2026-10-21, 이름 부분 1,457개, 반복 1회 약 $15)
+- [x] EXP-003 반복 횟수·참고 조건(C1+p0)·비용 한도 결정(2026-10-21, ADR-020: C1p0 반복 1회, 단계적 반복 최대 3회, flex·동시 16, flex dev 점검 통과)
 - [ ] EXP-003 eval 실행·자동 판정 오류 전부 사람 확인·기록
 
 ### 단계 1.5 전 리팩토링 (ADR-013, 2026-10-20 완료)
@@ -348,7 +354,8 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 - [x] 가이드 14 — 화면 "서류 묶음" 탭(샘플/JSON → 실행 → 전체 결과 → 대기 목록 → 항목별 원문·번역·근거 비교 → 닫기·사전 등록, 딥링크 `#bundle?sample=…&run=1`), 평가 사례 9개 × 대상 종류 3개 합성 묶음(`tashkeel make-bundles`, `data/synthetic/bundles/`)과 테스트. 캡처 `docs/images/screen-bundle_*.jpg`
 - [ ] 가이드 11 나머지 — 벡터 검색을 pgvector로 옮기고 고객·묶음 범위 제한을 DB 수준에서(ADR-011 M3)
 - [x] 파일 업로드(`POST /v1/bundles`: 묶음 JSON 또는 서류 파일, 바로 검수)와 묶음 단위 SSE(`/reviews/{review_id}/events`), 화면 업로드·진행 스트림 (2026-10-21, ADR-018 보완)
-- [ ] 인증, 서류 종류별 우선순위(지금은 서류끼리 다르면 무조건 대기), 업로드 서류에 대상 ID를 붙이는 입력
+- [x] 인증과 고객 분리(API 키, `customers`·`usage`, Alembic 0003), 업로드 초안과 화면에서 대상 지정(`/v1/bundles/draft`), Docker Compose 패키지(`docs/deploy.md`, `scripts/smoke.sh`) (2026-10-21, ADR-019)
+- [ ] 서류 종류별 우선순위(지금은 서류끼리 다르면 무조건 대기), 고객당 여러 사용자·권한, 키 교체
 - [x] 합성 KYC 온보딩 묶음 생성기(`bundles-kyc-v1`, `data/kyc_bundles.py`): 아랍어 상업등기 + 영문 여권(인쇄 칸 + MRZ) + 이중언어 정관, 사례 8개 × dev·eval, 정답은 생성기가 냄. 여권 MRZ 해독(`bundle/mrz.py`)과 성·이름 칸 합성, 같은 서류의 인쇄 칸이 MRZ보다 우선. 테스트 `test_bundle_eval_kyc.py`·`test_bundle_mrz.py` (2026-10-21)
 - [ ] 실제 모델로 묶음 LLM 경로 1회 실행(EXP-002 보류 중이라 미실행)
 - [ ] 공개 이중언어 문서(공식 영문본을 정답으로)에서 EXP-002 지표 재측정 [제안, 문서 공개 여부·이용 조건 미확인]
@@ -356,7 +363,8 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 
 ### 단계 3 — 멀티 에이전트 비교 (판매할 형태)
 
-- [ ] 번역자 / 격리된 검증자(번역 결과를 보지 않고 원문과 근거만 봄) / 중재자(근거 없으면 보류) 구조를 같은 데이터·지표로 단계 1과 비교
+- [x] 틀: 조건 `M1` = 번역자 / 격리된 검증자(번역자 출력을 보지 않음) / 규칙 중재자(둘 다 근거 채택·철자 동일·근거 검증 통과일 때만 확정, 아니면 보류). `agent` 노드만 바뀜, `MULTI_AGENT` 플래그, 가짜 모델로 테스트(2026-10-21, ADR-019). 실제 모델로는 아직 안 돌림
+- [ ] 같은 데이터·지표로 단계 1과 비교(실제 모델, EXP-005 [제안])
 - [ ] 단일 에이전트(C2·C3)보다 말없이 찍는 비율이 낮을 때만 멀티 에이전트를 판매 형태로 확정한다. 아니면 단일 에이전트 API로 판다
 
 ## 5. 위험 목록 (구 `PROJECT_PLAN.md` 9절, 전체)

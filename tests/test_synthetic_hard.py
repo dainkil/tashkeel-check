@@ -5,10 +5,13 @@ import json
 import random
 from pathlib import Path
 
+import pytest
+
 from tashkeel_check.data import synthetic_hard as sh
 from tashkeel_check.romanize import strict_key, strict_words_in_quote
 
-POOL = json.loads(Path("data/wikidata/name_tokens.json").read_text(encoding="utf-8"))
+POOL_PATH = Path("data/wikidata/name_tokens.json")
+POOL = json.loads(POOL_PATH.read_text(encoding="utf-8"))
 DEV_FILES = sorted(glob.glob("data/synthetic-hard/dev/*.json"))
 
 
@@ -63,6 +66,25 @@ def test_every_case_type_appears_in_dev_and_mrz_lines_are_44_characters():
     report = sh.quota_report(docs)
     assert report["n_units"] == sum(len(o["tokens"]) for d in docs for o in d["gold"]["names"])
     assert report["hard_share"] >= sh.MIN_HARD_SHARE
+
+
+def test_quota_enforcement_moves_to_the_next_seed_and_records_it(tmp_path, monkeypatch):
+    real = sh.quota_report
+    calls = []
+
+    def fail_first(docs, split_n=None):
+        report = real(docs, split_n)
+        calls.append(docs[0]["meta"]["seed"])
+        return {**report, "ok": len(calls) > 1}
+
+    monkeypatch.setattr(sh, "quota_report", fail_first)
+    paths, report = sh.generate(POOL_PATH, tmp_path, "dev", n=2, seed=7, check_quota=True)
+    assert calls == [7, 8] and (report["seed"], report["seed_base"], report["seed_tries"]) == (8, 7, 2)
+    assert all(json.loads(p.read_text(encoding="utf-8"))["meta"]["seed"] == 8 for p in paths)
+
+    monkeypatch.setattr(sh, "quota_report", lambda docs, split_n=None: {**real(docs, split_n), "ok": False})
+    with pytest.raises(RuntimeError, match="quota not met"):
+        sh.generate(POOL_PATH, tmp_path, "dev", n=1, seed=7, check_quota=True)
 
 
 def test_variant_cleaning_drops_alias_noise_and_merges_case():

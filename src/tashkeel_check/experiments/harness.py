@@ -148,6 +148,9 @@ PAUSE_LABELS = {
     "api_error": "API 오류",
     "error": "실행 중 예외",
 }
+STAGE_LABELS = {"continue": "계속(다음 회차를 돈다)", "stop": "끝(사전 규칙에 따라 여기서 마친다)"}
+# 처리 등급별 단가 배수. flex는 Batch와 같은 약 50% 할인으로 본다(추정, 청구 기준 아님)
+TIER_PRICE = {"flex": 0.5}
 PLAN_SETTINGS = ("temperature", "max_retries", "recursion_limit", "max_candidates", "high_confidence")
 # graph.agent는 예외를 "attempt N: <클래스 이름>: <메시지>"로 errors에 남긴다. 이름이 openai 오류면 API 오류다
 API_ERRORS = frozenset(
@@ -204,6 +207,12 @@ class Spec:
     configure: Callable[[Settings], Settings] = lambda s: s
     # 기록 파일에 넣지 않을 큰 지표. 실행 폴더의 metrics.json에는 남는다
     ledger_drop: tuple[str, ...] = field(default=("units",))
+    # 라벨 → (실제 조건, 설정). 참고 조건(다른 지시문 판의 C1 등)을 라벨 하나로 돌릴 때 쓴다
+    arm: Callable[[str, Settings], tuple[str, Settings]] = lambda label, s: (label, s)
+    # 단계적 반복: 회차 stage_after 앞이 다 끝나면 stage_gate(plan, 라벨별 완료 실행)가 계속할지 정한다.
+    # 라벨별 반복 수(plan["arm_repeats"])와 단계 규칙(plan["stage_rule"])은 spec.plan이 plan에 넣는다
+    stage_after: int | None = None
+    stage_gate: Callable[[dict, dict[str, list[dict]]], dict] | None = None
 
 
 def load_plan(run_dir: str | Path) -> dict:
@@ -248,6 +257,34 @@ def done_runs(rows: list[dict]) -> dict[tuple[str, str, int], dict]:
     }
 
 
+def stage_row(rows: list[dict]) -> dict | None:
+    """단계 판단 기록(있으면 마지막 것)."""
+    return next((r for r in reversed(rows) if r.get("type") == "stage"), None)
+
+
+def label_repeats(plan: dict, rows: list[dict] | None = None) -> dict[str, int]:
+    """라벨마다 돌릴 반복 수. 라벨별 반복 수(arm_repeats)와, 단계 판단이 '끝'이면 그 회차까지만 센다."""
+    reps = plan["repeats"]
+    stage = stage_row(rows or [])
+    if stage is not None and stage.get("decision") == "stop":
+        reps = min(reps, stage["after_repeat"])
+    arm = plan.get("arm_repeats") or {}
+    return {c: min(reps, arm.get(c, reps)) for c in plan["conditions"]}
+
+
+def planned_runs(plan: dict, rows: list[dict] | None = None) -> int:
+    return len(plan["docs"]) * sum(label_repeats(plan, rows).values())
+
+
+def runs_by_label(plan: dict, rows: list[dict], before_repeat: int | None = None) -> dict[str, list[dict]]:
+    """라벨별 완료 실행의 지표(_doc_id·_repeat를 붙임). before_repeat를 주면 그 앞 회차만."""
+    out: dict[str, list[dict]] = {c: [] for c in plan["conditions"]}
+    for (cond, doc_id, rep), r in sorted(done_runs(rows).items()):
+        if cond in out and (before_repeat is None or rep < before_repeat):
+            out[cond].append({**r["metrics"], "_doc_id": doc_id, "_repeat": rep})
+    return {c: runs for c, runs in out.items() if runs}
+
+
 def is_api_failure(metrics: dict) -> bool:
     """출력을 못 얻었고 그 원인에 API 오류가 있으면 모델 실패가 아니라 실행 환경 문제로 본다."""
     if metrics.get("valid_output"):
@@ -266,12 +303,24 @@ def _cost(tokens_in: float, tokens_out: float, settings: Settings) -> float | No
     return round((tokens_in * settings.price_input_per_mtok + tokens_out * settings.price_output_per_mtok) / 1e6, 2)
 
 
+def _priced_tokens(rows: list[dict]) -> tuple[float, float]:
+    """실행마다 그 세션의 처리 등급 배수(TIER_PRICE)를 곱한 토큰 합. 비용 어림에만 쓴다."""
+    factor, tin, tout = 1.0, 0.0, 0.0
+    for r in rows:
+        if r.get("type") == "session":
+            factor = TIER_PRICE.get(r.get("service_tier") or "", 1.0)
+        elif r.get("type") == "run":
+            i, o = _tokens(r.get("usage", {}))
+            tin, tout = tin + i * factor, tout + o * factor
+    return tin, tout
+
+
 def _progress(run_dir: Path, plan: dict, rows: list[dict], settings: Settings, workers: int | None = None) -> dict:
     runs = [r for r in rows if r.get("type") == "run"]
     done = list(done_runs(rows).values())
     sessions = [r for r in rows if r.get("type") == "session"]
-    per_cond = len(plan["docs"]) * plan["repeats"]
-    planned = per_cond * len(plan["conditions"])
+    per_label = {c: len(plan["docs"]) * n for c, n in label_repeats(plan, rows).items()}
+    planned = sum(per_label.values())
     used_in = sum(_tokens(r.get("usage", {}))[0] for r in runs)
     used_out = sum(_tokens(r.get("usage", {}))[1] for r in runs)
     all_in = [_tokens(r.get("usage", {}))[0] for r in done]
@@ -279,6 +328,7 @@ def _progress(run_dir: Path, plan: dict, rows: list[dict], settings: Settings, w
     rem_in = rem_out = 0.0
     conds = {}
     for c in plan["conditions"]:
+        per_cond = per_label[c]
         d = [r for r in done if r["condition"] == c]
         tin = [_tokens(r.get("usage", {}))[0] for r in d] or all_in  # 아직 없는 조건은 전체 평균으로 어림한다
         tout = [_tokens(r.get("usage", {}))[1] for r in d] or all_out
@@ -298,6 +348,10 @@ def _progress(run_dir: Path, plan: dict, rows: list[dict], settings: Settings, w
     elapsed = [r.get("elapsed_s") or 0 for r in done]
     remaining_s = round((planned - len(done)) * sum(elapsed) / len(elapsed) / workers) if elapsed else None
     priced = _cost(0, 0, settings) is not None
+    tier = (sessions[-1].get("service_tier") if sessions else None) or None
+    paid_in, paid_out = _priced_tokens(rows)
+    rem_factor = TIER_PRICE.get(tier or "", 1.0)
+    stage = stage_row(rows)
     return {
         "run_dir": str(run_dir),
         "done": len(done),
@@ -312,11 +366,16 @@ def _progress(run_dir: Path, plan: dict, rows: list[dict], settings: Settings, w
             "remaining_s": remaining_s,
         },
         "cost_usd": {
-            "used": _cost(used_in, used_out, settings),
-            "estimated_total": _cost(used_in + rem_in, used_out + rem_out, settings) if done else None,
+            "used": _cost(paid_in, paid_out, settings),
+            "estimated_total": _cost(paid_in + rem_in * rem_factor, paid_out + rem_out * rem_factor, settings)
+            if done
+            else None,
         }
         if priced
         else None,
+        "service_tier": tier,
+        # 단계 판단은 결정만 보인다. 값은 summary에만 남긴다(사람이 결과를 보고 멈추지 않게, ADR-016·020)
+        "stage": None if stage is None else {"after_repeat": stage["after_repeat"], "decision": stage["decision"]},
         "sessions": len(sessions),
         "workers": workers,
         "pauses": [{"at": r.get("at"), "reason": r.get("reason")} for r in rows if r.get("type") == "pause"],
@@ -354,7 +413,9 @@ def _usd(v: float | None) -> str:
 def format_status(s: dict) -> str:
     conds, tokens, est, cost = s["conditions"], s["tokens"], s["estimate"], s["cost_usd"] or {}
     lines = [
-        f"실행: {s['run_dir']} (세션 {s['sessions']}, 동시 {s['workers']})",
+        f"실행: {s['run_dir']} (세션 {s['sessions']}, 동시 {s['workers']}"
+        + (f", 처리 등급 {s['service_tier']}" if s.get("service_tier") else "")
+        + ")",
         f"진행: {s['done']}/{s['planned']}{' 완료' if s['complete'] else ''} ("
         + " · ".join(f"{c} {v['done']}/{v['planned']}" for c, v in conds.items())
         + ")",
@@ -371,6 +432,9 @@ def format_status(s: dict) -> str:
         if est["remaining_s"]:
             line += f" · 남은 시간 {_fmt_s(est['remaining_s'])}(동시 {s['workers']})"
         lines.append(line)
+    if s.get("stage"):
+        st = s["stage"]
+        lines.append(f"단계 판단(반복 {st['after_repeat']}회 뒤): {STAGE_LABELS.get(st['decision'], st['decision'])}")
     if s["pauses"]:
         pauses = (f"{p['at']} {PAUSE_LABELS.get(p['reason'], p['reason'])}" for p in s["pauses"])
         lines.append("정지 이력: " + ", ".join(pauses))
@@ -413,11 +477,8 @@ def write_summary(spec: Spec, run_dir: str | Path) -> Path:
     run_dir = Path(run_dir)
     plan, rows = load_plan(run_dir), read_ledger(run_dir)
     done = done_runs(rows)
-    runs_by_condition: dict[str, list[dict]] = {c: [] for c in plan["conditions"]}
-    for (cond, doc_id, rep), r in sorted(done.items()):
-        runs_by_condition[cond].append({**r["metrics"], "_doc_id": doc_id, "_repeat": rep})
-    runs_by_condition = {c: runs for c, runs in runs_by_condition.items() if runs}
-    planned = len(plan["conditions"]) * len(plan["docs"]) * plan["repeats"]
+    runs_by_condition = runs_by_label(plan, rows)
+    planned = planned_runs(plan, rows)
     complete = len(done) == planned
     note = "합성 문서 기준 결과. 실제 서류의 오류율·포착률로 일반화하지 않는다."
     if not complete:
@@ -439,9 +500,29 @@ def write_summary(spec: Spec, run_dir: str | Path) -> Path:
         "api_error_runs": sum(r.get("type") == "run" and r.get("status") == "api_error" for r in rows),
         "pauses": [{"at": r.get("at"), "reason": r.get("reason")} for r in rows if r.get("type") == "pause"],
     }
+    if (stage := stage_row(rows)) is not None:
+        report["stage"] = {k: v for k, v in stage.items() if k not in ("type",)}
+    if plan.get("arm_repeats"):
+        report["repeats_by_condition"] = label_repeats(plan, rows)
     path = run_dir / SUMMARY_FILE
     path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return path
+
+
+def _decide_stage(spec: Spec, plan: dict, out: Path, rows: list[dict], after: int) -> dict:
+    """회차 after 앞의 완료 실행으로 사전 등록한 단계 규칙을 적용하고 기록한다."""
+    assert spec.stage_gate is not None
+    expected = len(plan["docs"]) * sum(min(after, n) for n in label_repeats(plan).values())
+    before = runs_by_label(plan, rows, before_repeat=after)
+    got = sum(len(v) for v in before.values())
+    if got != expected:  # 앞 회차가 다 끝나지 않았다(멈춤 조건이 먼저 걸려야 한다)
+        raise RuntimeError(f"stage gate before repeat {after}: {got}/{expected} runs done")
+    decision = spec.stage_gate(plan, before)
+    row = {"type": "stage", "at": _now(), "after_repeat": after, **decision}
+    _append(out, row)
+    rows.append(row)
+    logger.info("단계 판단(반복 %d회 뒤): %s", after, STAGE_LABELS.get(row["decision"], row["decision"]))
+    return row
 
 
 def run(
@@ -459,11 +540,14 @@ def run(
     max_runs: int | None = None,
     token_budget: int | None = None,
     analyze_fn: AnalyzeFn | None = None,
+    session_info: dict[str, Any] | None = None,
 ) -> RunStatus:
     """실험을 새로 시작하거나(run_dir 없음) 이어서 한다.
 
     멈춤 조건(중단 신호, STOP 파일, max_runs, token_budget, API 오류)에 걸리면 새 실행을 시작하지 않고,
     돌던 실행만 마저 기록하고 돌아온다. max_runs·token_budget은 이번 호출(세션) 기준이다.
+    spec.stage_after가 있으면 그 회차 앞이 다 끝난 뒤 spec.stage_gate로 다음 회차를 돌지 정하고 기록한다.
+    session_info(처리 등급 등 모델 출력에 영향이 없는 실행 환경)는 세션 기록에 남긴다.
     """
     settings = spec.configure(settings)
     repeats = repeats or settings.repeats
@@ -481,17 +565,22 @@ def run(
         if diff:
             raise InputError(f"이어서 실행하려는 실험과 설정이 다릅니다({', '.join(diff)}): {out / PLAN_FILE}")
     rows = read_ledger(out)
-    _start_session(out, rows, workers=workers, max_runs=max_runs, token_budget=token_budget)
+    _start_session(out, rows, workers=workers, max_runs=max_runs, token_budget=token_budget, **(session_info or {}))
+    rows = read_ledger(out)
     docs = [load_doc(p) for p in doc_paths]
-    planned = len(conditions) * len(docs) * repeats
+    planned = planned_runs(plan, rows)
+    reps_of = label_repeats(plan, rows)
     done = done_runs(rows)
     todo = [
         (rep, doc, cond)
         for rep in range(repeats)
         for doc in docs
         for cond in conditions
-        if (cond, doc["doc_id"], rep) not in done
+        if rep < reps_of[cond] and (cond, doc["doc_id"], rep) not in done
     ]
+    arms = {c: spec.arm(c, settings) for c in conditions}
+    gate_after = spec.stage_after if spec.stage_gate is not None and spec.stage_after is not None else None
+    stage = stage_row(rows)
     fn = thread_safe_analyze() if workers > 1 and analyze_fn is None else analyze_fn
 
     signals = submitted = session_tokens = 0
@@ -528,12 +617,20 @@ def run(
             i = 0
             while True:
                 while reason is None and i < len(todo) and len(pending) < workers:
+                    rep, doc, cond = todo[i]
+                    if gate_after is not None and stage is None and rep >= gate_after:
+                        if pending:  # 앞 회차가 다 끝나기를 기다린다
+                            break
+                        stage = _decide_stage(spec, plan, out, rows, gate_after)
+                        if stage["decision"] == "stop":  # todo는 회차 순서라 i 뒤는 모두 다음 회차다
+                            todo, planned = todo[:i], planned_runs(plan, rows)
+                            break
                     reason = stop_reason()
                     if reason is None:
-                        rep, doc, cond = todo[i]
                         run_out = out / cond / doc["doc_id"] / f"r{rep}"
+                        real, arm_settings = arms[cond]
                         fut = pool.submit(
-                            run_document, doc, cond, model_factory(), settings, run_out, rep, analyze_fn=fn
+                            run_document, doc, real, model_factory(), arm_settings, run_out, rep, analyze_fn=fn
                         )
                         pending[fut] = todo[i]
                         i += 1

@@ -47,11 +47,11 @@
   },
   {
    "segment_id": "s11",
-   "text": "للاستفسار يرجى التواصل مع السيد محمد العمري على البريد الإلكتروني أدناه."
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
   },
   {
    "segment_id": "s12",
-   "text": "Email: m.alamri@alzaabi.example.com"
+   "text": "Email: hr@alzaabi.example.com"
   },
   {
    "segment_id": "s13",
@@ -64,7 +64,7 @@
   "C3"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -398,110 +398,6 @@
       "arguable": false
      }
     ]
-   },
-   {
-    "occurrence_id": "n4",
-    "role": "signatory",
-    "person_id": "p2",
-    "mention": "short",
-    "segment_id": "s11",
-    "span": [
-     32,
-     43
-    ],
-    "token_ids": [
-     100,
-     101
-    ],
-    "arabic_full": "محمد العمري",
-    "english_full": "Muhammad Al Amri",
-    "evidence": {
-     "segment_id": "s10",
-     "quote": "Muhammad Saud Al Amri"
-    },
-    "tokens": [
-     {
-      "token_id": 100,
-      "token_ids": [
-       100
-      ],
-      "unit_id": "n4.given",
-      "slot": "given",
-      "arabic": "محمد",
-      "position": "given",
-      "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad"
-      ],
-      "raw_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
-      ],
-      "english_used": "Muhammad",
-      "expected": "adopt",
-      "expected_spelling": "Muhammad",
-      "evidence": [
-       {
-        "segment_id": "s10",
-        "quote": "Muhammad Saud Al Amri"
-       }
-      ],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     },
-     {
-      "token_id": 101,
-      "token_ids": [
-       101
-      ],
-      "unit_id": "n4.family",
-      "slot": "family",
-      "arabic": "العمري",
-      "position": "family",
-      "english_variants": [
-       "Al Amri"
-      ],
-      "raw_variants": [
-       "Al Amri",
-       "al Omari",
-       "Al Omari",
-       "al Amri"
-      ],
-      "english_used": "Al Amri",
-      "expected": "adopt",
-      "expected_spelling": "Al Amri",
-      "evidence": [
-       {
-        "segment_id": "s10",
-        "quote": "Muhammad Saud Al Amri"
-       }
-      ],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     }
-    ]
    }
   ],
   "persons": [
@@ -615,10 +511,10 @@
    },
    {
     "segment_id": "s12",
-    "quote": "m.alamri@alzaabi.example.com",
+    "quote": "hr@alzaabi.example.com",
     "kind": "email",
     "resembles": [
-     "p2.family"
+     "c1.family"
     ]
    }
   ],
@@ -646,7 +542,5 @@
    64
   ]
  },
- "case_types": [
-  "A3"
- ]
+ "case_types": []
 }

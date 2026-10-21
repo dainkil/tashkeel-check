@@ -43,11 +43,11 @@
   },
   {
    "segment_id": "s10",
-   "text": "للاستفسار يرجى التواصل مع السيد محمد الزهراني على البريد الإلكتروني أدناه."
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
   },
   {
    "segment_id": "s11",
-   "text": "Email: m.alzahrani@alzahrani.example.com"
+   "text": "Email: hr@alzahrani.example.com"
   },
   {
    "segment_id": "s12",
@@ -61,7 +61,7 @@
   "C2"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -415,112 +415,6 @@
       "arguable": false
      }
     ]
-   },
-   {
-    "occurrence_id": "n4",
-    "role": "signatory",
-    "person_id": "p2",
-    "mention": "short",
-    "segment_id": "s10",
-    "span": [
-     32,
-     45
-    ],
-    "token_ids": [
-     93,
-     94
-    ],
-    "arabic_full": "محمد الزهراني",
-    "english_full": "Mohammed Al Zahrani",
-    "evidence": {
-     "segment_id": "s09",
-     "quote": "Mohammed Hamad Mazen Al Zahrani"
-    },
-    "tokens": [
-     {
-      "token_id": 93,
-      "token_ids": [
-       93
-      ],
-      "unit_id": "n4.given",
-      "slot": "given",
-      "arabic": "محمد",
-      "position": "given",
-      "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad"
-      ],
-      "raw_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
-      ],
-      "english_used": "Mohammed",
-      "expected": "adopt",
-      "expected_spelling": "Mohammed",
-      "evidence": [
-       {
-        "segment_id": "s09",
-        "quote": "Mohammed Hamad Mazen Al Zahrani"
-       }
-      ],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     },
-     {
-      "token_id": 94,
-      "token_ids": [
-       94
-      ],
-      "unit_id": "n4.family",
-      "slot": "family",
-      "arabic": "الزهراني",
-      "position": "family",
-      "english_variants": [
-       "Al Zahrani",
-       "Zahrani"
-      ],
-      "raw_variants": [
-       "Al Zahrani",
-       "al Zahrani",
-       "Zahrani",
-       "al Zaharni",
-       "Al Zahiri"
-      ],
-      "english_used": "Al Zahrani",
-      "expected": "adopt",
-      "expected_spelling": "Al Zahrani",
-      "evidence": [
-       {
-        "segment_id": "s09",
-        "quote": "Mohammed Hamad Mazen Al Zahrani"
-       }
-      ],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     }
-    ]
    }
   ],
   "persons": [
@@ -636,10 +530,12 @@
    },
    {
     "segment_id": "s11",
-    "quote": "m.alzahrani@alzahrani.example.com",
+    "quote": "hr@alzahrani.example.com",
     "kind": "email",
     "resembles": [
-     "p2.family"
+     "p1.family",
+     "p2.family",
+     "c1.family"
     ]
    }
   ],
@@ -669,7 +565,6 @@
  },
  "case_types": [
   "A1",
-  "A3",
   "C2"
  ]
 }

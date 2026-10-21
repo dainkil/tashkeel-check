@@ -5,6 +5,8 @@
 - 판정은 실행 전에 고정해 코드로 둔다. 조건 비교 판정은 점추정 ≥ 0.99, "서비스 기준 99% 달성" 문구(service_claim)는
   반복마다의 Clopper–Pearson 한쪽 95% 하한 중 가장 낮은 값과 문서 단위 부트스트랩 한쪽 95% 하한이 모두 0.99 이상일 때만.
 - 실행 장치(재개·동시 실행·사용량 확인)는 EXP-002와 같다(harness, ADR-016).
+- 참고 조건 C1p0(C1 + 옛 지시문 p0)는 반복 1회에만 돌리고 판정에 쓰지 않는다. 반복은 단계적이다: 반복 1회 뒤
+  C1~C3의 두 정확도가 하나라도 회색 구간 [0.98, 0.995)에 있으면 반복 2·3을 돈다(ADR-020, 실행 전 고정).
 """
 
 from __future__ import annotations
@@ -70,6 +72,17 @@ CLAIM_LEVEL = 0.99
 CLAIM_ALPHA = 0.05
 TOOL_CONDITIONS = ("C2", "C3")
 COMPARISONS = (("C0", "C1"), *(("C1", c) for c in TOOL_CONDITIONS))
+# 참고 조건(2026-10-21 사용자 결정, ADR-020): 지시문 변경과 시험지 변경을 떼어 본다. 판정에 쓰지 않는다
+REFERENCE_ARMS = {"C1p0": ("C1", "p0")}  # 라벨 → (조건, 지시문 판)
+ARMS = (*CONDITIONS, *REFERENCE_ARMS)
+ARM_REPEATS = {"C1p0": 1}  # 참고 조건은 반복 1회에만 돈다
+REFERENCE_COMPARISONS = (("C1", "C1p0"),)  # 반복 1회(r0)끼리 비교한다
+# 단계적 반복(실행 전 고정, ADR-020): 반복 STAGE_AFTER회 뒤 아래 조건·정확도의 점추정이 하나라도
+# STAGE_BAND 안이면 나머지 반복을 돌고, 하나도 없으면 거기서 마친다
+STAGE_AFTER = 1
+STAGE_BAND = (0.98, 0.995)  # [이상, 미만)
+STAGE_CONDITIONS = ("C1", *TOOL_CONDITIONS)
+REPEATS = 3
 SUM_KEYS = [
     *(f"n_err_{k}" for k in SAFETY_KINDS),
     *(f"n_strict_only_{k}" for k in STRICT_ONLY_KINDS),
@@ -172,13 +185,21 @@ def aggregate(runs_by_condition: dict[str, list[dict]]) -> dict:
 
 
 def compare(runs_by_condition: dict[str, list[dict]]) -> dict:
-    """조건 쌍마다 두 정확도의 차이(앞 조건 − 뒤 조건)와 같은 문서를 함께 뽑는 부트스트랩 95% 구간."""
-    out = {}
+    """조건 쌍마다 두 정확도의 차이(앞 조건 − 뒤 조건)와 같은 문서를 함께 뽑는 부트스트랩 95% 구간.
+
+    참고 비교(C1 − C1p0)는 참고 조건이 반복 1회뿐이라 C1도 반복 1회(r0)만 쓴다. 판정에 쓰지 않는다.
+    """
+    out: dict[str, dict] = {}
     for a, b in COMPARISONS:
         if a in runs_by_condition and b in runs_by_condition:
             out[f"{a}-{b}"] = {
                 name: _paired_diff(runs_by_condition[a], runs_by_condition[b], *RATE_DEFS[name]) for name in PASS_BAR
             }
+    for a, b in REFERENCE_COMPARISONS:
+        if a in runs_by_condition and b in runs_by_condition:
+            first = [r for r in runs_by_condition[a] if r["_repeat"] == 0]
+            ref: dict = {name: _paired_diff(first, runs_by_condition[b], *RATE_DEFS[name]) for name in PASS_BAR}
+            out[f"{a}-{b}"] = {**ref, "reference": True, "repeats": [0]}
     return out
 
 
@@ -203,7 +224,7 @@ def judge(summary: dict, comparisons: dict) -> dict:
     - pass: C1은 못 넘었고, 도구 조건이 두 기준을 넘으며 C1이 못 넘은 기준을 우연 이상으로 고쳤다 → 단계 2
     - fail: 그 밖. 프롬프트 재설계나 단계 3 검증자를 검토한다. 분석기가 쓸모없다는 뜻은 아니다
     """
-    checks = {c: _checks(e) for c, e in summary.items() if c != "C0"}
+    checks = {c: _checks(e) for c, e in summary.items() if c != "C0" and c not in REFERENCE_ARMS}
     claims = {c: e["service_claim"]["claim"] for c, e in summary.items()}
     if "C1" not in checks:
         return {"decision": None, "reason": "C1 결과가 없어 판정하지 않는다", "checks": checks, "service_claim": claims}
@@ -240,6 +261,37 @@ def judge(summary: dict, comparisons: dict) -> dict:
     }
 
 
+def arm(label: str, settings: Settings) -> tuple[str, Settings]:
+    """라벨 → (실제 조건, 설정). 참고 조건은 지시문 판만 바꾼다(근거 검사·채점은 같다)."""
+    if label in REFERENCE_ARMS:
+        cond, version = REFERENCE_ARMS[label]
+        return cond, settings.model_copy(update={"prompt_version": version})
+    return label, settings
+
+
+def stage_gate(plan: dict, runs_by_condition: dict[str, list[dict]]) -> dict:
+    """사전 등록한 단계 규칙. 반복 STAGE_AFTER회의 점추정이 하나라도 회색 구간이면 계속한다.
+
+    값이 없는(실행이 없거나 분모가 0인) 지표는 판단할 수 없으므로 계속하는 쪽으로 본다.
+    """
+    lo, hi = STAGE_BAND
+    values: dict[str, dict[str, float | None]] = {}
+    gray = []
+    for cond in STAGE_CONDITIONS:
+        values[cond] = {}
+        for name in PASS_BAR:
+            v = _pooled(runs_by_condition.get(cond, []), *RATE_DEFS[name])
+            values[cond][name] = v
+            if v is None or lo <= v < hi:
+                gray.append(f"{cond}.{name}")
+    return {
+        "decision": "continue" if gray else "stop",
+        "in_band": gray,
+        "values": values,
+        "rule": plan.get("stage_rule"),
+    }
+
+
 def make_plan(
     docs_dir: str | Path,
     doc_paths: list[Path],
@@ -260,7 +312,16 @@ def make_plan(
         "model_label": label,
         "settings": {k: getattr(settings, k) for k in PLAN_SETTINGS},
         "prompt_version": settings.prompt_version,
-        "prompt_hash": {c: prompt_hash(c, settings.prompt_version) for c in conditions},
+        "prompt_hash": {c: prompt_hash(cond, s.prompt_version) for c in conditions for cond, s in [arm(c, settings)]},
+        "reference_arms": {c: list(REFERENCE_ARMS[c]) for c in conditions if c in REFERENCE_ARMS},
+        "arm_repeats": {c: n for c, n in ARM_REPEATS.items() if c in conditions},
+        "stage_rule": {
+            "after_repeat": STAGE_AFTER,
+            "band": list(STAGE_BAND),
+            "conditions": list(STAGE_CONDITIONS),
+            "rates": list(PASS_BAR),
+            "continue_if": "any value in [band[0], band[1]) or missing",
+        },
         "evidence_rule": settings.evidence_rule,
         "matcher_version": MATCHER_VERSION,
         "scoring": {
@@ -292,7 +353,15 @@ def _configure(settings: Settings) -> Settings:
     return settings.model_copy(update={"prompt_version": PROMPT_VERSION, "evidence_rule": EVIDENCE_RULE})
 
 
-SPEC = harness.Spec(name="EXP-003", plan=make_plan, report=report, configure=_configure)
+SPEC = harness.Spec(
+    name="EXP-003",
+    plan=make_plan,
+    report=report,
+    configure=_configure,
+    arm=arm,
+    stage_after=STAGE_AFTER,
+    stage_gate=stage_gate,
+)
 
 
 def write_summary(run_dir: str | Path) -> Path:
@@ -304,7 +373,7 @@ def run(
     out_root: str | Path,
     model_factory: Callable[[], BaseChatModel],
     settings: Settings,
-    conditions: tuple[str, ...] = CONDITIONS,
+    conditions: tuple[str, ...] = ARMS,
     repeats: int | None = None,
     limit: int | None = None,
     *,
@@ -313,6 +382,7 @@ def run(
     max_runs: int | None = None,
     token_budget: int | None = None,
     analyze_fn: AnalyzeFn | None = None,
+    session_info: dict | None = None,
 ) -> RunStatus:
     return harness.run(
         SPEC,
@@ -321,13 +391,14 @@ def run(
         model_factory,
         settings,
         conditions,
-        repeats,
+        repeats or REPEATS,
         limit,
         run_dir=run_dir,
         workers=workers,
         max_runs=max_runs,
         token_budget=token_budget,
         analyze_fn=analyze_fn,
+        session_info=session_info,
     )
 
 

@@ -9,9 +9,9 @@ import pytest
 from tashkeel_check.analyzer import analyze_tokens
 from tashkeel_check.config import Settings
 from tashkeel_check.fake import FakeAgentModel
-from tashkeel_check.reconcile import reconcile
+from tashkeel_check.reconcile import find_spellings, reconcile
 from tashkeel_check.runner import run_document
-from tashkeel_check.scoring_v2 import marked_t1
+from tashkeel_check.scoring_v2 import _claimed, _hits, marked_t2
 from tashkeel_check.text import Segment, tokenize
 
 from . import hard_responders as H
@@ -237,11 +237,25 @@ def test_c0_rule_v1():
     assert _errors(m) == {"s01.given": "wrong_spelling", "s03.given": "silent_pick", "s03.family": "silent_pick"}
 
 
-def test_marked_t1_ignores_a_neighbours_marker():
+def test_marked_t2_ignores_a_neighbours_marker():
     text = "Mr. [Sultan/?] Al Kuwaiti and Saleh (?) and [Ali/Aly]"
     for word, marked in [("Al Kuwaiti", False), ("Saleh", True), ("Ali", True), ("Sultan", True)]:
         i = text.index(word)
-        assert marked_t1(text, i, i + len(word)) is marked, word
+        assert marked_t2(text, i, i + len(word)) is marked, word
+    text = "Majed Suroor Khaled El-Shamlan, Saad or Sa'd"
+    for word, marked in [("Khaled", False), ("Saad", True)]:  # 'Suroor '의 'or '는 단어 or가 아니다(t2)
+        i = text.index(word)
+        assert marked_t2(text, i, i + len(word)) is marked, word
+
+
+def test_candidates_inside_another_units_spelling_are_not_hits():
+    """분석기 로마자가 같은 구간의 다른 이름 자리에 걸린 것은 '서로 다른 표기 둘'로 세지 않는다(t2)."""
+    english = "Abdel Aziz Tariq Al Maadeed"
+    unit = {"unit_id": "n1.family", "expected_spelling": "Al Maadeed"}
+    peer = {"unit_id": "n1.given", "expected_spelling": "Abdel Aziz"}
+    cands = {"Al-M'adyd", "Al Maadeed"}
+    assert len({h[2] for h in find_spellings(cands, english)}) == 2  # t1은 'Aziz'까지 잡았다
+    assert [english[a:b] for a, b, _ in _hits(cands, english, _claimed(unit, [unit, peer], english))] == ["Al Maadeed"]
 
 
 def test_old_gold_format_is_scored_as_before(mini_doc, mini_tokens):

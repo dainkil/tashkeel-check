@@ -1,0 +1,756 @@
+{
+ "doc_id": "heval_005",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 10/03/2026 حضر أمام الكاتب العدل السيد حسين بن محمد بن جاسم الرشيد، إماراتي الجنسية، ويحمل جواز سفر رقم J4447299."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Hussein bin Mohammed bin Jassim El-Rasheed, Passport No. J4447299"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الهاشمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 727142، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "وقرر أنه وكّل السيد خميس حسين الرشيد، إماراتي الجنسية، ويحمل بطاقة هوية رقم 57544643."
+  },
+  {
+   "segment_id": "s06",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s08",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s09",
+   "text": "الموكل: حسين الرشيد"
+  },
+  {
+   "segment_id": "s10",
+   "text": "الوكيل: خميس الرشيد"
+  },
+  {
+   "segment_id": "s11",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "B5",
+  "B6",
+  "D4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 5,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     77
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "حسين بن محمد بن جاسم الرشيد",
+    "english_full": "Hussein Mohammed Jassim El-Rasheed",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "حسين",
+      "position": "given",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Hussein",
+      "expected": "adopt",
+      "expected_spelling": "Hussein",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 15,
+      "token_ids": [
+       15
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "جاسم",
+      "position": "middle",
+      "english_variants": [
+       "Jassim",
+       "Jassem",
+       "Jasim",
+       "Jasem",
+       "Jaseem"
+      ],
+      "raw_variants": [
+       "Jassim",
+       "Jassem",
+       "Jasim",
+       "Jasem",
+       "Gasm",
+       "Jaseem"
+      ],
+      "english_used": "Jassim",
+      "expected": "adopt",
+      "expected_spelling": "Jassim",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الرشيد",
+      "position": "family",
+      "english_variants": [
+       "Al Rasheed",
+       "Al Rashid",
+       "Al Rashed",
+       "Rasheed"
+      ],
+      "raw_variants": [
+       "Al Rasheed",
+       "al Rashid",
+       "Rasheed",
+       "Al Rashid",
+       "al Rasheed",
+       "Al Rushaid",
+       "Al Rashaid",
+       "Al Rashed"
+      ],
+      "english_used": "El-Rasheed",
+      "expected": "adopt",
+      "expected_spelling": "El-Rasheed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     40
+    ],
+    "arabic_full": "الهاشمي",
+    "english_full": "Al Hashimy",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 40,
+      "token_ids": [
+       40
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الهاشمي",
+      "position": "family",
+      "english_variants": [
+       "Al Hashemi",
+       "Al Hashimi",
+       "Al Hashimy",
+       "Hashimi"
+      ],
+      "raw_variants": [
+       "Al Hashemi",
+       "Al Hashimi",
+       "Al Hashmi",
+       "Al Hashimy",
+       "al Hashimi",
+       "al Hashemi",
+       "Hashimi"
+      ],
+      "english_used": "Al Hashimy",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     20,
+     36
+    ],
+    "token_ids": [
+     62,
+     63,
+     64
+    ],
+    "arabic_full": "خميس حسين الرشيد",
+    "english_full": "Khamis Hussain Al Rasheed",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 62,
+      "token_ids": [
+       62
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "خميس",
+      "position": "given",
+      "english_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "raw_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "english_used": "Khamis",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 63,
+      "token_ids": [
+       63
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Hussain",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 64,
+      "token_ids": [
+       64
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الرشيد",
+      "position": "family",
+      "english_variants": [
+       "Al Rasheed",
+       "Al Rashid",
+       "Al Rashed",
+       "Rasheed"
+      ],
+      "raw_variants": [
+       "Al Rasheed",
+       "al Rashid",
+       "Rasheed",
+       "Al Rashid",
+       "al Rasheed",
+       "Al Rushaid",
+       "Al Rashaid",
+       "Al Rashed"
+      ],
+      "english_used": "Al Rasheed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s09",
+    "span": [
+     8,
+     19
+    ],
+    "token_ids": [
+     101,
+     102
+    ],
+    "arabic_full": "حسين الرشيد",
+    "english_full": "Hussein El-Rasheed",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+    },
+    "tokens": [
+     {
+      "token_id": 101,
+      "token_ids": [
+       101
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "حسين",
+      "position": "given",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Hussein",
+      "expected": "adopt",
+      "expected_spelling": "Hussein",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 102,
+      "token_ids": [
+       102
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الرشيد",
+      "position": "family",
+      "english_variants": [
+       "Al Rasheed",
+       "Al Rashid",
+       "Al Rashed",
+       "Rasheed"
+      ],
+      "raw_variants": [
+       "Al Rasheed",
+       "al Rashid",
+       "Rasheed",
+       "Al Rashid",
+       "al Rasheed",
+       "Al Rushaid",
+       "Al Rashaid",
+       "Al Rashed"
+      ],
+      "english_used": "El-Rasheed",
+      "expected": "adopt",
+      "expected_spelling": "El-Rasheed",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Hussein bin Mohammed bin Jassim El-Rasheed"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     19
+    ],
+    "token_ids": [
+     104,
+     105
+    ],
+    "arabic_full": "خميس الرشيد",
+    "english_full": "Khamis Al Rasheed",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "خميس",
+      "position": "given",
+      "english_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "raw_variants": [
+       "Khamis",
+       "Khamees",
+       "Khames",
+       "Khameis"
+      ],
+      "english_used": "Khamis",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 105,
+      "token_ids": [
+       105
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الرشيد",
+      "position": "family",
+      "english_variants": [
+       "Al Rasheed",
+       "Al Rashid",
+       "Al Rashed",
+       "Rasheed"
+      ],
+      "raw_variants": [
+       "Al Rasheed",
+       "al Rashid",
+       "Rasheed",
+       "Al Rashid",
+       "al Rasheed",
+       "Al Rushaid",
+       "Al Rashaid",
+       "Al Rashed"
+      ],
+      "english_used": "Al Rasheed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حسين",
+      "spelling": "Hussein"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "grandfather": {
+      "arabic": "جاسم",
+      "spelling": "Jassim"
+     },
+     "family": {
+      "arabic": "الرشيد",
+      "spelling": "El-Rasheed"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Hussein bin Mohammed bin Jassim El-Rasheed",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Hussein",
+       "father": "Mohammed",
+       "grandfather": "Jassim",
+       "family": "El-Rasheed"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "خميس",
+      "spelling": "Khamis"
+     },
+     "father": {
+      "arabic": "حسين",
+      "spelling": "Hussain"
+     },
+     "family": {
+      "arabic": "الرشيد",
+      "spelling": "Al Rasheed"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الهاشمي",
+      "spelling": "Al Hashimy"
+     }
+    },
+    "renderings": []
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   43,
+   44,
+   45,
+   48,
+   49,
+   50,
+   54,
+   55,
+   56,
+   57
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 89,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 96,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   89,
+   96
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "B5"
+ ]
+}

@@ -1,23 +1,23 @@
 {
  "n_docs": 20,
- "n_units": 451,
- "n_arabic_tokens": 484,
+ "n_units": 447,
+ "n_arabic_tokens": 473,
  "case_counts": {
-  "A1": 30,
-  "A2": 25,
-  "A3": 88,
-  "B1": 40,
-  "B2": 30,
-  "B3": 25,
-  "B4": 17,
+  "A1": 28,
+  "A2": 21,
+  "A3": 79,
+  "B1": 37,
+  "B2": 24,
+  "B3": 20,
+  "B4": 12,
   "B5": 12,
-  "B6": 11,
-  "C1": 12,
-  "C2": 26,
+  "B6": 16,
+  "C1": 18,
+  "C2": 25,
   "C3": 19,
-  "D2": 22,
-  "D3": 81,
-  "D4": 25,
+  "D2": 21,
+  "D3": 64,
+  "D4": 23,
   "D5": 9
  },
  "quota": {
@@ -39,19 +39,13 @@
   "D5": 6
  },
  "long_docs": 8,
- "lookalike_tokens": 31,
- "hard_share": 0.643,
+ "lookalike_tokens": 32,
+ "hard_share": 0.622,
  "adopt_share": 0.568,
- "arguable": 171,
- "short": {
-  "B6": [
-   11,
-   14
-  ],
-  "C1": [
-   12,
-   14
-  ]
- },
- "ok": false
+ "arguable": 164,
+ "short": {},
+ "ok": true,
+ "seed": 3001,
+ "seed_base": 3001,
+ "seed_tries": 1
 }

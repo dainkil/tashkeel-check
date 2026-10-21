@@ -1,0 +1,502 @@
+{
+ "doc_id": "heval_046",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Adawi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 4053012 | www.aladawi-group.example.com"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة العدوي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 438997، وعنوانها دبي، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد مهند بن حسن العدوي، كويتي الجنسية، ويحمل جواز سفر رقم E6809483، يعمل لديها بوظيفة محاسب منذ 17/11/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s07",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s08",
+   "text": "المدير العام: السيد مهنا محمد الصفار"
+  },
+  {
+   "segment_id": "s09",
+   "text": "General Manager: Mohanna Mohammed Al Saffar"
+  },
+  {
+   "segment_id": "s10",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s11",
+   "text": "Email: hr@aladawi.example.com"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التاريخ: 26/08/2026"
+  }
+ ],
+ "features_planned": [
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 46,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     16
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "العدوي",
+    "english_full": "Al Adawi",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Adawi"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "العدوي",
+      "position": "family",
+      "english_variants": [
+       "Al Adawi"
+      ],
+      "raw_variants": [
+       "Al Adawi"
+      ],
+      "english_used": "Al Adawi",
+      "expected": "adopt",
+      "expected_spelling": "Al Adawi",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Adawi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     28
+    ],
+    "token_ids": [
+     36,
+     37,
+     38,
+     39
+    ],
+    "arabic_full": "مهند بن حسن العدوي",
+    "english_full": "Muhannad Hassan Al Adawi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "مهند",
+      "position": "given",
+      "english_variants": [
+       "Muhannad",
+       "Mohanad",
+       "Muhanned"
+      ],
+      "raw_variants": [
+       "Muhannad",
+       "Mohanad",
+       "Mahnad",
+       "Mohand",
+       "Muhanned"
+      ],
+      "english_used": "Muhannad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan"
+      ],
+      "raw_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hassan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 39,
+      "token_ids": [
+       39
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العدوي",
+      "position": "family",
+      "english_variants": [
+       "Al Adawi"
+      ],
+      "raw_variants": [
+       "Al Adawi"
+      ],
+      "english_used": "Al Adawi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     20,
+     36
+    ],
+    "token_ids": [
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "مهنا محمد الصفار",
+    "english_full": "Mohanna Mohammed Al Saffar",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Mohanna Mohammed Al Saffar"
+    },
+    "tokens": [
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "مهنا",
+      "position": "given",
+      "english_variants": [
+       "Mohanna",
+       "Muhanna"
+      ],
+      "raw_variants": [
+       "Mohanna",
+       "Mohna",
+       "Muhanna"
+      ],
+      "english_used": "Mohanna",
+      "expected": "adopt",
+      "expected_spelling": "Mohanna",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohanna Mohammed Al Saffar"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohanna Mohammed Al Saffar"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الصفار",
+      "position": "family",
+      "english_variants": [
+       "Al Saffar"
+      ],
+      "raw_variants": [
+       "Al Saffar",
+       "al Saffar"
+      ],
+      "english_used": "Al Saffar",
+      "expected": "adopt",
+      "expected_spelling": "Al Saffar",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Mohanna Mohammed Al Saffar"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مهنا",
+      "spelling": "Mohanna"
+     },
+     "father": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "family": {
+      "arabic": "الصفار",
+      "spelling": "Al Saffar"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s09",
+      "quote": "Mohanna Mohammed Al Saffar",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mohanna",
+       "father": "Mohammed",
+       "family": "Al Saffar"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مهند",
+      "spelling": "Muhannad"
+     },
+     "father": {
+      "arabic": "حسن",
+      "spelling": "Hassan"
+     },
+     "family": {
+      "arabic": "العدوي",
+      "spelling": "Al Adawi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العدوي",
+      "spelling": "Al Adawi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Adawi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Adawi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s01",
+    "quote": "Al Adawi",
+    "kind": "company",
+    "resembles": [
+     "p1.family"
+    ]
+   },
+   {
+    "segment_id": "s02",
+    "quote": "www.aladawi-group.example.com",
+    "kind": "url",
+    "resembles": [
+     "p1.family",
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s11",
+    "quote": "hr@aladawi.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 56,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   56
+  ]
+ },
+ "case_types": [
+  "C1",
+  "C2"
+ ]
+}

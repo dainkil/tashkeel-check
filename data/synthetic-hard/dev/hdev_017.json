@@ -11,23 +11,23 @@
   },
   {
    "segment_id": "s02",
-   "text": "إنه في يوم 14/10/2026 حضر أمام الكاتب العدل السيد مسعد بن رضا بن باسل الجاسر، سعودي الجنسية، ويحمل جواز سفر رقم X8473628."
+   "text": "إنه في يوم 14/10/2026 حضر أمام الكاتب العدل السيد صالح ربيع أيوب الجاسر، سعودي الجنسية، ويحمل جواز سفر رقم X8473628."
   },
   {
    "segment_id": "s03",
-   "text": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+   "text": "Principal: Saleh Al Jassir, Passport No. X8473628"
   },
   {
    "segment_id": "s04",
-   "text": "وذلك بصفته مديرًا لشركة الحرقان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 955911، وعنوانها الشارقة، الإمارات العربية المتحدة."
+   "text": "وذلك بصفته مديرًا لشركة المطيري للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 955911، وعنوانها الشارقة، الإمارات العربية المتحدة."
   },
   {
    "segment_id": "s05",
-   "text": "Company: Al Hargan General Trading L.L.C., Registration No. 955911"
+   "text": "Company: Al Mutairi General Trading L.L.C., Registration No. 955911"
   },
   {
    "segment_id": "s06",
-   "text": "وقرر أنه وكّل السيد أسعد بيت محمد الحرقان، عماني الجنسية، ويحمل بطاقة هوية رقم 29737679."
+   "text": "وقرر أنه وكّل السيدة مها حسن المطيري، عمانية الجنسية، وتحمل بطاقة هوية رقم 29737679."
   },
   {
    "segment_id": "s07",
@@ -43,11 +43,11 @@
   },
   {
    "segment_id": "s10",
-   "text": "الموكل: مسعد الجاسر"
+   "text": "الموكل: صالح الجاسر"
   },
   {
    "segment_id": "s11",
-   "text": "الوكيل: أسعد الحرقان"
+   "text": "الوكيلة: مها المطيري"
   },
   {
    "segment_id": "s12",
@@ -55,14 +55,14 @@
   }
  ],
  "features_planned": [
-  "B3",
   "B4",
   "B6",
-  "C1",
-  "C2"
+  "C2",
+  "D2",
+  "D4"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -81,21 +81,19 @@
     "segment_id": "s02",
     "span": [
      50,
-     76
+     71
     ],
     "token_ids": [
      11,
      12,
      13,
-     14,
-     15,
-     16
+     14
     ],
-    "arabic_full": "مسعد بن رضا بن باسل الجاسر",
-    "english_full": "Massad Reda Basil Al Jasser",
+    "arabic_full": "صالح ربيع أيوب الجاسر",
+    "english_full": "Saleh Rabee Ayoub Al Jassir",
     "evidence": {
      "segment_id": "s03",
-     "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+     "quote": "Saleh Al Jassir"
     },
     "tokens": [
      {
@@ -105,29 +103,59 @@
       ],
       "unit_id": "n1.given",
       "slot": "given",
-      "arabic": "مسعد",
+      "arabic": "صالح",
       "position": "given",
       "english_variants": [
-       "Massad",
-       "Mesaad"
+       "Saleh",
+       "Salih"
       ],
       "raw_variants": [
-       "Massad",
-       "Al Muwallid",
-       "Mesaad"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Massad",
+      "english_used": "Saleh",
       "expected": "adopt",
-      "expected_spelling": "Massad",
+      "expected_spelling": "Saleh",
       "evidence": [
        {
         "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+        "quote": "Saleh Al Jassir"
        }
       ],
       "must_include": [],
       "case_types": [
-       "B3"
+       "D2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "ربيع",
+      "position": "middle",
+      "english_variants": [
+       "Rabee",
+       "Rabi'",
+       "Rabyi"
+      ],
+      "raw_variants": [
+       "Rabee",
+       "Rabyi",
+       "Rabi'",
+       "Rabia"
+      ],
+      "english_used": "Rabee",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
       ],
       "arguable": false
      },
@@ -136,75 +164,36 @@
       "token_ids": [
        13
       ],
-      "unit_id": "n1.father",
-      "slot": "father",
-      "arabic": "رضا",
-      "position": "middle",
-      "english_variants": [
-       "Redha",
-       "Reda",
-       "Reza",
-       "Rida",
-       "Ridha"
-      ],
-      "raw_variants": [
-       "Redha",
-       "Rida",
-       "Reda",
-       "Reza",
-       "Ridha"
-      ],
-      "english_used": "Reda",
-      "expected": "adopt",
-      "expected_spelling": "Reda",
-      "evidence": [
-       {
-        "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
-       }
-      ],
-      "must_include": [],
-      "case_types": [
-       "B3"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 15,
-      "token_ids": [
-       15
-      ],
       "unit_id": "n1.grandfather",
       "slot": "grandfather",
-      "arabic": "باسل",
+      "arabic": "أيوب",
       "position": "middle",
       "english_variants": [
-       "Basil",
-       "Basel"
+       "Ayoub",
+       "Ayub",
+       "Ayyub",
+       "Ayyoub"
       ],
       "raw_variants": [
-       "Basil",
-       "Basel"
+       "Ayoub",
+       "Ayub",
+       "Ayyub",
+       "Ayyoub"
       ],
-      "english_used": "Basil",
-      "expected": "adopt",
-      "expected_spelling": "Basil",
-      "evidence": [
-       {
-        "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
-       }
-      ],
+      "english_used": "Ayoub",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
       "must_include": [],
       "case_types": [
-       "B3"
+       "B6"
       ],
       "arguable": false
      },
      {
-      "token_id": 16,
+      "token_id": 14,
       "token_ids": [
-       16
+       14
       ],
       "unit_id": "n1.family",
       "slot": "family",
@@ -219,19 +208,17 @@
        "al Jasser",
        "Al Jasser"
       ],
-      "english_used": "Al Jasser",
+      "english_used": "Al Jassir",
       "expected": "adopt",
-      "expected_spelling": "Al Jasser",
+      "expected_spelling": "Al Jassir",
       "evidence": [
        {
         "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+        "quote": "Saleh Al Jassir"
        }
       ],
       "must_include": [],
-      "case_types": [
-       "B3"
-      ],
+      "case_types": [],
       "arguable": false
      }
     ]
@@ -249,11 +236,11 @@
     "token_ids": [
      35
     ],
-    "arabic_full": "الحرقان",
-    "english_full": "Al Hargan",
+    "arabic_full": "المطيري",
+    "english_full": "Al Mutairi",
     "evidence": {
      "segment_id": "s05",
-     "quote": "Al Hargan"
+     "quote": "Al Mutairi"
     },
     "tokens": [
      {
@@ -263,22 +250,27 @@
       ],
       "unit_id": "n2.family",
       "slot": "family",
-      "arabic": "الحرقان",
+      "arabic": "المطيري",
       "position": "family",
       "english_variants": [
-       "Al Hargan"
+       "Al Mutairi",
+       "Al Mutairy",
+       "Al Mutayri"
       ],
       "raw_variants": [
-       "Al Hargan",
-       "Al Harqan"
+       "Al Mutairi",
+       "Mansor",
+       "Al Mutairy",
+       "al Mutairi",
+       "al Mutayri"
       ],
-      "english_used": "Al Hargan",
+      "english_used": "Al Mutairi",
       "expected": "adopt",
-      "expected_spelling": "Al Hargan",
+      "expected_spelling": "Al Mutairi",
       "evidence": [
        {
         "segment_id": "s05",
-        "quote": "Al Hargan"
+        "quote": "Al Mutairi"
        }
       ],
       "must_include": [],
@@ -294,17 +286,16 @@
     "mention": "full",
     "segment_id": "s06",
     "span": [
-     20,
-     41
+     21,
+     36
     ],
     "token_ids": [
      66,
      67,
-     68,
-     69
+     68
     ],
-    "arabic_full": "أسعد بيت محمد الحرقان",
-    "english_full": "Asad Bait Muhammad Al Hargan",
+    "arabic_full": "مها حسن المطيري",
+    "english_full": "Maha Hassan Al Mutairi",
     "evidence": null,
     "tokens": [
      {
@@ -314,25 +305,20 @@
       ],
       "unit_id": "n3.given",
       "slot": "given",
-      "arabic": "أسعد",
+      "arabic": "مها",
       "position": "given",
       "english_variants": [
-       "Asa'ad",
-       "Asad"
+       "Maha"
       ],
       "raw_variants": [
-       "Asad",
-       "Asaad",
-       "Asa'ad"
+       "Maha"
       ],
-      "english_used": "Asad",
+      "english_used": "Maha",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
       "must_include": [],
-      "case_types": [
-       "C1"
-      ],
+      "case_types": [],
       "arguable": false
      },
      {
@@ -342,15 +328,19 @@
       ],
       "unit_id": "n3.father",
       "slot": "father",
-      "arabic": "بيت",
+      "arabic": "حسن",
       "position": "middle",
       "english_variants": [
-       "Bait"
+       "Hassan",
+       "Hasan"
       ],
       "raw_variants": [
-       "Bait"
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
       ],
-      "english_used": "Bait",
+      "english_used": "Hassan",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
@@ -363,59 +353,23 @@
       "token_ids": [
        68
       ],
-      "unit_id": "n3.grandfather",
-      "slot": "grandfather",
-      "arabic": "محمد",
-      "position": "middle",
-      "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad"
-      ],
-      "raw_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
-      ],
-      "english_used": "Muhammad",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [],
-      "arguable": false
-     },
-     {
-      "token_id": 69,
-      "token_ids": [
-       69
-      ],
       "unit_id": "n3.family",
       "slot": "family",
-      "arabic": "الحرقان",
+      "arabic": "المطيري",
       "position": "family",
       "english_variants": [
-       "Al Hargan"
+       "Al Mutairi",
+       "Al Mutairy",
+       "Al Mutayri"
       ],
       "raw_variants": [
-       "Al Hargan",
-       "Al Harqan"
+       "Al Mutairi",
+       "Mansor",
+       "Al Mutairy",
+       "al Mutairi",
+       "al Mutayri"
       ],
-      "english_used": "Al Hargan",
+      "english_used": "Al Mutairi",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
@@ -438,54 +392,54 @@
      19
     ],
     "token_ids": [
-     106,
-     107
+     105,
+     106
     ],
-    "arabic_full": "مسعد الجاسر",
-    "english_full": "Massad Al Jasser",
+    "arabic_full": "صالح الجاسر",
+    "english_full": "Saleh Al Jassir",
     "evidence": {
      "segment_id": "s03",
-     "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+     "quote": "Saleh Al Jassir"
     },
     "tokens": [
      {
-      "token_id": 106,
+      "token_id": 105,
       "token_ids": [
-       106
+       105
       ],
       "unit_id": "n4.given",
       "slot": "given",
-      "arabic": "مسعد",
+      "arabic": "صالح",
       "position": "given",
       "english_variants": [
-       "Massad",
-       "Mesaad"
+       "Saleh",
+       "Salih"
       ],
       "raw_variants": [
-       "Massad",
-       "Al Muwallid",
-       "Mesaad"
+       "Saleh",
+       "Salih",
+       "Salem"
       ],
-      "english_used": "Massad",
+      "english_used": "Saleh",
       "expected": "adopt",
-      "expected_spelling": "Massad",
+      "expected_spelling": "Saleh",
       "evidence": [
        {
         "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+        "quote": "Saleh Al Jassir"
        }
       ],
       "must_include": [],
       "case_types": [
        "A3",
-       "B3"
+       "D2"
       ],
       "arguable": true
      },
      {
-      "token_id": 107,
+      "token_id": 106,
       "token_ids": [
-       107
+       106
       ],
       "unit_id": "n4.family",
       "slot": "family",
@@ -500,19 +454,18 @@
        "al Jasser",
        "Al Jasser"
       ],
-      "english_used": "Al Jasser",
+      "english_used": "Al Jassir",
       "expected": "adopt",
-      "expected_spelling": "Al Jasser",
+      "expected_spelling": "Al Jassir",
       "evidence": [
        {
         "segment_id": "s03",
-        "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<"
+        "quote": "Saleh Al Jassir"
        }
       ],
       "must_include": [],
       "case_types": [
-       "A3",
-       "B3"
+       "A3"
       ],
       "arguable": true
      }
@@ -525,63 +478,64 @@
     "mention": "short",
     "segment_id": "s11",
     "span": [
-     8,
+     9,
      20
     ],
     "token_ids": [
-     109,
-     110
+     108,
+     109
     ],
-    "arabic_full": "أسعد الحرقان",
-    "english_full": "Asad Al Hargan",
+    "arabic_full": "مها المطيري",
+    "english_full": "Maha Al Mutairi",
     "evidence": null,
     "tokens": [
      {
-      "token_id": 109,
+      "token_id": 108,
       "token_ids": [
-       109
+       108
       ],
       "unit_id": "n5.given",
       "slot": "given",
-      "arabic": "أسعد",
+      "arabic": "مها",
       "position": "given",
       "english_variants": [
-       "Asa'ad",
-       "Asad"
+       "Maha"
       ],
       "raw_variants": [
-       "Asad",
-       "Asaad",
-       "Asa'ad"
+       "Maha"
       ],
-      "english_used": "Asad",
+      "english_used": "Maha",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
       "must_include": [],
       "case_types": [
-       "A3",
-       "C1"
+       "A3"
       ],
       "arguable": true
      },
      {
-      "token_id": 110,
+      "token_id": 109,
       "token_ids": [
-       110
+       109
       ],
       "unit_id": "n5.family",
       "slot": "family",
-      "arabic": "الحرقان",
+      "arabic": "المطيري",
       "position": "family",
       "english_variants": [
-       "Al Hargan"
+       "Al Mutairi",
+       "Al Mutairy",
+       "Al Mutayri"
       ],
       "raw_variants": [
-       "Al Hargan",
-       "Al Harqan"
+       "Al Mutairi",
+       "Mansor",
+       "Al Mutairy",
+       "al Mutairi",
+       "al Mutayri"
       ],
-      "english_used": "Al Hargan",
+      "english_used": "Al Mutairi",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
@@ -604,34 +558,32 @@
     "relation": "",
     "slots": {
      "given": {
-      "arabic": "مسعد",
-      "spelling": "Massad"
+      "arabic": "صالح",
+      "spelling": "Saleh"
      },
      "father": {
-      "arabic": "رضا",
-      "spelling": "Reda"
+      "arabic": "ربيع",
+      "spelling": "Rabee"
      },
      "grandfather": {
-      "arabic": "باسل",
-      "spelling": "Basil"
+      "arabic": "أيوب",
+      "spelling": "Ayoub"
      },
      "family": {
       "arabic": "الجاسر",
-      "spelling": "Al Jasser"
+      "spelling": "Al Jassir"
      }
     },
     "renderings": [
      {
       "person_id": "p1",
       "segment_id": "s03",
-      "quote": "P<SAUAL<JASSER<<MASSAD<REDA<BASIL<<<<<<<<<<<",
-      "form": "mrz",
+      "quote": "Saleh Al Jassir",
+      "form": "partial",
       "labeled": true,
       "slots": {
-       "given": "Massad",
-       "father": "Reda",
-       "grandfather": "Basil",
-       "family": "Al Jasser"
+       "given": "Saleh",
+       "family": "Al Jassir"
       },
       "initial_slots": []
      }
@@ -641,24 +593,20 @@
     "person_id": "p2",
     "kind": "person",
     "role": "agent",
-    "gender": "male",
+    "gender": "female",
     "relation": "",
     "slots": {
      "given": {
-      "arabic": "أسعد",
-      "spelling": "Asad"
+      "arabic": "مها",
+      "spelling": "Maha"
      },
      "father": {
-      "arabic": "بيت",
-      "spelling": "Bait"
-     },
-     "grandfather": {
-      "arabic": "محمد",
-      "spelling": "Muhammad"
+      "arabic": "حسن",
+      "spelling": "Hassan"
      },
      "family": {
-      "arabic": "الحرقان",
-      "spelling": "Al Hargan"
+      "arabic": "المطيري",
+      "spelling": "Al Mutairi"
      }
     },
     "renderings": []
@@ -671,19 +619,19 @@
     "relation": "",
     "slots": {
      "family": {
-      "arabic": "الحرقان",
-      "spelling": "Al Hargan"
+      "arabic": "المطيري",
+      "spelling": "Al Mutairi"
      }
     },
     "renderings": [
      {
       "person_id": "c1",
       "segment_id": "s05",
-      "quote": "Al Hargan",
+      "quote": "Al Mutairi",
       "form": "plain",
       "labeled": true,
       "slots": {
-       "family": "Al Hargan"
+       "family": "Al Mutairi"
       },
       "initial_slots": []
      }
@@ -693,7 +641,7 @@
   "decoys": [
    {
     "segment_id": "s05",
-    "quote": "Al Hargan",
+    "quote": "Al Mutairi",
     "kind": "company",
     "resembles": [
      "p2.family"
@@ -715,25 +663,25 @@
   "title_token_ids": [],
   "lookalikes": [
    {
-    "token_id": 94,
+    "token_id": 93,
     "kind": "common_word",
-    "twin": null
+    "twin": "p1.given"
    },
    {
-    "token_id": 101,
+    "token_id": 100,
     "kind": "common_word",
     "twin": null
    }
   ],
   "lookalike_token_ids": [
-   94,
-   101
+   93,
+   100
   ]
  },
  "case_types": [
   "A3",
-  "B3",
-  "C1",
-  "C2"
+  "B6",
+  "C2",
+  "D2"
  ]
 }

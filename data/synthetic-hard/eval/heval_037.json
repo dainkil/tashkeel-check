@@ -1,0 +1,702 @@
+{
+ "doc_id": "heval_037",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 07/05/2026 حضر أمام الكاتب العدل السيد سعود بن عبد الرحمن السلطان، كويتي الجنسية، ويحمل جواز سفر رقم M4367123."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Saud bin Abdulrahman Al Sultan, Passport No. M4367123"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة السلطان للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 855919، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Sultan General Trading L.L.C., Registration No. 855919"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد عبد الله سعود السلطان، كويتي الجنسية، ويحمل بطاقة هوية رقم 54142175."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: سعود السلطان"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: عبد الله السلطان"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 37,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     76
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "arabic_full": "سعود بن عبد الرحمن السلطان",
+    "english_full": "Saud Abdulrahman Al Sultan",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Saud bin Abdulrahman Al Sultan"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "adopt",
+      "expected_spelling": "Saud",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Saud bin Abdulrahman Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 14,
+      "token_ids": [
+       13,
+       14
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "adopt",
+      "expected_spelling": "Abdulrahman",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Saud bin Abdulrahman Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 15,
+      "token_ids": [
+       15
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Saud bin Abdulrahman Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     31
+    ],
+    "token_ids": [
+     38
+    ],
+    "arabic_full": "السلطان",
+    "english_full": "Al Sultan",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Sultan"
+    },
+    "tokens": [
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     41
+    ],
+    "token_ids": [
+     69,
+     70,
+     71,
+     72
+    ],
+    "arabic_full": "عبد الله سعود السلطان",
+    "english_full": "Abdullah Saud Al Sultan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 70,
+      "token_ids": [
+       69,
+       70
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "عبد الله",
+      "position": "given",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdullah",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 72,
+      "token_ids": [
+       72
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     109,
+     110
+    ],
+    "arabic_full": "سعود السلطان",
+    "english_full": "Saud Al Sultan",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Saud bin Abdulrahman Al Sultan"
+    },
+    "tokens": [
+     {
+      "token_id": 109,
+      "token_ids": [
+       109
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "adopt",
+      "expected_spelling": "Saud",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Saud bin Abdulrahman Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 110,
+      "token_ids": [
+       110
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Saud bin Abdulrahman Al Sultan"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     24
+    ],
+    "token_ids": [
+     112,
+     113,
+     114
+    ],
+    "arabic_full": "عبد الله السلطان",
+    "english_full": "Abdullah Al Sultan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 113,
+      "token_ids": [
+       112,
+       113
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "عبد الله",
+      "position": "given",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdullah",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 114,
+      "token_ids": [
+       114
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "father": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "family": {
+      "arabic": "السلطان",
+      "spelling": "Al Sultan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Saud bin Abdulrahman Al Sultan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Saud",
+       "father": "Abdulrahman",
+       "family": "Al Sultan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "عبد الله",
+      "spelling": "Abdullah"
+     },
+     "father": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "family": {
+      "arabic": "السلطان",
+      "spelling": "Al Sultan"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "السلطان",
+      "spelling": "Al Sultan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Sultan",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Sultan"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Sultan",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   41,
+   42,
+   43,
+   46,
+   47,
+   48,
+   52,
+   53,
+   54,
+   55
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 97,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 104,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   97,
+   104
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "C2",
+  "D3"
+ ]
+}

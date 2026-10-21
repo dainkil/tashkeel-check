@@ -1,0 +1,1923 @@
+{
+ "doc_id": "heval_067",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "cr",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "مستخرج من السجل التجاري"
+  },
+  {
+   "segment_id": "s02",
+   "text": "الاسم التجاري: الأميري للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Trade name: Al Amiri General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "البريد الإلكتروني: info@alamiri-group.example.com"
+  },
+  {
+   "segment_id": "s05",
+   "text": "رقم الرخصة: 322782، جهة الإصدار: دائرة التنمية الاقتصادية، الإمارة: أبوظبي"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الشكل القانوني: شركة ذات مسؤولية محدودة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الشركاء:"
+  },
+  {
+   "segment_id": "s08",
+   "text": "1. الشيخة زينب سيد مبروك العميري، إماراتية الجنسية، الحصة 14٪"
+  },
+  {
+   "segment_id": "s09",
+   "text": "Partner 1: Zainab Sayed Mabrouk Al Ameeri"
+  },
+  {
+   "segment_id": "s10",
+   "text": "2. المهندسة لؤلؤة بنت مشاري اليامي، بحرينية الجنسية، الحصة 7٪"
+  },
+  {
+   "segment_id": "s11",
+   "text": "3. السيدة عائشة بنت سلطان بن صالح العثيمين، إماراتية الجنسية، الحصة 19٪"
+  },
+  {
+   "segment_id": "s12",
+   "text": "Partner 3: Aisha Al Uthaymeen"
+  },
+  {
+   "segment_id": "s13",
+   "text": "4. السيد سعود بن عبد الرحمن العلي، عماني الجنسية، الحصة 22٪"
+  },
+  {
+   "segment_id": "s14",
+   "text": "Partner 4: Saud bin Abdulrahman Al Ali"
+  },
+  {
+   "segment_id": "s15",
+   "text": "5. السيدة سارة حميد الأميري، قطرية الجنسية، الحصة 21٪"
+  },
+  {
+   "segment_id": "s16",
+   "text": "6. المهندس محمد بن حمد بن أحمد الحارثي، عماني الجنسية، الحصة 5٪"
+  },
+  {
+   "segment_id": "s17",
+   "text": "Partner 6: Mohamed bin Hamad bin Ahmed Al Harthi"
+  },
+  {
+   "segment_id": "s18",
+   "text": "7. المهندس سعود بن علي السلطان، سعودي الجنسية، الحصة 13٪"
+  },
+  {
+   "segment_id": "s19",
+   "text": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<"
+  },
+  {
+   "segment_id": "s20",
+   "text": "8. الدكتور محمد بن عادل بن عبد العزيز المنوري، عماني الجنسية، الحصة 24٪"
+  },
+  {
+   "segment_id": "s21",
+   "text": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+  },
+  {
+   "segment_id": "s22",
+   "text": "المدير: الشريك رقم 8، السيد محمد المنوري"
+  },
+  {
+   "segment_id": "s23",
+   "text": "المفوض بالتوقيع: الشريك رقم 4، السيد سعود العلي"
+  },
+  {
+   "segment_id": "s24",
+   "text": "تاريخ الإصدار: 27/08/2026"
+  },
+  {
+   "segment_id": "s25",
+   "text": "التوقيعات:"
+  },
+  {
+   "segment_id": "s26",
+   "text": "Luluwah bint Mashari Al Yami"
+  }
+ ],
+ "features_planned": [
+  "A2",
+  "B3",
+  "B6",
+  "C1",
+  "C2",
+  "D4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 67,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     15,
+     22
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الأميري",
+    "english_full": "Al Amiri",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Amiri"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الأميري",
+      "position": "family",
+      "english_variants": [
+       "Al Amiri"
+      ],
+      "raw_variants": [
+       "Al Amiri",
+       "Alamiri"
+      ],
+      "english_used": "Al Amiri",
+      "expected": "adopt",
+      "expected_spelling": "Al Amiri",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Al Amiri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "partner",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     10,
+     32
+    ],
+    "token_ids": [
+     42,
+     43,
+     44,
+     45
+    ],
+    "arabic_full": "زينب سيد مبروك العميري",
+    "english_full": "Zainab Sayed Mabrouk Al Ameeri",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "Zainab Sayed Mabrouk Al Ameeri"
+    },
+    "tokens": [
+     {
+      "token_id": 42,
+      "token_ids": [
+       42
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "زينب",
+      "position": "given",
+      "english_variants": [
+       "Zainab",
+       "Zaynab",
+       "Zeinab"
+      ],
+      "raw_variants": [
+       "Zainab",
+       "Zaynab",
+       "Zeinab"
+      ],
+      "english_used": "Zainab",
+      "expected": "adopt",
+      "expected_spelling": "Zainab",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Zainab Sayed Mabrouk Al Ameeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 43,
+      "token_ids": [
+       43
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سيد",
+      "position": "middle",
+      "english_variants": [
+       "Sayed",
+       "Said"
+      ],
+      "raw_variants": [
+       "Sayed",
+       "Said",
+       "Saad"
+      ],
+      "english_used": "Sayed",
+      "expected": "adopt",
+      "expected_spelling": "Sayed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Zainab Sayed Mabrouk Al Ameeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n2.grandfather",
+      "slot": "grandfather",
+      "arabic": "مبروك",
+      "position": "middle",
+      "english_variants": [
+       "Mabrouk"
+      ],
+      "raw_variants": [
+       "Mabrouk"
+      ],
+      "english_used": "Mabrouk",
+      "expected": "adopt",
+      "expected_spelling": "Mabrouk",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Zainab Sayed Mabrouk Al Ameeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 45,
+      "token_ids": [
+       45
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العميري",
+      "position": "family",
+      "english_variants": [
+       "Al Ameeri"
+      ],
+      "raw_variants": [
+       "Al Ameeri",
+       "Alameeri"
+      ],
+      "english_used": "Al Ameeri",
+      "expected": "adopt",
+      "expected_spelling": "Al Ameeri",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "Zainab Sayed Mabrouk Al Ameeri"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s10",
+    "span": [
+     12,
+     34
+    ],
+    "token_ids": [
+     59,
+     60,
+     61,
+     62
+    ],
+    "arabic_full": "لؤلؤة بنت مشاري اليامي",
+    "english_full": "Luluwah Mashari Al Yami",
+    "evidence": {
+     "segment_id": "s26",
+     "quote": "Luluwah bint Mashari Al Yami"
+    },
+    "tokens": [
+     {
+      "token_id": 59,
+      "token_ids": [
+       59
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "لؤلؤة",
+      "position": "given",
+      "english_variants": [
+       "Luluwah"
+      ],
+      "raw_variants": [
+       "Luluwah"
+      ],
+      "english_used": "Luluwah",
+      "expected": "adopt",
+      "expected_spelling": "Luluwah",
+      "evidence": [
+       {
+        "segment_id": "s26",
+        "quote": "Luluwah bint Mashari Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 61,
+      "token_ids": [
+       61
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "مشاري",
+      "position": "middle",
+      "english_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "raw_variants": [
+       "Meshari",
+       "Mashari",
+       "Mishari",
+       "Meshary",
+       "Mishary",
+       "Moshari"
+      ],
+      "english_used": "Mashari",
+      "expected": "adopt",
+      "expected_spelling": "Mashari",
+      "evidence": [
+       {
+        "segment_id": "s26",
+        "quote": "Luluwah bint Mashari Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 62,
+      "token_ids": [
+       62
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "اليامي",
+      "position": "family",
+      "english_variants": [
+       "Al Yami"
+      ],
+      "raw_variants": [
+       "Al Yami"
+      ],
+      "english_used": "Al Yami",
+      "expected": "adopt",
+      "expected_spelling": "Al Yami",
+      "evidence": [
+       {
+        "segment_id": "s26",
+        "quote": "Luluwah bint Mashari Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D4"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "partner",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     10,
+     42
+    ],
+    "token_ids": [
+     69,
+     70,
+     71,
+     72,
+     73,
+     74
+    ],
+    "arabic_full": "عائشة بنت سلطان بن صالح العثيمين",
+    "english_full": "Aisha Sultan Saleh Al Uthaymeen",
+    "evidence": {
+     "segment_id": "s12",
+     "quote": "Aisha Al Uthaymeen"
+    },
+    "tokens": [
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "عائشة",
+      "position": "given",
+      "english_variants": [
+       "Aisha",
+       "Aiysha",
+       "Ayesha"
+      ],
+      "raw_variants": [
+       "Aisha",
+       "Aiysha",
+       "Ayesha"
+      ],
+      "english_used": "Aisha",
+      "expected": "adopt",
+      "expected_spelling": "Aisha",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Aisha Al Uthaymeen"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "سلطان",
+      "position": "middle",
+      "english_variants": [
+       "Sultan"
+      ],
+      "raw_variants": [
+       "Sultan",
+       "Al Sharji",
+       "Sultsn"
+      ],
+      "english_used": "Sultan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6",
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 73,
+      "token_ids": [
+       73
+      ],
+      "unit_id": "n4.grandfather",
+      "slot": "grandfather",
+      "arabic": "صالح",
+      "position": "middle",
+      "english_variants": [
+       "Saleh",
+       "Salih"
+      ],
+      "raw_variants": [
+       "Saleh",
+       "Salih",
+       "Salem"
+      ],
+      "english_used": "Saleh",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 74,
+      "token_ids": [
+       74
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العثيمين",
+      "position": "family",
+      "english_variants": [
+       "Al Uthaymeen"
+      ],
+      "raw_variants": [
+       "al Uthaymeen",
+       "Al Uthaymeen"
+      ],
+      "english_used": "Al Uthaymeen",
+      "expected": "adopt",
+      "expected_spelling": "Al Uthaymeen",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Aisha Al Uthaymeen"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s13",
+    "span": [
+     9,
+     33
+    ],
+    "token_ids": [
+     86,
+     87,
+     88,
+     89,
+     90
+    ],
+    "arabic_full": "سعود بن عبد الرحمن العلي",
+    "english_full": "Saud Abdulrahman Al Ali",
+    "evidence": {
+     "segment_id": "s14",
+     "quote": "Saud bin Abdulrahman Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 86,
+      "token_ids": [
+       86
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "adopt",
+      "expected_spelling": "Saud",
+      "evidence": [
+       {
+        "segment_id": "s14",
+        "quote": "Saud bin Abdulrahman Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 89,
+      "token_ids": [
+       88,
+       89
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "adopt",
+      "expected_spelling": "Abdulrahman",
+      "evidence": [
+       {
+        "segment_id": "s14",
+        "quote": "Saud bin Abdulrahman Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 90,
+      "token_ids": [
+       90
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s14",
+        "quote": "Saud bin Abdulrahman Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s15",
+    "span": [
+     10,
+     27
+    ],
+    "token_ids": [
+     104,
+     105,
+     106
+    ],
+    "arabic_full": "سارة حميد الأميري",
+    "english_full": "Sarah Humaid Al Amiri",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 104,
+      "token_ids": [
+       104
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "سارة",
+      "position": "given",
+      "english_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "raw_variants": [
+       "Sarah",
+       "Sara"
+      ],
+      "english_used": "Sarah",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 105,
+      "token_ids": [
+       105
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "حميد",
+      "position": "middle",
+      "english_variants": [
+       "Humaid",
+       "Humayd"
+      ],
+      "raw_variants": [
+       "Humaid",
+       "Hameed",
+       "Hamid",
+       "Humayd"
+      ],
+      "english_used": "Humaid",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 106,
+      "token_ids": [
+       106
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الأميري",
+      "position": "family",
+      "english_variants": [
+       "Al Amiri"
+      ],
+      "raw_variants": [
+       "Al Amiri",
+       "Alamiri"
+      ],
+      "english_used": "Al Amiri",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1",
+       "C2"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s16",
+    "span": [
+     11,
+     38
+    ],
+    "token_ids": [
+     113,
+     114,
+     115,
+     116,
+     117,
+     118
+    ],
+    "arabic_full": "محمد بن حمد بن أحمد الحارثي",
+    "english_full": "Mohamed Hamad Ahmed Al Harthi",
+    "evidence": {
+     "segment_id": "s17",
+     "quote": "Mohamed bin Hamad bin Ahmed Al Harthi"
+    },
+    "tokens": [
+     {
+      "token_id": 113,
+      "token_ids": [
+       113
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohamed",
+      "expected": "adopt",
+      "expected_spelling": "Mohamed",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Mohamed bin Hamad bin Ahmed Al Harthi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 115,
+      "token_ids": [
+       115
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "adopt",
+      "expected_spelling": "Hamad",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Mohamed bin Hamad bin Ahmed Al Harthi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 117,
+      "token_ids": [
+       117
+      ],
+      "unit_id": "n7.grandfather",
+      "slot": "grandfather",
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "adopt",
+      "expected_spelling": "Ahmed",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Mohamed bin Hamad bin Ahmed Al Harthi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 118,
+      "token_ids": [
+       118
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "الحارثي",
+      "position": "family",
+      "english_variants": [
+       "Al Harthi",
+       "Al Harthy",
+       "Harthi"
+      ],
+      "raw_variants": [
+       "Al Harthi",
+       "al Harithi",
+       "al Harthi",
+       "Harthi",
+       "Al Harthy",
+       "al Harthy"
+      ],
+      "english_used": "Al Harthi",
+      "expected": "adopt",
+      "expected_spelling": "Al Harthi",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Mohamed bin Hamad bin Ahmed Al Harthi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s18",
+    "span": [
+     11,
+     30
+    ],
+    "token_ids": [
+     134,
+     135,
+     136,
+     137
+    ],
+    "arabic_full": "سعود بن علي السلطان",
+    "english_full": "Saoud Ali Al Sultan",
+    "evidence": {
+     "segment_id": "s19",
+     "quote": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 134,
+      "token_ids": [
+       134
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saoud",
+      "expected": "adopt",
+      "expected_spelling": "Saoud",
+      "evidence": [
+       {
+        "segment_id": "s19",
+        "quote": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "B3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 136,
+      "token_ids": [
+       136
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali"
+      ],
+      "raw_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali",
+      "expected": "adopt",
+      "expected_spelling": "Ali",
+      "evidence": [
+       {
+        "segment_id": "s19",
+        "quote": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 137,
+      "token_ids": [
+       137
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "السلطان",
+      "position": "family",
+      "english_variants": [
+       "Al Sultan"
+      ],
+      "raw_variants": [
+       "Al Sultan",
+       "AL Sultan"
+      ],
+      "english_used": "Al Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Al Sultan",
+      "evidence": [
+       {
+        "segment_id": "s19",
+        "quote": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "partner",
+    "person_id": "p8",
+    "mention": "full",
+    "segment_id": "s20",
+    "span": [
+     11,
+     45
+    ],
+    "token_ids": [
+     149,
+     150,
+     151,
+     152,
+     153,
+     154,
+     155
+    ],
+    "arabic_full": "محمد بن عادل بن عبد العزيز المنوري",
+    "english_full": "Muhammad Adel Abdulaziz Al Manwari",
+    "evidence": {
+     "segment_id": "s21",
+     "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 149,
+      "token_ids": [
+       149
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad",
+      "expected": "adopt",
+      "expected_spelling": "Muhammad",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "B3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 151,
+      "token_ids": [
+       151
+      ],
+      "unit_id": "n9.father",
+      "slot": "father",
+      "arabic": "عادل",
+      "position": "middle",
+      "english_variants": [
+       "Adel",
+       "Adil"
+      ],
+      "raw_variants": [
+       "Adel",
+       "Adil",
+       "A'del"
+      ],
+      "english_used": "Adel",
+      "expected": "adopt",
+      "expected_spelling": "Adel",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 154,
+      "token_ids": [
+       153,
+       154
+      ],
+      "unit_id": "n9.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبد العزيز",
+      "position": "middle",
+      "english_variants": [
+       "Abdulaziz",
+       "Abdel Aziz",
+       "Abdullaziz"
+      ],
+      "raw_variants": [
+       "Abdulaziz",
+       "Abdul Aziz",
+       "Abdelaziz",
+       "Abdel Aziz",
+       "Abd Elrahman",
+       "Abdullaziz",
+       "abdulaziz",
+       "Abd al"
+      ],
+      "english_used": "Abdulaziz",
+      "expected": "adopt",
+      "expected_spelling": "Abdulaziz",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 155,
+      "token_ids": [
+       155
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "المنوري",
+      "position": "family",
+      "english_variants": [
+       "Al Manwari"
+      ],
+      "raw_variants": [
+       "Al Manwari"
+      ],
+      "english_used": "Al Manwari",
+      "expected": "adopt",
+      "expected_spelling": "Al Manwari",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "partner",
+    "person_id": "p8",
+    "mention": "short",
+    "segment_id": "s22",
+    "span": [
+     28,
+     40
+    ],
+    "token_ids": [
+     171,
+     172
+    ],
+    "arabic_full": "محمد المنوري",
+    "english_full": "Muhammad Al Manwari",
+    "evidence": {
+     "segment_id": "s21",
+     "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 171,
+      "token_ids": [
+       171
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad",
+      "expected": "adopt",
+      "expected_spelling": "Muhammad",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3",
+       "B3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 172,
+      "token_ids": [
+       172
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "المنوري",
+      "position": "family",
+      "english_variants": [
+       "Al Manwari"
+      ],
+      "raw_variants": [
+       "Al Manwari"
+      ],
+      "english_used": "Al Manwari",
+      "expected": "adopt",
+      "expected_spelling": "Al Manwari",
+      "evidence": [
+       {
+        "segment_id": "s21",
+        "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "B3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n11",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "short",
+    "segment_id": "s23",
+    "span": [
+     37,
+     47
+    ],
+    "token_ids": [
+     179,
+     180
+    ],
+    "arabic_full": "سعود العلي",
+    "english_full": "Saud Al Ali",
+    "evidence": {
+     "segment_id": "s14",
+     "quote": "Saud bin Abdulrahman Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 179,
+      "token_ids": [
+       179
+      ],
+      "unit_id": "n11.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "adopt",
+      "expected_spelling": "Saud",
+      "evidence": [
+       {
+        "segment_id": "s14",
+        "quote": "Saud bin Abdulrahman Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 180,
+      "token_ids": [
+       180
+      ],
+      "unit_id": "n11.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s14",
+        "quote": "Saud bin Abdulrahman Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عائشة",
+      "spelling": "Aisha"
+     },
+     "father": {
+      "arabic": "سلطان",
+      "spelling": "Sultan"
+     },
+     "grandfather": {
+      "arabic": "صالح",
+      "spelling": "Saleh"
+     },
+     "family": {
+      "arabic": "العثيمين",
+      "spelling": "Al Uthaymeen"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p3",
+      "segment_id": "s12",
+      "quote": "Aisha Al Uthaymeen",
+      "form": "partial",
+      "labeled": true,
+      "slots": {
+       "given": "Aisha",
+       "family": "Al Uthaymeen"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p8",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Muhammad"
+     },
+     "father": {
+      "arabic": "عادل",
+      "spelling": "Adel"
+     },
+     "grandfather": {
+      "arabic": "عبد العزيز",
+      "spelling": "Abdulaziz"
+     },
+     "family": {
+      "arabic": "المنوري",
+      "spelling": "Al Manwari"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p8",
+      "segment_id": "s21",
+      "quote": "P<OMNAL<MANWARI<<MUHAMMAD<ADEL<ABDULAZIZ<<<<",
+      "form": "mrz",
+      "labeled": true,
+      "slots": {
+       "given": "Muhammad",
+       "father": "Adel",
+       "grandfather": "Abdulaziz",
+       "family": "Al Manwari"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohamed"
+     },
+     "father": {
+      "arabic": "حمد",
+      "spelling": "Hamad"
+     },
+     "grandfather": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "family": {
+      "arabic": "الحارثي",
+      "spelling": "Al Harthi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s17",
+      "quote": "Mohamed bin Hamad bin Ahmed Al Harthi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mohamed",
+       "father": "Hamad",
+       "grandfather": "Ahmed",
+       "family": "Al Harthi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "father": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "family": {
+      "arabic": "العلي",
+      "spelling": "Al Ali"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s14",
+      "quote": "Saud bin Abdulrahman Al Ali",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Saud",
+       "father": "Abdulrahman",
+       "family": "Al Ali"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعود",
+      "spelling": "Saoud"
+     },
+     "father": {
+      "arabic": "علي",
+      "spelling": "Ali"
+     },
+     "family": {
+      "arabic": "السلطان",
+      "spelling": "Al Sultan"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p7",
+      "segment_id": "s19",
+      "quote": "P<SAUAL<SULTAN<<SAOUD<ALI<<<<<<<<<<<<<<<<<<<",
+      "form": "mrz",
+      "labeled": true,
+      "slots": {
+       "given": "Saoud",
+       "father": "Ali",
+       "family": "Al Sultan"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "زينب",
+      "spelling": "Zainab"
+     },
+     "father": {
+      "arabic": "سيد",
+      "spelling": "Sayed"
+     },
+     "grandfather": {
+      "arabic": "مبروك",
+      "spelling": "Mabrouk"
+     },
+     "family": {
+      "arabic": "العميري",
+      "spelling": "Al Ameeri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s09",
+      "quote": "Zainab Sayed Mabrouk Al Ameeri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Zainab",
+       "father": "Sayed",
+       "grandfather": "Mabrouk",
+       "family": "Al Ameeri"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سارة",
+      "spelling": "Sarah"
+     },
+     "father": {
+      "arabic": "حميد",
+      "spelling": "Humaid"
+     },
+     "family": {
+      "arabic": "الأميري",
+      "spelling": "Al Amiri"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "لؤلؤة",
+      "spelling": "Luluwah"
+     },
+     "father": {
+      "arabic": "مشاري",
+      "spelling": "Mashari"
+     },
+     "family": {
+      "arabic": "اليامي",
+      "spelling": "Al Yami"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s26",
+      "quote": "Luluwah bint Mashari Al Yami",
+      "form": "unlabeled_full",
+      "labeled": false,
+      "slots": {
+       "given": "Luluwah",
+       "father": "Mashari",
+       "family": "Al Yami"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الأميري",
+      "spelling": "Al Amiri"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "Al Amiri",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Amiri"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "Al Amiri",
+    "kind": "company",
+    "resembles": [
+     "p5.family"
+    ]
+   },
+   {
+    "segment_id": "s04",
+    "quote": "info@alamiri-group.example.com",
+    "kind": "email",
+    "resembles": [
+     "p5.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   28,
+   29,
+   30,
+   32,
+   41,
+   58,
+   112,
+   133,
+   148
+  ],
+  "title_token_ids": [
+   41,
+   58,
+   112,
+   133,
+   148
+  ],
+  "lookalikes": [],
+  "lookalike_token_ids": []
+ },
+ "case_types": [
+  "A2",
+  "A3",
+  "B3",
+  "B6",
+  "C1",
+  "C2",
+  "D1",
+  "D3",
+  "D4"
+ ]
+}

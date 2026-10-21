@@ -39,11 +39,11 @@
   },
   {
    "segment_id": "s09",
-   "text": "للاستفسار يرجى التواصل مع السيدة يارا الهاجري على البريد الإلكتروني أدناه."
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
   },
   {
    "segment_id": "s10",
-   "text": "Email: y.alhajri@alhajri.example.com"
+   "text": "Email: hr@alhajri.example.com"
   },
   {
    "segment_id": "s11",
@@ -57,7 +57,7 @@
   "D5"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -365,80 +365,6 @@
       "arguable": false
      }
     ]
-   },
-   {
-    "occurrence_id": "n4",
-    "role": "signatory",
-    "person_id": "p2",
-    "mention": "short",
-    "segment_id": "s09",
-    "span": [
-     33,
-     45
-    ],
-    "token_ids": [
-     87,
-     88
-    ],
-    "arabic_full": "يارا الهاجري",
-    "english_full": "Yara Al Hajri",
-    "evidence": null,
-    "tokens": [
-     {
-      "token_id": 87,
-      "token_ids": [
-       87
-      ],
-      "unit_id": "n4.given",
-      "slot": "given",
-      "arabic": "يارا",
-      "position": "given",
-      "english_variants": [
-       "Yara"
-      ],
-      "raw_variants": [
-       "Yara"
-      ],
-      "english_used": "Yara",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     },
-     {
-      "token_id": 88,
-      "token_ids": [
-       88
-      ],
-      "unit_id": "n4.family",
-      "slot": "family",
-      "arabic": "الهاجري",
-      "position": "family",
-      "english_variants": [
-       "Al Hajri"
-      ],
-      "raw_variants": [
-       "Al Hajri",
-       "Al Hajiri",
-       "al Hajiri",
-       "Al Hajeri"
-      ],
-      "english_used": "Al Hajri",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "A3",
-       "C2"
-      ],
-      "arguable": true
-     }
-    ]
    }
   ],
   "persons": [
@@ -552,10 +478,11 @@
    },
    {
     "segment_id": "s10",
-    "quote": "y.alhajri@alhajri.example.com",
+    "quote": "hr@alhajri.example.com",
     "kind": "email",
     "resembles": [
-     "p2.family"
+     "p2.family",
+     "c1.family"
     ]
    }
   ],
@@ -587,7 +514,6 @@
   ]
  },
  "case_types": [
-  "A3",
   "B4",
   "B6",
   "C2",

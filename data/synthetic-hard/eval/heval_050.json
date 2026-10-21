@@ -1,0 +1,637 @@
+{
+ "doc_id": "heval_050",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "letter",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "Al Sibyani General Trading L.L.C."
+  },
+  {
+   "segment_id": "s02",
+   "text": "Tel: +971 4 2529160 | www.alsibyani-group.example.net"
+  },
+  {
+   "segment_id": "s03",
+   "text": "إفادة لمن يهمه الأمر"
+  },
+  {
+   "segment_id": "s04",
+   "text": "تشهد شركة الصبياني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 629644، وعنوانها الشارقة، الإمارات العربية المتحدة،"
+  },
+  {
+   "segment_id": "s05",
+   "text": "بأن السيد محمد شاهر عبد الله الخيبري، بحريني الجنسية، ويحمل جواز سفر رقم R2886393، يعمل لديها بوظيفة مندوب مبيعات منذ 14/03/2026."
+  },
+  {
+   "segment_id": "s06",
+   "text": "Employee: Muhammed Shaher Abdullah Al Khaibari, Passport No. R2886393"
+  },
+  {
+   "segment_id": "s07",
+   "text": "ونشهد بأنه حسن السيرة والسلوك طوال مدة عمله لدينا."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وقد أعطيت هذه الإفادة بناءً على طلبه دون أدنى مسؤولية على الشركة."
+  },
+  {
+   "segment_id": "s09",
+   "text": "المدير العام: السيد محمد بن فيصل بن نواف الصباح"
+  },
+  {
+   "segment_id": "s10",
+   "text": "General Manager: Mohammed bin Faisal bin Nawaf Al Sabah"
+  },
+  {
+   "segment_id": "s11",
+   "text": "للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه."
+  },
+  {
+   "segment_id": "s12",
+   "text": "Email: hr@alsibyani.example.com"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التاريخ: 21/10/2026"
+  }
+ ],
+ "features_planned": [
+  "A2",
+  "B4",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v2",
+  "gold_format": 2,
+  "seed": 4002,
+  "split": "eval",
+  "index": 50,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     10,
+     18
+    ],
+    "token_ids": [
+     16
+    ],
+    "arabic_full": "الصبياني",
+    "english_full": "Al Sibyani",
+    "evidence": {
+     "segment_id": "s01",
+     "quote": "Al Sibyani"
+    },
+    "tokens": [
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الصبياني",
+      "position": "family",
+      "english_variants": [
+       "Al Sibyani",
+       "Al Sebyani"
+      ],
+      "raw_variants": [
+       "Al Sibyani",
+       "Al Subiani",
+       "Al Sabiani",
+       "Al Subyani",
+       "Al Sebyani"
+      ],
+      "english_used": "Al Sibyani",
+      "expected": "adopt",
+      "expected_spelling": "Al Sibyani",
+      "evidence": [
+       {
+        "segment_id": "s01",
+        "quote": "Al Sibyani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "employee",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s05",
+    "span": [
+     10,
+     36
+    ],
+    "token_ids": [
+     36,
+     37,
+     38,
+     39,
+     40
+    ],
+    "arabic_full": "محمد شاهر عبد الله الخيبري",
+    "english_full": "Muhammed Shaher Abdullah Al Khaibari",
+    "evidence": {
+     "segment_id": "s06",
+     "quote": "Muhammed Shaher Abdullah Al Khaibari"
+    },
+    "tokens": [
+     {
+      "token_id": 36,
+      "token_ids": [
+       36
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammed",
+      "expected": "adopt",
+      "expected_spelling": "Muhammed",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Muhammed Shaher Abdullah Al Khaibari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 37,
+      "token_ids": [
+       37
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "شاهر",
+      "position": "middle",
+      "english_variants": [
+       "Shaher"
+      ],
+      "raw_variants": [
+       "Shaher"
+      ],
+      "english_used": "Shaher",
+      "expected": "adopt",
+      "expected_spelling": "Shaher",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Muhammed Shaher Abdullah Al Khaibari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 39,
+      "token_ids": [
+       38,
+       39
+      ],
+      "unit_id": "n2.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبد الله",
+      "position": "middle",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdullah",
+      "expected": "adopt",
+      "expected_spelling": "Abdullah",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Muhammed Shaher Abdullah Al Khaibari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 40,
+      "token_ids": [
+       40
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الخيبري",
+      "position": "family",
+      "english_variants": [
+       "Al Khaibari",
+       "Al Kaebari"
+      ],
+      "raw_variants": [
+       "Al Khaibari",
+       "Al Kaebari",
+       "Al Khaibri"
+      ],
+      "english_used": "Al Khaibari",
+      "expected": "adopt",
+      "expected_spelling": "Al Khaibari",
+      "evidence": [
+       {
+        "segment_id": "s06",
+        "quote": "Muhammed Shaher Abdullah Al Khaibari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "signatory",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     20,
+     47
+    ],
+    "token_ids": [
+     90,
+     91,
+     92,
+     93,
+     94,
+     95
+    ],
+    "arabic_full": "محمد بن فيصل بن نواف الصباح",
+    "english_full": "Mohammed Faisal Nawaf Al Sabah",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Mohammed bin Faisal bin Nawaf Al Sabah"
+    },
+    "tokens": [
+     {
+      "token_id": 90,
+      "token_ids": [
+       90
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "adopt",
+      "expected_spelling": "Mohammed",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Mohammed bin Faisal bin Nawaf Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 92,
+      "token_ids": [
+       92
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "فيصل",
+      "position": "middle",
+      "english_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Feisal"
+      ],
+      "raw_variants": [
+       "Faisal",
+       "Faisel",
+       "Faysal",
+       "Fesal",
+       "Feisal",
+       "Fessul"
+      ],
+      "english_used": "Faisal",
+      "expected": "adopt",
+      "expected_spelling": "Faisal",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Mohammed bin Faisal bin Nawaf Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 94,
+      "token_ids": [
+       94
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "نواف",
+      "position": "middle",
+      "english_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "raw_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "english_used": "Nawaf",
+      "expected": "adopt",
+      "expected_spelling": "Nawaf",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Mohammed bin Faisal bin Nawaf Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 95,
+      "token_ids": [
+       95
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الصباح",
+      "position": "family",
+      "english_variants": [
+       "Al Sabah"
+      ],
+      "raw_variants": [
+       "Al Sabah",
+       "al Sabah"
+      ],
+      "english_used": "Al Sabah",
+      "expected": "adopt",
+      "expected_spelling": "Al Sabah",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Mohammed bin Faisal bin Nawaf Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "signatory",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "father": {
+      "arabic": "فيصل",
+      "spelling": "Faisal"
+     },
+     "grandfather": {
+      "arabic": "نواف",
+      "spelling": "Nawaf"
+     },
+     "family": {
+      "arabic": "الصباح",
+      "spelling": "Al Sabah"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s10",
+      "quote": "Mohammed bin Faisal bin Nawaf Al Sabah",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mohammed",
+       "father": "Faisal",
+       "grandfather": "Nawaf",
+       "family": "Al Sabah"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "employee",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Muhammed"
+     },
+     "father": {
+      "arabic": "شاهر",
+      "spelling": "Shaher"
+     },
+     "grandfather": {
+      "arabic": "عبد الله",
+      "spelling": "Abdullah"
+     },
+     "family": {
+      "arabic": "الخيبري",
+      "spelling": "Al Khaibari"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s06",
+      "quote": "Muhammed Shaher Abdullah Al Khaibari",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Muhammed",
+       "father": "Shaher",
+       "grandfather": "Abdullah",
+       "family": "Al Khaibari"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الصبياني",
+      "spelling": "Al Sibyani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s01",
+      "quote": "Al Sibyani",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Sibyani"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s02",
+    "quote": "www.alsibyani-group.example.net",
+    "kind": "url",
+    "resembles": [
+     "c1.family"
+    ]
+   },
+   {
+    "segment_id": "s12",
+    "quote": "hr@alsibyani.example.com",
+    "kind": "email",
+    "resembles": [
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   19,
+   20,
+   21,
+   24,
+   25,
+   26,
+   30,
+   31,
+   32,
+   33
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 68,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   68
+  ]
+ },
+ "case_types": [
+  "A2",
+  "D3"
+ ]
+}

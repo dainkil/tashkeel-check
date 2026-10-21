@@ -11,90 +11,94 @@
   },
   {
    "segment_id": "s02",
-   "text": "لشركة البلوشي للتجارة العامة ذ.م.م"
+   "text": "لشركة الزيودي للتجارة العامة ذ.م.م"
   },
   {
    "segment_id": "s03",
-   "text": "Company: Al Balushi General Trading L.L.C."
+   "text": "Company: Al Zeyoudi General Trading L.L.C."
   },
   {
    "segment_id": "s04",
-   "text": "عقد الاجتماع في الشارقة بتاريخ 01/04/2026 برئاسة المهندس سلطان بن وليد الكويتي."
+   "text": "عقد الاجتماع في الشارقة بتاريخ 01/04/2026 برئاسة الدكتور سليمان بن هلال الزيودي."
   },
   {
    "segment_id": "s05",
-   "text": "Chairman: Sultan bin Waleed Al Kuwaiti"
-  },
-  {
-   "segment_id": "s06",
    "text": "وحضر الاجتماع كل من:"
   },
   {
+   "segment_id": "s06",
+   "text": "1. المهندس عادل سليم المرشدي"
+  },
+  {
    "segment_id": "s07",
-   "text": "1. المهندس عادل سعيد خالد المرزوقي"
+   "text": "2. السيد سليم سلطان حسين المرشدي"
   },
   {
    "segment_id": "s08",
-   "text": "Attendee 1: A. S. Al Marzouqi"
+   "text": "Attendee 2: Sulayem Sultan Husayn Al Marshedi"
   },
   {
    "segment_id": "s09",
-   "text": "2. الدكتور سليم سلطان الكويتي"
+   "text": "3. السيد جمعة ناصر محمود الشمراني"
   },
   {
    "segment_id": "s10",
-   "text": "3. السيد يوسف بن حمد بن أحمد البدواوي"
+   "text": "Attendee 3: Juma Al Shamrani"
   },
   {
    "segment_id": "s11",
-   "text": "Attendee 3: Yousef bin Hamed bin Ahmed Al Badwawi"
+   "text": "4. الشيخ عبده حمد الكعبي"
   },
   {
    "segment_id": "s12",
-   "text": "4. الشيخ عبد الله منذر عبد الناصر البلوشي"
+   "text": "Attendee 4: Abdo Hamad Al Kaabi"
   },
   {
    "segment_id": "s13",
-   "text": "5. السيدة العنود عبد العزيز البلوشي"
+   "text": "5. السيد عبدو عبد الرحمن أحمد الظفيري"
   },
   {
    "segment_id": "s14",
-   "text": "6. السيد محمد يوسف البدواوي"
+   "text": "6. السيد هلال عوض خالد الزيودي"
   },
   {
    "segment_id": "s15",
-   "text": "وتولى أمانة السر السيد أمين إسماعيل أشرف الموسوي."
+   "text": "Attendee 6: Helal Awadh Khaled Al Zeyoudi"
   },
   {
    "segment_id": "s16",
-   "text": "Secretary: A. I. Al Musawi"
+   "text": "وتولى أمانة السر الشيخ أمين بن أنس الموسوي."
   },
   {
    "segment_id": "s17",
-   "text": "وبعد التداول قرر المجتمعون بالإجماع ما يلي:"
+   "text": "Secretary: A. A. Al Mosawi"
   },
   {
    "segment_id": "s18",
-   "text": "أولًا: الموافقة على تعيين السيد محمد البدواوي مديرًا للشركة لمدة ثلاث سنوات."
+   "text": "وبعد التداول قرر المجتمعون بالإجماع ما يلي:"
   },
   {
    "segment_id": "s19",
-   "text": "ثانيًا: توزيع الأرباح بشكل عادل بين الشركاء حسب حصصهم."
+   "text": "أولًا: الموافقة على تعيين السيد عبدو الظفيري مديرًا للشركة لمدة ثلاث سنوات."
   },
   {
    "segment_id": "s20",
-   "text": "ثالثًا: المركز المالي للشركة سليم ولا توجد عليها التزامات متأخرة."
+   "text": "ثانيًا: توزيع الأرباح بشكل عادل بين الشركاء حسب حصصهم."
   },
   {
    "segment_id": "s21",
-   "text": "رابعًا: تفويض السيد يوسف البدواوي بالتوقيع على محضر الاجتماع وتقديمه للجهات المختصة."
+   "text": "ثالثًا: المركز المالي للشركة سليم ولا توجد عليها التزامات متأخرة."
   },
   {
    "segment_id": "s22",
-   "text": "رئيس الاجتماع: المهندس سلطان"
+   "text": "رابعًا: تفويض السيد جمعة الشمراني بالتوقيع على محضر الاجتماع وتقديمه للجهات المختصة."
   },
   {
    "segment_id": "s23",
+   "text": "رئيس الاجتماع: الدكتور سليمان"
+  },
+  {
+   "segment_id": "s24",
    "text": "أمين السر: أمين الموسوي"
   }
  ],
@@ -105,10 +109,10 @@
   "C1",
   "C2",
   "D2",
-  "D5"
+  "D4"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",
@@ -132,11 +136,11 @@
     "token_ids": [
      6
     ],
-    "arabic_full": "البلوشي",
-    "english_full": "Al Balushi",
+    "arabic_full": "الزيودي",
+    "english_full": "Al Zeyoudi",
     "evidence": {
      "segment_id": "s03",
-     "quote": "Al Balushi"
+     "quote": "Al Zeyoudi"
     },
     "tokens": [
      {
@@ -146,35 +150,21 @@
       ],
       "unit_id": "n1.family",
       "slot": "family",
-      "arabic": "البلوشي",
+      "arabic": "الزيودي",
       "position": "family",
       "english_variants": [
-       "Al Balushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Baloushi"
+       "Al Zeyoudi"
       ],
       "raw_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
+       "Al Zeyoudi"
       ],
-      "english_used": "Al Balushi",
+      "english_used": "Al Zeyoudi",
       "expected": "adopt",
-      "expected_spelling": "Al Balushi",
+      "expected_spelling": "Al Zeyoudi",
       "evidence": [
        {
         "segment_id": "s03",
-        "quote": "Al Balushi"
+        "quote": "Al Zeyoudi"
        }
       ],
       "must_include": [],
@@ -191,7 +181,7 @@
     "segment_id": "s04",
     "span": [
      57,
-     78
+     79
     ],
     "token_ids": [
      26,
@@ -199,12 +189,9 @@
      28,
      29
     ],
-    "arabic_full": "سلطان بن وليد الكويتي",
-    "english_full": "Sultan Waleed Al Kuwaiti",
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Sultan bin Waleed Al Kuwaiti"
-    },
+    "arabic_full": "سليمان بن هلال الزيودي",
+    "english_full": "Suleiman Helal Al Zeyoudi",
+    "evidence": null,
     "tokens": [
      {
       "token_id": 26,
@@ -213,25 +200,26 @@
       ],
       "unit_id": "n2.given",
       "slot": "given",
-      "arabic": "سلطان",
+      "arabic": "سليمان",
       "position": "given",
       "english_variants": [
-       "Sultan"
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Soulaiman"
       ],
       "raw_variants": [
-       "Sultan",
-       "Al Sharji",
-       "Sultsn"
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
       ],
-      "english_used": "Sultan",
-      "expected": "adopt",
-      "expected_spelling": "Sultan",
-      "evidence": [
-       {
-        "segment_id": "s05",
-        "quote": "Sultan bin Waleed Al Kuwaiti"
-       }
-      ],
+      "english_used": "Suleiman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
       "must_include": [],
       "case_types": [
        "D3"
@@ -245,28 +233,25 @@
       ],
       "unit_id": "n2.father",
       "slot": "father",
-      "arabic": "وليد",
+      "arabic": "هلال",
       "position": "middle",
       "english_variants": [
-       "Waleed",
-       "Walid"
+       "Hilal",
+       "Helal"
       ],
       "raw_variants": [
-       "Waleed",
-       "Walid"
+       "Hilal",
+       "Helal"
       ],
-      "english_used": "Waleed",
-      "expected": "adopt",
-      "expected_spelling": "Waleed",
-      "evidence": [
-       {
-        "segment_id": "s05",
-        "quote": "Sultan bin Waleed Al Kuwaiti"
-       }
-      ],
+      "english_used": "Helal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
       "must_include": [],
-      "case_types": [],
-      "arguable": false
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
      },
      {
       "token_id": 29,
@@ -275,28 +260,24 @@
       ],
       "unit_id": "n2.family",
       "slot": "family",
-      "arabic": "الكويتي",
+      "arabic": "الزيودي",
       "position": "family",
       "english_variants": [
-       "Al Kuwaiti"
+       "Al Zeyoudi"
       ],
       "raw_variants": [
-       "al Kuwaiti"
+       "Al Zeyoudi"
       ],
-      "english_used": "Al Kuwaiti",
-      "expected": "adopt",
-      "expected_spelling": "Al Kuwaiti",
-      "evidence": [
-       {
-        "segment_id": "s05",
-        "quote": "Sultan bin Waleed Al Kuwaiti"
-       }
-      ],
+      "english_used": "Al Zeyoudi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
       "must_include": [],
       "case_types": [
-       "D5"
+       "A1",
+       "C2"
       ],
-      "arguable": false
+      "arguable": true
      }
     ]
    },
@@ -305,28 +286,24 @@
     "role": "attendee",
     "person_id": "p3",
     "mention": "full",
-    "segment_id": "s07",
+    "segment_id": "s06",
     "span": [
      11,
-     34
+     28
     ],
     "token_ids": [
-     42,
-     43,
-     44,
-     45
+     36,
+     37,
+     38
     ],
-    "arabic_full": "عادل سعيد خالد المرزوقي",
-    "english_full": "Adel Saeed Khaled Al Marzouqi",
-    "evidence": {
-     "segment_id": "s08",
-     "quote": "A. S. Al Marzouqi"
-    },
+    "arabic_full": "عادل سليم المرشدي",
+    "english_full": "Adel Sulayem Al Marshedi",
+    "evidence": null,
     "tokens": [
      {
-      "token_id": 42,
+      "token_id": 36,
       "token_ids": [
-       42
+       36
       ],
       "unit_id": "n3.given",
       "slot": "given",
@@ -347,138 +324,20 @@
       "evidence": [],
       "must_include": [],
       "case_types": [
-       "B4",
        "D2",
        "D3"
       ],
       "arguable": false
      },
      {
-      "token_id": 43,
+      "token_id": 37,
       "token_ids": [
-       43
+       37
       ],
       "unit_id": "n3.father",
       "slot": "father",
-      "arabic": "سعيد",
-      "position": "middle",
-      "english_variants": [
-       "Saeed",
-       "Said",
-       "Saed",
-       "Saied",
-       "SAAED",
-       "Saaeed"
-      ],
-      "raw_variants": [
-       "Saeed",
-       "Said",
-       "Sa'id",
-       "Saied",
-       "SAAED",
-       "saed",
-       "Saaeed",
-       "Saed"
-      ],
-      "english_used": "Saeed",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "B4"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 44,
-      "token_ids": [
-       44
-      ],
-      "unit_id": "n3.grandfather",
-      "slot": "grandfather",
-      "arabic": "خالد",
-      "position": "middle",
-      "english_variants": [
-       "Khalid",
-       "Khaled",
-       "Halid"
-      ],
-      "raw_variants": [
-       "Khalid",
-       "Khaled",
-       "Halid"
-      ],
-      "english_used": "Khaled",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "B6"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 45,
-      "token_ids": [
-       45
-      ],
-      "unit_id": "n3.family",
-      "slot": "family",
-      "arabic": "المرزوقي",
-      "position": "family",
-      "english_variants": [
-       "Al Marzouqi",
-       "Al Marzooqi"
-      ],
-      "raw_variants": [
-       "Al Marzouqi",
-       "Al Marzooqi"
-      ],
-      "english_used": "Al Marzouqi",
-      "expected": "adopt",
-      "expected_spelling": "Al Marzouqi",
-      "evidence": [
-       {
-        "segment_id": "s08",
-        "quote": "A. S. Al Marzouqi"
-       }
-      ],
-      "must_include": [],
-      "case_types": [],
-      "arguable": false
-     }
-    ]
-   },
-   {
-    "occurrence_id": "n4",
-    "role": "attendee",
-    "person_id": "p4",
-    "mention": "full",
-    "segment_id": "s09",
-    "span": [
-     11,
-     29
-    ],
-    "token_ids": [
-     54,
-     55,
-     56
-    ],
-    "arabic_full": "سليم سلطان الكويتي",
-    "english_full": "Sulayem Sultan Al Kuwaiti",
-    "evidence": null,
-    "tokens": [
-     {
-      "token_id": 54,
-      "token_ids": [
-       54
-      ],
-      "unit_id": "n4.given",
-      "slot": "given",
       "arabic": "سليم",
-      "position": "given",
+      "position": "middle",
       "english_variants": [
        "Sulayem"
       ],
@@ -495,15 +354,101 @@
       "evidence": [],
       "must_include": [],
       "case_types": [
-       "D2",
-       "D3"
+       "A1",
+       "D2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 38,
+      "token_ids": [
+       38
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "المرشدي",
+      "position": "family",
+      "english_variants": [
+       "Al Marshedi",
+       "Al Marshadi"
+      ],
+      "raw_variants": [
+       "Al Marshedi",
+       "Al Marshadi"
+      ],
+      "english_used": "Al Marshedi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "attendee",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s07",
+    "span": [
+     9,
+     32
+    ],
+    "token_ids": [
+     41,
+     42,
+     43,
+     44
+    ],
+    "arabic_full": "سليم سلطان حسين المرشدي",
+    "english_full": "Sulayem Sultan Husayn Al Marshedi",
+    "evidence": {
+     "segment_id": "s08",
+     "quote": "Sulayem Sultan Husayn Al Marshedi"
+    },
+    "tokens": [
+     {
+      "token_id": 41,
+      "token_ids": [
+       41
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "سليم",
+      "position": "given",
+      "english_variants": [
+       "Sulayem"
+      ],
+      "raw_variants": [
+       "Sulayem",
+       "Saleem",
+       "Salem",
+       "Salim",
+       "Sulaiyam"
+      ],
+      "english_used": "Sulayem",
+      "expected": "adopt",
+      "expected_spelling": "Sulayem",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Sulayem Sultan Husayn Al Marshedi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D2"
       ],
       "arguable": false
      },
      {
-      "token_id": 55,
+      "token_id": 42,
       "token_ids": [
-       55
+       42
       ],
       "unit_id": "n4.father",
       "slot": "father",
@@ -518,40 +463,91 @@
        "Sultsn"
       ],
       "english_used": "Sultan",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "A1"
+      "expected": "adopt",
+      "expected_spelling": "Sultan",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Sulayem Sultan Husayn Al Marshedi"
+       }
       ],
-      "arguable": true
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
      },
      {
-      "token_id": 56,
+      "token_id": 43,
       "token_ids": [
-       56
+       43
+      ],
+      "unit_id": "n4.grandfather",
+      "slot": "grandfather",
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Husayn",
+      "expected": "adopt",
+      "expected_spelling": "Husayn",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Sulayem Sultan Husayn Al Marshedi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
       ],
       "unit_id": "n4.family",
       "slot": "family",
-      "arabic": "الكويتي",
+      "arabic": "المرشدي",
       "position": "family",
       "english_variants": [
-       "Al Kuwaiti"
+       "Al Marshedi",
+       "Al Marshadi"
       ],
       "raw_variants": [
-       "al Kuwaiti"
+       "Al Marshedi",
+       "Al Marshadi"
       ],
-      "english_used": "Al Kuwaiti",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
+      "english_used": "Al Marshedi",
+      "expected": "adopt",
+      "expected_spelling": "Al Marshedi",
+      "evidence": [
+       {
+        "segment_id": "s08",
+        "quote": "Sulayem Sultan Husayn Al Marshedi"
+       }
+      ],
       "must_include": [],
-      "case_types": [
-       "A1",
-       "D5"
-      ],
-      "arguable": true
+      "case_types": [],
+      "arguable": false
      }
     ]
    },
@@ -560,61 +556,56 @@
     "role": "attendee",
     "person_id": "p5",
     "mention": "full",
-    "segment_id": "s10",
+    "segment_id": "s09",
     "span": [
      9,
-     37
+     33
     ],
     "token_ids": [
-     59,
-     60,
-     61,
-     62,
-     63,
-     64
+     54,
+     55,
+     56,
+     57
     ],
-    "arabic_full": "يوسف بن حمد بن أحمد البدواوي",
-    "english_full": "Yousef Hamed Ahmed Al Badwawi",
+    "arabic_full": "جمعة ناصر محمود الشمراني",
+    "english_full": "Juma Nasser Mahmoud Al Shamrani",
     "evidence": {
-     "segment_id": "s11",
-     "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+     "segment_id": "s10",
+     "quote": "Juma Al Shamrani"
     },
     "tokens": [
      {
-      "token_id": 59,
+      "token_id": 54,
       "token_ids": [
-       59
+       54
       ],
       "unit_id": "n5.given",
       "slot": "given",
-      "arabic": "يوسف",
+      "arabic": "جمعة",
       "position": "given",
       "english_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma"
       ],
       "raw_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef",
-       "YOUSEF"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma",
+       "Juma'a",
+       "Jumah"
       ],
-      "english_used": "Yousef",
+      "english_used": "Juma",
       "expected": "adopt",
-      "expected_spelling": "Yousef",
+      "expected_spelling": "Juma",
       "evidence": [
        {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+        "segment_id": "s10",
+        "quote": "Juma Al Shamrani"
        }
       ],
       "must_include": [],
@@ -622,11 +613,169 @@
       "arguable": false
      },
      {
-      "token_id": 61,
+      "token_id": 55,
       "token_ids": [
-       61
+       55
       ],
       "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Naseer",
+       "Nassar"
+      ],
+      "raw_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nasser",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 56,
+      "token_ids": [
+       56
+      ],
+      "unit_id": "n5.grandfather",
+      "slot": "grandfather",
+      "arabic": "محمود",
+      "position": "middle",
+      "english_variants": [
+       "Mahmoud",
+       "Mahmud",
+       "Mahmood",
+       "Mehmood"
+      ],
+      "raw_variants": [
+       "Mahmoud",
+       "Mahmud",
+       "Mahmood",
+       "Mehmood"
+      ],
+      "english_used": "Mahmoud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "B6"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 57,
+      "token_ids": [
+       57
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الشمراني",
+      "position": "family",
+      "english_variants": [
+       "Al Shamrani"
+      ],
+      "raw_variants": [
+       "Al Shamrani"
+      ],
+      "english_used": "Al Shamrani",
+      "expected": "adopt",
+      "expected_spelling": "Al Shamrani",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Juma Al Shamrani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "attendee",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     9,
+     24
+    ],
+    "token_ids": [
+     65,
+     66,
+     67
+    ],
+    "arabic_full": "عبده حمد الكعبي",
+    "english_full": "Abdo Hamad Al Kaabi",
+    "evidence": {
+     "segment_id": "s12",
+     "quote": "Abdo Hamad Al Kaabi"
+    },
+    "tokens": [
+     {
+      "token_id": 65,
+      "token_ids": [
+       65
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "عبده",
+      "position": "given",
+      "english_variants": [
+       "Abdo",
+       "Abdoh",
+       "Abdou",
+       "Abduh"
+      ],
+      "raw_variants": [
+       "Abdoh",
+       "Abdo",
+       "Abdou",
+       "Abdullah",
+       "Abduh"
+      ],
+      "english_used": "Abdo",
+      "expected": "adopt",
+      "expected_spelling": "Abdo",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Abdo Hamad Al Kaabi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 66,
+      "token_ids": [
+       66
+      ],
+      "unit_id": "n6.father",
       "slot": "father",
       "arabic": "حمد",
       "position": "middle",
@@ -638,13 +787,13 @@
        "Hamad",
        "Hamed"
       ],
-      "english_used": "Hamed",
+      "english_used": "Hamad",
       "expected": "adopt",
-      "expected_spelling": "Hamed",
+      "expected_spelling": "Hamad",
       "evidence": [
        {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+        "segment_id": "s12",
+        "quote": "Abdo Hamad Al Kaabi"
        }
       ],
       "must_include": [],
@@ -652,11 +801,141 @@
       "arguable": false
      },
      {
-      "token_id": 63,
+      "token_id": 67,
       "token_ids": [
-       63
+       67
       ],
-      "unit_id": "n5.grandfather",
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الكعبي",
+      "position": "family",
+      "english_variants": [
+       "Al Kaabi",
+       "Al Kaebi",
+       "Kaabi"
+      ],
+      "raw_variants": [
+       "Al Kaabi",
+       "Al Kaebi",
+       "Kaabi"
+      ],
+      "english_used": "Al Kaabi",
+      "expected": "adopt",
+      "expected_spelling": "Al Kaabi",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Abdo Hamad Al Kaabi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "attendee",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s13",
+    "span": [
+     9,
+     37
+    ],
+    "token_ids": [
+     76,
+     77,
+     78,
+     79,
+     80
+    ],
+    "arabic_full": "عبدو عبد الرحمن أحمد الظفيري",
+    "english_full": "Abdu Abdulrahman Ahmed Al Dhefiri",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 76,
+      "token_ids": [
+       76
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "عبدو",
+      "position": "given",
+      "english_variants": [
+       "Abdu",
+       "Abdou"
+      ],
+      "raw_variants": [
+       "Abdu",
+       "Abdou"
+      ],
+      "english_used": "Abdu",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 78,
+      "token_ids": [
+       77,
+       78
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "عبد الرحمن",
+      "position": "middle",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 79,
+      "token_ids": [
+       79
+      ],
+      "unit_id": "n7.grandfather",
       "slot": "grandfather",
       "arabic": "أحمد",
       "position": "middle",
@@ -675,127 +954,6 @@
        "Aziz"
       ],
       "english_used": "Ahmed",
-      "expected": "adopt",
-      "expected_spelling": "Ahmed",
-      "evidence": [
-       {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
-       }
-      ],
-      "must_include": [],
-      "case_types": [],
-      "arguable": false
-     },
-     {
-      "token_id": 64,
-      "token_ids": [
-       64
-      ],
-      "unit_id": "n5.family",
-      "slot": "family",
-      "arabic": "البدواوي",
-      "position": "family",
-      "english_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
-      ],
-      "raw_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
-      ],
-      "english_used": "Al Badwawi",
-      "expected": "adopt",
-      "expected_spelling": "Al Badwawi",
-      "evidence": [
-       {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
-       }
-      ],
-      "must_include": [],
-      "case_types": [],
-      "arguable": false
-     }
-    ]
-   },
-   {
-    "occurrence_id": "n6",
-    "role": "attendee",
-    "person_id": "p6",
-    "mention": "full",
-    "segment_id": "s12",
-    "span": [
-     9,
-     41
-    ],
-    "token_ids": [
-     76,
-     77,
-     78,
-     79,
-     80,
-     81
-    ],
-    "arabic_full": "عبد الله منذر عبد الناصر البلوشي",
-    "english_full": "Abdulla Munther Abdulnasser Al Balushi",
-    "evidence": null,
-    "tokens": [
-     {
-      "token_id": 77,
-      "token_ids": [
-       76,
-       77
-      ],
-      "unit_id": "n6.given",
-      "slot": "given",
-      "arabic": "عبد الله",
-      "position": "given",
-      "english_variants": [
-       "Abdullah",
-       "Abdulla",
-       "Abdallah",
-       "Abdalla",
-       "Abdulah"
-      ],
-      "raw_variants": [
-       "Abdullah",
-       "Abdulla",
-       "Abdallah",
-       "Abd Allah",
-       "Abdalla",
-       "ABDULLA",
-       "abdullah",
-       "Abdulah"
-      ],
-      "english_used": "Abdulla",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "D3"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 78,
-      "token_ids": [
-       78
-      ],
-      "unit_id": "n6.father",
-      "slot": "father",
-      "arabic": "منذر",
-      "position": "middle",
-      "english_variants": [
-       "Munther",
-       "Mondher"
-      ],
-      "raw_variants": [
-       "Munther",
-       "Mondher"
-      ],
-      "english_used": "Munther",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
@@ -806,193 +964,30 @@
      {
       "token_id": 80,
       "token_ids": [
-       79,
        80
       ],
-      "unit_id": "n6.grandfather",
-      "slot": "grandfather",
-      "arabic": "عبد الناصر",
-      "position": "middle",
-      "english_variants": [
-       "Abdulnasser",
-       "Abdelnasser"
-      ],
-      "raw_variants": [
-       "Abdulnasser",
-       "Abdul Nasser",
-       "Abdelnasser"
-      ],
-      "english_used": "Abdulnasser",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "D3"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 81,
-      "token_ids": [
-       81
-      ],
-      "unit_id": "n6.family",
+      "unit_id": "n7.family",
       "slot": "family",
-      "arabic": "البلوشي",
+      "arabic": "الظفيري",
       "position": "family",
       "english_variants": [
-       "Al Balushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Baloushi"
+       "Al Dhefiri",
+       "Al Dafiri",
+       "Al Dhafiri"
       ],
       "raw_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
+       "Al Dhefiri",
+       "al Dafiri",
+       "al Dhafiri",
+       "Zufayri",
+       "Al Dhufairi"
       ],
-      "english_used": "Al Balushi",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "C2"
-      ],
-      "arguable": false
-     }
-    ]
-   },
-   {
-    "occurrence_id": "n7",
-    "role": "attendee",
-    "person_id": "p7",
-    "mention": "full",
-    "segment_id": "s13",
-    "span": [
-     10,
-     35
-    ],
-    "token_ids": [
-     84,
-     85,
-     86,
-     87
-    ],
-    "arabic_full": "العنود عبد العزيز البلوشي",
-    "english_full": "Alanoud Abdulaziz Al Balushi",
-    "evidence": null,
-    "tokens": [
-     {
-      "token_id": 84,
-      "token_ids": [
-       84
-      ],
-      "unit_id": "n7.given",
-      "slot": "given",
-      "arabic": "العنود",
-      "position": "given",
-      "english_variants": [
-       "Alanoud",
-       "Al Anood",
-       "Anoud"
-      ],
-      "raw_variants": [
-       "Alanoud",
-       "Al Anoud",
-       "Al Anood",
-       "Anoud"
-      ],
-      "english_used": "Alanoud",
+      "english_used": "Al Dhefiri",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
       "must_include": [],
       "case_types": [],
-      "arguable": false
-     },
-     {
-      "token_id": 86,
-      "token_ids": [
-       85,
-       86
-      ],
-      "unit_id": "n7.father",
-      "slot": "father",
-      "arabic": "عبد العزيز",
-      "position": "middle",
-      "english_variants": [
-       "Abdulaziz",
-       "Abdel Aziz",
-       "Abdullaziz"
-      ],
-      "raw_variants": [
-       "Abdulaziz",
-       "Abdul Aziz",
-       "Abdelaziz",
-       "Abdel Aziz",
-       "Abd Elrahman",
-       "Abdullaziz",
-       "abdulaziz",
-       "Abd al"
-      ],
-      "english_used": "Abdulaziz",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "D3"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 87,
-      "token_ids": [
-       87
-      ],
-      "unit_id": "n7.family",
-      "slot": "family",
-      "arabic": "البلوشي",
-      "position": "family",
-      "english_variants": [
-       "Al Balushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Baloushi"
-      ],
-      "raw_variants": [
-       "Al Balushi",
-       "Al Bloushi",
-       "Al Balooshi",
-       "Al Beloushi",
-       "Al Balochi",
-       "Al Buloushi",
-       "Al Baloushi",
-       "Al bloushi",
-       "al Balushi",
-       "Al Boloushi",
-       "Al Bulushi",
-       "Al bloshi"
-      ],
-      "english_used": "Al Balushi",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "C2"
-      ],
       "arguable": false
      }
     ]
@@ -1005,122 +1000,141 @@
     "segment_id": "s14",
     "span": [
      9,
-     27
+     30
     ],
     "token_ids": [
-     90,
-     91,
-     92
+     83,
+     84,
+     85,
+     86
     ],
-    "arabic_full": "محمد يوسف البدواوي",
-    "english_full": "Mohammed Yusuf Al Badwawi",
-    "evidence": null,
+    "arabic_full": "هلال عوض خالد الزيودي",
+    "english_full": "Helal Awadh Khaled Al Zeyoudi",
+    "evidence": {
+     "segment_id": "s15",
+     "quote": "Helal Awadh Khaled Al Zeyoudi"
+    },
     "tokens": [
      {
-      "token_id": 90,
+      "token_id": 83,
       "token_ids": [
-       90
+       83
       ],
       "unit_id": "n8.given",
       "slot": "given",
-      "arabic": "محمد",
+      "arabic": "هلال",
       "position": "given",
       "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad"
+       "Hilal",
+       "Helal"
       ],
       "raw_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
+       "Hilal",
+       "Helal"
       ],
-      "english_used": "Mohammed",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
+      "english_used": "Helal",
+      "expected": "adopt",
+      "expected_spelling": "Helal",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Helal Awadh Khaled Al Zeyoudi"
+       }
+      ],
       "must_include": [],
       "case_types": [],
       "arguable": false
      },
      {
-      "token_id": 91,
+      "token_id": 84,
       "token_ids": [
-       91
+       84
       ],
       "unit_id": "n8.father",
       "slot": "father",
-      "arabic": "يوسف",
+      "arabic": "عوض",
       "position": "middle",
       "english_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef"
+       "Awadh",
+       "Awad"
       ],
       "raw_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef",
-       "YOUSEF"
+       "Awadh",
+       "Awad",
+       "Awayd"
       ],
-      "english_used": "Yusuf",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
+      "english_used": "Awadh",
+      "expected": "adopt",
+      "expected_spelling": "Awadh",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Helal Awadh Khaled Al Zeyoudi"
+       }
+      ],
       "must_include": [],
-      "case_types": [
-       "A1"
-      ],
-      "arguable": true
+      "case_types": [],
+      "arguable": false
      },
      {
-      "token_id": 92,
+      "token_id": 85,
       "token_ids": [
-       92
+       85
+      ],
+      "unit_id": "n8.grandfather",
+      "slot": "grandfather",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khaled",
+      "expected": "adopt",
+      "expected_spelling": "Khaled",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Helal Awadh Khaled Al Zeyoudi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 86,
+      "token_ids": [
+       86
       ],
       "unit_id": "n8.family",
       "slot": "family",
-      "arabic": "البدواوي",
+      "arabic": "الزيودي",
       "position": "family",
       "english_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Al Zeyoudi"
       ],
       "raw_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Al Zeyoudi"
       ],
-      "english_used": "Al Badwawi",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
+      "english_used": "Al Zeyoudi",
+      "expected": "adopt",
+      "expected_spelling": "Al Zeyoudi",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Helal Awadh Khaled Al Zeyoudi"
+       }
+      ],
       "must_include": [],
-      "case_types": [
-       "A1"
-      ],
-      "arguable": true
+      "case_types": [],
+      "arguable": false
      }
     ]
    },
@@ -1129,28 +1143,28 @@
     "role": "secretary",
     "person_id": "p2",
     "mention": "full",
-    "segment_id": "s15",
+    "segment_id": "s16",
     "span": [
      23,
-     48
+     42
     ],
     "token_ids": [
-     97,
      98,
      99,
-     100
+     100,
+     101
     ],
-    "arabic_full": "أمين إسماعيل أشرف الموسوي",
-    "english_full": "Amin Ismail Ashraf Al Musawi",
+    "arabic_full": "أمين بن أنس الموسوي",
+    "english_full": "Amin Anas Al Mosawi",
     "evidence": {
-     "segment_id": "s16",
-     "quote": "A. I. Al Musawi"
+     "segment_id": "s17",
+     "quote": "A. A. Al Mosawi"
     },
     "tokens": [
      {
-      "token_id": 97,
+      "token_id": 98,
       "token_ids": [
-       97
+       98
       ],
       "unit_id": "n9.given",
       "slot": "given",
@@ -1172,34 +1186,27 @@
       "must_include": [],
       "case_types": [
        "B4",
-       "D2"
+       "D2",
+       "D3"
       ],
       "arguable": false
      },
      {
-      "token_id": 98,
+      "token_id": 100,
       "token_ids": [
-       98
+       100
       ],
       "unit_id": "n9.father",
       "slot": "father",
-      "arabic": "إسماعيل",
+      "arabic": "أنس",
       "position": "middle",
       "english_variants": [
-       "Ismail",
-       "Ismael",
-       "Ismaeel",
-       "Esmaeel",
-       "Esmail"
+       "Anas"
       ],
       "raw_variants": [
-       "Ismail",
-       "Ismael",
-       "Ismaeel",
-       "Esmail",
-       "Esmaeel"
+       "Anas"
       ],
-      "english_used": "Ismail",
+      "english_used": "Anas",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
@@ -1210,34 +1217,9 @@
       "arguable": false
      },
      {
-      "token_id": 99,
+      "token_id": 101,
       "token_ids": [
-       99
-      ],
-      "unit_id": "n9.grandfather",
-      "slot": "grandfather",
-      "arabic": "أشرف",
-      "position": "middle",
-      "english_variants": [
-       "Ashraf"
-      ],
-      "raw_variants": [
-       "Ashraf"
-      ],
-      "english_used": "Ashraf",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "B6"
-      ],
-      "arguable": false
-     },
-     {
-      "token_id": 100,
-      "token_ids": [
-       100
+       101
       ],
       "unit_id": "n9.family",
       "slot": "family",
@@ -1256,13 +1238,13 @@
        "Al Moussawi",
        "Al Mousawi"
       ],
-      "english_used": "Al Musawi",
+      "english_used": "Al Mosawi",
       "expected": "adopt",
-      "expected_spelling": "Al Musawi",
+      "expected_spelling": "Al Mosawi",
       "evidence": [
        {
-        "segment_id": "s16",
-        "quote": "A. I. Al Musawi"
+        "segment_id": "s17",
+        "quote": "A. A. Al Mosawi"
        }
       ],
       "must_include": [],
@@ -1274,88 +1256,76 @@
    {
     "occurrence_id": "n10",
     "role": "attendee",
-    "person_id": "p8",
+    "person_id": "p7",
     "mention": "short",
-    "segment_id": "s18",
+    "segment_id": "s19",
     "span": [
      32,
-     45
+     44
     ],
     "token_ids": [
-     118,
-     119
+     119,
+     120
     ],
-    "arabic_full": "محمد البدواوي",
-    "english_full": "Mohammed Al Badwawi",
+    "arabic_full": "عبدو الظفيري",
+    "english_full": "Abdu Al Dhefiri",
     "evidence": null,
     "tokens": [
-     {
-      "token_id": 118,
-      "token_ids": [
-       118
-      ],
-      "unit_id": "n10.given",
-      "slot": "given",
-      "arabic": "محمد",
-      "position": "given",
-      "english_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad"
-      ],
-      "raw_variants": [
-       "Mohammed",
-       "Mohamed",
-       "Muhammad",
-       "Mohammad",
-       "Muhammed",
-       "Mohamad",
-       "Muhamamd",
-       "Mohmmad",
-       "Mohd",
-       "Moh",
-       "Mohammd",
-       "mohammed",
-       "Mohmmed",
-       "Mo"
-      ],
-      "english_used": "Mohammed",
-      "expected": "hold",
-      "expected_spelling": null,
-      "evidence": [],
-      "must_include": [],
-      "case_types": [
-       "A3"
-      ],
-      "arguable": true
-     },
      {
       "token_id": 119,
       "token_ids": [
        119
       ],
-      "unit_id": "n10.family",
-      "slot": "family",
-      "arabic": "البدواوي",
-      "position": "family",
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "عبدو",
+      "position": "given",
       "english_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Abdu",
+       "Abdou"
       ],
       "raw_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Abdu",
+       "Abdou"
       ],
-      "english_used": "Al Badwawi",
+      "english_used": "Abdu",
       "expected": "hold",
       "expected_spelling": null,
       "evidence": [],
       "must_include": [],
       "case_types": [
-       "A1",
+       "A3",
+       "C1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 120,
+      "token_ids": [
+       120
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الظفيري",
+      "position": "family",
+      "english_variants": [
+       "Al Dhefiri",
+       "Al Dafiri",
+       "Al Dhafiri"
+      ],
+      "raw_variants": [
+       "Al Dhefiri",
+       "al Dafiri",
+       "al Dhafiri",
+       "Zufayri",
+       "Al Dhufairi"
+      ],
+      "english_used": "Al Dhefiri",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
        "A3"
       ],
       "arguable": true
@@ -1367,57 +1337,54 @@
     "role": "attendee",
     "person_id": "p5",
     "mention": "short",
-    "segment_id": "s21",
+    "segment_id": "s22",
     "span": [
      20,
      33
     ],
     "token_ids": [
-     147,
-     148
+     148,
+     149
     ],
-    "arabic_full": "يوسف البدواوي",
-    "english_full": "Yousef Al Badwawi",
+    "arabic_full": "جمعة الشمراني",
+    "english_full": "Juma Al Shamrani",
     "evidence": {
-     "segment_id": "s11",
-     "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+     "segment_id": "s10",
+     "quote": "Juma Al Shamrani"
     },
     "tokens": [
      {
-      "token_id": 147,
+      "token_id": 148,
       "token_ids": [
-       147
+       148
       ],
       "unit_id": "n11.given",
       "slot": "given",
-      "arabic": "يوسف",
+      "arabic": "جمعة",
       "position": "given",
       "english_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma"
       ],
       "raw_variants": [
-       "Yousef",
-       "Yusuf",
-       "Yousif",
-       "Yousuf",
-       "Youssef",
-       "Yusef",
-       "Yussef",
-       "YOUSEF"
+       "Juma",
+       "Jumaa",
+       "Jouma",
+       "Jum'ah",
+       "Joma",
+       "Juma'a",
+       "Jumah"
       ],
-      "english_used": "Yousef",
+      "english_used": "Juma",
       "expected": "adopt",
-      "expected_spelling": "Yousef",
+      "expected_spelling": "Juma",
       "evidence": [
        {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+        "segment_id": "s10",
+        "quote": "Juma Al Shamrani"
        }
       ],
       "must_include": [],
@@ -1427,29 +1394,27 @@
       "arguable": true
      },
      {
-      "token_id": 148,
+      "token_id": 149,
       "token_ids": [
-       148
+       149
       ],
       "unit_id": "n11.family",
       "slot": "family",
-      "arabic": "البدواوي",
+      "arabic": "الشمراني",
       "position": "family",
       "english_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Al Shamrani"
       ],
       "raw_variants": [
-       "Al Badwawi",
-       "Al Bedwawi"
+       "Al Shamrani"
       ],
-      "english_used": "Al Badwawi",
+      "english_used": "Al Shamrani",
       "expected": "adopt",
-      "expected_spelling": "Al Badwawi",
+      "expected_spelling": "Al Shamrani",
       "evidence": [
        {
-        "segment_id": "s11",
-        "quote": "Yousef bin Hamed bin Ahmed Al Badwawi"
+        "segment_id": "s10",
+        "quote": "Juma Al Shamrani"
        }
       ],
       "must_include": [],
@@ -1465,47 +1430,45 @@
     "role": "chair",
     "person_id": "p1",
     "mention": "title_short",
-    "segment_id": "s22",
+    "segment_id": "s23",
     "span": [
      23,
-     28
+     29
     ],
     "token_ids": [
-     159
+     160
     ],
-    "arabic_full": "سلطان",
-    "english_full": "Sultan",
-    "evidence": {
-     "segment_id": "s05",
-     "quote": "Sultan bin Waleed Al Kuwaiti"
-    },
+    "arabic_full": "سليمان",
+    "english_full": "Suleiman",
+    "evidence": null,
     "tokens": [
      {
-      "token_id": 159,
+      "token_id": 160,
       "token_ids": [
-       159
+       160
       ],
       "unit_id": "n12.given",
       "slot": "given",
-      "arabic": "سلطان",
+      "arabic": "سليمان",
       "position": "given",
       "english_variants": [
-       "Sultan"
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Soulaiman"
       ],
       "raw_variants": [
-       "Sultan",
-       "Al Sharji",
-       "Sultsn"
+       "Sulaiman",
+       "Suleiman",
+       "Sulayman",
+       "Suliman",
+       "Soulaiman",
+       "Sulaymanjaydh"
       ],
-      "english_used": "Sultan",
-      "expected": "adopt",
-      "expected_spelling": "Sultan",
-      "evidence": [
-       {
-        "segment_id": "s05",
-        "quote": "Sultan bin Waleed Al Kuwaiti"
-       }
-      ],
+      "english_used": "Suleiman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
       "must_include": [],
       "case_types": [
        "A3",
@@ -1520,26 +1483,26 @@
     "role": "secretary",
     "person_id": "p2",
     "mention": "short",
-    "segment_id": "s23",
+    "segment_id": "s24",
     "span": [
      11,
      23
     ],
     "token_ids": [
-     162,
-     163
+     163,
+     164
     ],
     "arabic_full": "أمين الموسوي",
-    "english_full": "Amin Al Musawi",
+    "english_full": "Amin Al Mosawi",
     "evidence": {
-     "segment_id": "s16",
-     "quote": "A. I. Al Musawi"
+     "segment_id": "s17",
+     "quote": "A. A. Al Mosawi"
     },
     "tokens": [
      {
-      "token_id": 162,
+      "token_id": 163,
       "token_ids": [
-       162
+       163
       ],
       "unit_id": "n13.given",
       "slot": "given",
@@ -1567,9 +1530,9 @@
       "arguable": true
      },
      {
-      "token_id": 163,
+      "token_id": 164,
       "token_ids": [
-       163
+       164
       ],
       "unit_id": "n13.family",
       "slot": "family",
@@ -1588,13 +1551,13 @@
        "Al Moussawi",
        "Al Mousawi"
       ],
-      "english_used": "Al Musawi",
+      "english_used": "Al Mosawi",
       "expected": "adopt",
-      "expected_spelling": "Al Musawi",
+      "expected_spelling": "Al Mosawi",
       "evidence": [
        {
-        "segment_id": "s16",
-        "quote": "A. I. Al Musawi"
+        "segment_id": "s17",
+        "quote": "A. A. Al Mosawi"
        }
       ],
       "must_include": [],
@@ -1615,34 +1578,32 @@
     "relation": "",
     "slots": {
      "given": {
-      "arabic": "يوسف",
-      "spelling": "Yousef"
+      "arabic": "جمعة",
+      "spelling": "Juma"
      },
      "father": {
-      "arabic": "حمد",
-      "spelling": "Hamed"
+      "arabic": "ناصر",
+      "spelling": "Nasser"
      },
      "grandfather": {
-      "arabic": "أحمد",
-      "spelling": "Ahmed"
+      "arabic": "محمود",
+      "spelling": "Mahmoud"
      },
      "family": {
-      "arabic": "البدواوي",
-      "spelling": "Al Badwawi"
+      "arabic": "الشمراني",
+      "spelling": "Al Shamrani"
      }
     },
     "renderings": [
      {
       "person_id": "p5",
-      "segment_id": "s11",
-      "quote": "Yousef bin Hamed bin Ahmed Al Badwawi",
-      "form": "plain",
+      "segment_id": "s10",
+      "quote": "Juma Al Shamrani",
+      "form": "partial",
       "labeled": true,
       "slots": {
-       "given": "Yousef",
-       "father": "Hamed",
-       "grandfather": "Ahmed",
-       "family": "Al Badwawi"
+       "given": "Juma",
+       "family": "Al Shamrani"
       },
       "initial_slots": []
      }
@@ -1653,65 +1614,70 @@
     "kind": "person",
     "role": "attendee",
     "gender": "male",
-    "relation": "son_of:p5",
-    "slots": {
-     "given": {
-      "arabic": "محمد",
-      "spelling": "Mohammed"
-     },
-     "father": {
-      "arabic": "يوسف",
-      "spelling": "Yusuf"
-     },
-     "family": {
-      "arabic": "البدواوي",
-      "spelling": "Al Badwawi"
-     }
-    },
-    "renderings": []
-   },
-   {
-    "person_id": "p1",
-    "kind": "person",
-    "role": "chair",
-    "gender": "male",
     "relation": "",
     "slots": {
      "given": {
-      "arabic": "سلطان",
-      "spelling": "Sultan"
+      "arabic": "هلال",
+      "spelling": "Helal"
      },
      "father": {
-      "arabic": "وليد",
-      "spelling": "Waleed"
+      "arabic": "عوض",
+      "spelling": "Awadh"
+     },
+     "grandfather": {
+      "arabic": "خالد",
+      "spelling": "Khaled"
      },
      "family": {
-      "arabic": "الكويتي",
-      "spelling": "Al Kuwaiti"
+      "arabic": "الزيودي",
+      "spelling": "Al Zeyoudi"
      }
     },
     "renderings": [
      {
-      "person_id": "p1",
-      "segment_id": "s05",
-      "quote": "Sultan bin Waleed Al Kuwaiti",
+      "person_id": "p8",
+      "segment_id": "s15",
+      "quote": "Helal Awadh Khaled Al Zeyoudi",
       "form": "plain",
       "labeled": true,
       "slots": {
-       "given": "Sultan",
-       "father": "Waleed",
-       "family": "Al Kuwaiti"
+       "given": "Helal",
+       "father": "Awadh",
+       "grandfather": "Khaled",
+       "family": "Al Zeyoudi"
       },
       "initial_slots": []
      }
     ]
    },
    {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "chair",
+    "gender": "male",
+    "relation": "son_of:p8",
+    "slots": {
+     "given": {
+      "arabic": "سليمان",
+      "spelling": "Suleiman"
+     },
+     "father": {
+      "arabic": "هلال",
+      "spelling": "Helal"
+     },
+     "family": {
+      "arabic": "الزيودي",
+      "spelling": "Al Zeyoudi"
+     }
+    },
+    "renderings": []
+   },
+   {
     "person_id": "p4",
     "kind": "person",
     "role": "attendee",
     "gender": "male",
-    "relation": "son_of:p1",
+    "relation": "",
     "slots": {
      "given": {
       "arabic": "سليم",
@@ -1721,53 +1687,53 @@
       "arabic": "سلطان",
       "spelling": "Sultan"
      },
+     "grandfather": {
+      "arabic": "حسين",
+      "spelling": "Husayn"
+     },
      "family": {
-      "arabic": "الكويتي",
-      "spelling": "Al Kuwaiti"
+      "arabic": "المرشدي",
+      "spelling": "Al Marshedi"
      }
     },
-    "renderings": []
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s08",
+      "quote": "Sulayem Sultan Husayn Al Marshedi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Sulayem",
+       "father": "Sultan",
+       "grandfather": "Husayn",
+       "family": "Al Marshedi"
+      },
+      "initial_slots": []
+     }
+    ]
    },
    {
     "person_id": "p3",
     "kind": "person",
     "role": "attendee",
     "gender": "male",
-    "relation": "",
+    "relation": "son_of:p4",
     "slots": {
      "given": {
       "arabic": "عادل",
       "spelling": "Adel"
      },
      "father": {
-      "arabic": "سعيد",
-      "spelling": "Saeed"
-     },
-     "grandfather": {
-      "arabic": "خالد",
-      "spelling": "Khaled"
+      "arabic": "سليم",
+      "spelling": "Sulayem"
      },
      "family": {
-      "arabic": "المرزوقي",
-      "spelling": "Al Marzouqi"
+      "arabic": "المرشدي",
+      "spelling": "Al Marshedi"
      }
     },
-    "renderings": [
-     {
-      "person_id": "p3",
-      "segment_id": "s08",
-      "quote": "A. S. Al Marzouqi",
-      "form": "initials",
-      "labeled": true,
-      "slots": {
-       "family": "Al Marzouqi"
-      },
-      "initial_slots": [
-       "given",
-       "father"
-      ]
-     }
-    ]
+    "renderings": []
    },
    {
     "person_id": "p6",
@@ -1777,42 +1743,56 @@
     "relation": "",
     "slots": {
      "given": {
-      "arabic": "عبد الله",
-      "spelling": "Abdulla"
+      "arabic": "عبده",
+      "spelling": "Abdo"
      },
      "father": {
-      "arabic": "منذر",
-      "spelling": "Munther"
-     },
-     "grandfather": {
-      "arabic": "عبد الناصر",
-      "spelling": "Abdulnasser"
+      "arabic": "حمد",
+      "spelling": "Hamad"
      },
      "family": {
-      "arabic": "البلوشي",
-      "spelling": "Al Balushi"
+      "arabic": "الكعبي",
+      "spelling": "Al Kaabi"
      }
     },
-    "renderings": []
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s12",
+      "quote": "Abdo Hamad Al Kaabi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Abdo",
+       "father": "Hamad",
+       "family": "Al Kaabi"
+      },
+      "initial_slots": []
+     }
+    ]
    },
    {
     "person_id": "p7",
     "kind": "person",
     "role": "attendee",
-    "gender": "female",
-    "relation": "sibling",
+    "gender": "male",
+    "relation": "",
     "slots": {
      "given": {
-      "arabic": "العنود",
-      "spelling": "Alanoud"
+      "arabic": "عبدو",
+      "spelling": "Abdu"
      },
      "father": {
-      "arabic": "عبد العزيز",
-      "spelling": "Abdulaziz"
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "grandfather": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
      },
      "family": {
-      "arabic": "البلوشي",
-      "spelling": "Al Balushi"
+      "arabic": "الظفيري",
+      "spelling": "Al Dhefiri"
      }
     },
     "renderings": []
@@ -1829,27 +1809,23 @@
       "spelling": "Amin"
      },
      "father": {
-      "arabic": "إسماعيل",
-      "spelling": "Ismail"
-     },
-     "grandfather": {
-      "arabic": "أشرف",
-      "spelling": "Ashraf"
+      "arabic": "أنس",
+      "spelling": "Anas"
      },
      "family": {
       "arabic": "الموسوي",
-      "spelling": "Al Musawi"
+      "spelling": "Al Mosawi"
      }
     },
     "renderings": [
      {
       "person_id": "p2",
-      "segment_id": "s16",
-      "quote": "A. I. Al Musawi",
+      "segment_id": "s17",
+      "quote": "A. A. Al Mosawi",
       "form": "initials",
       "labeled": true,
       "slots": {
-       "family": "Al Musawi"
+       "family": "Al Mosawi"
       },
       "initial_slots": [
        "given",
@@ -1866,19 +1842,19 @@
     "relation": "",
     "slots": {
      "family": {
-      "arabic": "البلوشي",
-      "spelling": "Al Balushi"
+      "arabic": "الزيودي",
+      "spelling": "Al Zeyoudi"
      }
     },
     "renderings": [
      {
       "person_id": "c1",
       "segment_id": "s03",
-      "quote": "Al Balushi",
+      "quote": "Al Zeyoudi",
       "form": "plain",
       "labeled": true,
       "slots": {
-       "family": "Al Balushi"
+       "family": "Al Zeyoudi"
       },
       "initial_slots": []
      }
@@ -1888,11 +1864,11 @@
   "decoys": [
    {
     "segment_id": "s03",
-    "quote": "Al Balushi",
+    "quote": "Al Zeyoudi",
     "kind": "company",
     "resembles": [
-     "p6.family",
-     "p7.family"
+     "p1.family",
+     "p8.family"
     ]
    }
   ],
@@ -1902,39 +1878,39 @@
    11,
    21,
    25,
-   41,
-   53,
-   75,
-   158
+   35,
+   64,
+   97,
+   159
   ],
   "title_token_ids": [
    25,
-   41,
-   53,
-   75,
-   158
+   35,
+   64,
+   97,
+   159
   ],
   "lookalikes": [
    {
-    "token_id": 129,
+    "token_id": 130,
     "kind": "common_word",
     "twin": "p3.given"
    },
    {
-    "token_id": 138,
+    "token_id": 139,
     "kind": "common_word",
     "twin": "p4.given"
    },
    {
-    "token_id": 160,
+    "token_id": 161,
     "kind": "common_word",
     "twin": "p2.given"
    }
   ],
   "lookalike_token_ids": [
-   129,
-   138,
-   160
+   130,
+   139,
+   161
   ]
  },
  "case_types": [
@@ -1942,10 +1918,10 @@
   "A3",
   "B4",
   "B6",
+  "C1",
   "C2",
   "D1",
   "D2",
-  "D3",
-  "D5"
+  "D3"
  ]
 }

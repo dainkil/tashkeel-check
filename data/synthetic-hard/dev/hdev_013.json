@@ -57,11 +57,11 @@
  "features_planned": [
   "A1",
   "B6",
-  "C1",
-  "C2"
+  "C2",
+  "D4"
  ],
  "meta": {
-  "generator": "synthetic-hard-v1",
+  "generator": "synthetic-hard-v2",
   "gold_format": 2,
   "seed": 3001,
   "split": "dev",

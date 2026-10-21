@@ -25,9 +25,12 @@ from ..romanize import match_spelling, strict_key, strict_words_in_quote
 from ..text import Segment, normalize_key, tokenize, tokens_in_span
 from .synthetic import AUTHORITY, CITIES, COUNTRY, JOBS, LLC, NATIONALITIES, NOTICE, _placeholder_ids
 
-GENERATOR_VERSION = "synthetic-hard-v1"
+GENERATOR_VERSION = "synthetic-hard-v2"
 GOLD_FORMAT = 2
 SEEDS = {"dev": 3001, "eval": 4002}
+# 최소 수량을 강제할 때(eval) 시작 seed에서 못 채우면 다음 seed로 넘어간다. 고르는 기준은 수량뿐이고 모델 결과가
+# 아니다. 쓴 seed는 문서 meta와 quota 보고에 남는다(2026-10-21, eval 생성 전에 정함)
+MAX_SEED_TRIES = 20
 DOC_COUNTS = {"dev": 20, "eval": 70}
 PREFIX = {"dev": "hdev", "eval": "heval"}
 CASE_TYPES = {
@@ -911,9 +914,10 @@ def _letter(c: Caster, ids: dict[str, str]) -> HardBuilder:
     b.seg("المدير العام: " if S.gender == "male" else "المديرة العامة: ", *_named(S))
     for parts in _renderings_for(c, S, "General Manager"):
         b.seg(*parts)
-    b.seg("للاستفسار يرجى التواصل مع ", _hon(S), N(S, "short"), " على البريد الإلكتروني أدناه.")
-    email = f"{_slug(S.slots['given'].spelling)[:1]}.{_slug(S.slots['family'].spelling)}@{cslug}.example.com"
-    b.seg("Email: ", D(email, "email", [f"{S.pid}.family"]))
+    # 문의처는 부서 주소다. 사람과 이은 개인 이메일은 지시문 p1의 원칙("그 사람의 것이라고 분명히 이어 주는 표기")과
+    # 정답 규칙("이메일은 근거 아님")이 갈려서 쓰지 않는다(dev 실제 모델 점검 2026-10-21, EXP-003)
+    b.seg("للاستفسار يرجى التواصل مع إدارة الموارد البشرية على البريد الإلكتروني أدناه.")
+    b.seg("Email: ", D(f"hr@{cslug}.example.com", "email", [f"{q}.family" for q in same_family] + ["c1.family"]))
     b.seg("التاريخ: ", ids["date2"])
     return b
 
@@ -937,13 +941,17 @@ def _people_doc(
         specs.append(spec)
     order = list(range(len(specs)))
     rng.shuffle(order)
-    pairs = [(order[i], order[i + 1]) for i in range(0, len(order) - 1, 2)]
+    # B6를 고른 문서면 생략 표기를 붙일 사람을 쌍보다 먼저 한 명 떼어 두고 B6에만 쓴다. 쌍 유형이 사람을 다 묶어
+    # 상업등기에 생략·이니셜 표기가 하나도 없었다(2026-10-21, eval 크기 시험 생성에서 B6 미달)
+    spare = [i for i in order if not specs[i].force][: int(c.has("B6"))]
+    paired = [i for i in order if i not in spare]
+    pairs = [(paired[i], paired[i + 1]) for i in range(0, len(paired) - 1, 2)]
     for a, b in pairs:
         c.pairs(specs[a], specs[b])
     deps: dict[int, tuple[int, str]] = {b: (a, "son") for a, b in pairs if specs[b].relation == "son_of"}
 
     def free() -> list[int]:
-        return [i for i in order if not specs[i].keep_forms and not specs[i].force]
+        return [i for i in paired if not specs[i].keep_forms and not specs[i].force]
 
     if c.has("C2") and len(free()) >= 2:  # 가족 회사: 표기 없는 형제 둘이 회사와 같은 가문명을 쓴다
         i1, i2 = free()[:2]
@@ -956,7 +964,11 @@ def _people_doc(
             specs[cand[0]].forms, specs[cand[0]].unlabeled, specs[cand[0]].keep_forms = [], True, True
     for f, form in (("B4", "initials"), ("B6", "partial")):
         while c.has(f):
-            cands = [s for s in specs if s.forms in (["plain"], []) and not s.keep_forms and not s.conflict]
+            cands = [
+                s
+                for i, s in enumerate(specs)
+                if s.forms in (["plain"], []) and not s.keep_forms and not s.conflict and (f == "B6" or i not in spare)
+            ]
             if not cands:
                 break
             c.take(f)
@@ -1050,10 +1062,14 @@ def _cr(c: Caster, ids: dict[str, str]) -> HardBuilder:
         b.seg(f"{k}. ", *_named(p), "، ", _nat(p), " الجنسية، الحصة ", str(share), "٪")
         for parts in _renderings_for(c, p, f"Partner {k}"):
             b.seg(*parts)
+    # 관리자·서명권자 줄에 파트너 번호를 붙여 같은 사람임을 문서가 밝힌다. 번호가 없으면 모델이 "같은 사람인지
+    # 문서가 밝히지 않았다"며 보류해, 정답(같은 사람 → 같은 처분)과 갈렸다(dev 실제 모델 점검 2026-10-21, EXP-003)
     manager = rng.choice([p for p in people if p.gender == "male"] or people)
-    b.seg("المدير: " if manager.gender == "male" else "المديرة: ", _hon(manager), N(manager, "short"))
     signer = rng.choice([p for p in people if p is not manager])
-    b.seg("المفوض بالتوقيع: " if signer.gender == "male" else "المفوضة بالتوقيع: ", _hon(signer), N(signer, "short"))
+    for label, p in ((("المدير: ", "المديرة: "), manager), (("المفوض بالتوقيع: ", "المفوضة بالتوقيع: "), signer)):
+        male = p.gender == "male"
+        partner = "الشريك" if male else "الشريكة"
+        b.seg(label[0 if male else 1], f"{partner} رقم {people.index(p) + 1}، ", _hon(p), N(p, "short"))
     b.seg("تاريخ الإصدار: ", ids["date"])
     _signature_list(b, c, people)
     return b
@@ -1527,14 +1543,20 @@ def generate(
     raw = json.loads(Path(pool_path).read_text(encoding="utf-8"))
     pool = HardPool(raw)
     n = n or DOC_COUNTS[split]
-    seed = SEEDS[split] if seed is None else seed
-    docs = build_docs(pool, split, n, seed)
-    report = quota_report(docs)
+    base = SEEDS[split] if seed is None else seed
     # 최소 수량은 eval에만 강제한다. dev 20개는 프롬프트·형식 점검용이라 비율로 줄인 수량을 참고로만 본다
-    if (split == "eval" if check_quota is None else check_quota) and not report["ok"]:
+    enforce = split == "eval" if check_quota is None else check_quota
+    for used in range(base, base + (MAX_SEED_TRIES if enforce else 1)):
+        docs = build_docs(pool, split, n, used)
+        report = quota_report(docs)
+        if report["ok"] or not enforce:
+            break
+    else:
         raise RuntimeError(
-            f"quota not met: {report['short']}, hard_share {report['hard_share']}, adopt_share {report['adopt_share']}"
+            f"quota not met in seeds {base}..{used}: {report['short']}, "
+            f"hard_share {report['hard_share']}, adopt_share {report['adopt_share']}"
         )
+    report = {**report, "seed": used, "seed_base": base, "seed_tries": used - base + 1}
     out = Path(out_dir) / split
     out.mkdir(parents=True, exist_ok=True)
     paths = []
