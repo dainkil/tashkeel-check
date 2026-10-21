@@ -86,6 +86,16 @@ def _cmd_synthetic(args: argparse.Namespace, settings: Settings) -> int:
     return 0
 
 
+def _cmd_make_bundles(args: argparse.Namespace, settings: Settings) -> int:
+    from .data.bundles import generate_bundles
+
+    made = []
+    for split in ("dev", "eval"):
+        made += generate_bundles(Path(args.synthetic) / split / f"{split}_001.json", args.out, split)
+    print(f"{len(made)} bundles → {args.out}")
+    return 0
+
+
 def _cmd_bundle_search(args: argparse.Namespace, settings: Settings) -> int:
     from .rag import BundleIndex
 
@@ -241,6 +251,11 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--dev", type=int)
     p.add_argument("--eval", type=int)
     p.set_defaults(func=_cmd_synthetic)
+
+    p = sub.add_parser("make-bundles", help="합성 묶음(평가 사례 9개 × 대상 종류 3개, dev·eval)을 만든다")
+    p.add_argument("--synthetic", default=str(data / "synthetic"))
+    p.add_argument("--out", default=str(data / "synthetic" / "bundles"))
+    p.set_defaults(func=_cmd_make_bundles)
 
     p = sub.add_parser("bundle-search", help="단계 2 틀: 묶음 검색을 직접 시험한다")
     p.add_argument("--bundle", default=str(data / "bundles" / "sample"))

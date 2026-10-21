@@ -1,0 +1,41 @@
+{
+  "bundle_id": "dev_organization_other_customer",
+  "customer_id": "customer_dev_a",
+  "synthetic": true,
+  "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류·선박이 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+  "entities": {
+    "organization_dev_001": "organization"
+  },
+  "documents": [
+    {
+      "document_id": "contract_001",
+      "document_type": "contract",
+      "segments": [
+        {
+          "segment_id": "s01",
+          "text": "عقد خدمات بين الطرفين المذكورين أدناه."
+        },
+        {
+          "segment_id": "s02",
+          "text": "اسم الشركة: شركة الظفيري للتجارة",
+          "entity_id": "organization_dev_001",
+          "translated_name": "Zufayri Trading Company"
+        }
+      ]
+    }
+  ],
+  "gold": {
+    "case": "other_customer",
+    "entity_type": "organization",
+    "requires_llm": false,
+    "related_bundle": "dev_organization_other_customer_b",
+    "generator": "bundles-v1",
+    "review_items": [
+      {
+        "mention_id": "contract_001:s02:1",
+        "status": "pending",
+        "reason": "no_evidence"
+      }
+    ]
+  }
+}
