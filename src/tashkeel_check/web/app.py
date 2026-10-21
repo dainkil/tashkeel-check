@@ -26,6 +26,7 @@ from .. import __version__
 from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
 from ..bundle import Bundle, parse_bundle, review_bundle
 from ..bundle.dictionary import DictionaryEntry, InMemoryDictionary
+from ..bundle.draft import build_draft
 from ..bundle.schemas import REASON_LABELS, ReviewItem
 from ..bundle.upload import bundle_from_uploads
 from ..config import ALL_CONDITIONS, CONDITIONS, Settings, configure_tracing, has_openai_key
@@ -425,6 +426,20 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         uploads = [(f.filename or f"file_{i}", f.file.read()) for i, f in enumerate(files, start=1)]
         bundle = bundle_from_uploads(uploads, bundle_id, customer_id, document_type, entities)  # 오류 → 400
         return _review_and_save(bundle, request, who)
+
+    @app.post("/v1/bundles/draft")
+    def draft_bundle(
+        request: Request,
+        who: Who,
+        files: Annotated[list[UploadFile], File(description="서류 파일(.json/.txt/.md) 여러 개 또는 묶음 JSON 하나")],
+        bundle_id: Annotated[str | None, Form()] = None,
+        customer_id: Annotated[str | None, Form()] = None,
+        document_type: Annotated[str, Form()] = "document",
+    ) -> dict[str, Any]:
+        """업로드 초안(ADR-019): 이름 칸과 같은 대상 제안만 돌려준다. 저장하지 않고 entity_id도 넣지 않는다."""
+        uploads = [(f.filename or f"file_{i}", f.file.read()) for i, f in enumerate(files, start=1)]
+        bundle = _bind_customer(bundle_from_uploads(uploads, bundle_id, customer_id, document_type), who)
+        return build_draft(bundle)
 
     @app.get("/v1/bundles/{bundle_id}/items")
     def bundle_items(bundle_id: str, who: Who) -> JSONResponse:
