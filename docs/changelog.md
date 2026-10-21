@@ -31,11 +31,43 @@
 | 2026-10-20 | EXP-001 main 1회 실행과 기록: M5 방언 허용 0.502(엄격 0.500), 가문명 0.418, 이름 0.705. 사후 보조 분석(단위 부트스트랩 95% 구간 0.485~0.519, 빈도별)을 더함. 3·6.1·8·9·[13절](experiments/README.md), EXP-001 기록, README 갱신 | 사용자 지시("다음거 ㄱㄱ"). 규칙은 dev에서 고정한 v1 그대로 | 사전 등록 기준(0.5)을 넘어 분석기를 이름 후보 출처로 유지, 계획 변경 없음. 여유가 거의 없어 결과는 "기준선과 구별되지 않는 통과"로 보고. 다음은 EXP-002 |
 | 2026-10-20 | 문서 재구성: 단일 `PROJECT_PLAN.md`(1,118줄)를 `docs/` 아래 문서로 분할(problem-and-goals, scope, architecture, data, evaluation, changelog, troubleshooting, adr/ 15개, experiments/README). `docs/아키텍처-설계.md`·`툴-설계.md`·`요구사항-분석.md`는 architecture.md·problem-and-goals.md에 흡수 후 삭제. `docs/개발-계획.md` → `roadmap.md`(8절 체크리스트·9절 위험 목록 추가). 사업성 검토·`docs/market/`을 `docs/business/`로 옮기고 파일명을 ASCII로. architecture.md에 코드 대조(4.11절) 추가, `MAX_RETRIES` 문구를 `Settings.max_retries`로 고침. `PROJECT_PLAN.md`는 상태·다음 작업·문서 지도만 남긴 허브로 | 사용자 지적(문서가 흩어짐, 실무형 구조 요청). 같은 내용이 세 곳에 있었고(그래프·스택·마일스톤), 설계 문서가 리팩토링 전 기준이었음 | 코드·실험 설계·프롬프트·지표 정의는 바뀌지 않음(코드 주석 3곳의 문서 경로 문구만 변경, 골든·해시 테스트 그대로). 분할 전 절 번호는 각 문서 안에 유지하고 `docs/README.md`에 대응표를 둠 |
 | 2026-10-21 | EXP-002 실행 장치 변경(ADR-016): `plan.json`·`runs.jsonl`로 재개(`--resume`), 순서를 반복 → 문서 → 조건으로, 동시 실행(`--workers`), 멈춤(`--max-runs`·`--token-budget`·`STOP` 파일·Ctrl+C, 종료 코드 4), API 오류는 완료로 치지 않고 멈춤, `exp002-status`(사용량·진행만), `--finalize`(부분 결과), 선택 설정 `PRICE_INPUT_PER_MTOK`·`PRICE_OUTPUT_PER_MTOK`. 이어서 dev_001 C0~C3 실제 모델 점검. EXP-002 기록, [architecture.md](architecture.md) 4.8절, [scope.md](scope.md) 3절 확인한 것, [roadmap.md](roadmap.md) 체크리스트, README, `.env.example` 갱신 | 사용자 요청(중간에 멈춰도 재개, API 사용량을 중간중간 확인하며 조절, 예상 시간 단축). 동시 실행 4·중간 지표 숨김·dev 점검은 사용자 결정 | 규모·지표·합격선·중단 기준·그래프·채점은 그대로다(골든 그대로, 테스트 250개 통과). dev 점검에서 네 조건 모두 첫 시도에 형식 통과. 실행당 토큰은 C0 0.6천, C1 6.3천, C2 13.0천, C3 19.2천. EXP-002 추정은 약 2.6~3.5M 토큰, $15~20(단가는 제3자 집계 값), 동시 4개로 1.4~1.9시간. eval 미실행 |
+| 2026-10-21 | EXP-002 보류(120/360회)와 EXP-003 준비(ADR-017): 서비스 목표 G7(이름 정확도 99%, 안전·엄격 두 기준)을 더하고, 어려운 합성 문서 생성기 synthetic-hard(유형 17가지, gold 형식 2, dev 20개 생성), 엄격 철자, 근거 검사 v2, 채점 v2, 지시문 p1, EXP-003 판정·서비스 기준 문구(Clopper–Pearson·부트스트랩 하한)를 넣음. 실행 장치를 `experiments/harness.py`로 옮김. [problem-and-goals.md](problem-and-goals.md) 1.2, [scope.md](scope.md) 3절, [data.md](data.md) 5.3, [evaluation.md](evaluation.md) 6.4, [architecture.md](architecture.md) 4.8, [roadmap.md](roadmap.md), EXP-002·EXP-003 기록, README 갱신 | EXP-002 반복 1회에서 C1~C3 모두 만점(천장 효과). 사용자 지시("나머지 실험은 보류, 새 답안지(아주 어려운 것까지), 정확도는 99% 이상"). 단위(이름 등장마다)·기준(둘 다)·유형(네 묶음 전부)·규모(1,000개 이상)·판정(두 단계)·지시문(원칙만)은 사용자 결정 | EXP-002 사전 등록은 그대로(p0·v1로 고정, 저장된 plan.json과 같음, 골든 그대로). 테스트 293개 통과(새 44개). eval은 확인 지점 A(사용자 검토) 뒤에 한 번만 만든다. 어려운 유형 비율의 하한을 계획 0.70에서 0.60으로 바꿈(생성기 구조상 약 2/3). eval 이름 부분이 계획(1,100~1,300)보다 많은 약 1,400~1,600개라 실행 비용도 늘어난다. 실제 모델 실행 없음 |
 
 추가 형식: `날짜 / 바뀐 내용 / 변경 이유·근거 / 일정·범위·평가에 미치는 영향 / 관련 ADR·실험`.
 
 
 ## 상세 기록 (구 9절 "완료" 블록, 날짜 역순)
+
+### 완료 (2026-10-21): 어려운 시험지(synthetic-hard)·99% 기준·EXP-003 준비 (ADR-017)
+
+EXP-002 반복 1회에서 C1~C3가 모두 만점이었다. 사용자는 남은 240회를 보류했다. 그리고 아주 어려운 경우까지 넣은 새 시험지와 답안지를 만들고, 서비스 특성상 정확도 99% 이상을 기준으로 하기로 했다. 결정과 이유는 [ADR-017](adr/ADR-017.md), 정답 규칙과 유형은 [data.md 5.3절](data.md), 지표와 판정은 [evaluation.md 6.4절](evaluation.md), 사전 등록은 [EXP-003](experiments/EXP-003.md)에 있다.
+
+- **번역문 판정 사전 조사 [확인, 비용 없음]:** EXP-002 반복 1회의 C1~C3 번역문에서 보류 이름 523건을 봤다. 모두 `[A/B]` 꼴이거나 표시가 붙어 있었다(표시 없음 0, 못 찾음 0). 그래서 번역문 판정 t1은 C0 판정 규칙의 단어열 찾기·표시 판정을 쓰고, 괄호 경계 너머의 표시만 옆 이름의 것으로 보도록 고쳤다
+- **구현 [확인]:**
+  - `romanize.py` 엄격 철자 함수(`strict_key`, `parse_mrz`, `strict_words_in_quote` 등)
+  - `reconcile.verify_evidence(rule)`, gold 형식 2일 때 채점 v2 연결
+  - `scoring_v2.py`(오류 종류 13+2, 부분별 행, 유형별·민감도·문서 단위 집계, C0 판정 v1)
+  - `data/synthetic_hard.py`(이름 풀 정리, 사람·표기 형태 9가지, 템플릿 4종, 유형 배정, 정답 규칙, 불변 조건 검사, `describe`)
+  - `prompts.py` p1, `config.py`의 `prompt_version`·`evidence_rule`
+  - `experiments/harness.py`(EXP-002의 실행 장치를 옮기고 Clopper–Pearson·부트스트랩 하한 추가), `experiments/exp003.py`(판정, `service_claim`, `export_errors`, `rescore`)
+  - `cli.py`의 `make-synthetic-hard`·`inspect-gold`·`exp003`·`exp003-status`·`exp003-errors`·`exp003-rescore`
+- **dev 생성 [확인]:** `data/synthetic-hard/dev/` 20개를 만들었다. 이름 부분 451개, 어려운 비율 0.643, 확정 비율 0.568이다. Claude가 문서 유형마다 정답을 읽어 확인했고, 사람 검수는 아니다. 확인 중에 고친 것:
+  - nisba 표시가 강제 가문명에 남던 문제
+  - 회사와 같은 가문명을 A1로 세던 문제(C2로만 센다)
+  - 아들의 국적이 아버지와 다르던 문제
+  - 표기 변이(داود/داوود)를 비슷한 다른 이름으로 세던 문제
+- **배정 조정 [확인]:** dev와 별도 seed 10개(9001~9010)로 eval 크기(70개)를 시험 생성하며 맞췄다. 9개가 모든 최소 수량을 넘었다. 이름 부분 1,433~1,570개, 어려운 비율 0.64~0.67이다. 어떤 모델도 이 문서들을 보지 않았다
+- **정답·채점 정합 [확인]:**
+  - 정답대로 답하는 가짜 응답기는 dev 451개에서 C0~C3 모두 1.0이었다.
+  - 일부러 틀리는 응답기는 정해진 오류를 그 수만큼 냈다. 전부 보류하면 안전 1.0·엄격 195/451, 근거 없이 확정하면 근거 없는 확정 195, 번역문 표시 없음 195, 항목 없음 451, El→Al로 고쳐 쓰면 12였다.
+  - 처음에는 C0에서 일치 규칙 v1의 단어열이 옆 이름의 "Al"까지 붙고 Wikidata 별칭(أحمد→Aziz)이 옆 이름과 맞아 오판했다. 철자는 구간 안 엄격 일치로 보고, 후보에서 별칭 원본을 빼서 고쳤다
+- **EXP-002 영향 [확인]:**
+  - 기본값(p0·v1)과 gold 형식 1에서는 동작이 그대로다.
+  - 골든 160건과 LLM 입력 해시가 그대로이고, EXP-002 `make_plan` 출력은 저장된 `plan.json`과 키·값이 같다.
+  - EXP-002는 `SPEC.configure`로 p0·v1에 고정된다.
+- **테스트 [확인]:** 새 테스트 44개를 더했다(`test_strict_spelling.py`, `test_scoring_v2.py`, `test_synthetic_hard.py`, `test_exp003.py`, p1 해시 고정). 전체 293개가 통과했고(live 제외), ruff·mypy도 통과했다
+- **가짜 모델로 처음부터 끝까지 [확인]:** `exp003 --split dev --fake --repeats 1 --workers 4`가 80회를 돌고 summary·판정·서비스 기준 문구를 썼다. 연습 응답이라 판정은 `fail`이다. 이 실행 폴더는 지웠다
+- **하지 않은 것:** eval 생성, 실제 모델 실행(dev 점검 포함), 사람의 정답 검토, 비용 재추정
 
 ### 완료 (2026-10-21): EXP-002 실행 장치(재개·동시 실행·사용량 확인)와 dev 실제 모델 점검
 

@@ -7,19 +7,20 @@
 
 | 문서 | 내용 | 이것이 바뀌면 고친다 |
 | --- | --- | --- |
-| [problem-and-goals.md](problem-and-goals.md) | 정의, 문제의 세 층, 대상 고객, 서비스 목표 G1~G6, 질문 Q0~Q3, 기능·비기능 요구사항 | 제품이 약속하는 것, 목표값, 요구사항 |
+| [problem-and-goals.md](problem-and-goals.md) | 정의, 문제의 세 층, 대상 고객, 서비스 목표 G1~G7, 질문 Q0~Q3, 기능·비기능 요구사항 | 제품이 약속하는 것, 목표값, 요구사항 |
 | [scope.md](scope.md) | 단계 1 / 1.5 / 2 / 3의 위치, 단계 1에 넣는 것·뺀 것, 사용자가 확정한 것과 확인한 것 | 범위, 합격선·중단 기준, 모델·규모 결정 |
 | [architecture.md](architecture.md) | 설계 원칙, 그래프, 산출물, 조건 C0~C3, 출력 스키마·강등 규칙, 툴, 스택, 저장소 구조, 코드 대조 | 노드·조건·스키마·툴·모듈 구조 |
-| [data.md](data.md) | Wikidata 걸프 인명(스냅숏·이름 풀·정렬 규칙), 합성 문서(규칙·근거 배치·정답·분할) | 데이터 출처·생성 규칙·버전 |
-| [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것 | 지표 정의, 판정 규칙, 기록 항목 |
+| [data.md](data.md) | Wikidata 걸프 인명(스냅숏·이름 풀·정렬 규칙), 합성 문서(규칙·근거 배치·정답·분할), 어려운 합성 문서 synthetic-hard(5.3절: 정답 규칙·유형 A1~D5) | 데이터 출처·생성 규칙·버전 |
+| [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것, EXP-003 99% 기준(6.4절: 엄격 철자·근거 검사 v2·채점 v2) | 지표 정의, 판정 규칙, 기록 항목 |
 | [roadmap.md](roadmap.md) | 기능 F1~F14, 제품 스택·시스템 구성·API 초안·데이터 모델, 마일스톤 M0~M6, 테스트 전략, 단계별 체크리스트, 위험 | 기능·일정·제품 설계, 체크리스트 |
 | [changelog.md](changelog.md) | 계획 변경 이력 표와 날짜별 완료 기록 | 모든 계획·범위·구조 변경(이유와 영향을 함께) |
-| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~016, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
+| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~017, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
 | [troubleshooting.md](troubleshooting.md) | TS-001~003 | 재현 가능한 오류와 해결 과정 |
-| [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
+| [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002(보류)·EXP-003(사전 등록) 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
 | [business/feasibility.md](business/feasibility.md) | 사업성 검토(시장성·기술성·경제성) | 사업 판단, 가격·고객 수 가정 |
 | [business/market/](business/market/) | 시장 조사 기록, 출처 목록, 재계산 스크립트 | 조사 추가·출처 갱신 |
 | [../data/synthetic/README.md](../data/synthetic/README.md) | 합성 문서 파일 형식 | 생성기 출력 형식 |
+| [../data/synthetic-hard/README.md](../data/synthetic-hard/README.md) | 어려운 합성 문서 파일 형식(gold 형식 2) | synthetic-hard 생성기 출력 형식 |
 
 ## 절 번호 안내
 
@@ -56,11 +57,11 @@
 
 | 산출물 | 내용 |
 | --- | --- |
-| `docs/problem-and-goals.md` | 문제 정의, 서비스 목표 G1~G6, 질문 Q0~Q3, 기능·비기능 요구사항(요구사항마다 충족하는 노드나 툴을 연결) |
+| `docs/problem-and-goals.md` | 문제 정의, 서비스 목표 G1~G7, 질문 Q0~Q3, 기능·비기능 요구사항(요구사항마다 충족하는 노드나 툴을 연결) |
 | `docs/architecture.md` | 설계 원칙, mermaid 그래프, 조건 C0~C3, 스키마·강등 규칙, 툴, 스택, 저장소 구조, 코드 대조 |
 | `docs/architecture.md` 4.9절 | 툴마다 이름, 입력·출력 스키마, 호출 시점, 실패 시 동작. 일반 함수의 정규화·일치 규칙 |
 | `docs/roadmap.md` | 단계 1~3을 제품 관점으로 묶은 주요 기능 선정(F1~F14, 선정 기준·우선순위), 기술 스택·시스템 구성(구성도, API 초안, 데이터 경계), 마일스톤 M0~M6과 테스트 전략 |
-| `docs/experiments/EXP-001.md`, `EXP-002.md` | `docs/experiments/README.md` 템플릿 형식의 실험 기록 |
+| `docs/experiments/EXP-001.md`, `EXP-002.md`, `EXP-003.md` | `docs/experiments/README.md` 템플릿 형식의 실험 기록 |
 | `docs/business/market/` | 시장 조사 기록(가격·고객 수, 긍정 근거), 출처 목록(`sources.csv`), 사업성 검토 경제성 재계산 스크립트(`recalc_economics.py`, 긍정 근거 시나리오 `recalc_upside.py`, 수요·공급 계산 `recalc_demand_supply.py`, ADR-008 이후 현재 구조의 추정 `recalc_gulf.py`). 수요·공급·경쟁 보고서는 `reports/`, 그 조사 노트 다섯 갈래는 `research_notes/`에 있다. 사업성 검토(`docs/business/feasibility.md`)의 가정을 출처 있는 값으로 바꾸는 근거 |
 | 코드·데이터·테스트 | 명령 한 줄로 EXP-001, 명령 한 줄로 합성 문서 1개 실행(JSON·CSV 출력) |
 

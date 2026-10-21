@@ -1,0 +1,681 @@
+{
+ "doc_id": "hdev_009",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 22/12/2026 حضر أمام الكاتب العدل السيد خالد سلمان العجمي، سعودي الجنسية، ويحمل جواز سفر رقم F2311402."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Khaled Salman Al Ajmi, Passport No. F2311402"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة العجمي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 875548، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Ajmi General Trading L.L.C., Registration No. 875548"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد محمد خالد العجمي، سعودي الجنسية، ويحمل بطاقة هوية رقم 88074105."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: خالد العجمي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: محمد العجمي"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "A2",
+  "B6",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 9,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     67
+    ],
+    "token_ids": [
+     11,
+     12,
+     13
+    ],
+    "arabic_full": "خالد سلمان العجمي",
+    "english_full": "Khaled Salman Al Ajmi",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Khaled Salman Al Ajmi"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "خالد",
+      "position": "given",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khaled",
+      "expected": "adopt",
+      "expected_spelling": "Khaled",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khaled Salman Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 12,
+      "token_ids": [
+       12
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "raw_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman",
+      "expected": "adopt",
+      "expected_spelling": "Salman",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khaled Salman Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "العجمي",
+      "position": "family",
+      "english_variants": [
+       "Al Ajmi"
+      ],
+      "raw_variants": [
+       "Al Ajmi",
+       "Alajmi",
+       "Al Agmi",
+       "al Ajmi"
+      ],
+      "english_used": "Al Ajmi",
+      "expected": "adopt",
+      "expected_spelling": "Al Ajmi",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khaled Salman Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     30
+    ],
+    "token_ids": [
+     35
+    ],
+    "arabic_full": "العجمي",
+    "english_full": "Al Ajmi",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Ajmi"
+    },
+    "tokens": [
+     {
+      "token_id": 35,
+      "token_ids": [
+       35
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العجمي",
+      "position": "family",
+      "english_variants": [
+       "Al Ajmi"
+      ],
+      "raw_variants": [
+       "Al Ajmi",
+       "Alajmi",
+       "Al Agmi",
+       "al Ajmi"
+      ],
+      "english_used": "Al Ajmi",
+      "expected": "adopt",
+      "expected_spelling": "Al Ajmi",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     36
+    ],
+    "token_ids": [
+     66,
+     67,
+     68
+    ],
+    "arabic_full": "محمد خالد العجمي",
+    "english_full": "Mohammed Khalid Al Ajmi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 66,
+      "token_ids": [
+       66
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 67,
+      "token_ids": [
+       67
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 68,
+      "token_ids": [
+       68
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العجمي",
+      "position": "family",
+      "english_variants": [
+       "Al Ajmi"
+      ],
+      "raw_variants": [
+       "Al Ajmi",
+       "Alajmi",
+       "Al Agmi",
+       "al Ajmi"
+      ],
+      "english_used": "Al Ajmi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     19
+    ],
+    "token_ids": [
+     105,
+     106
+    ],
+    "arabic_full": "خالد العجمي",
+    "english_full": "Khaled Al Ajmi",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Khaled Salman Al Ajmi"
+    },
+    "tokens": [
+     {
+      "token_id": 105,
+      "token_ids": [
+       105
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "خالد",
+      "position": "given",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khaled",
+      "expected": "adopt",
+      "expected_spelling": "Khaled",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khaled Salman Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 106,
+      "token_ids": [
+       106
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العجمي",
+      "position": "family",
+      "english_variants": [
+       "Al Ajmi"
+      ],
+      "raw_variants": [
+       "Al Ajmi",
+       "Alajmi",
+       "Al Agmi",
+       "al Ajmi"
+      ],
+      "english_used": "Al Ajmi",
+      "expected": "adopt",
+      "expected_spelling": "Al Ajmi",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Khaled Salman Al Ajmi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     19
+    ],
+    "token_ids": [
+     108,
+     109
+    ],
+    "arabic_full": "محمد العجمي",
+    "english_full": "Mohammed Al Ajmi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 108,
+      "token_ids": [
+       108
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "محمد",
+      "position": "given",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Mohammed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 109,
+      "token_ids": [
+       109
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العجمي",
+      "position": "family",
+      "english_variants": [
+       "Al Ajmi"
+      ],
+      "raw_variants": [
+       "Al Ajmi",
+       "Alajmi",
+       "Al Agmi",
+       "al Ajmi"
+      ],
+      "english_used": "Al Ajmi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "خالد",
+      "spelling": "Khaled"
+     },
+     "father": {
+      "arabic": "سلمان",
+      "spelling": "Salman"
+     },
+     "family": {
+      "arabic": "العجمي",
+      "spelling": "Al Ajmi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Khaled Salman Al Ajmi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Khaled",
+       "father": "Salman",
+       "family": "Al Ajmi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "محمد",
+      "spelling": "Mohammed"
+     },
+     "father": {
+      "arabic": "خالد",
+      "spelling": "Khalid"
+     },
+     "family": {
+      "arabic": "العجمي",
+      "spelling": "Al Ajmi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العجمي",
+      "spelling": "Al Ajmi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Ajmi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Ajmi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Ajmi",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   38,
+   39,
+   40,
+   43,
+   44,
+   45,
+   49,
+   50,
+   51,
+   52
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 93,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 100,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   93,
+   100
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "C2"
+ ]
+}

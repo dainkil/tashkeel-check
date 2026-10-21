@@ -1,0 +1,1934 @@
+{
+ "doc_id": "hdev_003",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "cr",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "مستخرج من السجل التجاري"
+  },
+  {
+   "segment_id": "s02",
+   "text": "الاسم التجاري: النجعي للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "رقم الرخصة: 287909، جهة الإصدار: دائرة التنمية الاقتصادية، الإمارة: الشارقة"
+  },
+  {
+   "segment_id": "s04",
+   "text": "الشكل القانوني: شركة ذات مسؤولية محدودة"
+  },
+  {
+   "segment_id": "s05",
+   "text": "الشركاء:"
+  },
+  {
+   "segment_id": "s06",
+   "text": "1. الشيخة أسيل عبد الله القطري، قطرية الجنسية، الحصة 37٪"
+  },
+  {
+   "segment_id": "s07",
+   "text": "2. السيد يوسف بن طاهر المهيري، كويتي الجنسية، الحصة 12٪"
+  },
+  {
+   "segment_id": "s08",
+   "text": "3. السيد غالب بن زايد بن فوزي العوضي، سعودي الجنسية، الحصة 34٪"
+  },
+  {
+   "segment_id": "s09",
+   "text": "Partner 3: GHALEB BIN ZAYED BIN FOUZI EL-AWADI"
+  },
+  {
+   "segment_id": "s10",
+   "text": "Passport name: GHALEB BIN ZAYED BIN FOUZI AL AWADI"
+  },
+  {
+   "segment_id": "s11",
+   "text": "4. المهندس أحمد ناصر عبد العزيز الكبيسي، إماراتي الجنسية، الحصة 40٪"
+  },
+  {
+   "segment_id": "s12",
+   "text": "Partner 4: Ahmed Nasser Abdel Aziz Al Kubaisi"
+  },
+  {
+   "segment_id": "s13",
+   "text": "5. السيد نواف بن حسن القبيسي، إماراتي الجنسية، الحصة 15٪"
+  },
+  {
+   "segment_id": "s14",
+   "text": "6. السيد سامي بن سعود القبيسي، سعودي الجنسية، الحصة 40٪"
+  },
+  {
+   "segment_id": "s15",
+   "text": "7. السيد إبراهيم بن غالب العوضي، سعودي الجنسية، الحصة 31٪"
+  },
+  {
+   "segment_id": "s16",
+   "text": "8. المهندس طاهر نبيل محمد المهيري، كويتي الجنسية، الحصة 36٪"
+  },
+  {
+   "segment_id": "s17",
+   "text": "Partner 8: TAHER NABIL MUHAMMAD EL-MEHAIRI"
+  },
+  {
+   "segment_id": "s18",
+   "text": "Surname: AL MUHAIRI / Given names: TAHIR NABIL MUHAMMAD"
+  },
+  {
+   "segment_id": "s19",
+   "text": "9. السيدة فرح وليد سلطان الكبيسي، سعودية الجنسية، الحصة 35٪"
+  },
+  {
+   "segment_id": "s20",
+   "text": "Partner 9: Farah Walid Sultan Al Kubaisi"
+  },
+  {
+   "segment_id": "s21",
+   "text": "المدير: السيد سامي القبيسي"
+  },
+  {
+   "segment_id": "s22",
+   "text": "المفوض بالتوقيع: السيد إبراهيم العوضي"
+  },
+  {
+   "segment_id": "s23",
+   "text": "تاريخ الإصدار: 07/12/2026"
+  },
+  {
+   "segment_id": "s24",
+   "text": "التوقيعات:"
+  },
+  {
+   "segment_id": "s25",
+   "text": "Aseel Abdullah Al Qatari"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B1",
+  "B4",
+  "B5",
+  "C1",
+  "C3",
+  "D4",
+  "D5"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 3,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     15,
+     21
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "النجعي",
+    "english_full": "Al Najei",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "النجعي",
+      "position": "family",
+      "english_variants": [
+       "Al Najei",
+       "Al Najai",
+       "Al Naje",
+       "Naji"
+      ],
+      "raw_variants": [
+       "Al Najei",
+       "Al Najai",
+       "Naji",
+       "Al Naje"
+      ],
+      "english_used": "Al Najei",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "partner",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     10,
+     30
+    ],
+    "token_ids": [
+     31,
+     32,
+     33,
+     34
+    ],
+    "arabic_full": "أسيل عبد الله القطري",
+    "english_full": "Aseel Abdullah Al Qatari",
+    "evidence": {
+     "segment_id": "s25",
+     "quote": "Aseel Abdullah Al Qatari"
+    },
+    "tokens": [
+     {
+      "token_id": 31,
+      "token_ids": [
+       31
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "أسيل",
+      "position": "given",
+      "english_variants": [
+       "Aseel"
+      ],
+      "raw_variants": [
+       "Aseel"
+      ],
+      "english_used": "Aseel",
+      "expected": "adopt",
+      "expected_spelling": "Aseel",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "Aseel Abdullah Al Qatari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 33,
+      "token_ids": [
+       32,
+       33
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "عبد الله",
+      "position": "middle",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdullah",
+      "expected": "adopt",
+      "expected_spelling": "Abdullah",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "Aseel Abdullah Al Qatari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 34,
+      "token_ids": [
+       34
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "القطري",
+      "position": "family",
+      "english_variants": [
+       "Al Qatari"
+      ],
+      "raw_variants": [
+       "Al Qatari"
+      ],
+      "english_used": "Al Qatari",
+      "expected": "adopt",
+      "expected_spelling": "Al Qatari",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "Aseel Abdullah Al Qatari"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D4",
+       "D5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s07",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     41,
+     42,
+     43,
+     44
+    ],
+    "arabic_full": "يوسف بن طاهر المهيري",
+    "english_full": "Yousif Taher Al Muhairi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 41,
+      "token_ids": [
+       41
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "يوسف",
+      "position": "given",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef"
+      ],
+      "raw_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousif",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 43,
+      "token_ids": [
+       43
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "طاهر",
+      "position": "middle",
+      "english_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "raw_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "english_used": "Taher",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "المهيري",
+      "position": "family",
+      "english_variants": [
+       "Al Muhairi",
+       "Al Mehairi"
+      ],
+      "raw_variants": [
+       "Al Muhairi",
+       "Al Mehairi",
+       "Al Mheiri"
+      ],
+      "english_used": "Al Muhairi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "partner",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     9,
+     36
+    ],
+    "token_ids": [
+     51,
+     52,
+     53,
+     54,
+     55,
+     56
+    ],
+    "arabic_full": "غالب بن زايد بن فوزي العوضي",
+    "english_full": "Ghaleb Zayed Fouzi El-Awadi",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "GHALEB BIN ZAYED BIN FOUZI EL-AWADI"
+    },
+    "tokens": [
+     {
+      "token_id": 51,
+      "token_ids": [
+       51
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "غالب",
+      "position": "given",
+      "english_variants": [
+       "Ghalib",
+       "Ghaleb"
+      ],
+      "raw_variants": [
+       "Ghalib",
+       "Ghaleb"
+      ],
+      "english_used": "Ghaleb",
+      "expected": "adopt",
+      "expected_spelling": "Ghaleb",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI EL-AWADI"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI AL AWADI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 53,
+      "token_ids": [
+       53
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "زايد",
+      "position": "middle",
+      "english_variants": [
+       "Zayed",
+       "Zaid",
+       "Zahed"
+      ],
+      "raw_variants": [
+       "Zayed",
+       "Zaid",
+       "Zahed"
+      ],
+      "english_used": "Zayed",
+      "expected": "adopt",
+      "expected_spelling": "Zayed",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI EL-AWADI"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI AL AWADI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 55,
+      "token_ids": [
+       55
+      ],
+      "unit_id": "n4.grandfather",
+      "slot": "grandfather",
+      "arabic": "فوزي",
+      "position": "middle",
+      "english_variants": [
+       "Fawzi",
+       "Fouzi"
+      ],
+      "raw_variants": [
+       "Fawzi",
+       "Fouzi",
+       "Fawaz"
+      ],
+      "english_used": "Fouzi",
+      "expected": "adopt",
+      "expected_spelling": "Fouzi",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI EL-AWADI"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "GHALEB BIN ZAYED BIN FOUZI AL AWADI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 56,
+      "token_ids": [
+       56
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العوضي",
+      "position": "family",
+      "english_variants": [
+       "Al Awadhi",
+       "Al Awadi"
+      ],
+      "raw_variants": [
+       "Al Awadhi",
+       "Al Awadi",
+       "al Awadi",
+       "Alawadhi",
+       "al Awadhi",
+       "Alawadi"
+      ],
+      "english_used": "El-Awadi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Awadi",
+       "El-Awadi"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     11,
+     39
+    ],
+    "token_ids": [
+     80,
+     81,
+     82,
+     83,
+     84
+    ],
+    "arabic_full": "أحمد ناصر عبد العزيز الكبيسي",
+    "english_full": "Ahmed Nasser Abdel Aziz Al Kubaisi",
+    "evidence": {
+     "segment_id": "s12",
+     "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi"
+    },
+    "tokens": [
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "أحمد",
+      "position": "given",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "adopt",
+      "expected_spelling": "Ahmed",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 81,
+      "token_ids": [
+       81
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "ناصر",
+      "position": "middle",
+      "english_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Naseer",
+       "Nassar"
+      ],
+      "raw_variants": [
+       "Nasser",
+       "Naser",
+       "Nasir",
+       "Nassir",
+       "Nasr",
+       "nasser",
+       "Naceur",
+       "Naseer",
+       "Nassar"
+      ],
+      "english_used": "Nasser",
+      "expected": "adopt",
+      "expected_spelling": "Nasser",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 83,
+      "token_ids": [
+       82,
+       83
+      ],
+      "unit_id": "n5.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبد العزيز",
+      "position": "middle",
+      "english_variants": [
+       "Abdulaziz",
+       "Abdel Aziz",
+       "Abdullaziz"
+      ],
+      "raw_variants": [
+       "Abdulaziz",
+       "Abdul Aziz",
+       "Abdelaziz",
+       "Abdel Aziz",
+       "Abd Elrahman",
+       "Abdullaziz",
+       "abdulaziz",
+       "Abd al"
+      ],
+      "english_used": "Abdel Aziz",
+      "expected": "adopt",
+      "expected_spelling": "Abdel Aziz",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 84,
+      "token_ids": [
+       84
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الكبيسي",
+      "position": "family",
+      "english_variants": [
+       "Al Kubaisi"
+      ],
+      "raw_variants": [
+       "Al Kubaisi"
+      ],
+      "english_used": "Al Kubaisi",
+      "expected": "adopt",
+      "expected_spelling": "Al Kubaisi",
+      "evidence": [
+       {
+        "segment_id": "s12",
+        "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s13",
+    "span": [
+     9,
+     28
+    ],
+    "token_ids": [
+     99,
+     100,
+     101,
+     102
+    ],
+    "arabic_full": "نواف بن حسن القبيسي",
+    "english_full": "Nawaf Hasan Al Qubaisi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 99,
+      "token_ids": [
+       99
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "نواف",
+      "position": "given",
+      "english_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "raw_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "english_used": "Nawaf",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 101,
+      "token_ids": [
+       101
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "حسن",
+      "position": "middle",
+      "english_variants": [
+       "Hassan",
+       "Hasan"
+      ],
+      "raw_variants": [
+       "Hassan",
+       "Hasan",
+       "Husan",
+       "Hussain"
+      ],
+      "english_used": "Hasan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 102,
+      "token_ids": [
+       102
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "القبيسي",
+      "position": "family",
+      "english_variants": [
+       "Al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "raw_variants": [
+       "Al Qubaisi",
+       "al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "english_used": "Al Qubaisi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s14",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     109,
+     110,
+     111,
+     112
+    ],
+    "arabic_full": "سامي بن سعود القبيسي",
+    "english_full": "Sami Saud Al Qubaisi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 109,
+      "token_ids": [
+       109
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "سامي",
+      "position": "given",
+      "english_variants": [
+       "Sami"
+      ],
+      "raw_variants": [
+       "Sami",
+       "sami"
+      ],
+      "english_used": "Sami",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 111,
+      "token_ids": [
+       111
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 112,
+      "token_ids": [
+       112
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "القبيسي",
+      "position": "family",
+      "english_variants": [
+       "Al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "raw_variants": [
+       "Al Qubaisi",
+       "al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "english_used": "Al Qubaisi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s15",
+    "span": [
+     9,
+     31
+    ],
+    "token_ids": [
+     119,
+     120,
+     121,
+     122
+    ],
+    "arabic_full": "إبراهيم بن غالب العوضي",
+    "english_full": "Ebrahim Ghalib Al Awadhi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 119,
+      "token_ids": [
+       119
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ebrahim",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 121,
+      "token_ids": [
+       121
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "غالب",
+      "position": "middle",
+      "english_variants": [
+       "Ghalib",
+       "Ghaleb"
+      ],
+      "raw_variants": [
+       "Ghalib",
+       "Ghaleb"
+      ],
+      "english_used": "Ghalib",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 122,
+      "token_ids": [
+       122
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "العوضي",
+      "position": "family",
+      "english_variants": [
+       "Al Awadhi",
+       "Al Awadi"
+      ],
+      "raw_variants": [
+       "Al Awadhi",
+       "Al Awadi",
+       "al Awadi",
+       "Alawadhi",
+       "al Awadhi",
+       "Alawadi"
+      ],
+      "english_used": "Al Awadhi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "partner",
+    "person_id": "p8",
+    "mention": "full",
+    "segment_id": "s16",
+    "span": [
+     11,
+     33
+    ],
+    "token_ids": [
+     129,
+     130,
+     131,
+     132
+    ],
+    "arabic_full": "طاهر نبيل محمد المهيري",
+    "english_full": "Taher Nabil Muhammad El-Mehairi",
+    "evidence": {
+     "segment_id": "s17",
+     "quote": "TAHER NABIL MUHAMMAD EL-MEHAIRI"
+    },
+    "tokens": [
+     {
+      "token_id": 129,
+      "token_ids": [
+       129
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "طاهر",
+      "position": "given",
+      "english_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "raw_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "english_used": "Taher",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Taher",
+       "Tahir"
+      ],
+      "case_types": [
+       "C3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 130,
+      "token_ids": [
+       130
+      ],
+      "unit_id": "n9.father",
+      "slot": "father",
+      "arabic": "نبيل",
+      "position": "middle",
+      "english_variants": [
+       "Nabil",
+       "Nabeel"
+      ],
+      "raw_variants": [
+       "Nabil",
+       "Nabeel"
+      ],
+      "english_used": "Nabil",
+      "expected": "adopt",
+      "expected_spelling": "Nabil",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "TAHER NABIL MUHAMMAD EL-MEHAIRI"
+       },
+       {
+        "segment_id": "s18",
+        "quote": "Surname: AL MUHAIRI / Given names: TAHIR NABIL MUHAMMAD"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 131,
+      "token_ids": [
+       131
+      ],
+      "unit_id": "n9.grandfather",
+      "slot": "grandfather",
+      "arabic": "محمد",
+      "position": "middle",
+      "english_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad"
+      ],
+      "raw_variants": [
+       "Mohammed",
+       "Mohamed",
+       "Muhammad",
+       "Mohammad",
+       "Muhammed",
+       "Mohamad",
+       "Muhamamd",
+       "Mohmmad",
+       "Mohd",
+       "Moh",
+       "Mohammd",
+       "mohammed",
+       "Mohmmed",
+       "Mo"
+      ],
+      "english_used": "Muhammad",
+      "expected": "adopt",
+      "expected_spelling": "Muhammad",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "TAHER NABIL MUHAMMAD EL-MEHAIRI"
+       },
+       {
+        "segment_id": "s18",
+        "quote": "Surname: AL MUHAIRI / Given names: TAHIR NABIL MUHAMMAD"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B2"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 132,
+      "token_ids": [
+       132
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "المهيري",
+      "position": "family",
+      "english_variants": [
+       "Al Muhairi",
+       "Al Mehairi"
+      ],
+      "raw_variants": [
+       "Al Muhairi",
+       "Al Mehairi",
+       "Al Mheiri"
+      ],
+      "english_used": "El-Mehairi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Muhairi",
+       "El-Mehairi"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "partner",
+    "person_id": "p9",
+    "mention": "full",
+    "segment_id": "s19",
+    "span": [
+     10,
+     32
+    ],
+    "token_ids": [
+     153,
+     154,
+     155,
+     156
+    ],
+    "arabic_full": "فرح وليد سلطان الكبيسي",
+    "english_full": "Farah Walid Sultan Al Kubaisi",
+    "evidence": {
+     "segment_id": "s20",
+     "quote": "Farah Walid Sultan Al Kubaisi"
+    },
+    "tokens": [
+     {
+      "token_id": 153,
+      "token_ids": [
+       153
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "فرح",
+      "position": "given",
+      "english_variants": [
+       "Farah"
+      ],
+      "raw_variants": [
+       "Farah"
+      ],
+      "english_used": "Farah",
+      "expected": "adopt",
+      "expected_spelling": "Farah",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Farah Walid Sultan Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 154,
+      "token_ids": [
+       154
+      ],
+      "unit_id": "n10.father",
+      "slot": "father",
+      "arabic": "وليد",
+      "position": "middle",
+      "english_variants": [
+       "Waleed",
+       "Walid"
+      ],
+      "raw_variants": [
+       "Waleed",
+       "Walid"
+      ],
+      "english_used": "Walid",
+      "expected": "adopt",
+      "expected_spelling": "Walid",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Farah Walid Sultan Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 155,
+      "token_ids": [
+       155
+      ],
+      "unit_id": "n10.grandfather",
+      "slot": "grandfather",
+      "arabic": "سلطان",
+      "position": "middle",
+      "english_variants": [
+       "Sultan"
+      ],
+      "raw_variants": [
+       "Sultan",
+       "Al Sharji",
+       "Sultsn"
+      ],
+      "english_used": "Sultan",
+      "expected": "adopt",
+      "expected_spelling": "Sultan",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Farah Walid Sultan Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 156,
+      "token_ids": [
+       156
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الكبيسي",
+      "position": "family",
+      "english_variants": [
+       "Al Kubaisi"
+      ],
+      "raw_variants": [
+       "Al Kubaisi"
+      ],
+      "english_used": "Al Kubaisi",
+      "expected": "adopt",
+      "expected_spelling": "Al Kubaisi",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Farah Walid Sultan Al Kubaisi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n11",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "short",
+    "segment_id": "s21",
+    "span": [
+     14,
+     26
+    ],
+    "token_ids": [
+     170,
+     171
+    ],
+    "arabic_full": "سامي القبيسي",
+    "english_full": "Sami Al Qubaisi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 170,
+      "token_ids": [
+       170
+      ],
+      "unit_id": "n11.given",
+      "slot": "given",
+      "arabic": "سامي",
+      "position": "given",
+      "english_variants": [
+       "Sami"
+      ],
+      "raw_variants": [
+       "Sami",
+       "sami"
+      ],
+      "english_used": "Sami",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 171,
+      "token_ids": [
+       171
+      ],
+      "unit_id": "n11.family",
+      "slot": "family",
+      "arabic": "القبيسي",
+      "position": "family",
+      "english_variants": [
+       "Al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "raw_variants": [
+       "Al Qubaisi",
+       "al Qubaisi",
+       "Al Qobaissi"
+      ],
+      "english_used": "Al Qubaisi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "C1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n12",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "short",
+    "segment_id": "s22",
+    "span": [
+     23,
+     37
+    ],
+    "token_ids": [
+     175,
+     176
+    ],
+    "arabic_full": "إبراهيم العوضي",
+    "english_full": "Ebrahim Al Awadhi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 175,
+      "token_ids": [
+       175
+      ],
+      "unit_id": "n12.given",
+      "slot": "given",
+      "arabic": "إبراهيم",
+      "position": "given",
+      "english_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Al Ibrahim",
+       "Ibraheem"
+      ],
+      "raw_variants": [
+       "Ibrahim",
+       "Ebrahim",
+       "Ibrahem",
+       "Ibrahmi",
+       "Ibraheem",
+       "Ibraheam",
+       "Al Ibrahim"
+      ],
+      "english_used": "Ebrahim",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 176,
+      "token_ids": [
+       176
+      ],
+      "unit_id": "n12.family",
+      "slot": "family",
+      "arabic": "العوضي",
+      "position": "family",
+      "english_variants": [
+       "Al Awadhi",
+       "Al Awadi"
+      ],
+      "raw_variants": [
+       "Al Awadhi",
+       "Al Awadi",
+       "al Awadi",
+       "Alawadhi",
+       "al Awadhi",
+       "Alawadi"
+      ],
+      "english_used": "Al Awadhi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p8",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "طاهر",
+      "spelling": "Taher"
+     },
+     "father": {
+      "arabic": "نبيل",
+      "spelling": "Nabil"
+     },
+     "grandfather": {
+      "arabic": "محمد",
+      "spelling": "Muhammad"
+     },
+     "family": {
+      "arabic": "المهيري",
+      "spelling": "El-Mehairi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p8",
+      "segment_id": "s17",
+      "quote": "TAHER NABIL MUHAMMAD EL-MEHAIRI",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Taher",
+       "father": "Nabil",
+       "grandfather": "Muhammad",
+       "family": "El-Mehairi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p8",
+      "segment_id": "s18",
+      "quote": "Surname: AL MUHAIRI / Given names: TAHIR NABIL MUHAMMAD",
+      "form": "surname_given",
+      "labeled": true,
+      "slots": {
+       "given": "Tahir",
+       "father": "Nabil",
+       "grandfather": "Muhammad",
+       "family": "Al Muhairi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p8",
+    "slots": {
+     "given": {
+      "arabic": "يوسف",
+      "spelling": "Yousif"
+     },
+     "father": {
+      "arabic": "طاهر",
+      "spelling": "Taher"
+     },
+     "family": {
+      "arabic": "المهيري",
+      "spelling": "Al Muhairi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "غالب",
+      "spelling": "Ghaleb"
+     },
+     "father": {
+      "arabic": "زايد",
+      "spelling": "Zayed"
+     },
+     "grandfather": {
+      "arabic": "فوزي",
+      "spelling": "Fouzi"
+     },
+     "family": {
+      "arabic": "العوضي",
+      "spelling": "El-Awadi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p3",
+      "segment_id": "s09",
+      "quote": "GHALEB BIN ZAYED BIN FOUZI EL-AWADI",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Ghaleb",
+       "father": "Zayed",
+       "grandfather": "Fouzi",
+       "family": "El-Awadi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p3",
+      "segment_id": "s10",
+      "quote": "GHALEB BIN ZAYED BIN FOUZI AL AWADI",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Ghaleb",
+       "father": "Zayed",
+       "grandfather": "Fouzi",
+       "family": "Al Awadi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p3",
+    "slots": {
+     "given": {
+      "arabic": "إبراهيم",
+      "spelling": "Ebrahim"
+     },
+     "father": {
+      "arabic": "غالب",
+      "spelling": "Ghalib"
+     },
+     "family": {
+      "arabic": "العوضي",
+      "spelling": "Al Awadhi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p9",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "فرح",
+      "spelling": "Farah"
+     },
+     "father": {
+      "arabic": "وليد",
+      "spelling": "Walid"
+     },
+     "grandfather": {
+      "arabic": "سلطان",
+      "spelling": "Sultan"
+     },
+     "family": {
+      "arabic": "الكبيسي",
+      "spelling": "Al Kubaisi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p9",
+      "segment_id": "s20",
+      "quote": "Farah Walid Sultan Al Kubaisi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Farah",
+       "father": "Walid",
+       "grandfather": "Sultan",
+       "family": "Al Kubaisi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سامي",
+      "spelling": "Sami"
+     },
+     "father": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "family": {
+      "arabic": "القبيسي",
+      "spelling": "Al Qubaisi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "father": {
+      "arabic": "ناصر",
+      "spelling": "Nasser"
+     },
+     "grandfather": {
+      "arabic": "عبد العزيز",
+      "spelling": "Abdel Aziz"
+     },
+     "family": {
+      "arabic": "الكبيسي",
+      "spelling": "Al Kubaisi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s12",
+      "quote": "Ahmed Nasser Abdel Aziz Al Kubaisi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Ahmed",
+       "father": "Nasser",
+       "grandfather": "Abdel Aziz",
+       "family": "Al Kubaisi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "نواف",
+      "spelling": "Nawaf"
+     },
+     "father": {
+      "arabic": "حسن",
+      "spelling": "Hasan"
+     },
+     "family": {
+      "arabic": "القبيسي",
+      "spelling": "Al Qubaisi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "أسيل",
+      "spelling": "Aseel"
+     },
+     "father": {
+      "arabic": "عبد الله",
+      "spelling": "Abdullah"
+     },
+     "family": {
+      "arabic": "القطري",
+      "spelling": "Al Qatari"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s25",
+      "quote": "Aseel Abdullah Al Qatari",
+      "form": "unlabeled_full",
+      "labeled": false,
+      "slots": {
+       "given": "Aseel",
+       "father": "Abdullah",
+       "family": "Al Qatari"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "النجعي",
+      "spelling": "Al Najei"
+     }
+    },
+    "renderings": []
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   17,
+   18,
+   19,
+   21,
+   30,
+   79,
+   128
+  ],
+  "title_token_ids": [
+   30,
+   79,
+   128
+  ],
+  "lookalikes": [
+   {
+    "token_id": 35,
+    "kind": "nationality",
+    "twin": "p1.family"
+   }
+  ],
+  "lookalike_token_ids": [
+   35
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "B1",
+  "B2",
+  "C1",
+  "C3",
+  "D1",
+  "D3",
+  "D4",
+  "D5"
+ ]
+}

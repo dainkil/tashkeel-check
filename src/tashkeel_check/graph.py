@@ -96,7 +96,7 @@ def build_graph(
         usage = dict(state.get("usage", {}))
         tool_log = list(state.get("tool_log", []))
         errors = list(state.get("errors", []))
-        system = system_prompt(condition)
+        system = system_prompt(condition, settings.prompt_version)
         user = user_message(
             condition, state["doc_id"], state["segments"], state["tokens"], state["analyses"], settings.max_candidates
         )
@@ -168,6 +168,7 @@ def build_graph(
             gold=state.get("gold"),
             tool_log=state.get("tool_log"),
             high_conf=settings.high_confidence,
+            evidence_rule=settings.evidence_rule,
         )
         result["metrics"].update(
             {

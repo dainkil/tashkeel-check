@@ -1,0 +1,1716 @@
+{
+ "doc_id": "hdev_019",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "cr",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "مستخرج من السجل التجاري"
+  },
+  {
+   "segment_id": "s02",
+   "text": "الاسم التجاري: الكتبي للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Trade name: Al Ketbi General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "البريد الإلكتروني: info@alketbi-group.example.net"
+  },
+  {
+   "segment_id": "s05",
+   "text": "رقم الرخصة: 575040، جهة الإصدار: دائرة التنمية الاقتصادية، الإمارة: دبي"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الشكل القانوني: شركة ذات مسؤولية محدودة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الشركاء:"
+  },
+  {
+   "segment_id": "s08",
+   "text": "1. السيد نواف بن حمد الكتبي، عماني الجنسية، الحصة 36٪"
+  },
+  {
+   "segment_id": "s09",
+   "text": "2. المهندس فهاد حسين الكويتي، كويتي الجنسية، الحصة 37٪"
+  },
+  {
+   "segment_id": "s10",
+   "text": "Partner 2: Fahhad Husain Al Kuwaiti"
+  },
+  {
+   "segment_id": "s11",
+   "text": "3. السيد فهيد بن عبد العزيز بن عادل الحرقان، كويتي الجنسية، الحصة 15٪"
+  },
+  {
+   "segment_id": "s12",
+   "text": "4. السيد عبده بن عبدالله القاسمي، بحريني الجنسية، الحصة 31٪"
+  },
+  {
+   "segment_id": "s13",
+   "text": "Partner 4: Abdo bin Abdullah Al Qasimi"
+  },
+  {
+   "segment_id": "s14",
+   "text": "Passport name: AL QASSIMI, Abdo Abdullah"
+  },
+  {
+   "segment_id": "s15",
+   "text": "5. الدكتور سعود بن علي الغساني، قطري الجنسية، الحصة 32٪"
+  },
+  {
+   "segment_id": "s16",
+   "text": "Partner 5: Saoud bin Ali Al Ghassani"
+  },
+  {
+   "segment_id": "s17",
+   "text": "6. السيد عبدو سعد أحمد الصباح، كويتي الجنسية، الحصة 32٪"
+  },
+  {
+   "segment_id": "s18",
+   "text": "7. السيد هلال سعود الغساني، قطري الجنسية، الحصة 18٪"
+  },
+  {
+   "segment_id": "s19",
+   "text": "8. الشيخ حمد بن عبد الله الكتبي، عماني الجنسية، الحصة 28٪"
+  },
+  {
+   "segment_id": "s20",
+   "text": "Partner 8: Hamed bin Abdulla Al Ketbi"
+  },
+  {
+   "segment_id": "s21",
+   "text": "Passport name: HAMAD BIN ABDULLA AL KETBI"
+  },
+  {
+   "segment_id": "s22",
+   "text": "المدير: السيد فهاد الكويتي"
+  },
+  {
+   "segment_id": "s23",
+   "text": "المفوض بالتوقيع: السيد عبده القاسمي"
+  },
+  {
+   "segment_id": "s24",
+   "text": "تاريخ الإصدار: 20/04/2026"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B4",
+  "B6",
+  "C1",
+  "C2",
+  "C3",
+  "D5"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 19,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     15,
+     21
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الكتبي",
+    "english_full": "Al Ketbi",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Ketbi"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الكتبي",
+      "position": "family",
+      "english_variants": [
+       "Al Ketbi"
+      ],
+      "raw_variants": [
+       "Al Ketbi"
+      ],
+      "english_used": "Al Ketbi",
+      "expected": "adopt",
+      "expected_spelling": "Al Ketbi",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Al Ketbi"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "partner",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     9,
+     27
+    ],
+    "token_ids": [
+     42,
+     43,
+     44,
+     45
+    ],
+    "arabic_full": "نواف بن حمد الكتبي",
+    "english_full": "Nawaf Hamad Al Ketbi",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 42,
+      "token_ids": [
+       42
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "نواف",
+      "position": "given",
+      "english_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "raw_variants": [
+       "Nawaf",
+       "Nawwaf"
+      ],
+      "english_used": "Nawaf",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "حمد",
+      "position": "middle",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 45,
+      "token_ids": [
+       45
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الكتبي",
+      "position": "family",
+      "english_variants": [
+       "Al Ketbi"
+      ],
+      "raw_variants": [
+       "Al Ketbi"
+      ],
+      "english_used": "Al Ketbi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s09",
+    "span": [
+     11,
+     28
+    ],
+    "token_ids": [
+     52,
+     53,
+     54
+    ],
+    "arabic_full": "فهاد حسين الكويتي",
+    "english_full": "Fahhad Husain Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Fahhad Husain Al Kuwaiti"
+    },
+    "tokens": [
+     {
+      "token_id": 52,
+      "token_ids": [
+       52
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "فهاد",
+      "position": "given",
+      "english_variants": [
+       "Fahad",
+       "Fahhad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fahhad"
+      ],
+      "english_used": "Fahhad",
+      "expected": "adopt",
+      "expected_spelling": "Fahhad",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Fahhad Husain Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 53,
+      "token_ids": [
+       53
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "حسين",
+      "position": "middle",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Husain",
+      "expected": "adopt",
+      "expected_spelling": "Husain",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Fahhad Husain Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 54,
+      "token_ids": [
+       54
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Fahhad Husain Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D5"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "partner",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     9,
+     43
+    ],
+    "token_ids": [
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73
+    ],
+    "arabic_full": "فهيد بن عبد العزيز بن عادل الحرقان",
+    "english_full": "Fahad Abdulaziz Adel Al Hargan",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 67,
+      "token_ids": [
+       67
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "فهيد",
+      "position": "given",
+      "english_variants": [
+       "Fahad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fehaid"
+      ],
+      "english_used": "Fahad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 70,
+      "token_ids": [
+       69,
+       70
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "عبد العزيز",
+      "position": "middle",
+      "english_variants": [
+       "Abdulaziz",
+       "Abdel Aziz",
+       "Abdullaziz"
+      ],
+      "raw_variants": [
+       "Abdulaziz",
+       "Abdul Aziz",
+       "Abdelaziz",
+       "Abdel Aziz",
+       "Abd Elrahman",
+       "Abdullaziz",
+       "abdulaziz",
+       "Abd al"
+      ],
+      "english_used": "Abdulaziz",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 72,
+      "token_ids": [
+       72
+      ],
+      "unit_id": "n4.grandfather",
+      "slot": "grandfather",
+      "arabic": "عادل",
+      "position": "middle",
+      "english_variants": [
+       "Adel",
+       "Adil"
+      ],
+      "raw_variants": [
+       "Adel",
+       "Adil",
+       "A'del"
+      ],
+      "english_used": "Adel",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 73,
+      "token_ids": [
+       73
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الحرقان",
+      "position": "family",
+      "english_variants": [
+       "Al Hargan"
+      ],
+      "raw_variants": [
+       "Al Hargan",
+       "Al Harqan"
+      ],
+      "english_used": "Al Hargan",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s12",
+    "span": [
+     9,
+     32
+    ],
+    "token_ids": [
+     80,
+     81,
+     82,
+     83
+    ],
+    "arabic_full": "عبده بن عبدالله القاسمي",
+    "english_full": "Abdo Abdullah Al Qasimi",
+    "evidence": {
+     "segment_id": "s13",
+     "quote": "Abdo bin Abdullah Al Qasimi"
+    },
+    "tokens": [
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "عبده",
+      "position": "given",
+      "english_variants": [
+       "Abdo",
+       "Abdoh",
+       "Abdou",
+       "Abduh"
+      ],
+      "raw_variants": [
+       "Abdoh",
+       "Abdo",
+       "Abdou",
+       "Abdullah",
+       "Abduh"
+      ],
+      "english_used": "Abdo",
+      "expected": "adopt",
+      "expected_spelling": "Abdo",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdo bin Abdullah Al Qasimi"
+       },
+       {
+        "segment_id": "s14",
+        "quote": "AL QASSIMI, Abdo Abdullah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 82,
+      "token_ids": [
+       82
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "عبدالله",
+      "position": "middle",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdalla",
+       "Abdallah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdalla",
+       "Abdallah",
+       "Abdul Al"
+      ],
+      "english_used": "Abdullah",
+      "expected": "adopt",
+      "expected_spelling": "Abdullah",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdo bin Abdullah Al Qasimi"
+       },
+       {
+        "segment_id": "s14",
+        "quote": "AL QASSIMI, Abdo Abdullah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     },
+     {
+      "token_id": 83,
+      "token_ids": [
+       83
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi"
+      ],
+      "raw_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Qasimi",
+       "Al Qassimi"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s15",
+    "span": [
+     11,
+     30
+    ],
+    "token_ids": [
+     103,
+     104,
+     105,
+     106
+    ],
+    "arabic_full": "سعود بن علي الغساني",
+    "english_full": "Saoud Ali Al Ghassani",
+    "evidence": {
+     "segment_id": "s16",
+     "quote": "Saoud bin Ali Al Ghassani"
+    },
+    "tokens": [
+     {
+      "token_id": 103,
+      "token_ids": [
+       103
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "سعود",
+      "position": "given",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saoud",
+      "expected": "adopt",
+      "expected_spelling": "Saoud",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Saoud bin Ali Al Ghassani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 105,
+      "token_ids": [
+       105
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali"
+      ],
+      "raw_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali",
+      "expected": "adopt",
+      "expected_spelling": "Ali",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Saoud bin Ali Al Ghassani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 106,
+      "token_ids": [
+       106
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الغساني",
+      "position": "family",
+      "english_variants": [
+       "Al Ghassani"
+      ],
+      "raw_variants": [
+       "Al Ghassani"
+      ],
+      "english_used": "Al Ghassani",
+      "expected": "adopt",
+      "expected_spelling": "Al Ghassani",
+      "evidence": [
+       {
+        "segment_id": "s16",
+        "quote": "Saoud bin Ali Al Ghassani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s17",
+    "span": [
+     9,
+     29
+    ],
+    "token_ids": [
+     120,
+     121,
+     122,
+     123
+    ],
+    "arabic_full": "عبدو سعد أحمد الصباح",
+    "english_full": "Abdu Saad Ahmed Al Sabah",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 120,
+      "token_ids": [
+       120
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "عبدو",
+      "position": "given",
+      "english_variants": [
+       "Abdu",
+       "Abdou"
+      ],
+      "raw_variants": [
+       "Abdu",
+       "Abdou"
+      ],
+      "english_used": "Abdu",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C1"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 121,
+      "token_ids": [
+       121
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "سعد",
+      "position": "middle",
+      "english_variants": [
+       "Saad",
+       "Sa'd"
+      ],
+      "raw_variants": [
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
+      ],
+      "english_used": "Saad",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 122,
+      "token_ids": [
+       122
+      ],
+      "unit_id": "n7.grandfather",
+      "slot": "grandfather",
+      "arabic": "أحمد",
+      "position": "middle",
+      "english_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Akhmed"
+      ],
+      "raw_variants": [
+       "Ahmed",
+       "Ahmad",
+       "Al",
+       "Akhmed",
+       "AHMED",
+       "Ali",
+       "Aziz"
+      ],
+      "english_used": "Ahmed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 123,
+      "token_ids": [
+       123
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "الصباح",
+      "position": "family",
+      "english_variants": [
+       "Al Sabah"
+      ],
+      "raw_variants": [
+       "Al Sabah",
+       "al Sabah"
+      ],
+      "english_used": "Al Sabah",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s18",
+    "span": [
+     9,
+     26
+    ],
+    "token_ids": [
+     130,
+     131,
+     132
+    ],
+    "arabic_full": "هلال سعود الغساني",
+    "english_full": "Helal Saud Al Ghassani",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 130,
+      "token_ids": [
+       130
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "هلال",
+      "position": "given",
+      "english_variants": [
+       "Hilal",
+       "Helal"
+      ],
+      "raw_variants": [
+       "Hilal",
+       "Helal"
+      ],
+      "english_used": "Helal",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 131,
+      "token_ids": [
+       131
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "سعود",
+      "position": "middle",
+      "english_variants": [
+       "Saud",
+       "Saoud",
+       "Saod"
+      ],
+      "raw_variants": [
+       "Saud",
+       "Saoud",
+       "Suod",
+       "Saod",
+       "Soud",
+       "Sooud",
+       "Sa'ud"
+      ],
+      "english_used": "Saud",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 132,
+      "token_ids": [
+       132
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "الغساني",
+      "position": "family",
+      "english_variants": [
+       "Al Ghassani"
+      ],
+      "raw_variants": [
+       "Al Ghassani"
+      ],
+      "english_used": "Al Ghassani",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "partner",
+    "person_id": "p8",
+    "mention": "full",
+    "segment_id": "s19",
+    "span": [
+     9,
+     31
+    ],
+    "token_ids": [
+     139,
+     140,
+     141,
+     142,
+     143
+    ],
+    "arabic_full": "حمد بن عبد الله الكتبي",
+    "english_full": "Hamed Abdulla Al Ketbi",
+    "evidence": {
+     "segment_id": "s20",
+     "quote": "Hamed bin Abdulla Al Ketbi"
+    },
+    "tokens": [
+     {
+      "token_id": 139,
+      "token_ids": [
+       139
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "حمد",
+      "position": "given",
+      "english_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "raw_variants": [
+       "Hamad",
+       "Hamed"
+      ],
+      "english_used": "Hamed",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Hamad",
+       "Hamed"
+      ],
+      "case_types": [
+       "C3",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 142,
+      "token_ids": [
+       141,
+       142
+      ],
+      "unit_id": "n9.father",
+      "slot": "father",
+      "arabic": "عبد الله",
+      "position": "middle",
+      "english_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abdalla",
+       "Abdulah"
+      ],
+      "raw_variants": [
+       "Abdullah",
+       "Abdulla",
+       "Abdallah",
+       "Abd Allah",
+       "Abdalla",
+       "ABDULLA",
+       "abdullah",
+       "Abdulah"
+      ],
+      "english_used": "Abdulla",
+      "expected": "adopt",
+      "expected_spelling": "Abdulla",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Hamed bin Abdulla Al Ketbi"
+       },
+       {
+        "segment_id": "s21",
+        "quote": "HAMAD BIN ABDULLA AL KETBI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 143,
+      "token_ids": [
+       143
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "الكتبي",
+      "position": "family",
+      "english_variants": [
+       "Al Ketbi"
+      ],
+      "raw_variants": [
+       "Al Ketbi"
+      ],
+      "english_used": "Al Ketbi",
+      "expected": "adopt",
+      "expected_spelling": "Al Ketbi",
+      "evidence": [
+       {
+        "segment_id": "s20",
+        "quote": "Hamed bin Abdulla Al Ketbi"
+       },
+       {
+        "segment_id": "s21",
+        "quote": "HAMAD BIN ABDULLA AL KETBI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s22",
+    "span": [
+     14,
+     26
+    ],
+    "token_ids": [
+     164,
+     165
+    ],
+    "arabic_full": "فهاد الكويتي",
+    "english_full": "Fahhad Al Kuwaiti",
+    "evidence": {
+     "segment_id": "s10",
+     "quote": "Fahhad Husain Al Kuwaiti"
+    },
+    "tokens": [
+     {
+      "token_id": 164,
+      "token_ids": [
+       164
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "فهاد",
+      "position": "given",
+      "english_variants": [
+       "Fahad",
+       "Fahhad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fahhad"
+      ],
+      "english_used": "Fahhad",
+      "expected": "adopt",
+      "expected_spelling": "Fahhad",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Fahhad Husain Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 165,
+      "token_ids": [
+       165
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الكويتي",
+      "position": "family",
+      "english_variants": [
+       "Al Kuwaiti"
+      ],
+      "raw_variants": [
+       "al Kuwaiti"
+      ],
+      "english_used": "Al Kuwaiti",
+      "expected": "adopt",
+      "expected_spelling": "Al Kuwaiti",
+      "evidence": [
+       {
+        "segment_id": "s10",
+        "quote": "Fahhad Husain Al Kuwaiti"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "D5"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n11",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "short",
+    "segment_id": "s23",
+    "span": [
+     23,
+     35
+    ],
+    "token_ids": [
+     169,
+     170
+    ],
+    "arabic_full": "عبده القاسمي",
+    "english_full": "Abdo Al Qasimi",
+    "evidence": {
+     "segment_id": "s13",
+     "quote": "Abdo bin Abdullah Al Qasimi"
+    },
+    "tokens": [
+     {
+      "token_id": 169,
+      "token_ids": [
+       169
+      ],
+      "unit_id": "n11.given",
+      "slot": "given",
+      "arabic": "عبده",
+      "position": "given",
+      "english_variants": [
+       "Abdo",
+       "Abdoh",
+       "Abdou",
+       "Abduh"
+      ],
+      "raw_variants": [
+       "Abdoh",
+       "Abdo",
+       "Abdou",
+       "Abdullah",
+       "Abduh"
+      ],
+      "english_used": "Abdo",
+      "expected": "adopt",
+      "expected_spelling": "Abdo",
+      "evidence": [
+       {
+        "segment_id": "s13",
+        "quote": "Abdo bin Abdullah Al Qasimi"
+       },
+       {
+        "segment_id": "s14",
+        "quote": "AL QASSIMI, Abdo Abdullah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 170,
+      "token_ids": [
+       170
+      ],
+      "unit_id": "n11.family",
+      "slot": "family",
+      "arabic": "القاسمي",
+      "position": "family",
+      "english_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi"
+      ],
+      "raw_variants": [
+       "Al Qasimi",
+       "Al Qassimi",
+       "Al Qassemi",
+       "al Qasimi",
+       "al Qassimi",
+       "Al Qasmi",
+       "Al Qassmi"
+      ],
+      "english_used": "Al Qasimi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Qasimi",
+       "Al Qassimi"
+      ],
+      "case_types": [
+       "A3",
+       "C3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سعود",
+      "spelling": "Saoud"
+     },
+     "father": {
+      "arabic": "علي",
+      "spelling": "Ali"
+     },
+     "family": {
+      "arabic": "الغساني",
+      "spelling": "Al Ghassani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p5",
+      "segment_id": "s16",
+      "quote": "Saoud bin Ali Al Ghassani",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Saoud",
+       "father": "Ali",
+       "family": "Al Ghassani"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p5",
+    "slots": {
+     "given": {
+      "arabic": "هلال",
+      "spelling": "Helal"
+     },
+     "father": {
+      "arabic": "سعود",
+      "spelling": "Saud"
+     },
+     "family": {
+      "arabic": "الغساني",
+      "spelling": "Al Ghassani"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p8",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حمد",
+      "spelling": "Hamed"
+     },
+     "father": {
+      "arabic": "عبد الله",
+      "spelling": "Abdulla"
+     },
+     "family": {
+      "arabic": "الكتبي",
+      "spelling": "Al Ketbi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p8",
+      "segment_id": "s20",
+      "quote": "Hamed bin Abdulla Al Ketbi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Hamed",
+       "father": "Abdulla",
+       "family": "Al Ketbi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p8",
+      "segment_id": "s21",
+      "quote": "HAMAD BIN ABDULLA AL KETBI",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Hamad",
+       "father": "Abdulla",
+       "family": "Al Ketbi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p8",
+    "slots": {
+     "given": {
+      "arabic": "نواف",
+      "spelling": "Nawaf"
+     },
+     "father": {
+      "arabic": "حمد",
+      "spelling": "Hamad"
+     },
+     "family": {
+      "arabic": "الكتبي",
+      "spelling": "Al Ketbi"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبده",
+      "spelling": "Abdo"
+     },
+     "father": {
+      "arabic": "عبدالله",
+      "spelling": "Abdullah"
+     },
+     "family": {
+      "arabic": "القاسمي",
+      "spelling": "Al Qasimi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p4",
+      "segment_id": "s13",
+      "quote": "Abdo bin Abdullah Al Qasimi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Abdo",
+       "father": "Abdullah",
+       "family": "Al Qasimi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p4",
+      "segment_id": "s14",
+      "quote": "AL QASSIMI, Abdo Abdullah",
+      "form": "reversed_comma",
+      "labeled": true,
+      "slots": {
+       "given": "Abdo",
+       "father": "Abdullah",
+       "family": "Al Qassimi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "عبدو",
+      "spelling": "Abdu"
+     },
+     "father": {
+      "arabic": "سعد",
+      "spelling": "Saad"
+     },
+     "grandfather": {
+      "arabic": "أحمد",
+      "spelling": "Ahmed"
+     },
+     "family": {
+      "arabic": "الصباح",
+      "spelling": "Al Sabah"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "فهاد",
+      "spelling": "Fahhad"
+     },
+     "father": {
+      "arabic": "حسين",
+      "spelling": "Husain"
+     },
+     "family": {
+      "arabic": "الكويتي",
+      "spelling": "Al Kuwaiti"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s10",
+      "quote": "Fahhad Husain Al Kuwaiti",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Fahhad",
+       "father": "Husain",
+       "family": "Al Kuwaiti"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "فهيد",
+      "spelling": "Fahad"
+     },
+     "father": {
+      "arabic": "عبد العزيز",
+      "spelling": "Abdulaziz"
+     },
+     "grandfather": {
+      "arabic": "عادل",
+      "spelling": "Adel"
+     },
+     "family": {
+      "arabic": "الحرقان",
+      "spelling": "Al Hargan"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الكتبي",
+      "spelling": "Al Ketbi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "Al Ketbi",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Ketbi"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "Al Ketbi",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p8.family"
+    ]
+   },
+   {
+    "segment_id": "s04",
+    "quote": "info@alketbi-group.example.net",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p8.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   28,
+   29,
+   30,
+   32,
+   51,
+   102,
+   138
+  ],
+  "title_token_ids": [
+   51,
+   102,
+   138
+  ],
+  "lookalikes": [
+   {
+    "token_id": 55,
+    "kind": "nationality",
+    "twin": "p2.family"
+   }
+  ],
+  "lookalike_token_ids": [
+   55
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "C1",
+  "C2",
+  "C3",
+  "D1",
+  "D3",
+  "D5"
+ ]
+}

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+from typing import Literal
 
 from dotenv import find_dotenv, load_dotenv
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
@@ -27,6 +28,9 @@ class Settings(BaseModel):
     # EXP-001 판단 기준: M5(방언 허용)가 이보다 낮으면 분석기를 이름 근거로 쓰지 않는다
     coverage_threshold: float = Field(0.5, ge=0, le=1)
     high_confidence: float = Field(0.8, ge=0, le=1)  # 근거 없이 이 확신도 이상으로 확정하면 "고확신 무근거 확정"
+    # 지시문 판과 근거 검사 규칙(ADR-017). EXP-002는 p0·v1, EXP-003은 p1·v2로 실험 코드가 정한다
+    prompt_version: Literal["p0", "p1"] = "p0"
+    evidence_rule: Literal["v1", "v2"] = "v1"
     dev_docs: int = Field(10, ge=1)
     eval_docs: int = Field(30, ge=1)
     repeats: int = Field(3, ge=1)

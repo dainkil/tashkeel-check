@@ -2,7 +2,7 @@
 
 - 프로젝트/레포 이름: `tashkeel-check`
 - 마지막 업데이트: 2026-10-21
-- 현재 단계: 단계 1 구현 완료, EXP-001 완료, EXP-002 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). 단계 1.5 전 리팩토링 완료(ADR-013, 동작 동일 확인). M0 항목 2·3 완료(실제 모델 C1·C2 첫 실행 통과, temperature 0 미지원 확인). M0 관찰을 바탕으로 EXP-002 전에 채점 정의와 합성 문서를 고침(ADR-014: 모호 판정 규칙은 유지, 일반 단어 미처리는 보조 지표, 중립 토큰 제외, 토큰 단위 집계, 보류 후보 적중률, 합성 문서 synthetic-v1). M0 항목 5로 EXP-002 합격선·중단 기준을 확정해 코드로 고정함(`docs/scope.md` 3절). EXP-001 개발용 표본에서 표기 일치·정렬 규칙을 v1로 고쳐 고정하고, 이름 풀과 합성 문서를 다시 만듦(ADR-015, synthetic-v2). EXP-001 main 측정 완료: M5(방언 허용) 0.502로 기준 0.5를 겨우 넘어(95% 구간 0.485~0.519) 분석기를 이름 후보 출처로 유지, 가문명은 0.418. EXP-002 실행 장치를 재개·동시 실행·사용량 확인 방식으로 바꿈(ADR-016). dev_001로 실제 모델 C0~C3 점검을 마쳐 네 조건 모두 형식 통과, 비용 추정을 $15~20으로 고침. **EXP-002 eval은 미실행, 단계 1.5는 미구현**
+- 현재 단계: 단계 1 구현 완료, EXP-001 완료, EXP-002 미실행. 사업 구조를 걸프 영어권 최종 사용자·사람 검수 없음으로 바꾸고 사업성 검토를 다시 추정함(ADR-008). 판매는 KYC·컴플라이언스 팀에 멀티 에이전트 API 우선(ADR-009). 인터뷰와 사람 검수는 추후 과제. 과제 2 요건에 따라 단계 1.5(서비스화: 웹 화면·API·Postgres·최소 MCP)를 계획에 추가함(ADR-012). 단계 1.5 전 리팩토링 완료(ADR-013, 동작 동일 확인). M0 항목 2·3 완료(실제 모델 C1·C2 첫 실행 통과, temperature 0 미지원 확인). M0 관찰을 바탕으로 EXP-002 전에 채점 정의와 합성 문서를 고침(ADR-014: 모호 판정 규칙은 유지, 일반 단어 미처리는 보조 지표, 중립 토큰 제외, 토큰 단위 집계, 보류 후보 적중률, 합성 문서 synthetic-v1). M0 항목 5로 EXP-002 합격선·중단 기준을 확정해 코드로 고정함(`docs/scope.md` 3절). EXP-001 개발용 표본에서 표기 일치·정렬 규칙을 v1로 고쳐 고정하고, 이름 풀과 합성 문서를 다시 만듦(ADR-015, synthetic-v2). EXP-001 main 측정 완료: M5(방언 허용) 0.502로 기준 0.5를 겨우 넘어(95% 구간 0.485~0.519) 분석기를 이름 후보 출처로 유지, 가문명은 0.418. EXP-002 실행 장치를 재개·동시 실행·사용량 확인 방식으로 바꿈(ADR-016). dev_001로 실제 모델 C0~C3 점검을 마쳐 네 조건 모두 형식 통과. EXP-002 eval을 120/360회(반복 1회) 돌렸고 C1~C3가 모두 만점이라(천장 효과) 보류함. 사용자 결정으로 서비스 목표 G7(이름 정확도 99%, 안전·엄격 두 기준)을 더하고 어려운 시험지 synthetic-hard(유형 17가지)와 EXP-003(99% 기준)을 준비함(ADR-017): 생성기·채점 v2·지시문 p1·판정 코드와 dev 20개까지 완료, 테스트 293개 통과. **EXP-003 eval은 미생성·미실행, 단계 1.5는 미구현**
 - 문서 역할: 현재 상태·다음 작업·사용자가 정할 것만 여기 둔다. 본문(정의·범위·구조·데이터·측정·로드맵·ADR·이력)은 `docs/`에 있고, 지도는 [docs/README.md](docs/README.md)다. 2026-10-20에 1,118줄 단일 문서를 이 구조로 분할했다([changelog](docs/changelog.md)).
 
 > **작업을 시작하기 전에 이 문서와 [docs/README.md](docs/README.md)를 읽는다. 작업 중 계획·범위·구조·데이터·평가 방식이 바뀌면 해당 `docs/` 문서를 최신 상태로 수정하고, [docs/changelog.md](docs/changelog.md)에 이유와 영향을 기록한다. 중요한 기술적 결정은 [docs/adr/](docs/adr/README.md)에, 문제와 해결 과정은 [docs/troubleshooting.md](docs/troubleshooting.md)에, 측정 결과는 [docs/experiments/](docs/experiments/README.md)에 남긴다. 작업을 마칠 때 이 문서의 상태·다음 작업과 [docs/roadmap.md](docs/roadmap.md) 체크리스트를 갱신한다.**
@@ -13,14 +13,14 @@
 
 | 알고 싶은 것 | 문서 |
 | --- | --- |
-| 무엇을 왜 만드는가, 목표 G1~G6, 질문 Q0~Q3, 요구사항 | [docs/problem-and-goals.md](docs/problem-and-goals.md) |
+| 무엇을 왜 만드는가, 목표 G1~G7, 질문 Q0~Q3, 요구사항 | [docs/problem-and-goals.md](docs/problem-and-goals.md) |
 | 단계와 범위, 사용자가 확정한 것 | [docs/scope.md](docs/scope.md) |
 | 그래프·조건·스키마·툴·스택·모듈 구조 | [docs/architecture.md](docs/architecture.md) |
 | Wikidata 인명, 합성 문서 | [docs/data.md](docs/data.md) |
 | 지표 정의와 판정 규칙 | [docs/evaluation.md](docs/evaluation.md) |
 | 기능 F1~F14, 제품 스택·API·DB 초안, 마일스톤, 체크리스트, 위험 | [docs/roadmap.md](docs/roadmap.md) |
 | 무엇이 언제 왜 바뀌었나 | [docs/changelog.md](docs/changelog.md) |
-| 기술 결정 ADR-001~016 | [docs/adr/](docs/adr/README.md) |
+| 기술 결정 ADR-001~017 | [docs/adr/](docs/adr/README.md) |
 | 오류 기록, 실험 기록 | [docs/troubleshooting.md](docs/troubleshooting.md), [docs/experiments/](docs/experiments/README.md) |
 | 사업성 검토, 시장 조사 | [docs/business/feasibility.md](docs/business/feasibility.md), [docs/business/market/](docs/business/market/) |
 
@@ -28,7 +28,9 @@
 
 ## 아직 하지 않은 것
 
-- EXP-002 실행
+- EXP-002 나머지 240회(보류, 판정 없음)
+- EXP-003: 확인 지점 A(dev 정답 예시 사용자 검토), eval 생성, 비용 재추정, 실제 모델 실행. 어려운 문서는 아직 어떤 모델도 보지 않았다
+- synthetic-hard 아랍어 문장의 사람 검수(Claude가 dev를 읽어 확인했을 뿐이다)
 - 실제 모델의 실패율, 그리고 한 문서 안에서 확정과 보류를 나누는지. synthetic-v0의 dev_004·dev_001 C1·C2를 각 1회만 돌렸고(`docs/changelog.md` M0 기록), 섞인 문서는 아직 돌리지 않았다 [미확인]
 - 실제 모델로 C0·C3를 eval 규모로 실행. dev_001 1회씩만 돌렸다(2026-10-21, 형식 통과)
 - C0 판정 규칙의 사람 확인(20건)
@@ -45,7 +47,13 @@
 2. ~~M0 항목 2·3: 실제 모델로 dev 문서 1개를 C1·C2로 돌리고 temperature를 확인한다~~ (2026-10-20 완료, `docs/changelog.md` M0 기록). dev_001 C1·C2도 실행해 둘 다 이름을 전부 보류했다. 다음 확인 [제안]: 새 dev 문서(synthetic-v2) 가운데 "일부 역할만" 배치 문서 하나(예: dev_005, 위임장, 회사만 근거 있음)를 C0·C1로 돌려, 지시 없이도 후보를 표시하는지(Q1)와 한 문서 안에서 확정·보류를 나누는지 본다(2회 호출).
 3. ~~M0 항목 4: 모호 판정 규칙과 묶인 지표 정의, 합성 문서 보강~~ (2026-10-20 완료, ADR-014). ~~M0 항목 5: 합격선과 중단 기준~~ (2026-10-20 사용자 확정, `docs/scope.md` 3절).
 4. ~~EXP-001: dev로 규칙 고정 → main 1회~~ (2026-10-20 완료. M5 방언 허용 0.502, 기준 통과, 여유 거의 없음).
-5. EXP-002(360회, 사용자 동의 후): `LANGSMITH_TRACING=false uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes`로 처음 8회를 돌리고, `uv run tashkeel exp002-status`로 사용량과 예상 총량을 본다. 그다음 `--resume --workers 4 --yes`에 `--max-runs 120`(반복 1회)이나 `--token-budget`을 붙여 끊어 가며 진행한다. 결과 지표는 다 끝난 뒤에만 본다([EXP-002 기록](docs/experiments/EXP-002.md), ADR-016). LangSmith 키가 401로 거부되므로 고치기 전까지는 추적을 끈다.
+5. ~~EXP-002~~ 120/360회에서 보류(2026-10-21, 반복 1회에서 C1~C3 모두 만점). 재개 명령은 [EXP-002 기록](docs/experiments/EXP-002.md)에 있다.
+6. EXP-003(어려운 시험지, 99% 기준, [EXP-003 기록](docs/experiments/EXP-003.md), ADR-017):
+   1. 확인 지점 A: dev 유형별 정답 예시를 사용자가 검토한다(`uv run tashkeel inspect-gold --case <유형> --n 2`). 이견이 있으면 dev에서 고치고 정답 규칙·유형·수량·p1 문구를 고정한다.
+   2. (선택, 동의 필요) dev 3~5개(가장 긴 문서 포함)로 실제 모델 점검(약 $1~2). 긴 문서의 출력 한도와 형식을 본다.
+   3. `uv run tashkeel make-synthetic-hard --split eval`로 eval을 한 번만 만들고, 실제 입력 길이로 비용을 다시 추정한다.
+   4. 사용자가 반복 횟수와 참고 조건(C1+p0)을 정하면 `exp003 --split eval --workers 4 --max-runs 8 --yes`로 시작해 끊어 가며 진행한다.
+   5. 다 끝나면 `exp003-errors`로 자동 판정 오류 전부와 정답 표본 50개를 사람이 확인한다.
 
 사업 쪽(ADR-008 이후, 인터뷰·사람 검수 없이):
 
@@ -62,7 +70,9 @@
 - `uv run pre-commit install`로 커밋 훅을 켤지
 - 단계 1.5 구현 착수 시점. `all_total_vue_student/`를 언제 삭제할지(지금은 untracked로 둠)
 - MCP를 C2 서비스 경로에 실제로 끼울지(`USE_MCP_TOOLS`), 아니면 MCP 서버를 외부 노출용으로만 두고 `/v1/samples`의 리소스 조회로 연동 확인을 갈음할지
-- EXP-002 eval 시작 시점과 비용 한도. dev 점검(2026-10-21) 기준 추정은 약 2.6~3.5M 토큰, $15~20(단가는 제3자 집계 값, OpenAI 페이지에서 확인 필요)이고, 동시 4개로 1.4~1.9시간이다. 단가를 `.env`에 `PRICE_INPUT_PER_MTOK`·`PRICE_OUTPUT_PER_MTOK`로 넣으면 진행 중 추정 금액이 보인다
+- EXP-003 정답 규칙 검토(확인 지점 A), 반복 횟수, 참고 조건(C1+p0) 포함 여부, 비용 한도. 반복 1회(4조건 × 70개)는 EXP-002 실측 기준 약 $20~25로 외삽된다[추정, eval 생성 뒤 다시 계산]. 단가는 제3자 집계 값이다
+- EXP-002 나머지 240회를 재개할지(지금은 보류. 쉬운 시험지라 조건 차이를 가르지 못한다)
+- 어려운 유형 비율 하한을 0.60으로 둔 것(계획 0.70, 생성기 구조상 약 2/3)을 받아들일지
 - LangSmith 키 교체 여부(지금 키는 401로 거부됨)
 - `exp/grading-data-v2` 브랜치(ADR-014)를 push·PR·병합할지
 - 개발 계획(`docs/roadmap.md`) M0 시작일, M4의 업로드 화면(F11) 포함 여부

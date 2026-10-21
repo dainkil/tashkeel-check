@@ -1,0 +1,763 @@
+{
+ "doc_id": "hdev_005",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 13/07/2026 حضر أمام الكاتب العدل السيد مشهور بن خالد بن سالم المحيسني، كويتي الجنسية، ويحمل جواز سفر رقم J7822147."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Mashhur bin Khalid bin Salem Al Mohaisany, Passport No. J7822147"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة الرستماني للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 350569، وعنوانها الشارقة، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Rustamani General Trading L.L.C., Registration No. 350569"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد مشهور بن علي بن شافي اليامي، سعودي الجنسية، ويحمل بطاقة هوية رقم 67430215."
+  },
+  {
+   "segment_id": "s07",
+   "text": "Attorney: Mashour bin Ali bin Shafi Al Yami, ID No. 67430215"
+  },
+  {
+   "segment_id": "s08",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s09",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s10",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s11",
+   "text": "الموكل: مشهور المحيسني"
+  },
+  {
+   "segment_id": "s12",
+   "text": "الوكيل: مشهور اليامي"
+  },
+  {
+   "segment_id": "s13",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A2",
+  "B4",
+  "C2",
+  "D2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 5,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     80
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "مشهور بن خالد بن سالم المحيسني",
+    "english_full": "Mashhur Khalid Salem Al Mohaisany",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "مشهور",
+      "position": "given",
+      "english_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "raw_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "english_used": "Mashhur",
+      "expected": "adopt",
+      "expected_spelling": "Mashhur",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid",
+      "expected": "adopt",
+      "expected_spelling": "Khalid",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 15,
+      "token_ids": [
+       15
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "سالم",
+      "position": "middle",
+      "english_variants": [
+       "Salem",
+       "Salim"
+      ],
+      "raw_variants": [
+       "Salem",
+       "Salim",
+       "Salen"
+      ],
+      "english_used": "Salem",
+      "expected": "adopt",
+      "expected_spelling": "Salem",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "المحيسني",
+      "position": "family",
+      "english_variants": [
+       "Al Mohaisany"
+      ],
+      "raw_variants": [
+       "al Mohaisany"
+      ],
+      "english_used": "Al Mohaisany",
+      "expected": "adopt",
+      "expected_spelling": "Al Mohaisany",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     33
+    ],
+    "token_ids": [
+     41
+    ],
+    "arabic_full": "الرستماني",
+    "english_full": "Al Rustamani",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Rustamani"
+    },
+    "tokens": [
+     {
+      "token_id": 41,
+      "token_ids": [
+       41
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الرستماني",
+      "position": "family",
+      "english_variants": [
+       "Al Rustamani"
+      ],
+      "raw_variants": [
+       "Al Rustamani"
+      ],
+      "english_used": "Al Rustamani",
+      "expected": "adopt",
+      "expected_spelling": "Al Rustamani",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Rustamani"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     47
+    ],
+    "token_ids": [
+     72,
+     73,
+     74,
+     75,
+     76,
+     77
+    ],
+    "arabic_full": "مشهور بن علي بن شافي اليامي",
+    "english_full": "Mashour Ali Shafi Al Yami",
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Mashour bin Ali bin Shafi Al Yami"
+    },
+    "tokens": [
+     {
+      "token_id": 72,
+      "token_ids": [
+       72
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "مشهور",
+      "position": "given",
+      "english_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "raw_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "english_used": "Mashour",
+      "expected": "adopt",
+      "expected_spelling": "Mashour",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 74,
+      "token_ids": [
+       74
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "علي",
+      "position": "middle",
+      "english_variants": [
+       "Ali"
+      ],
+      "raw_variants": [
+       "Ali",
+       "Ahmed",
+       "Alireza",
+       "Amro",
+       "Alamin",
+       "Alamine",
+       "al Amin",
+       "Aly"
+      ],
+      "english_used": "Ali",
+      "expected": "adopt",
+      "expected_spelling": "Ali",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 76,
+      "token_ids": [
+       76
+      ],
+      "unit_id": "n3.grandfather",
+      "slot": "grandfather",
+      "arabic": "شافي",
+      "position": "middle",
+      "english_variants": [
+       "Shafi"
+      ],
+      "raw_variants": [
+       "Shafi"
+      ],
+      "english_used": "Shafi",
+      "expected": "adopt",
+      "expected_spelling": "Shafi",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 77,
+      "token_ids": [
+       77
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "اليامي",
+      "position": "family",
+      "english_variants": [
+       "Al Yami"
+      ],
+      "raw_variants": [
+       "Al Yami"
+      ],
+      "english_used": "Al Yami",
+      "expected": "adopt",
+      "expected_spelling": "Al Yami",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     22
+    ],
+    "token_ids": [
+     125,
+     126
+    ],
+    "arabic_full": "مشهور المحيسني",
+    "english_full": "Mashhur Al Mohaisany",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+    },
+    "tokens": [
+     {
+      "token_id": 125,
+      "token_ids": [
+       125
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "مشهور",
+      "position": "given",
+      "english_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "raw_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "english_used": "Mashhur",
+      "expected": "adopt",
+      "expected_spelling": "Mashhur",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 126,
+      "token_ids": [
+       126
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "المحيسني",
+      "position": "family",
+      "english_variants": [
+       "Al Mohaisany"
+      ],
+      "raw_variants": [
+       "al Mohaisany"
+      ],
+      "english_used": "Al Mohaisany",
+      "expected": "adopt",
+      "expected_spelling": "Al Mohaisany",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Mashhur bin Khalid bin Salem Al Mohaisany"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s12",
+    "span": [
+     8,
+     20
+    ],
+    "token_ids": [
+     128,
+     129
+    ],
+    "arabic_full": "مشهور اليامي",
+    "english_full": "Mashour Al Yami",
+    "evidence": {
+     "segment_id": "s07",
+     "quote": "Mashour bin Ali bin Shafi Al Yami"
+    },
+    "tokens": [
+     {
+      "token_id": 128,
+      "token_ids": [
+       128
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "مشهور",
+      "position": "given",
+      "english_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "raw_variants": [
+       "Mashour",
+       "Mashhoor",
+       "Mashhur",
+       "Mashhor"
+      ],
+      "english_used": "Mashour",
+      "expected": "adopt",
+      "expected_spelling": "Mashour",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 129,
+      "token_ids": [
+       129
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "اليامي",
+      "position": "family",
+      "english_variants": [
+       "Al Yami"
+      ],
+      "raw_variants": [
+       "Al Yami"
+      ],
+      "english_used": "Al Yami",
+      "expected": "adopt",
+      "expected_spelling": "Al Yami",
+      "evidence": [
+       {
+        "segment_id": "s07",
+        "quote": "Mashour bin Ali bin Shafi Al Yami"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مشهور",
+      "spelling": "Mashhur"
+     },
+     "father": {
+      "arabic": "خالد",
+      "spelling": "Khalid"
+     },
+     "grandfather": {
+      "arabic": "سالم",
+      "spelling": "Salem"
+     },
+     "family": {
+      "arabic": "المحيسني",
+      "spelling": "Al Mohaisany"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Mashhur bin Khalid bin Salem Al Mohaisany",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mashhur",
+       "father": "Khalid",
+       "grandfather": "Salem",
+       "family": "Al Mohaisany"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "مشهور",
+      "spelling": "Mashour"
+     },
+     "father": {
+      "arabic": "علي",
+      "spelling": "Ali"
+     },
+     "grandfather": {
+      "arabic": "شافي",
+      "spelling": "Shafi"
+     },
+     "family": {
+      "arabic": "اليامي",
+      "spelling": "Al Yami"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p2",
+      "segment_id": "s07",
+      "quote": "Mashour bin Ali bin Shafi Al Yami",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Mashour",
+       "father": "Ali",
+       "grandfather": "Shafi",
+       "family": "Al Yami"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الرستماني",
+      "spelling": "Al Rustamani"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Rustamani",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Rustamani"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [],
+  "neutral_token_ids": [
+   44,
+   45,
+   46,
+   49,
+   50,
+   51,
+   55,
+   56,
+   57,
+   58
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 113,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 120,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   113,
+   120
+  ]
+ },
+ "case_types": [
+  "A2",
+  "A3"
+ ]
+}

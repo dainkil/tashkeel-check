@@ -31,6 +31,13 @@ PROMPT_HASHES = {
     "C2": "0cfc2227fdcbe5e0",
     "C3": "ef4637bd2f605534",
 }
+# 2026-10-21, 지시문 p1(EXP-003, ADR-017). p0 해시는 바뀌지 않아야 한다(EXP-002 plan.json에 기록됨)
+PROMPT_HASHES_P1 = {
+    "C0": "ba89bbde1fcc16d7",
+    "C1": "9f17644571ad381b",
+    "C2": "f4dbf02a53022fdf",
+    "C3": "0335dbb137bf471a",
+}
 OUTPUT_SCHEMA_SHA = "309023d8e869b43e"
 ANALYZE_TOOL_SHA = "ccd52b8087fddf37"
 # 사용자 메시지는 dev 문서로 만든다. 2026-10-20 합성 문서 synthetic-v1로 바꾸며 갱신(ADR-014). 위 세 해시는 그대로다
@@ -58,6 +65,8 @@ def _user_messages_sha(analyze_fn: AnalyzeFn | None) -> str:
 
 def test_system_prompts_unchanged() -> None:
     assert {c: prompt_hash(c) for c in CONDITIONS} == PROMPT_HASHES
+    assert {c: prompt_hash(c, "p0") for c in CONDITIONS} == PROMPT_HASHES
+    assert {c: prompt_hash(c, "p1") for c in CONDITIONS} == PROMPT_HASHES_P1
 
 
 def test_structured_output_schema_unchanged() -> None:

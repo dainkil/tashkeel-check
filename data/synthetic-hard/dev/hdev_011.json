@@ -1,0 +1,1716 @@
+{
+ "doc_id": "hdev_011",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "cr",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "مستخرج من السجل التجاري"
+  },
+  {
+   "segment_id": "s02",
+   "text": "الاسم التجاري: الجاسم للتجارة العامة ذ.م.م"
+  },
+  {
+   "segment_id": "s03",
+   "text": "Trade name: Al Jasem General Trading L.L.C."
+  },
+  {
+   "segment_id": "s04",
+   "text": "البريد الإلكتروني: info@aljasem-group.example.com"
+  },
+  {
+   "segment_id": "s05",
+   "text": "رقم الرخصة: 387751، جهة الإصدار: دائرة التنمية الاقتصادية، الإمارة: الشارقة"
+  },
+  {
+   "segment_id": "s06",
+   "text": "الشكل القانوني: شركة ذات مسؤولية محدودة"
+  },
+  {
+   "segment_id": "s07",
+   "text": "الشركاء:"
+  },
+  {
+   "segment_id": "s08",
+   "text": "1. الشيخ حبيب بن سلمان بن خليل الجاسم، بحريني الجنسية، الحصة 6٪"
+  },
+  {
+   "segment_id": "s09",
+   "text": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<"
+  },
+  {
+   "segment_id": "s10",
+   "text": "Passport name: HABIB BIN SALMAN BIN KHALIL AL JASIM"
+  },
+  {
+   "segment_id": "s11",
+   "text": "2. السيد مبارك حبيب الجاسم، بحريني الجنسية، الحصة 39٪"
+  },
+  {
+   "segment_id": "s12",
+   "text": "3. السيدة ليلى بنت خلفان الموسوي، عمانية الجنسية، الحصة 11٪"
+  },
+  {
+   "segment_id": "s13",
+   "text": "4. المهندس عبد الرحمن طاهر الدخيل، كويتي الجنسية، الحصة 14٪"
+  },
+  {
+   "segment_id": "s14",
+   "text": "5. الدكتور حسين خالد الصباح، بحريني الجنسية، الحصة 19٪"
+  },
+  {
+   "segment_id": "s15",
+   "text": "Partner 5: Hussein Khalid Al Sabah"
+  },
+  {
+   "segment_id": "s16",
+   "text": "6. الشيخ طاهر يوسف عبدي الدخيل، كويتي الجنسية، الحصة 5٪"
+  },
+  {
+   "segment_id": "s17",
+   "text": "Partner 6: Tahir Yousef Abdi Al Dakhil"
+  },
+  {
+   "segment_id": "s18",
+   "text": "7. الشيخ حسين بن فهد الكعبي، إماراتي الجنسية، الحصة 39٪"
+  },
+  {
+   "segment_id": "s19",
+   "text": "P<AREAL<KAEBI<<HUSAIN<FAHAD<<<<<<<<<<<<<<<<<"
+  },
+  {
+   "segment_id": "s20",
+   "text": "Passport name: AL KAABI, Husain Fahad"
+  },
+  {
+   "segment_id": "s21",
+   "text": "المدير: السيد عبد الرحمن الدخيل"
+  },
+  {
+   "segment_id": "s22",
+   "text": "المفوض بالتوقيع: السيد طاهر الدخيل"
+  },
+  {
+   "segment_id": "s23",
+   "text": "تاريخ الإصدار: 24/06/2026"
+  },
+  {
+   "segment_id": "s24",
+   "text": "التوقيعات:"
+  },
+  {
+   "segment_id": "s25",
+   "text": "LAILA BINT KHALFAN AL MUSAWI"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "A2",
+  "B3",
+  "B4",
+  "B6",
+  "C1",
+  "C2",
+  "C3",
+  "D4"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 11,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     15,
+     21
+    ],
+    "token_ids": [
+     6
+    ],
+    "arabic_full": "الجاسم",
+    "english_full": "Al Jasem",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Al Jasem"
+    },
+    "tokens": [
+     {
+      "token_id": 6,
+      "token_ids": [
+       6
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "الجاسم",
+      "position": "family",
+      "english_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jasim",
+       "Al Jassem"
+      ],
+      "raw_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jassem",
+       "al Jasim",
+       "Al Jassam",
+       "al Jasem"
+      ],
+      "english_used": "Al Jasem",
+      "expected": "adopt",
+      "expected_spelling": "Al Jasem",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Al Jasem"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "partner",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s08",
+    "span": [
+     9,
+     37
+    ],
+    "token_ids": [
+     42,
+     43,
+     44,
+     45,
+     46,
+     47
+    ],
+    "arabic_full": "حبيب بن سلمان بن خليل الجاسم",
+    "english_full": "Habib Salman Khalil Al Jassem",
+    "evidence": {
+     "segment_id": "s09",
+     "quote": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 42,
+      "token_ids": [
+       42
+      ],
+      "unit_id": "n2.given",
+      "slot": "given",
+      "arabic": "حبيب",
+      "position": "given",
+      "english_variants": [
+       "Habib",
+       "Habeeb"
+      ],
+      "raw_variants": [
+       "Habib",
+       "Habeeb"
+      ],
+      "english_used": "Habib",
+      "expected": "adopt",
+      "expected_spelling": "Habib",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "HABIB BIN SALMAN BIN KHALIL AL JASIM"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B3",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 44,
+      "token_ids": [
+       44
+      ],
+      "unit_id": "n2.father",
+      "slot": "father",
+      "arabic": "سلمان",
+      "position": "middle",
+      "english_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "raw_variants": [
+       "Salman",
+       "Selman"
+      ],
+      "english_used": "Salman",
+      "expected": "adopt",
+      "expected_spelling": "Salman",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "HABIB BIN SALMAN BIN KHALIL AL JASIM"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 46,
+      "token_ids": [
+       46
+      ],
+      "unit_id": "n2.grandfather",
+      "slot": "grandfather",
+      "arabic": "خليل",
+      "position": "middle",
+      "english_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khaleil",
+       "Khalel"
+      ],
+      "raw_variants": [
+       "Khalil",
+       "Khaleel",
+       "Khalel",
+       "Khaleil"
+      ],
+      "english_used": "Khalil",
+      "expected": "adopt",
+      "expected_spelling": "Khalil",
+      "evidence": [
+       {
+        "segment_id": "s09",
+        "quote": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<"
+       },
+       {
+        "segment_id": "s10",
+        "quote": "HABIB BIN SALMAN BIN KHALIL AL JASIM"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "B3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 47,
+      "token_ids": [
+       47
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "الجاسم",
+      "position": "family",
+      "english_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jasim",
+       "Al Jassem"
+      ],
+      "raw_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jassem",
+       "al Jasim",
+       "Al Jassam",
+       "al Jasem"
+      ],
+      "english_used": "Al Jassem",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Jasim",
+       "Al Jassem"
+      ],
+      "case_types": [
+       "C2",
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "partner",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s11",
+    "span": [
+     9,
+     26
+    ],
+    "token_ids": [
+     69,
+     70,
+     71
+    ],
+    "arabic_full": "مبارك حبيب الجاسم",
+    "english_full": "Mubarak Habib Al Jassim",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 69,
+      "token_ids": [
+       69
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "مبارك",
+      "position": "given",
+      "english_variants": [
+       "Mubarak",
+       "Mobarak",
+       "Al Mubarak"
+      ],
+      "raw_variants": [
+       "Mubarak",
+       "Mobarak",
+       "MUBARAK",
+       "MABARAK",
+       "Murbarek",
+       "Al Mubarak"
+      ],
+      "english_used": "Mubarak",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 70,
+      "token_ids": [
+       70
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "حبيب",
+      "position": "middle",
+      "english_variants": [
+       "Habib",
+       "Habeeb"
+      ],
+      "raw_variants": [
+       "Habib",
+       "Habeeb"
+      ],
+      "english_used": "Habib",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 71,
+      "token_ids": [
+       71
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "الجاسم",
+      "position": "family",
+      "english_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jasim",
+       "Al Jassem"
+      ],
+      "raw_variants": [
+       "Al Jassim",
+       "Al Jasem",
+       "Al Jassem",
+       "al Jasim",
+       "Al Jassam",
+       "al Jasem"
+      ],
+      "english_used": "Al Jassim",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "partner",
+    "person_id": "p3",
+    "mention": "full",
+    "segment_id": "s12",
+    "span": [
+     10,
+     32
+    ],
+    "token_ids": [
+     78,
+     79,
+     80,
+     81
+    ],
+    "arabic_full": "ليلى بنت خلفان الموسوي",
+    "english_full": "Laila Khalfan Al Musawi",
+    "evidence": {
+     "segment_id": "s25",
+     "quote": "LAILA BINT KHALFAN AL MUSAWI"
+    },
+    "tokens": [
+     {
+      "token_id": 78,
+      "token_ids": [
+       78
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "ليلى",
+      "position": "given",
+      "english_variants": [
+       "Laila",
+       "Layla"
+      ],
+      "raw_variants": [
+       "Laila",
+       "Layla"
+      ],
+      "english_used": "Laila",
+      "expected": "adopt",
+      "expected_spelling": "Laila",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "LAILA BINT KHALFAN AL MUSAWI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 80,
+      "token_ids": [
+       80
+      ],
+      "unit_id": "n4.father",
+      "slot": "father",
+      "arabic": "خلفان",
+      "position": "middle",
+      "english_variants": [
+       "Khalfan"
+      ],
+      "raw_variants": [
+       "Khalfan",
+       "Khalvan"
+      ],
+      "english_used": "Khalfan",
+      "expected": "adopt",
+      "expected_spelling": "Khalfan",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "LAILA BINT KHALFAN AL MUSAWI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 81,
+      "token_ids": [
+       81
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "الموسوي",
+      "position": "family",
+      "english_variants": [
+       "Al Musawi",
+       "Al Mosawi",
+       "Al Mousawi",
+       "Al Moussawi"
+      ],
+      "raw_variants": [
+       "Al Musawi",
+       "Al Mosawi",
+       "al Musawi",
+       "Al Moussawi",
+       "Al Mousawi"
+      ],
+      "english_used": "Al Musawi",
+      "expected": "adopt",
+      "expected_spelling": "Al Musawi",
+      "evidence": [
+       {
+        "segment_id": "s25",
+        "quote": "LAILA BINT KHALFAN AL MUSAWI"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B1",
+       "D4"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "full",
+    "segment_id": "s13",
+    "span": [
+     11,
+     33
+    ],
+    "token_ids": [
+     88,
+     89,
+     90,
+     91
+    ],
+    "arabic_full": "عبد الرحمن طاهر الدخيل",
+    "english_full": "Abdulrahman Taher Al Dakhil",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 89,
+      "token_ids": [
+       88,
+       89
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "عبد الرحمن",
+      "position": "given",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 90,
+      "token_ids": [
+       90
+      ],
+      "unit_id": "n5.father",
+      "slot": "father",
+      "arabic": "طاهر",
+      "position": "middle",
+      "english_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "raw_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "english_used": "Taher",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 91,
+      "token_ids": [
+       91
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "الدخيل",
+      "position": "family",
+      "english_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel"
+      ],
+      "raw_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel",
+       "Al Dahkil"
+      ],
+      "english_used": "Al Dakhil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n6",
+    "role": "partner",
+    "person_id": "p5",
+    "mention": "full",
+    "segment_id": "s14",
+    "span": [
+     11,
+     27
+    ],
+    "token_ids": [
+     98,
+     99,
+     100
+    ],
+    "arabic_full": "حسين خالد الصباح",
+    "english_full": "Hussein Khalid Al Sabah",
+    "evidence": {
+     "segment_id": "s15",
+     "quote": "Hussein Khalid Al Sabah"
+    },
+    "tokens": [
+     {
+      "token_id": 98,
+      "token_ids": [
+       98
+      ],
+      "unit_id": "n6.given",
+      "slot": "given",
+      "arabic": "حسين",
+      "position": "given",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Hussein",
+      "expected": "adopt",
+      "expected_spelling": "Hussein",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Hussein Khalid Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 99,
+      "token_ids": [
+       99
+      ],
+      "unit_id": "n6.father",
+      "slot": "father",
+      "arabic": "خالد",
+      "position": "middle",
+      "english_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "raw_variants": [
+       "Khalid",
+       "Khaled",
+       "Halid"
+      ],
+      "english_used": "Khalid",
+      "expected": "adopt",
+      "expected_spelling": "Khalid",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Hussein Khalid Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 100,
+      "token_ids": [
+       100
+      ],
+      "unit_id": "n6.family",
+      "slot": "family",
+      "arabic": "الصباح",
+      "position": "family",
+      "english_variants": [
+       "Al Sabah"
+      ],
+      "raw_variants": [
+       "Al Sabah",
+       "al Sabah"
+      ],
+      "english_used": "Al Sabah",
+      "expected": "adopt",
+      "expected_spelling": "Al Sabah",
+      "evidence": [
+       {
+        "segment_id": "s15",
+        "quote": "Hussein Khalid Al Sabah"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n7",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "full",
+    "segment_id": "s16",
+    "span": [
+     9,
+     30
+    ],
+    "token_ids": [
+     113,
+     114,
+     115,
+     116
+    ],
+    "arabic_full": "طاهر يوسف عبدي الدخيل",
+    "english_full": "Tahir Yousef Abdi Al Dakhil",
+    "evidence": {
+     "segment_id": "s17",
+     "quote": "Tahir Yousef Abdi Al Dakhil"
+    },
+    "tokens": [
+     {
+      "token_id": 113,
+      "token_ids": [
+       113
+      ],
+      "unit_id": "n7.given",
+      "slot": "given",
+      "arabic": "طاهر",
+      "position": "given",
+      "english_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "raw_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "english_used": "Tahir",
+      "expected": "adopt",
+      "expected_spelling": "Tahir",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "D3"
+      ],
+      "arguable": false
+     },
+     {
+      "token_id": 114,
+      "token_ids": [
+       114
+      ],
+      "unit_id": "n7.father",
+      "slot": "father",
+      "arabic": "يوسف",
+      "position": "middle",
+      "english_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef"
+      ],
+      "raw_variants": [
+       "Yousef",
+       "Yusuf",
+       "Yousif",
+       "Yousuf",
+       "Youssef",
+       "Yusef",
+       "Yussef",
+       "YOUSEF"
+      ],
+      "english_used": "Yousef",
+      "expected": "adopt",
+      "expected_spelling": "Yousef",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 115,
+      "token_ids": [
+       115
+      ],
+      "unit_id": "n7.grandfather",
+      "slot": "grandfather",
+      "arabic": "عبدي",
+      "position": "middle",
+      "english_variants": [
+       "Abdi"
+      ],
+      "raw_variants": [
+       "Abdi"
+      ],
+      "english_used": "Abdi",
+      "expected": "adopt",
+      "expected_spelling": "Abdi",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 116,
+      "token_ids": [
+       116
+      ],
+      "unit_id": "n7.family",
+      "slot": "family",
+      "arabic": "الدخيل",
+      "position": "family",
+      "english_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel"
+      ],
+      "raw_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel",
+       "Al Dahkil"
+      ],
+      "english_used": "Al Dakhil",
+      "expected": "adopt",
+      "expected_spelling": "Al Dakhil",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n8",
+    "role": "partner",
+    "person_id": "p7",
+    "mention": "full",
+    "segment_id": "s18",
+    "span": [
+     9,
+     27
+    ],
+    "token_ids": [
+     130,
+     131,
+     132,
+     133
+    ],
+    "arabic_full": "حسين بن فهد الكعبي",
+    "english_full": "Husain Fahad Al Kaebi",
+    "evidence": {
+     "segment_id": "s19",
+     "quote": "P<AREAL<KAEBI<<HUSAIN<FAHAD<<<<<<<<<<<<<<<<<"
+    },
+    "tokens": [
+     {
+      "token_id": 130,
+      "token_ids": [
+       130
+      ],
+      "unit_id": "n8.given",
+      "slot": "given",
+      "arabic": "حسين",
+      "position": "given",
+      "english_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Husayn",
+       "Housain",
+       "Husayin",
+       "Husein"
+      ],
+      "raw_variants": [
+       "Hussain",
+       "Hussein",
+       "Husain",
+       "Hussien",
+       "Husayn",
+       "Husein",
+       "Housain",
+       "hussein",
+       "Hsyn",
+       "Hassan",
+       "Husayin"
+      ],
+      "english_used": "Husain",
+      "expected": "adopt",
+      "expected_spelling": "Husain",
+      "evidence": [
+       {
+        "segment_id": "s19",
+        "quote": "P<AREAL<KAEBI<<HUSAIN<FAHAD<<<<<<<<<<<<<<<<<"
+       },
+       {
+        "segment_id": "s20",
+        "quote": "AL KAABI, Husain Fahad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A2",
+       "B2",
+       "B3",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 132,
+      "token_ids": [
+       132
+      ],
+      "unit_id": "n8.father",
+      "slot": "father",
+      "arabic": "فهد",
+      "position": "middle",
+      "english_variants": [
+       "Fahad",
+       "Fahed",
+       "Al Fahad"
+      ],
+      "raw_variants": [
+       "Fahad",
+       "Fahd",
+       "Fahed",
+       "Al Fahad",
+       "Fahid"
+      ],
+      "english_used": "Fahad",
+      "expected": "adopt",
+      "expected_spelling": "Fahad",
+      "evidence": [
+       {
+        "segment_id": "s19",
+        "quote": "P<AREAL<KAEBI<<HUSAIN<FAHAD<<<<<<<<<<<<<<<<<"
+       },
+       {
+        "segment_id": "s20",
+        "quote": "AL KAABI, Husain Fahad"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "B2",
+       "B3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 133,
+      "token_ids": [
+       133
+      ],
+      "unit_id": "n8.family",
+      "slot": "family",
+      "arabic": "الكعبي",
+      "position": "family",
+      "english_variants": [
+       "Al Kaabi",
+       "Al Kaebi",
+       "Kaabi"
+      ],
+      "raw_variants": [
+       "Al Kaabi",
+       "Al Kaebi",
+       "Kaabi"
+      ],
+      "english_used": "Al Kaebi",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [
+       "Al Kaabi",
+       "Al Kaebi"
+      ],
+      "case_types": [
+       "C3"
+      ],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n9",
+    "role": "partner",
+    "person_id": "p4",
+    "mention": "short",
+    "segment_id": "s21",
+    "span": [
+     14,
+     31
+    ],
+    "token_ids": [
+     151,
+     152,
+     153
+    ],
+    "arabic_full": "عبد الرحمن الدخيل",
+    "english_full": "Abdulrahman Al Dakhil",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 152,
+      "token_ids": [
+       151,
+       152
+      ],
+      "unit_id": "n9.given",
+      "slot": "given",
+      "arabic": "عبد الرحمن",
+      "position": "given",
+      "english_variants": [
+       "Abdulrahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "AbdAlrahman",
+       "Abderrahman",
+       "Abdirahman",
+       "Abdul Rehman",
+       "Abdullrahman",
+       "Abdurrahman"
+      ],
+      "raw_variants": [
+       "Abdulrahman",
+       "Abdul Rahman",
+       "Abdurahman",
+       "Abdel Rahman",
+       "Abdelrahman",
+       "AbdAlrahman",
+       "AbdulRahman",
+       "Abdurrahman",
+       "Abd Elaziz",
+       "Abderrahman",
+       "Abderrahaman",
+       "Abdul Rehman",
+       "Abdirahman",
+       "Abdullrahman",
+       "Abdullrhman"
+      ],
+      "english_used": "Abdulrahman",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3",
+       "D3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 153,
+      "token_ids": [
+       153
+      ],
+      "unit_id": "n9.family",
+      "slot": "family",
+      "arabic": "الدخيل",
+      "position": "family",
+      "english_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel"
+      ],
+      "raw_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel",
+       "Al Dahkil"
+      ],
+      "english_used": "Al Dakhil",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n10",
+    "role": "partner",
+    "person_id": "p6",
+    "mention": "short",
+    "segment_id": "s22",
+    "span": [
+     23,
+     34
+    ],
+    "token_ids": [
+     157,
+     158
+    ],
+    "arabic_full": "طاهر الدخيل",
+    "english_full": "Tahir Al Dakhil",
+    "evidence": {
+     "segment_id": "s17",
+     "quote": "Tahir Yousef Abdi Al Dakhil"
+    },
+    "tokens": [
+     {
+      "token_id": 157,
+      "token_ids": [
+       157
+      ],
+      "unit_id": "n10.given",
+      "slot": "given",
+      "arabic": "طاهر",
+      "position": "given",
+      "english_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "raw_variants": [
+       "Taher",
+       "Tahir"
+      ],
+      "english_used": "Tahir",
+      "expected": "adopt",
+      "expected_spelling": "Tahir",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 158,
+      "token_ids": [
+       158
+      ],
+      "unit_id": "n10.family",
+      "slot": "family",
+      "arabic": "الدخيل",
+      "position": "family",
+      "english_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel"
+      ],
+      "raw_variants": [
+       "Al Dakhil",
+       "Al Dakheel",
+       "Al Dakeel",
+       "Al Dahkil"
+      ],
+      "english_used": "Al Dakhil",
+      "expected": "adopt",
+      "expected_spelling": "Al Dakhil",
+      "evidence": [
+       {
+        "segment_id": "s17",
+        "quote": "Tahir Yousef Abdi Al Dakhil"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p6",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "طاهر",
+      "spelling": "Tahir"
+     },
+     "father": {
+      "arabic": "يوسف",
+      "spelling": "Yousef"
+     },
+     "grandfather": {
+      "arabic": "عبدي",
+      "spelling": "Abdi"
+     },
+     "family": {
+      "arabic": "الدخيل",
+      "spelling": "Al Dakhil"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p6",
+      "segment_id": "s17",
+      "quote": "Tahir Yousef Abdi Al Dakhil",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Tahir",
+       "father": "Yousef",
+       "grandfather": "Abdi",
+       "family": "Al Dakhil"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p4",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p6",
+    "slots": {
+     "given": {
+      "arabic": "عبد الرحمن",
+      "spelling": "Abdulrahman"
+     },
+     "father": {
+      "arabic": "طاهر",
+      "spelling": "Taher"
+     },
+     "family": {
+      "arabic": "الدخيل",
+      "spelling": "Al Dakhil"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حبيب",
+      "spelling": "Habib"
+     },
+     "father": {
+      "arabic": "سلمان",
+      "spelling": "Salman"
+     },
+     "grandfather": {
+      "arabic": "خليل",
+      "spelling": "Khalil"
+     },
+     "family": {
+      "arabic": "الجاسم",
+      "spelling": "Al Jassem"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s09",
+      "quote": "P<BHRAL<JASSEM<<HABIB<SALMAN<KHALIL<<<<<<<<<",
+      "form": "mrz",
+      "labeled": true,
+      "slots": {
+       "given": "Habib",
+       "father": "Salman",
+       "grandfather": "Khalil",
+       "family": "Al Jassem"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p1",
+      "segment_id": "s10",
+      "quote": "HABIB BIN SALMAN BIN KHALIL AL JASIM",
+      "form": "caps",
+      "labeled": true,
+      "slots": {
+       "given": "Habib",
+       "father": "Salman",
+       "grandfather": "Khalil",
+       "family": "Al Jasim"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "مبارك",
+      "spelling": "Mubarak"
+     },
+     "father": {
+      "arabic": "حبيب",
+      "spelling": "Habib"
+     },
+     "family": {
+      "arabic": "الجاسم",
+      "spelling": "Al Jassim"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "p7",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حسين",
+      "spelling": "Husain"
+     },
+     "father": {
+      "arabic": "فهد",
+      "spelling": "Fahad"
+     },
+     "family": {
+      "arabic": "الكعبي",
+      "spelling": "Al Kaebi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p7",
+      "segment_id": "s19",
+      "quote": "P<AREAL<KAEBI<<HUSAIN<FAHAD<<<<<<<<<<<<<<<<<",
+      "form": "mrz",
+      "labeled": true,
+      "slots": {
+       "given": "Husain",
+       "father": "Fahad",
+       "family": "Al Kaebi"
+      },
+      "initial_slots": []
+     },
+     {
+      "person_id": "p7",
+      "segment_id": "s20",
+      "quote": "AL KAABI, Husain Fahad",
+      "form": "reversed_comma",
+      "labeled": true,
+      "slots": {
+       "given": "Husain",
+       "father": "Fahad",
+       "family": "Al Kaabi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p5",
+    "kind": "person",
+    "role": "partner",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "حسين",
+      "spelling": "Hussein"
+     },
+     "father": {
+      "arabic": "خالد",
+      "spelling": "Khalid"
+     },
+     "family": {
+      "arabic": "الصباح",
+      "spelling": "Al Sabah"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p5",
+      "segment_id": "s15",
+      "quote": "Hussein Khalid Al Sabah",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Hussein",
+       "father": "Khalid",
+       "family": "Al Sabah"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p3",
+    "kind": "person",
+    "role": "partner",
+    "gender": "female",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "ليلى",
+      "spelling": "Laila"
+     },
+     "father": {
+      "arabic": "خلفان",
+      "spelling": "Khalfan"
+     },
+     "family": {
+      "arabic": "الموسوي",
+      "spelling": "Al Musawi"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p3",
+      "segment_id": "s25",
+      "quote": "LAILA BINT KHALFAN AL MUSAWI",
+      "form": "unlabeled_caps",
+      "labeled": false,
+      "slots": {
+       "given": "Laila",
+       "father": "Khalfan",
+       "family": "Al Musawi"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "الجاسم",
+      "spelling": "Al Jasem"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s03",
+      "quote": "Al Jasem",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Jasem"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s03",
+    "quote": "Al Jasem",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   },
+   {
+    "segment_id": "s04",
+    "quote": "info@aljasem-group.example.com",
+    "kind": "email",
+    "resembles": [
+     "p1.family",
+     "p2.family",
+     "c1.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   9,
+   10,
+   11,
+   28,
+   29,
+   30,
+   32,
+   41,
+   87,
+   97,
+   112,
+   129
+  ],
+  "title_token_ids": [
+   41,
+   87,
+   97,
+   112,
+   129
+  ],
+  "lookalikes": [],
+  "lookalike_token_ids": []
+ },
+ "case_types": [
+  "A1",
+  "A2",
+  "A3",
+  "B1",
+  "B2",
+  "B3",
+  "C2",
+  "C3",
+  "D3",
+  "D4"
+ ]
+}

@@ -1,0 +1,706 @@
+{
+ "doc_id": "hdev_013",
+ "synthetic": true,
+ "notice": "SYNTHETIC: 합성 데이터. 실존 인물·회사·서류가 아니다. 이름은 Wikidata 이름 단위를 무작위로 조합했다.",
+ "doc_type": "poa",
+ "bilingual": true,
+ "segments": [
+  {
+   "segment_id": "s01",
+   "text": "وكالة خاصة"
+  },
+  {
+   "segment_id": "s02",
+   "text": "إنه في يوم 03/07/2026 حضر أمام الكاتب العدل السيد سمير بن سعد بن رجب العلي، بحريني الجنسية، ويحمل جواز سفر رقم M4387697."
+  },
+  {
+   "segment_id": "s03",
+   "text": "Principal: Samir bin Saad bin Rajab Al Ali, Passport No. M4387697"
+  },
+  {
+   "segment_id": "s04",
+   "text": "وذلك بصفته مديرًا لشركة العلي للتجارة العامة ذ.م.م، المرخصة من دائرة التنمية الاقتصادية برقم 411333، وعنوانها دبي، الإمارات العربية المتحدة."
+  },
+  {
+   "segment_id": "s05",
+   "text": "Company: Al Ali General Trading L.L.C., Registration No. 411333"
+  },
+  {
+   "segment_id": "s06",
+   "text": "وقرر أنه وكّل السيد معتز سمير العلي، بحريني الجنسية، ويحمل بطاقة هوية رقم 44277718."
+  },
+  {
+   "segment_id": "s07",
+   "text": "للقيام نيابة عنه بمراجعة الجهات الحكومية والتوقيع على الطلبات والمستندات المتعلقة بالشركة واستلام الشهادات والتراخيص."
+  },
+  {
+   "segment_id": "s08",
+   "text": "وهذا التوكيل صالح لمدة سنة واحدة من تاريخه."
+  },
+  {
+   "segment_id": "s09",
+   "text": "والموكل كامل الأهلية المعتبرة قانونًا."
+  },
+  {
+   "segment_id": "s10",
+   "text": "الموكل: سمير العلي"
+  },
+  {
+   "segment_id": "s11",
+   "text": "الوكيل: معتز العلي"
+  },
+  {
+   "segment_id": "s12",
+   "text": "التوقيع: ____________"
+  }
+ ],
+ "features_planned": [
+  "A1",
+  "B6",
+  "C1",
+  "C2"
+ ],
+ "meta": {
+  "generator": "synthetic-hard-v1",
+  "gold_format": 2,
+  "seed": 3001,
+  "split": "dev",
+  "index": 13,
+  "identifier_formats": "placeholder (no sourced format)",
+  "arabic_reviewed_by_human": false
+ },
+ "gold": {
+  "format_version": 2,
+  "names": [
+   {
+    "occurrence_id": "n1",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "full",
+    "segment_id": "s02",
+    "span": [
+     50,
+     74
+    ],
+    "token_ids": [
+     11,
+     12,
+     13,
+     14,
+     15,
+     16
+    ],
+    "arabic_full": "سمير بن سعد بن رجب العلي",
+    "english_full": "Samir Saad Rajab Al Ali",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Samir bin Saad bin Rajab Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 11,
+      "token_ids": [
+       11
+      ],
+      "unit_id": "n1.given",
+      "slot": "given",
+      "arabic": "سمير",
+      "position": "given",
+      "english_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "raw_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "english_used": "Samir",
+      "expected": "adopt",
+      "expected_spelling": "Samir",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 13,
+      "token_ids": [
+       13
+      ],
+      "unit_id": "n1.father",
+      "slot": "father",
+      "arabic": "سعد",
+      "position": "middle",
+      "english_variants": [
+       "Saad",
+       "Sa'd"
+      ],
+      "raw_variants": [
+       "Saad",
+       "Sa'd",
+       "Sa'ad",
+       "Said"
+      ],
+      "english_used": "Saad",
+      "expected": "adopt",
+      "expected_spelling": "Saad",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 15,
+      "token_ids": [
+       15
+      ],
+      "unit_id": "n1.grandfather",
+      "slot": "grandfather",
+      "arabic": "رجب",
+      "position": "middle",
+      "english_variants": [
+       "Rajab"
+      ],
+      "raw_variants": [
+       "Rajab",
+       "Ragab"
+      ],
+      "english_used": "Rajab",
+      "expected": "adopt",
+      "expected_spelling": "Rajab",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 16,
+      "token_ids": [
+       16
+      ],
+      "unit_id": "n1.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n2",
+    "role": "company",
+    "person_id": "c1",
+    "mention": "full",
+    "segment_id": "s04",
+    "span": [
+     24,
+     29
+    ],
+    "token_ids": [
+     41
+    ],
+    "arabic_full": "العلي",
+    "english_full": "Al Ali",
+    "evidence": {
+     "segment_id": "s05",
+     "quote": "Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 41,
+      "token_ids": [
+       41
+      ],
+      "unit_id": "n2.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s05",
+        "quote": "Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n3",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "full",
+    "segment_id": "s06",
+    "span": [
+     20,
+     35
+    ],
+    "token_ids": [
+     72,
+     73,
+     74
+    ],
+    "arabic_full": "معتز سمير العلي",
+    "english_full": "Moataz Sameer Al Ali",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 72,
+      "token_ids": [
+       72
+      ],
+      "unit_id": "n3.given",
+      "slot": "given",
+      "arabic": "معتز",
+      "position": "given",
+      "english_variants": [
+       "Moataz"
+      ],
+      "raw_variants": [
+       "Moataz",
+       "Moutaz",
+       "Mutaz",
+       "Motaz",
+       "Mataz"
+      ],
+      "english_used": "Moataz",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [],
+      "arguable": false
+     },
+     {
+      "token_id": 73,
+      "token_ids": [
+       73
+      ],
+      "unit_id": "n3.father",
+      "slot": "father",
+      "arabic": "سمير",
+      "position": "middle",
+      "english_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "raw_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "english_used": "Sameer",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 74,
+      "token_ids": [
+       74
+      ],
+      "unit_id": "n3.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n4",
+    "role": "principal",
+    "person_id": "p1",
+    "mention": "short",
+    "segment_id": "s10",
+    "span": [
+     8,
+     18
+    ],
+    "token_ids": [
+     111,
+     112
+    ],
+    "arabic_full": "سمير العلي",
+    "english_full": "Samir Al Ali",
+    "evidence": {
+     "segment_id": "s03",
+     "quote": "Samir bin Saad bin Rajab Al Ali"
+    },
+    "tokens": [
+     {
+      "token_id": 111,
+      "token_ids": [
+       111
+      ],
+      "unit_id": "n4.given",
+      "slot": "given",
+      "arabic": "سمير",
+      "position": "given",
+      "english_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "raw_variants": [
+       "Samir",
+       "Sameer"
+      ],
+      "english_used": "Samir",
+      "expected": "adopt",
+      "expected_spelling": "Samir",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 112,
+      "token_ids": [
+       112
+      ],
+      "unit_id": "n4.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "adopt",
+      "expected_spelling": "Al Ali",
+      "evidence": [
+       {
+        "segment_id": "s03",
+        "quote": "Samir bin Saad bin Rajab Al Ali"
+       }
+      ],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     }
+    ]
+   },
+   {
+    "occurrence_id": "n5",
+    "role": "agent",
+    "person_id": "p2",
+    "mention": "short",
+    "segment_id": "s11",
+    "span": [
+     8,
+     18
+    ],
+    "token_ids": [
+     114,
+     115
+    ],
+    "arabic_full": "معتز العلي",
+    "english_full": "Moataz Al Ali",
+    "evidence": null,
+    "tokens": [
+     {
+      "token_id": 114,
+      "token_ids": [
+       114
+      ],
+      "unit_id": "n5.given",
+      "slot": "given",
+      "arabic": "معتز",
+      "position": "given",
+      "english_variants": [
+       "Moataz"
+      ],
+      "raw_variants": [
+       "Moataz",
+       "Moutaz",
+       "Mutaz",
+       "Motaz",
+       "Mataz"
+      ],
+      "english_used": "Moataz",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A3"
+      ],
+      "arguable": true
+     },
+     {
+      "token_id": 115,
+      "token_ids": [
+       115
+      ],
+      "unit_id": "n5.family",
+      "slot": "family",
+      "arabic": "العلي",
+      "position": "family",
+      "english_variants": [
+       "Al Ali",
+       "Ali"
+      ],
+      "raw_variants": [
+       "Al Ali",
+       "al Ali",
+       "Al ali",
+       "El Aly",
+       "AL ALI",
+       "Alali",
+       "Ali"
+      ],
+      "english_used": "Al Ali",
+      "expected": "hold",
+      "expected_spelling": null,
+      "evidence": [],
+      "must_include": [],
+      "case_types": [
+       "A1",
+       "A3",
+       "C2"
+      ],
+      "arguable": true
+     }
+    ]
+   }
+  ],
+  "persons": [
+   {
+    "person_id": "p1",
+    "kind": "person",
+    "role": "principal",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "given": {
+      "arabic": "سمير",
+      "spelling": "Samir"
+     },
+     "father": {
+      "arabic": "سعد",
+      "spelling": "Saad"
+     },
+     "grandfather": {
+      "arabic": "رجب",
+      "spelling": "Rajab"
+     },
+     "family": {
+      "arabic": "العلي",
+      "spelling": "Al Ali"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "p1",
+      "segment_id": "s03",
+      "quote": "Samir bin Saad bin Rajab Al Ali",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "given": "Samir",
+       "father": "Saad",
+       "grandfather": "Rajab",
+       "family": "Al Ali"
+      },
+      "initial_slots": []
+     }
+    ]
+   },
+   {
+    "person_id": "p2",
+    "kind": "person",
+    "role": "agent",
+    "gender": "male",
+    "relation": "son_of:p1",
+    "slots": {
+     "given": {
+      "arabic": "معتز",
+      "spelling": "Moataz"
+     },
+     "father": {
+      "arabic": "سمير",
+      "spelling": "Sameer"
+     },
+     "family": {
+      "arabic": "العلي",
+      "spelling": "Al Ali"
+     }
+    },
+    "renderings": []
+   },
+   {
+    "person_id": "c1",
+    "kind": "company",
+    "role": "company",
+    "gender": "male",
+    "relation": "",
+    "slots": {
+     "family": {
+      "arabic": "العلي",
+      "spelling": "Al Ali"
+     }
+    },
+    "renderings": [
+     {
+      "person_id": "c1",
+      "segment_id": "s05",
+      "quote": "Al Ali",
+      "form": "plain",
+      "labeled": true,
+      "slots": {
+       "family": "Al Ali"
+      },
+      "initial_slots": []
+     }
+    ]
+   }
+  ],
+  "decoys": [
+   {
+    "segment_id": "s05",
+    "quote": "Al Ali",
+    "kind": "company",
+    "resembles": [
+     "p1.family",
+     "p2.family"
+    ]
+   }
+  ],
+  "neutral_token_ids": [
+   44,
+   45,
+   46,
+   49,
+   50,
+   51,
+   55,
+   56,
+   57,
+   58
+  ],
+  "title_token_ids": [],
+  "lookalikes": [
+   {
+    "token_id": 99,
+    "kind": "common_word",
+    "twin": null
+   },
+   {
+    "token_id": 106,
+    "kind": "common_word",
+    "twin": null
+   }
+  ],
+  "lookalike_token_ids": [
+   99,
+   106
+  ]
+ },
+ "case_types": [
+  "A1",
+  "A3",
+  "C2"
+ ]
+}

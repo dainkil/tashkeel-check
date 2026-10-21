@@ -1,7 +1,7 @@
 # 시스템 구조
 
 - 기준: 분할 전 `PROJECT_PLAN.md` 4절, `docs/아키텍처-설계.md`·`docs/툴-설계.md`(2026-10-13), 9절 실행 환경. 절 번호는 분할 전 번호를 그대로 둔다(다른 문서의 "N.M절" 참조가 이 번호를 가리킨다). 문서 지도는 [docs/README.md](README.md).
-- 마지막 업데이트: 2026-10-20
+- 마지막 업데이트: 2026-10-21
 
 ## 4.1 설계 원칙
 
@@ -91,7 +91,7 @@ flowchart LR
 reconcile이 코드로 적용하는 규칙:
 
 - 고유명사에 근거 없이 `adopt`를 쓰면 "근거 없는 확정"으로 센다. 보류로 바꿔 주지 않는다. 실패를 지우지 않기 위해서다.
-- `evidence_adopt`의 인용이 원문에 없거나 채택 표기와 맞지 않으면 보류로 내리고 "근거 검증 실패"로 센다.
+- `evidence_adopt`의 인용이 원문에 없거나 채택 표기와 맞지 않으면 보류로 내리고 "근거 검증 실패"로 센다. 채택 표기가 인용과 맞는지는 근거 검사 규칙으로 본다. v1(EXP-002)은 인용 안 연속 단어열과 일치 규칙 v1로 맞으면 통과한다. v2(EXP-003, ADR-017)는 단어 묶음마다 인용 안 단어열과 엄격 철자가 같아야 하고, 순서·대소문자·MRZ `<`는 무시한다. 규칙은 `Settings.evidence_rule`로 고르고 실험 코드가 정한다.
 - 존재하지 않는 토큰 ID를 가리키는 항목은 무효 항목으로 센다.
 - 정답 고유명사와 분석기 모호 토큰 가운데 어느 항목에도 덮이지 않은 것은 "미처리"로 결과에 넣고 센다. 중립 토큰(합성 문서의 지명·국가명·발급 기관·법인 형태)은 처분을 기대하지도 감점하지도 않는다(ADR-014).
 - 한 토큰을 여러 항목이 덮으면 고유명사 항목을 대표로 판정한다. 정답 이름 상태와 근거 없는 확정 집계가 같은 기준을 쓴다(ADR-014).
@@ -146,21 +146,23 @@ src/tashkeel_check/
   errors.py                  TashkeelError → InputError(400·종료 2) / ConfigError·AnalyzerUnavailable(503·종료 3)
   text.py                    정규화, 구간·토큰 ID
   analyzer.py                CAMeL 래퍼, 격어미 제거, 모호 판정
-  romanize.py                romanize, match_spelling (v1)
+  romanize.py                romanize, match_spelling (v1), 엄격 철자 strict_* (s1, ADR-017)
   schemas.py                 구조화 출력 AgentOutput
-  prompts.py                 C0~C3 프롬프트
+  prompts.py                 C0~C3 프롬프트, 지시문 판 p0(EXP-002)·p1(EXP-003)
   tools.py                   analyze_tokens
   fake.py                    가짜 모델(연습 모드, 테스트)
   graph.py                   StateGraph
-  reconcile.py               강등 규칙, 지표
+  reconcile.py               강등 규칙(근거 검사 v1·v2), 지표
+  scoring_v2.py              gold 형식 2의 이름 부분별 안전·엄격 판정(채점 v2, ADR-017)
   results.py                 결과 형식 ReviewResult(파일·API·DB 공통 계약, 모르는 키는 오류)
   export.py                  JSON·CSV·run_meta (ReviewResult에서 씀)
   runner.py                  Reviewer(그래프 한 번 빌드, 문서마다 재사용), run_document(편의 래퍼), LangSmith
-  cli.py                     run / fetch-wikidata / make-synthetic / bundle-search / exp001 / exp002 / exp002-status
-  data/                      names.py(이름 정렬), wikidata.py, synthetic.py
-  experiments/               exp001.py, exp002.py
+  cli.py                     run / fetch-wikidata / make-synthetic / make-synthetic-hard / inspect-gold / bundle-search /
+                             exp001 / exp002 / exp002-status / exp003 / exp003-status / exp003-errors / exp003-rescore
+  data/                      names.py(이름 정렬), wikidata.py, synthetic.py, synthetic_hard.py(어려운 시험지, ADR-017)
+  experiments/               exp001.py, harness.py(재개·동시 실행 장치, 통계), exp002.py, exp003.py
   rag/                       bundle.py (단계 2 틀)
-data/wikidata/  data/synthetic/{dev,eval}/  data/bundles/sample/
+data/wikidata/  data/synthetic/{dev,eval}/  data/synthetic-hard/{dev,eval}/  data/bundles/sample/
 results/                     평가 실행 결과는 보존, results/debug/는 git 제외
 tests/                       golden/(골든 스냅숏 160건), golden_cases.py, test_llm_inputs.py(LLM 입력 해시)
 docs/                        README.md(문서 지도), problem-and-goals, scope, architecture, data, evaluation, roadmap,
@@ -196,6 +198,10 @@ CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKE
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
 | `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
 | `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
+| `uv run tashkeel make-synthetic-hard --split dev` | 어려운 합성 문서 synthetic-hard(gold 형식 2). eval은 한 번만 만들고, 이미 있으면 거부(ADR-017) |
+| `uv run tashkeel inspect-gold --case C2 --n 2` | synthetic-hard 문서의 구간별 정답(기대 처분·유형)을 읽기 좋게 출력 |
+| `uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4` | EXP-003(어려운 시험지, 99% 기준). 실행 장치·옵션은 exp002와 같다. 실제 실행은 `--split eval ... --yes` |
+| `uv run tashkeel exp003-status` / `exp003-errors` / `exp003-rescore` | 진행·사용량 / 자동 판정 오류 전부와 정답 표본을 사람 확인용 `errors.csv`로 / 저장된 출력을 지금 채점 코드로 다시 채점(참고 값) |
 | `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 
@@ -280,9 +286,11 @@ CLI (uv run tashkeel <cmd>)
  ├─ run            → runner.run_document → graph
  ├─ exp002         → experiments/exp002 → runner.run_document(실행마다 모델·그래프 새로) → 반복 × 문서 × 조건, 동시 실행, runs.jsonl로 재개
  ├─ exp002-status  → experiments/exp002.status (plan.json + runs.jsonl만 읽음)
+ ├─ exp003(-status·-errors·-rescore) → experiments/exp003 → harness.run(Spec: p1·v2, 99% 판정) → 같은 장치
  ├─ exp001         → experiments/exp001 (그래프를 쓰지 않음: analyzer + data/names.align + romanize)
  ├─ fetch-wikidata → data/wikidata (SPARQL → gcc_persons.json → name_tokens.json)
  ├─ make-synthetic → data/synthetic (name_tokens.json + 템플릿 → dev 10 / eval 30 + gold)
+ ├─ make-synthetic-hard → data/synthetic-hard (dev 20 / eval 70 + gold 형식 2, 유형 17가지)
  └─ bundle-search  → rag/bundle (단계 2 틀, 그래프 밖에서만)
 ```
 
@@ -334,7 +342,10 @@ runner      → graph, fake, config, prompts (Reviewer, make_model, @traceable)
 cli         → config, errors (+ 지연 import: runner, data, experiments, rag)
 data/names  → text ; data/wikidata → text, names ; data/synthetic → text
 experiments/exp001 → analyzer, names, romanize, text
-experiments/exp002 → config, runner, analyzer, prompts, romanize   (PASS_BAR, judge: stop / pass / fail; plan.json 고정값)
+experiments/harness → config, runner, analyzer, results          (재개·동시 실행·멈춤·사용량, Spec, Clopper–Pearson·부트스트랩)
+experiments/exp002 → harness, config, analyzer, prompts, romanize   (PASS_BAR, judge: stop / pass / fail; plan.json 고정값, p0·v1)
+experiments/exp003 → harness, scoring_v2, data/synthetic_hard        (99% 두 기준, service_claim; p1·v2)
+scoring_v2  → reconcile, romanize, analyzer ; data/synthetic_hard → romanize, text, synthetic
 rag/bundle  → romanize, text               (Qdrant 메모리 모드, 기본 꺼짐)
 ```
 

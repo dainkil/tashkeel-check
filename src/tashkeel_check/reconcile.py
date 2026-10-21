@@ -11,7 +11,7 @@ from collections import Counter, defaultdict
 from typing import Any
 
 from .analyzer import TokenAnalysis
-from .romanize import canonical_latin, match_spelling, spelling_in_text
+from .romanize import canonical_latin, match_spelling, spelling_in_text, strict_words_in_quote
 from .text import Segment, Token, has_latin, normalize_key
 
 MARKER_RE = re.compile(r"\[\?\]|\(\?\)|\?|/|\bor\b|\bunclear\b|\buncertain\b", re.I)
@@ -41,7 +41,13 @@ def _analysis_count(analyses: dict[int, TokenAnalysis], tid: int, default: int |
 # ---------- 항목 검사 ----------
 
 
-def verify_evidence(item: dict, seg_text: dict[str, str]) -> tuple[bool, str]:
+def verify_evidence(item: dict, seg_text: dict[str, str], rule: str = "v1") -> tuple[bool, str]:
+    """인용이 그 구간에 그대로 있고 채택 표기가 인용과 맞는지.
+
+    v1: 채택 표기가 인용 안의 연속 단어열과 일치 규칙 v1로 맞아야 한다(EXP-002).
+    v2: 채택 표기의 단어 묶음마다 인용 안 단어열과 엄격 철자가 같아야 한다. 순서·대소문자·MRZ '<'는 무시한다(EXP-003).
+    gold를 보지 않는다. 서비스에서도 같은 검사를 쓴다.
+    """
     ev = item.get("evidence") or {}
     sid = ev.get("segment_id")
     quote = (ev.get("quote") or "").strip()
@@ -54,12 +60,15 @@ def verify_evidence(item: dict, seg_text: dict[str, str]) -> tuple[bool, str]:
         return False, "quote_not_in_segment"
     if not adopted:
         return False, "no_adopted_spelling"
-    if not spelling_in_text(adopted, quote):
+    ok = strict_words_in_quote(adopted, quote) if rule == "v2" else spelling_in_text(adopted, quote)
+    if not ok:
         return False, "adopted_not_in_quote"
     return True, ""
 
 
-def check_items(raw_items: list[dict], tokens: list[Token], segments: list[Segment]) -> list[dict]:
+def check_items(
+    raw_items: list[dict], tokens: list[Token], segments: list[Segment], evidence_rule: str = "v1"
+) -> list[dict]:
     by_id = {t["id"]: t for t in tokens}
     seg_text = {s["segment_id"]: s["text"] for s in segments}
     checked = []
@@ -89,7 +98,7 @@ def check_items(raw_items: list[dict], tokens: list[Token], segments: list[Segme
                 final = "hold"
                 flags.append("type_decision_mismatch")
             elif dec == "evidence_adopt":
-                ok, failure = verify_evidence(raw, seg_text)
+                ok, failure = verify_evidence(raw, seg_text, evidence_rule)
                 if not ok:
                     final = "hold"
                     flags.append("evidence_failed")
@@ -117,12 +126,14 @@ def gold_name_tokens(gold: dict | None) -> dict[int, dict]:
         return out
     for occ in gold.get("names", []):
         for tk in occ["tokens"]:
+            # gold 형식 2(synthetic-hard)는 부분마다 기대 처분이 있다. 없으면 등장 단위 근거 유무로 정한다
+            has_ev = tk["expected"] == "adopt" if "expected" in tk else occ.get("evidence") is not None
             out[tk["token_id"]] = {
                 **tk,
                 "occurrence_id": occ["occurrence_id"],
                 "role": occ["role"],
                 "segment_id": occ["segment_id"],
-                "has_evidence": occ.get("evidence") is not None,
+                "has_evidence": has_ev,
             }
     return out
 
@@ -275,9 +286,10 @@ def _structured(
     gold: dict | None,
     tool_log: list[dict],
     high_conf: float,
+    evidence_rule: str = "v1",
 ) -> dict:
     by_id = {t["id"]: t for t in tokens}
-    items = check_items((output or {}).get("items", []), tokens, segments)
+    items = check_items((output or {}).get("items", []), tokens, segments, evidence_rule)
     translation = {t["segment_id"]: t["english"] for t in (output or {}).get("translation", [])}
     cover = _coverage(items)
 
@@ -347,6 +359,10 @@ def _structured(
     tool = _tool_metrics(tool_log, ambiguous, gold_ids)
     if tool is not None:
         metrics["tool"] = tool
+    if gold and gold.get("format_version") == 2:
+        from .scoring_v2 import score_structured
+
+        metrics.update(score_structured(gold, items, cover, translation, analyses))
 
     return {
         "items": items,
@@ -485,6 +501,10 @@ def _c0(
                 ),
             }
         )
+    if gold and gold.get("format_version") == 2:
+        from .scoring_v2 import score_c0
+
+        metrics.update(score_c0(gold, translation, analyses))
     return {
         "items": [],
         "translation": translation,
@@ -508,11 +528,12 @@ def reconcile(
     gold: dict | None = None,
     tool_log: list[dict] | None = None,
     high_conf: float = 0.8,
+    evidence_rule: str = "v1",
 ) -> dict:
     if condition == "C0":
         result = _c0(segments, tokens, analyses, output, gold)
     else:
-        result = _structured(segments, tokens, analyses, output, gold, tool_log or [], high_conf)
+        result = _structured(segments, tokens, analyses, output, gold, tool_log or [], high_conf, evidence_rule)
     result["condition"] = condition
     result["segments"] = [
         {

@@ -17,7 +17,7 @@ from .config import Settings, has_openai_key, tracing_enabled
 from .errors import ConfigError
 from .fake import FakeAgentModel, Responder
 from .graph import ToolFactory, build_graph
-from .prompts import PROMPT_VERSION, prompt_hash
+from .prompts import prompt_hash
 from .results import ReviewResult
 from .romanize import MATCHER_VERSION
 
@@ -92,8 +92,8 @@ class Reviewer:
             "model": model_label(self.model, self.settings),
             "model_setting": self.settings.model,
             "temperature": self.settings.temperature,
-            "prompt_version": PROMPT_VERSION,
-            "prompt_hash": prompt_hash(condition),
+            "prompt_version": self.settings.prompt_version,
+            "prompt_hash": prompt_hash(condition, self.settings.prompt_version),
             "matcher_version": MATCHER_VERSION,
             "analyzer": analyzer_version(),
             "package_version": __version__,
