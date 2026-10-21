@@ -84,6 +84,18 @@ LLM_BACKEND=fake USE_MCP_TOOLS=true DATABASE_URL=postgresql+psycopg:///tashkeel 
 
 화면 `http://127.0.0.1:8000`(샘플 문서 또는 아랍어 붙여넣기 → 조건 → 6단계 진행 → 번역·확인 대기 목록·지표), API 문서 `/docs`, 상태 `/health`. 결과는 `results/web/<작업>/` 네 파일과 DB(`documents`·`jobs`·`runs`·`name_items`) 양쪽에 남습니다. MCP 서버는 `uv run python -m tashkeel_check.mcp.server`로 stdio에서 혼자 띄울 수도 있습니다(툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`, 프롬프트 `review_instructions`). `docker compose up --build`는 앱 + Postgres(pgvector) 구성이고 아직 빌드해 보지 않았습니다[미확인].
 
+### 완제품 패키지: Docker Compose + API 키 (ADR-019)
+
+```bash
+cp .env.example .env   # POSTGRES_PASSWORD, OPENAI_API_KEY(또는 LLM_BACKEND=fake), AUTH, MULTI_AGENT
+docker compose up -d --build
+docker compose run --rm app tashkeel customers add --name demo   # api_key: tk_… 를 한 번만 보여 준다
+curl -s -H "X-API-Key: tk_…" -F files=@묶음.json localhost:8000/v1/bundles   # 묶음의 customer_id는 비우거나 키의 고객과 같아야 한다
+LLM_BACKEND=fake ./scripts/smoke.sh                               # 기동 → 키 발급 → 업로드 → 대기 목록 → 사용량 → PASS
+```
+
+모든 `/v1/*`는 API 키(`X-API-Key` 또는 `Authorization: Bearer`)를 받고, 묶음·작업·사전·사용량은 키의 고객에 묶입니다(`GET /v1/usage`). 화면에서는 서류 파일을 올려 초안을 만들고(`POST /v1/bundles/draft`), 같은 당사자를 가리키는 칸에 대상을 지정한 뒤 검수합니다. 서버는 같은 대상을 **제안**만 하고 자동으로 연결하지 않습니다. `MULTI_AGENT=true`면 조건 `M1`(번역자 → 격리 검증자 → 규칙 중재자)을 받습니다. 절차는 [docs/deploy.md](docs/deploy.md)에 있습니다.
+
 ### 서류 묶음 검수(단계 2): 같은 대상의 다른 서류와 대조
 
 여러 서류를 한 묶음으로 보내면, 서류의 영문 표기를 **같은 대상 ID(`entity_id`)가 붙은 다른 서류**의 영문 칸과 대조합니다. 대상은 사람·회사·기관·그 밖의 명명된 당사자 모두이고 규칙은 같습니다. 아랍어 표기가 같다는 이유로 다른 대상을 연결하지 않고, 대소문자·공백만 무시한 정확 일치일 때만 확정하며, 그 밖에는 사유(근거 없음, 서류 간 표기 충돌, 번역 표기 불일치, 비교 대상 없음, 검증 실패, 대상 ID 없음 …)와 함께 확인 대기로 돌립니다. 라벨 칸(`الاسم:`, `اسم الشركة:` …)이 있으면 LLM 없이 돌고, 라벨 칸이 없는 문장은 LLM(C1~C3)이 고유명사를 뽑아 같은 판정을 탑니다.
@@ -113,7 +125,7 @@ uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 
 ## 하지 않는 것 (단계 1)
 
-스캔본 문자 인식, 사람 검토 화면(확인 대기 항목을 닫으며 표기를 등록하는 것만 있음), 멀티 에이전트, 한글 표기, 번역 문장 품질 평가, 인증. 파일 업로드는 묶음 JSON 또는 텍스트 서류(`.json`·`.txt`·`.md`)만 받고 스캔본은 받지 않습니다. 벡터 검색(RAG)은 같은 대상의 구간만 색인하는 후보 힌트이고 근거로 쓰지 않습니다. 묶음에 대상 ID가 없는 고유명사는 근거를 찾지 않고 대기로 둡니다. 서류 종류별 우선순위는 없습니다(서류끼리 다르면 대기).
+스캔본 문자 인식, 사람 검토 화면(확인 대기 항목을 닫으며 표기를 등록하는 것만 있음), 멀티 에이전트 비교 실험(틀 `M1`은 있으나 실제 모델로 돌리지 않음), 한글 표기, 번역 문장 품질 평가, 고객당 여러 사용자·권한, 클라우드 배포 설정. 파일 업로드는 묶음 JSON 또는 텍스트 서류(`.json`·`.txt`·`.md`)만 받고 스캔본은 받지 않습니다. 벡터 검색(RAG)은 같은 대상의 구간만 색인하는 후보 힌트이고 근거로 쓰지 않습니다. 묶음에 대상 ID가 없는 고유명사는 근거를 찾지 않고 대기로 둡니다. 서류 종류별 우선순위는 없습니다(서류끼리 다르면 대기).
 
 ## 과제 2 안내 파일과의 대응 [확인, 2026-10-21 구현]
 

@@ -1,14 +1,15 @@
-# 단계 1.5: 앱 1개 + Postgres(pgvector 이미지, M3 대비) 1개. `docker compose up --build`
-# 앱은 .env를 읽는다(OPENAI_API_KEY, LLM_BACKEND, USE_MCP_TOOLS). DATABASE_URL은 여기서 db 서비스로 덮어쓴다.
+# 완제품 패키지(ADR-019): 앱 1개 + Postgres(pgvector 이미지) 1개. `docker compose up --build`
+# .env에서 읽는 것: POSTGRES_PASSWORD(필수), OPENAI_API_KEY(LLM_BACKEND=openai일 때 필수), LLM_BACKEND, AUTH, MULTI_AGENT, MODEL …
+# DATABASE_URL·WEB_HOST·WEB_PORT·DATA_DIR·RESULTS_DIR는 여기서 정한다. 첫 실행 뒤 API 키 발급:
+#   docker compose run --rm app tashkeel customers add --name <고객 이름>
 services:
   db:
     image: pgvector/pgvector:pg16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: tashkeel
-      POSTGRES_PASSWORD: tashkeel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?.env에 POSTGRES_PASSWORD를 넣으세요}
       POSTGRES_DB: tashkeel
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -18,21 +19,32 @@ services:
       retries: 20
   app:
     build: .
+    restart: unless-stopped
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql+psycopg://tashkeel:tashkeel@db:5432/tashkeel
+      DATABASE_URL: postgresql+psycopg://tashkeel:${POSTGRES_PASSWORD}@db:5432/tashkeel
+      LLM_BACKEND: ${LLM_BACKEND:-openai}
+      AUTH: ${AUTH:-required}
+      MULTI_AGENT: ${MULTI_AGENT:-false}
       WEB_HOST: 0.0.0.0
       WEB_PORT: "8000"
       DATA_DIR: /app/data
       RESULTS_DIR: /app/results
     ports:
-      - "8000:8000"
+      - "${WEB_PORT:-8000}:8000"
     volumes:
-      - ./results:/app/results
+      - results:/app/results
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 20s
 
 volumes:
   pgdata:
+  results:
