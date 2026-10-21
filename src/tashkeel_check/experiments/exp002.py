@@ -32,7 +32,7 @@ import openai
 from langchain_core.language_models.chat_models import BaseChatModel
 
 from .. import __version__
-from ..analyzer import AnalyzeFn, analyzer_version, camel_analyze
+from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
 from ..config import CONDITIONS, Settings
 from ..errors import InputError
 from ..prompts import PROMPT_VERSION, prompt_hash
@@ -480,18 +480,6 @@ def _progress_line(run_dir: Path, plan: dict, rows: list[dict], settings: Settin
     )
 
 
-def _thread_safe_analyzer() -> AnalyzeFn:
-    """camel-tools는 스레드 안전을 보장하지 않아 호출을 하나씩 들여보낸다. 메인 스레드에서 먼저 띄운다."""
-    camel_analyze("كتب")
-    lock = threading.Lock()
-
-    def analyze(surface: str) -> list[dict]:
-        with lock:
-            return camel_analyze(surface)
-
-    return analyze
-
-
 def _start_session(run_dir: Path, rows: list[dict], **info: Any) -> None:
     path = run_dir / LEDGER_FILE
     if path.exists() and (data := path.read_bytes()) and not data.endswith(b"\n"):
@@ -590,7 +578,7 @@ def run(
         for cond in conditions
         if (cond, doc["doc_id"], rep) not in done
     ]
-    fn = _thread_safe_analyzer() if workers > 1 and analyze_fn is None else analyze_fn
+    fn = thread_safe_analyze() if workers > 1 and analyze_fn is None else analyze_fn
 
     signals = submitted = session_tokens = 0
 

@@ -34,6 +34,8 @@ from .tools import make_analyze_tool
 logger = logging.getLogger(__name__)
 
 ToolFactory = Callable[[list[Token], list[dict]], BaseTool]
+# C2의 analyze_tokens 툴을 바꿔 끼울 때(단계 1.5 MCP 경로). (tokens, analyses, tool_log, max_candidates) → 툴
+AnalyzeToolFactory = Callable[[list[Token], dict[int, TokenAnalysis], list[dict], int], BaseTool]
 
 
 class GraphState(TypedDict, total=False):
@@ -67,8 +69,10 @@ def build_graph(
     settings: Settings,
     analyze_fn: AnalyzeFn | None = None,
     extra_tool_factories: list[ToolFactory] | None = None,
+    analyze_tool_factory: AnalyzeToolFactory | None = None,
 ) -> CompiledStateGraph:
     extra_tool_factories = extra_tool_factories or []
+    analyze_factory: AnalyzeToolFactory = analyze_tool_factory or make_analyze_tool
 
     def load(state: GraphState) -> dict:
         if state["condition"] not in CONDITIONS:
@@ -110,9 +114,7 @@ def build_graph(
             else:
                 tools: list[BaseTool] = []
                 if condition == "C2":
-                    tools.append(
-                        make_analyze_tool(state["tokens"], state["analyses"], tool_log, settings.max_candidates)
-                    )
+                    tools.append(analyze_factory(state["tokens"], state["analyses"], tool_log, settings.max_candidates))
                 tools.extend(factory(state["tokens"], tool_log) for factory in extra_tool_factories)
                 runner = create_agent(
                     model, tools=tools, system_prompt=system, response_format=ToolStrategy(AgentOutput)

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tashkeel Check</title>
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1d2330; --mut:#6b7280; --line:#e3e6ea; --acc:#1f5eff; --warn:#b45309; --bad:#b91c1c; --ok:#047857; }
+  * { box-sizing:border-box }
+  body { margin:0; font:14px/1.5 -apple-system, "Noto Sans KR", "Segoe UI", sans-serif; color:var(--ink); background:var(--bg) }
+  header { padding:14px 20px; background:var(--card); border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:baseline; flex-wrap:wrap }
+  header h1 { font-size:18px; margin:0 }
+  header .meta { color:var(--mut); font-size:12px }
+  main { max-width:1200px; margin:0 auto; padding:16px; display:grid; gap:16px; grid-template-columns: 1fr; }
+  @media (min-width: 960px) { main { grid-template-columns: 380px 1fr } }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px }
+  .card h2 { font-size:14px; margin:0 0 10px; color:var(--mut); text-transform:uppercase; letter-spacing:.04em }
+  label { display:block; font-size:12px; color:var(--mut); margin:8px 0 4px }
+  textarea, select, button { width:100%; font:inherit; border:1px solid var(--line); border-radius:6px; padding:8px; background:#fff }
+  textarea { min-height:200px; direction:rtl; font-size:15px }
+  button { background:var(--acc); color:#fff; border:0; cursor:pointer; margin-top:10px }
+  button:disabled { opacity:.5; cursor:default }
+  button.ghost { background:#fff; color:var(--ink); border:1px solid var(--line) }
+  .steps { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 }
+  .step { padding:4px 8px; border-radius:999px; border:1px solid var(--line); font-size:12px; color:var(--mut) }
+  .step.done { background:#e8f5ee; color:var(--ok); border-color:#bfe3cf }
+  .step.cur { background:#e9efff; color:var(--acc); border-color:#c6d4ff }
+  .err { color:var(--bad); white-space:pre-wrap }
+  .warn { color:var(--warn) }
+  table { width:100%; border-collapse:collapse; font-size:13px }
+  th, td { text-align:left; vertical-align:top; padding:6px 8px; border-bottom:1px solid var(--line) }
+  th { color:var(--mut); font-weight:600; font-size:12px }
+  td.ar { direction:rtl; text-align:right; font-size:15px }
+  mark { background:#fff3bf; padding:0 2px; border-radius:3px }
+  mark.hold { background:#fde2e2 }
+  mark.adopt { background:#dcfce7 }
+  .seg { padding:8px 0; border-bottom:1px solid var(--line) }
+  .seg .ar { direction:rtl; text-align:right; font-size:16px }
+  .seg .en { color:#374151 }
+  .seg .id { color:var(--mut); font-size:11px }
+  .kv { display:grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap:6px }
+  .kv div { background:#f9fafb; border:1px solid var(--line); border-radius:6px; padding:6px 8px }
+  .kv b { display:block; font-size:11px; color:var(--mut); font-weight:600 }
+  .small { font-size:12px; color:var(--mut) }
+  .pill { display:inline-block; padding:1px 6px; border-radius:999px; font-size:11px; border:1px solid var(--line) }
+  .pill.hold { color:var(--bad); border-color:#f5c2c2 }
+  .pill.evidence_adopt, .pill.adopt { color:var(--ok); border-color:#bfe3cf }
+  .pill.adopt_unsupported { color:var(--warn); border-color:#f3d9a4 }
+  ul.jobs { list-style:none; padding:0; margin:0 } ul.jobs li { padding:4px 0; border-bottom:1px solid var(--line); cursor:pointer } ul.jobs li:hover { color:var(--acc) }
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <h1>Tashkeel Check</h1>
+  <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 분석기 {{ health.analyzer.tool }} {{ health.analyzer.version }} / {{ health.analyzer.db }} · DB {{ fmt(health.db) }} · MCP {{ fmt(health.mcp) }}</span>
+  <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
+</header>
+<main>
+  <section>
+    <div class="card">
+      <h2>입력</h2>
+      <label>샘플 문서(합성 dev)</label>
+      <select v-model="sampleId" @change="loadSample">
+        <option value="">직접 입력</option>
+        <option v-for="s in samples" :value="s.doc_id">{{ s.doc_id }} · {{ s.doc_type }} · 근거 {{ s.evidence_layout }}</option>
+      </select>
+      <label>아랍어 문서 (빈 줄·줄 단위로 구간이 나뉜다)</label>
+      <textarea v-model="text" :disabled="!!sampleId" placeholder="아랍어 텍스트를 붙여 넣으세요"></textarea>
+      <label>조건</label>
+      <select v-model="condition">
+        <option value="C0">C0 · 번역만(기준)</option>
+        <option value="C1">C1 · 지시만</option>
+        <option value="C2">C2 · 지시 + 분석기 툴</option>
+        <option value="C3">C3 · 지시 + 분석기 결과 미리 제공</option>
+      </select>
+      <button :disabled="running" @click="submit">{{ running ? '실행 중…' : '검수 실행' }}</button>
+      <p class="err" v-if="submitError">{{ submitError }}</p>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h2>최근 작업</h2>
+      <ul class="jobs">
+        <li v-for="j in jobs" @click="openJob(j.job_id)"><span class="pill">{{ j.status }}</span> {{ j.doc_id }} {{ j.condition }} <span class="small">{{ j.created_at.slice(11,19) }}</span><span class="small err" v-if="j.error"> · {{ j.error.slice(0,60) }}</span></li>
+        <li v-if="!jobs.length" class="small">아직 없음</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="card">
+      <h2>진행 <span class="small" v-if="job">· 작업 {{ job.job_id.slice(0,8) }} · {{ job.condition }} · {{ job.doc_id }}</span></h2>
+      <div class="steps">
+        <span v-for="n in nodes" class="step" :class="{done: doneNodes.has(n), cur: curNode===n}">{{ n }}<span v-if="n==='agent' && attempts>1"> ×{{ attempts }}</span></span>
+      </div>
+      <div class="small" v-if="attempts>1" >재시도 {{ attempts-1 }}회 (형식 오류 뒤 다시 요청)</div>
+      <div class="err" v-if="jobError">실패: {{ jobError }}</div>
+      <details v-if="events.length" style="margin-top:6px"><summary class="small">이벤트 {{ events.length }}건</summary>
+        <pre class="small" style="white-space:pre-wrap">{{ events.map(e => JSON.stringify(e)).join('\n') }}</pre></details>
+    </div>
+
+    <template v-if="result">
+      <div class="card" style="margin-top:16px">
+        <h2>지표 요약</h2>
+        <div class="kv">
+          <div v-for="(v,k) in metricsView"><b>{{ k }}</b>{{ v }}</div>
+        </div>
+        <p class="warn" v-if="result.errors && result.errors.length">오류·재시도 기록: {{ result.errors.join(' | ') }}</p>
+        <p class="small">모델 {{ result.meta.model }} · 프롬프트 {{ result.meta.prompt_version }}/{{ result.meta.prompt_hash.slice(0,8) }} · 분석기 {{ result.meta.analyzer.db }} · {{ result.meta.elapsed_s }}s · 툴 호출 {{ result.meta.tool_calls }} · 산출 {{ job && job.out_dir }}</p>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>확인 대기 목록 (이름별)</h2>
+        <table>
+          <thead><tr><th>아랍어</th><th>토큰</th><th>후보(출처)</th><th>채택 표기</th><th>처분</th><th>근거 인용</th><th>분석 수</th><th>플래그</th></tr></thead>
+          <tbody>
+            <tr v-for="r in result.proper_nouns">
+              <td class="ar">{{ r.arabic }}</td><td class="small">{{ r.token_ids }}</td><td>{{ r.candidates }}</td><td>{{ r.adopted }}</td>
+              <td><span class="pill" :class="r.decision">{{ r.decision }}</span></td><td class="small">{{ r.evidence }}</td><td class="small">{{ r.analyzer_counts }}</td><td class="small">{{ r.flags }}</td>
+            </tr>
+            <tr v-if="!result.proper_nouns.length"><td colspan="8" class="small">이름 항목 없음</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px">
+        <h2>구간별 원문·번역 (항목 토큰 강조: 빨강 보류, 초록 근거 확정, 노랑 그 외)</h2>
+        <div class="seg" v-for="s in result.segments">
+          <div class="id">{{ s.segment_id }}<span v-if="s.unprocessed.length"> · 미처리 {{ s.unprocessed.map(u => u.text + '(' + u.reason + ')').join(', ') }}</span></div>
+          <div class="ar" v-html="highlight(s)"></div>
+          <div class="en">{{ s.english === null ? '(번역 없음)' : s.english }}</div>
+        </div>
+      </div>
+    </template>
+  </section>
+</main>
+</div>
+<script>
+const { createApp } = Vue;
+createApp({
+  data() { return {
+    health: null, healthError: null, samples: [], sampleId: '', text: '', condition: 'C3',
+    nodes: ['load','analyze','agent','validate','reconcile','export'],
+    running: false, submitError: null, job: null, jobError: null, events: [], doneNodes: new Set(), curNode: null, attempts: 0,
+    result: null, jobs: [], es: null,
+  }},
+  computed: {
+    metricsView() {
+      const m = this.result.metrics; const keys = ['valid_output','attempts','n_tokens','n_arabic_tokens','n_ambiguous_tokens','n_items','hold_rate','silent_rate','unsupported_adopt_rate','hold_candidate_hit_rate','n_unprocessed_names','n_unprocessed_ambiguous_words','n_evidence_failed','n_over_flag_tokens'];
+      const out = {}; for (const k of keys) if (k in m && m[k] !== null && typeof m[k] !== 'object') out[k] = typeof m[k] === 'number' && !Number.isInteger(m[k]) ? m[k].toFixed(3) : String(m[k]);
+      if (m.usage) out.tokens = (m.usage.total_tokens ?? 0) + ' (' + (m.usage.llm_calls ?? 0) + ' calls)';
+      return out;
+    }
+  },
+  methods: {
+    fmt(v) { return v === 'disabled' ? '없음' : v === true ? 'OK' : v === false ? '불통' : String(v) },
+    async api(path, opts) {
+      const r = await fetch(path, opts); const body = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error((body && body.error) ? body.error : (r.status + ' ' + r.statusText));
+      return body;
+    },
+    async loadHealth() { try { this.health = await this.api('/health') } catch (e) { this.healthError = '서버 상태를 읽지 못했습니다: ' + e.message } },
+    async loadSamples() { try { this.samples = await this.api('/v1/samples') } catch (e) { this.submitError = e.message } },
+    async loadJobs() { try { this.jobs = await this.api('/v1/jobs?limit=20') } catch (e) {} },
+    async loadSample() {
+      if (!this.sampleId) { this.text = ''; return }
+      try { const d = await this.api('/v1/samples/' + this.sampleId); this.text = d.segments.map(s => s.text).join('\n') } catch (e) { this.submitError = e.message }
+    },
+    resetProgress() { this.job = null; this.jobError = null; this.events = []; this.doneNodes = new Set(); this.curNode = null; this.attempts = 0; this.result = null; if (this.es) { this.es.close(); this.es = null } },
+    async submit() {
+      this.submitError = null; this.resetProgress(); this.running = true;
+      try {
+        const body = this.sampleId ? { doc_id: this.sampleId, condition: this.condition } : { text: this.text, condition: this.condition };
+        const j = await this.api('/v1/reviews', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        this.job = { job_id: j.job_id, condition: j.condition, doc_id: j.doc_id };
+        this.loadJobs();
+        this.listen(j.job_id);
+      } catch (e) { this.submitError = e.message; this.running = false }
+    },
+    listen(id) {
+      const es = new EventSource('/v1/jobs/' + id + '/events'); this.es = es;
+      const push = (ev) => { const d = JSON.parse(ev.data); this.events.push(d); return d };
+      es.addEventListener('queued', push);
+      es.addEventListener('node', (ev) => { const d = push(ev); this.doneNodes.add(d.node); this.curNode = d.node; if (d.attempts) this.attempts = d.attempts; if (d.mcp_error) this.jobError = 'MCP: ' + d.mcp_error });
+      es.addEventListener('done', async (ev) => { push(ev); es.close(); this.es = null; this.curNode = null; await this.openJob(id); this.running = false; this.loadJobs() });
+      es.addEventListener('error', (ev) => { if (ev.data) { const d = push(ev); this.jobError = d.error } else if (es.readyState === EventSource.CLOSED) { this.jobError = this.jobError || '연결이 끊겼습니다' } es.close(); this.es = null; this.running = false; this.loadJobs() });
+    },
+    async openJob(id) {
+      try {
+        const j = await this.api('/v1/jobs/' + id); this.job = j; this.attempts = j.attempts || 0; this.jobError = j.error;
+        if (j.status === 'done') { this.result = await this.api('/v1/jobs/' + id + '/result'); this.doneNodes = new Set(this.nodes); this.jobError = j.error }
+        else if (j.status === 'failed') { this.result = null }
+        else { this.resetProgress(); this.job = j; this.running = true; this.listen(id) }
+      } catch (e) { this.jobError = e.message }
+    },
+    highlight(seg) {
+      const esc = (s) => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+      const tokens = []; const re = /[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]+/g; let m;
+      const marks = new Map();
+      for (const it of seg.items) for (const tid of it.token_ids) marks.set(tid, it.final_decision);
+      // 토큰 ID는 문서 전체 순번이라, 구간 안 토큰을 결과의 items.arabic로 다시 맞춘다
+      let html = esc(seg.arabic);
+      for (const it of seg.items) {
+        const cls = it.final_decision === 'hold' ? 'hold' : (it.final_decision === 'evidence_adopt' || it.final_decision === 'adopt') ? 'adopt' : '';
+        const a = esc(it.arabic); if (a && html.includes(a)) html = html.replace(a, '<mark class="' + cls + '" title="' + esc(it.final_decision + ' · ' + (it.reason || '')) + '">' + a + '</mark>');
+      }
+      return html;
+    }
+  },
+  mounted() { this.loadHealth(); this.loadSamples(); this.loadJobs() }
+}).mount('#app');
+</script>
+</body>
+</html>

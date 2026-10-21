@@ -17,6 +17,7 @@
 | [adr/](adr/README.md) | 기술 결정 기록 ADR-001~016, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
 | [troubleshooting.md](troubleshooting.md) | TS-001~003 | 재현 가능한 오류와 해결 과정 |
 | [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
+| [과제2-테스트-기록.md](과제2-테스트-기록.md) | 단계 1.5 서비스의 실행 방법, 기능별 테스트 16건, 예외 테스트 7종, 화면 캡처(`images/`) | API·화면·DB·MCP 동작이 바뀌면 다시 실행해 갱신 |
 | [business/feasibility.md](business/feasibility.md) | 사업성 검토(시장성·기술성·경제성) | 사업 판단, 가격·고객 수 가정 |
 | [business/market/](business/market/) | 시장 조사 기록, 출처 목록, 재계산 스크립트 | 조사 추가·출처 갱신 |
 | [../data/synthetic/README.md](../data/synthetic/README.md) | 합성 문서 파일 형식 | 생성기 출력 형식 |

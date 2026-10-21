@@ -1,6 +1,6 @@
 # 주요 기능, 기술 스택·시스템 구성, 개발 계획
 
-- 작성: 2026-10-20, 마지막 업데이트: 2026-10-20 (구 `docs/개발-계획.md`. 4·5절은 분할 전 `PROJECT_PLAN.md` 8·9절에서 옮김)
+- 작성: 2026-10-20, 마지막 업데이트: 2026-10-21 (구 `docs/개발-계획.md`. 4·5절은 분할 전 `PROJECT_PLAN.md` 8·9절에서 옮김)
 - 기준: [problem-and-goals.md](problem-and-goals.md) 1절(문제·서비스 목표 G1~G6), [scope.md](scope.md) 3절(범위), ADR-008·009. 이 문서는 단계 1~3을 하나의 제품 관점으로 묶은 설계·계획이고, 세부 측정 설계는 [evaluation.md](evaluation.md), 진행 기록은 [changelog.md](changelog.md)와 `PROJECT_PLAN.md`에 둔다.
 - 근거 표기는 [docs/README.md](README.md)와 같다. [확인] 구현·실행한 것, [제안] 아직 확정·검증하지 않은 설계, [가정] 추산용으로 둔 값.
 
@@ -31,14 +31,14 @@
 | F4 | 코드 검증과 강등 | 스키마·토큰 ID·인용을 코드가 확인하고, 근거 없는 확정을 실패로 센다. 미처리·과잉 표시·표기 불일치 집계 | G2, G3 | 핵심 | 1 | [확인] 구현 |
 | F5 | 묶음 근거 검색 | 같은 묶음의 다른 서류(여권 사본, 영문 등기, 이중 언어 문서)에서 이름의 라틴 문자 표기를 찾아 근거로 쓴다. 아랍어 정확 일치 → 로마자 유사 일치 → 벡터 검색 순 | G2, G3, G5 | 핵심 | 2 | 틀만 있음(`rag/bundle.py`, 꺼짐) |
 | F6 | 확인 대기 목록 | 결과를 이름 단위로 묶어 돌려준다. 이름마다 채택 표기, 근거 위치·인용, 확정/보류, 서류 간 표기 불일치. 담당자가 여권을 보고 항목을 닫을 수 있는 형태 | G5 | 핵심 | 2 | 설계 전. 단계 1 산출물(`proper_nouns.csv`)을 묶음 단위로 확장 |
-| F7 | API | 서류 묶음 업로드 → 검수 작업 → 보고서 조회. 진행 상태 스트림. 판매 형태(ADR-009) | G5 | 핵심 | 1.5 → 2 | 설계 전. 단일 문서 범위(2.3절 "M1.5 부분집합")를 M1.5에서 먼저 [제안, ADR-012] |
+| F7 | API | 서류 묶음 업로드 → 검수 작업 → 보고서 조회. 진행 상태 스트림. 판매 형태(ADR-009) | G5 | 핵심 | 1.5 → 2 | [확인] 단일 문서 범위(2.3절 "M1.5 부분집합") 2026-10-21 구현(`web/app.py`). 묶음 API는 단계 2 |
 | F8 | 측정과 추적 | 실행마다 지표·실행 메타(모델, 프롬프트 해시, 데이터 범위)를 남기고 LangSmith에 묶는다. 제품 경로에서도 끄지 않는다 | G6 | 핵심 | 1~3 | [확인] 구현(단계 1) |
 | F9 | 이름 사전 | 고객이 여권 등 외부 근거로 확정한 표기를 정규화 아랍어 키 + 고객 ID로 저장한다. 같은 고객의 다음 묶음에서 적중하면 근거 출처 `glossary`로 자동 확정한다. 다른 고객의 사전은 보지 않는다(ADR-010) | G2, G5 | 지원 | 2 | 설계 전. 규칙은 아래 "고유명사 확정 규칙" |
 | F10 | 합성 KYC 묶음 생성기 | 아랍어 상업등기 + 영문 여권 MRZ + 정관으로 된 묶음과 정답을 만든다. F5·F6의 측정 데이터 | G6 | 지원 | 2 | 설계 전 [제안] |
-| F11 | 업로드 화면 | 셀프서브 체험용 최소 화면. 묶음 올리기, 진행 보기, 확인 대기 목록 보기 | G5(2순위 고객) | 지원 | 1.5 → 2 | 설계 전. M1.5에서는 단일 문서 붙여넣기 폼(챗봇 아님): 입력·샘플·조건 → 진행 → 번역·확인 대기 목록·지표·오류 [제안, ADR-012] |
+| F11 | 업로드 화면 | 셀프서브 체험용 최소 화면. 묶음 올리기, 진행 보기, 확인 대기 목록 보기 | G5(2순위 고객) | 지원 | 1.5 → 2 | [확인] M1.5 단일 문서 붙여넣기 폼(`web/static/index.html`) 2026-10-21 구현: 입력·샘플·조건 → 6단계 진행 → 번역·확인 대기 목록·지표·오류. 묶음 업로드는 단계 2 |
 | F12 | 멀티 에이전트 검증 | 번역자 / 번역 결과를 보지 않는 격리된 검증자 / 근거 없으면 보류하는 중재자. 같은 지표로 단일 에이전트와 비교 | G1, G4 | 조건부 | 3 | 설계 전. 단계 3 비교를 통과할 때만 판매 형태 |
 | F13 | 공개 이중언어 문서 측정 | 공식 영문본이 있는 공개 문서로 EXP-002 지표를 다시 잰다. 사람 라벨 없이 실제 문서를 재는 유일한 경로 | G6 | 지원 | 2 | 문서 공개 여부·이용 조건 [미확인] |
-| F14 | MCP 노출 | 형태소 분석(`analyze_tokens`)을 MCP 서버의 툴로, 합성 문서를 리소스(`document://synthetic/{split}/{doc_id}`)로, 조건 지시문을 프롬프트(`review_instructions(condition)`)로 노출해 다른 에이전트 환경에서 부품으로 쓴다. 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2 툴로 쓰고, 실험 경로는 in-process 툴 유지(ADR-004). 단계 2에서 `search_bundle` 툴을 더한다 | G5, 과제 2 요건 | 지원 | 1.5 → 2 | 범위 포함(사용자 결정 2026-10-20). 설계 전 [제안, ADR-012]. 서버·클라이언트 패턴은 과제 2 제공 ZIP에서 가져온다 |
+| F14 | MCP 노출 | 형태소 분석(`analyze_tokens`)을 MCP 서버의 툴로, 합성 문서를 리소스(`document://synthetic/{split}/{doc_id}`)로, 조건 지시문을 프롬프트(`review_instructions(condition)`)로 노출해 다른 에이전트 환경에서 부품으로 쓴다. 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2 툴로 쓰고, 실험 경로는 in-process 툴 유지(ADR-004). 단계 2에서 `search_bundle` 툴을 더한다 | G5, 과제 2 요건 | 지원 | 1.5 → 2 | [확인] 2026-10-21 구현(`mcp/`). `USE_MCP_TOOLS`는 플래그로 끼우되 기본은 끔(사용자 결정 2026-10-21). 리소스 `document://synthetic/{split}`(목록)도 더함 |
 
 **나중(단계 3 이후, 할 수 있게 되면):** 보류 항목의 사람 검토(LangGraph interrupt), 이름 외 보류 구간의 번역가 연결, 고객 환경 설치형 배포(형태소 DB를 `glf-01`로 교체 검토, ADR-005), SOC 2·ISO 27001, 사우디 PDPL·UAE 개인정보 검토.
 
@@ -215,6 +215,7 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 | `bundle_chunks` | id, document_id, parent_id, child_text, embedding vector(1536) | pgvector. `search_bundle`의 세 번째 경로 |
 
 - `arabic_key`는 `text.normalize_key`의 결과다.
+- M1.5 결정(2026-10-21): 번역을 포함한 `ReviewResult` 전체를 `runs.result`(JSONB)에 둔다. `segments_out`는 M4에서 묶음 보고서가 필요해질 때 만든다. `name_items`는 LLM이 낸 `proper_noun` 항목만 펼친다(정답 기반 `unprocessed` 행은 `runs.result.proper_nouns`에만 있다).
 - 묶음 수준 집계(서류 간 표기 불일치, 이름별 확인 대기 목록)는 `name_items`를 `bundle_id`로 모아 계산하는 일반 함수다.
 - 원문 파일을 DB에 넣지 않는 이유는 백업이 무거워지고 삭제 정책이 복잡해지기 때문이다. 미니 프로젝트는 로컬 볼륨, 배포 시 객체 저장소로 바꾼다.
 
@@ -252,8 +253,8 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 | 정적 검사 | 린트·서식·타입 | ruff·mypy, GitHub Actions(live·camel 제외) [확인, 2026-10-20 PR #1과 `main`에서 통과] |
 | 그래프 | 조건 C0~C3, 검증·강등·미처리·인용 검증 | 가짜 모델(스크립트된 tool call)로 결정적 테스트 [확인] |
 | 묶음(M3) | `search_bundle` 세 경로, 묶음 수준 인용 검증, 불일치 집계 | 합성 묶음 + 가짜 모델 |
-| API(M1.5) | 샘플 목록, 검수 작업 생성 → 완료 → 결과, 400 응답 3종, 형식 오류 재시도 1회 기록 | FastAPI 테스트 클라이언트 + 가짜 모델. DB는 `DATABASE_URL`이 닿을 때만(`db` 마커) |
-| MCP(M1.5) | 툴·리소스·프롬프트 3종 호출, 없는 토큰 ID·없는 문서 오류 | 서버를 stdio로 띄워 호출 |
+| API(M1.5) | 샘플 목록, 검수 작업 생성 → 완료 → 결과, 400 응답 3종, 형식 오류 재시도 1회 기록, 키 없음 기동 거부, DB 불통 503 | FastAPI 테스트 클라이언트 + 가짜 모델. DB는 `DATABASE_URL`이 닿을 때만(`db` 마커) [확인] `tests/test_web_api.py` 15개(2026-10-21) |
+| MCP(M1.5) | 툴·리소스·프롬프트 3종 호출, 없는 토큰 ID·없는 문서 오류, 죽은 서버는 ConfigError, C2 교체 경로 | 서버를 stdio로 띄워 호출 [확인] `tests/test_mcp.py` 9개(툴·C2 교체는 `camel` 마커, 2026-10-21) |
 | API(M4) | 엔드포인트, 작업 상태 전이, SSE, 이름 사전 | FastAPI 테스트 클라이언트 + 가짜 모델 |
 | 실제 모델 | 처분 종류·근거 유무·미처리 수 같은 구조만 | `live` 마커, 키가 없으면 건너뜀 |
 | 측정 | [evaluation.md](evaluation.md) 6절 지표 전부 | 실험 명령 한 줄로 재현, 결과 보존 |
@@ -309,15 +310,16 @@ Postgres 테이블이다. 단계 1 산출물(`segments.json`, `proper_nouns.csv`
 - [x] 동작 동일 확인: 골든·LLM 입력 해시가 R1 이후 바뀌지 않음, dev_004 C0~C3 산출 파일이 리팩토링 전 코드(71704ee)와 바이트 단위로 같음(`run_meta.json`의 `elapsed_s` 제외)
 - [x] CI 첫 실행과 `main` 병합(PR #1, 2026-10-20). PR과 병합 뒤 `main`에서 모두 통과: ruff·mypy, 테스트 141개(live·camel 84개 제외)
 
-### 단계 1.5 — 과제 2 서비스화 (ADR-012, 전부 미구현, 사용자 지시 후 착수)
+### 단계 1.5 — 과제 2 서비스화 (ADR-012, 2026-10-21 구현. 실제 모델 1회 실행과 compose 빌드는 남음)
 
-- [ ] API와 작업 실행: `GET /health`, `GET /v1/samples`, `GET /v1/samples/{doc_id}`, `POST /v1/reviews`(텍스트 또는 segments, 조건 기본 C3; 빈 입력·아랍어 토큰 0개·조건 오류는 400), `GET /v1/jobs/{id}`, `GET /v1/jobs/{id}/events`(SSE 노드 진행), `GET /v1/jobs/{id}/result`, `GET /v1/jobs`. 입력 텍스트는 빈 줄·줄 단위로 구간 분할(`text.split_segments` 신설)
-- [ ] Postgres: `documents`·`jobs`·`runs`·`name_items`, Alembic 초기 마이그레이션, `docker-compose.yml`(pgvector 이미지). 결과는 DB와 `results/` 양쪽에
-- [ ] 화면: 입력 textarea + 샘플 선택 + 조건 선택 → 진행 6단계(재시도 횟수 표시) → 구간별 원문·번역(항목 토큰 강조), 확인 대기 목록 표(아랍어·후보와 출처·채택 표기·처분·근거 인용·플래그), 지표 요약, 오류·재시도 기록, 최근 작업 목록. 읽기 전용(사람 검토·사전 등록 없음)
-- [ ] MCP 최소 3종([architecture.md](architecture.md) 4.6절): 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`, 프롬프트 `review_instructions(condition)`. `USE_MCP_TOOLS=true`일 때 C2 서비스 경로에서 사용, `/v1/samples`도 리소스에서 읽음
-- [ ] `tashkeel serve`, `run.sh`(uv 기준), `Dockerfile`. 분석기 로드 실패나 `LLM_BACKEND=openai`인데 키 없음이면 기동 거부
-- [ ] 테스트: `test_web_api.py`(TestClient + 가짜 모델, DB는 `DATABASE_URL`이 닿을 때만 `db` 마커), `test_mcp.py`(stdio로 띄워 3종 호출, 없는 토큰 ID·없는 문서 오류)
-- [ ] `docs/과제2-테스트-기록.md`: 기능별 입력·결과, 예외 테스트(빈 입력, 아랍어 없음, 조건 오류, 형식 오류 재시도, 키 없음 기동 거부, DB 불통, MCP 서버 다운), 화면 캡처(`docs/images/`). 실행한 것만 적는다
+- [x] API와 작업 실행(2026-10-21): `GET /health`, `GET /v1/samples`, `GET /v1/samples/{doc_id}`, `POST /v1/reviews`(텍스트 또는 segments, 조건 기본 C3; 빈 입력·아랍어 토큰 0개·조건 오류는 400), `GET /v1/jobs/{id}`, `GET /v1/jobs/{id}/events`(SSE 노드 진행), `GET /v1/jobs/{id}/result`, `GET /v1/jobs`. 입력 텍스트는 빈 줄·줄 단위로 구간 분할(기존 `text.segment_text` 사용, 신설 없음)
+- [x] Postgres(2026-10-21): `documents`·`jobs`·`runs`·`name_items`, Alembic 초기 마이그레이션, `docker-compose.yml`(pgvector 이미지). 결과는 DB와 `results/web/` 양쪽에. 로컬 Postgres 17에서 `alembic upgrade head`·저장 확인
+- [x] 화면(2026-10-21): 입력 textarea + 샘플 선택 + 조건 선택 → 진행 6단계(재시도 횟수 표시) → 구간별 원문·번역(항목 토큰 강조), 확인 대기 목록 표(아랍어·후보와 출처·채택 표기·처분·근거 인용·플래그), 지표 요약, 오류·재시도 기록, 최근 작업 목록. 읽기 전용(사람 검토·사전 등록 없음). 캡처 `docs/images/`
+- [x] MCP 최소 3종(2026-10-21)([architecture.md](architecture.md) 4.6절): 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`, 프롬프트 `review_instructions(condition)`. `USE_MCP_TOOLS=true`일 때 C2 서비스 경로에서 사용, `/v1/samples`도 리소스에서 읽음. 기본은 끔(사용자 결정)
+- [x] `tashkeel serve`, `run.sh`(uv 기준), `Dockerfile`·`docker-compose.yml`(2026-10-21). 분석기 로드 실패나 `LLM_BACKEND=openai`인데 키 없음이면 기동 거부(종료 코드 3, 확인). compose 빌드는 [미확인]
+- [x] 테스트(2026-10-21): `test_web_api.py`(TestClient + 가짜 모델, DB는 `DATABASE_URL`이 닿을 때만 `db` 마커), `test_mcp.py`(stdio로 띄워 3종 호출, 없는 토큰 ID·없는 문서 오류). 전체 279개 통과
+- [x] `docs/과제2-테스트-기록.md`(2026-10-21): 기능별 입력·결과, 예외 테스트(빈 입력, 아랍어 없음, 조건 오류, 형식 오류 재시도, 키 없음 기동 거부, DB 불통, MCP 서버 다운), 화면 캡처(`docs/images/`). 실행한 것만 적는다. 기능 16건·예외 7종 기록, 실제 모델 실행은 EXP-002 뒤
+- [ ] 실제 모델(`LLM_BACKEND=openai`)로 dev 문서 1개 1회 실행해 기록(EXP-002 eval이 끝난 뒤)
 - [ ] `all_total_vue_student/` 정리(사용자 확인 후 삭제, 출처는 ADR-012에 기록됨)
 
 ### 단계 2 — 제품화와 공개 문서 측정 (단계 1 판정 통과 뒤, ADR-008)

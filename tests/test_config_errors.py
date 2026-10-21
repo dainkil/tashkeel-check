@@ -9,16 +9,6 @@ from tashkeel_check.config import Settings, load_settings
 from tashkeel_check.errors import AnalyzerUnavailable, ConfigError, InputError
 
 
-@pytest.fixture
-def clean_env(monkeypatch, tmp_path):
-    """저장소의 .env와 이미 읽힌 환경 변수를 떼어 낸다. 실제 키로 API를 부르지 않게 키는 빈 값으로 둔다."""
-    for name in Settings.model_fields:
-        monkeypatch.delenv(name.upper(), raising=False)
-    monkeypatch.setenv("OPENAI_API_KEY", "")
-    monkeypatch.chdir(tmp_path)
-    return tmp_path
-
-
 def test_env_file_values_are_typed_and_existing_env_wins(clean_env, monkeypatch):
     env = clean_env / "custom.env"
     env.write_text("REPEATS=5\nHIGH_CONFIDENCE=0.9\nTEMPERATURE=\nENABLE_BUNDLE_SEARCH=true\n")

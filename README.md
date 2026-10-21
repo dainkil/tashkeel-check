@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-21): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 실제 모델로는 개발용 문서 3개로 동작 점검만 했고(마지막 점검은 네 조건 모두 형식 통과), 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 계획(단계 1.5)에 추가했고, 아직 구현 전입니다.
+> **현재 상태 (2026-10-21): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 실제 모델로는 개발용 문서 3개로 동작 점검만 했고(마지막 점검은 네 조건 모두 형식 통과), 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 단계 1.5로 구현했습니다(2026-10-21, 가짜 모델과 Postgres·MCP로 기능·예외 테스트 완료, 실제 모델 실행은 EXP-002 뒤). 기록은 `docs/과제2-테스트-기록.md`입니다.
 
 ## 무엇을 하는가
 
@@ -65,11 +65,22 @@ uv run tashkeel exp002-status
 uv run tashkeel exp002 --resume --workers 4 --yes
 ```
 
+### 서비스(단계 1.5): API·폼 화면·Postgres·MCP
+
+`.env`에 `LLM_BACKEND`(기본 `openai`, 키 없이 보려면 `fake`), `DATABASE_URL`(없으면 DB 없이 돈다), `USE_MCP_TOOLS`(기본 `false`)를 넣고 `run.sh`로 띄웁니다. `run.sh`는 키·포트를 검사하고 `alembic upgrade head`를 돌린 뒤 `tashkeel serve`를 띄워 `/health`를 기다립니다.
+
+```bash
+createdb tashkeel        # 로컬 Postgres. 또는 docker compose up db
+LLM_BACKEND=fake USE_MCP_TOOLS=true DATABASE_URL=postgresql+psycopg:///tashkeel ./run.sh
+```
+
+화면 `http://127.0.0.1:8000`(샘플 문서 또는 아랍어 붙여넣기 → 조건 → 6단계 진행 → 번역·확인 대기 목록·지표), API 문서 `/docs`, 상태 `/health`. 결과는 `results/web/<작업>/` 네 파일과 DB(`documents`·`jobs`·`runs`·`name_items`) 양쪽에 남습니다. MCP 서버는 `uv run python -m tashkeel_check.mcp.server`로 stdio에서 혼자 띄울 수도 있습니다(툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`, 프롬프트 `review_instructions`). `docker compose up --build`는 앱 + Postgres(pgvector) 구성이고 아직 빌드해 보지 않았습니다[미확인].
+
 ```bash
 uv run pytest -m "not live"
 ```
 
-`live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
+`db` 마커 테스트는 `DATABASE_URL`이 닿을 때만 돌고, `live` 마커 테스트는 실제 OpenAI를 부릅니다. `.env`에 키가 있으면 `uv run pytest`만으로도 비용이 듭니다.
 
 개발할 때는 CI와 같은 검사를 돌립니다. `tests/golden/`은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않습니다([ADR-013](docs/adr/ADR-013.md)).
 
@@ -80,25 +91,25 @@ uv run pre-commit install   # 선택: 커밋할 때 자동 검사
 
 ## 하지 않는 것 (단계 1)
 
-스캔본 문자 인식, 고객별 이름 사전, 사람 검토 화면, 멀티 에이전트, 한글 표기, 번역 문장 품질 평가. 서류 묶음 검색(RAG·벡터 DB)은 단계 2용 틀만 있고 꺼져 있습니다. 웹 화면과 API는 단계 1.5로 계획만 있고 아직 없습니다.
+스캔본 문자 인식, 고객별 이름 사전, 사람 검토 화면, 멀티 에이전트, 한글 표기, 번역 문장 품질 평가. 서류 묶음 검색(RAG·벡터 DB)은 단계 2용 틀만 있고 꺼져 있습니다. 웹 화면·API는 단일 문서 범위(단계 1.5)이고 읽기 전용입니다(사람 검토·이름 사전 등록 없음).
 
-## 과제 2 안내 파일과의 대응 [계획, 미구현]
+## 과제 2 안내 파일과의 대응 [확인, 2026-10-21 구현]
 
 과제 2는 제공 프로젝트(`all_total_vue_student`: FastAPI + Vue 채팅 UI + LangGraph + MCP + SQLite)의 구조를 재활용해 새 서비스를 만들라고 합니다. 이 레포는 기존 구조를 유지하고 제공 프로젝트에서는 패턴만 가져옵니다. 챗봇 대신 문서 붙여넣기 폼, SQLite 대신 Postgres, LLM 층은 기존 LangChain 방식입니다([ADR-012](docs/adr/ADR-012.md)).
 
 | 제공 프로젝트 파일 | 이 레포에서의 위치 | 상태 |
 | --- | --- | --- |
-| `web_chat.html` | `src/tashkeel_check/web/static/index.html` (Vue 3 CDN 폼 화면) | 계획 |
-| `server.py` | `src/tashkeel_check/web/app.py`, `web/jobs.py` (FastAPI, SSE 진행) | 계획 |
+| `web_chat.html` | `src/tashkeel_check/web/static/index.html` (Vue 3 CDN 폼 화면, `EventSource` 진행 표시) | 구현 |
+| `server.py` | `src/tashkeel_check/web/app.py`(FastAPI, lifespan, `/health`, SSE), `web/jobs.py`(스레드 실행·이벤트) | 구현 |
 | `agent/graph.py` | `src/tashkeel_check/graph.py` | 있음(변경 없음) |
 | `agent/openai_llm.py`, `fake_llm.py` | `src/tashkeel_check/runner.py`의 `make_model`, `fake.py` | 있음(변경 없음) |
 | `agent/ollama_llm.py` | 쓰지 않음 | — |
-| `agent/session_store.py` (SQLite) | `src/tashkeel_check/web/db.py`, `web/models.py` (Postgres) | 계획 |
-| `mcp_server.py`, `agent/mcp_client.py` | `src/tashkeel_check/mcp/` (툴 `analyze_tokens`, 리소스 합성 문서, 프롬프트 조건 지시문) | 계획 |
+| `agent/session_store.py` (SQLite) | `src/tashkeel_check/web/db.py`, `web/models.py`, `alembic/` (Postgres 4테이블) | 구현 |
+| `mcp_server.py`, `agent/mcp_client.py`, `agent/retry.py` | `src/tashkeel_check/mcp/server.py`(FastMCP stdio), `client.py`(한 번 연결·lock·`with_retry`), `tools.py`(C2 툴 교체) | 구현 |
 | `data/` | `data/synthetic/`, `data/wikidata/` | 있음 |
-| `run.sh` | `run.sh` (uv 기준, Postgres 확인 포함) | 계획 |
+| `run.sh` | `run.sh` (uv 기준, 키·포트 검사, alembic, `/health` 대기), `Dockerfile`, `docker-compose.yml` | 구현(compose 빌드는 미확인) |
 
-실행 방법, 실행 화면, 기능별·예외 테스트 결과는 구현 뒤에 이 문서와 `docs/과제2-테스트-기록.md`에 넣습니다.
+기능별 테스트 16건과 예외 테스트 7종(빈 입력, 아랍어 없음, 조건 오류, 형식 오류 재시도, 키 없음 기동 거부, DB 불통, MCP 서버 다운)의 입력·예상·실제 결과와 화면 캡처는 [docs/과제2-테스트-기록.md](docs/과제2-테스트-기록.md)에 있습니다. 전체 동작 흐름: 화면/API → `POST /v1/reviews`(입력 검증) → 작업 스레드에서 LangGraph 그래프(`load → analyze → agent → validate → reconcile → export`) → 노드마다 SSE 이벤트 → 결과 파일 + DB → `GET /v1/jobs/{id}/result`.
 
 ## 알려진 한계
 

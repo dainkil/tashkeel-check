@@ -32,10 +32,22 @@
 | 2026-10-20 | 문서 재구성: 단일 `PROJECT_PLAN.md`(1,118줄)를 `docs/` 아래 문서로 분할(problem-and-goals, scope, architecture, data, evaluation, changelog, troubleshooting, adr/ 15개, experiments/README). `docs/아키텍처-설계.md`·`툴-설계.md`·`요구사항-분석.md`는 architecture.md·problem-and-goals.md에 흡수 후 삭제. `docs/개발-계획.md` → `roadmap.md`(8절 체크리스트·9절 위험 목록 추가). 사업성 검토·`docs/market/`을 `docs/business/`로 옮기고 파일명을 ASCII로. architecture.md에 코드 대조(4.11절) 추가, `MAX_RETRIES` 문구를 `Settings.max_retries`로 고침. `PROJECT_PLAN.md`는 상태·다음 작업·문서 지도만 남긴 허브로 | 사용자 지적(문서가 흩어짐, 실무형 구조 요청). 같은 내용이 세 곳에 있었고(그래프·스택·마일스톤), 설계 문서가 리팩토링 전 기준이었음 | 코드·실험 설계·프롬프트·지표 정의는 바뀌지 않음(코드 주석 3곳의 문서 경로 문구만 변경, 골든·해시 테스트 그대로). 분할 전 절 번호는 각 문서 안에 유지하고 `docs/README.md`에 대응표를 둠 |
 | 2026-10-21 | EXP-002 실행 장치 변경(ADR-016): `plan.json`·`runs.jsonl`로 재개(`--resume`), 순서를 반복 → 문서 → 조건으로, 동시 실행(`--workers`), 멈춤(`--max-runs`·`--token-budget`·`STOP` 파일·Ctrl+C, 종료 코드 4), API 오류는 완료로 치지 않고 멈춤, `exp002-status`(사용량·진행만), `--finalize`(부분 결과), 선택 설정 `PRICE_INPUT_PER_MTOK`·`PRICE_OUTPUT_PER_MTOK`. 이어서 dev_001 C0~C3 실제 모델 점검. EXP-002 기록, [architecture.md](architecture.md) 4.8절, [scope.md](scope.md) 3절 확인한 것, [roadmap.md](roadmap.md) 체크리스트, README, `.env.example` 갱신 | 사용자 요청(중간에 멈춰도 재개, API 사용량을 중간중간 확인하며 조절, 예상 시간 단축). 동시 실행 4·중간 지표 숨김·dev 점검은 사용자 결정 | 규모·지표·합격선·중단 기준·그래프·채점은 그대로다(골든 그대로, 테스트 250개 통과). dev 점검에서 네 조건 모두 첫 시도에 형식 통과. 실행당 토큰은 C0 0.6천, C1 6.3천, C2 13.0천, C3 19.2천. EXP-002 추정은 약 2.6~3.5M 토큰, $15~20(단가는 제3자 집계 값), 동시 4개로 1.4~1.9시간. eval 미실행 |
 
+| 2026-10-21 | 단계 1.5 서비스화 구현(ADR-012): `web/`(FastAPI API 8개, 작업 스레드·SSE, Postgres 4테이블 + Alembic, Vue 폼 화면), `mcp/`(FastMCP stdio 서버 툴·리소스·프롬프트, 동기 클라이언트, C2 툴 교체 `analyze_tool_factory`), `tashkeel serve`, `run.sh`·`Dockerfile`·`docker-compose.yml`, 설정 5개(`LLM_BACKEND`·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_HOST`·`WEB_PORT`), `Reviewer.run(on_node=…)`, `analyzer.thread_safe_analyze`. 테스트 26개 추가(279개 통과), `docs/과제2-테스트-기록.md`·`docs/images/` 신설. README, [architecture.md](architecture.md) 4.6~4.8, [roadmap.md](roadmap.md) 1·2.5·3.3·4절, [scope.md](scope.md), ADR-012 갱신 | 사용자 지시(EXP-002 eval이 도는 동안 병렬 작업). `USE_MCP_TOOLS` 기본 끔은 사용자 결정 | 그래프·채점·프롬프트·골든은 그대로(골든 160건 변화 없음, `test_llm_inputs` 해시 그대로). 실험 경로는 새 설정을 읽지 않는다. 실제 모델 실행과 compose 빌드는 미확인 |
+
 추가 형식: `날짜 / 바뀐 내용 / 변경 이유·근거 / 일정·범위·평가에 미치는 영향 / 관련 ADR·실험`.
 
 
 ## 상세 기록 (구 9절 "완료" 블록, 날짜 역순)
+
+### 완료 (2026-10-21): 단계 1.5 서비스화(API·화면·Postgres·MCP)
+
+EXP-002 eval이 도는 동안 사용자가 병렬 작업으로 고른 것이다. 실험 경로 코드(그래프·채점·프롬프트)와 결과 폴더를 건드리지 않도록 별도 worktree(`feat/stage-1.5-service`)에서 작업했다. 설계는 ADR-012·`docs/roadmap.md` 2.3·2.5절을 따랐고, 기록은 [과제2-테스트-기록.md](과제2-테스트-기록.md)에 있다.
+
+- 구현 [확인]: `web/app.py`(`build_runtime`·`create_app`, 엔드포인트 8개, 400/503 핸들러, 정적 화면), `web/jobs.py`(ThreadPoolExecutor, 노드 이벤트, DB 갱신), `web/db.py`·`models.py`·`alembic/`(documents·jobs·runs·name_items), `web/static/index.html`(Vue 3 CDN 폼), `mcp/server.py`·`client.py`·`tools.py`, `cli.py serve`, `run.sh`·`Dockerfile`·`docker-compose.yml`
+- 기존 코드 변경(추가만): `Reviewer.run(on_node=…)`(콜백이 있을 때만 `graph.stream`), `build_graph(analyze_tool_factory=…)`(C2에서만 내장 툴 대신), `analyzer.thread_safe_analyze()`(exp002의 `_thread_safe_analyzer`를 옮김), `Settings` 5개 필드(RunMeta에는 넣지 않음)
+- 확인 [확인]: 전체 테스트 279개 통과(DATABASE_URL 있음), CI 조건 193개 통과. 골든 160건·LLM 입력 해시 변화 없음. 가짜 모델로 서비스를 띄워 화면에서 dev_005 C2를 실행해 6단계 진행·확인 대기 목록·지표가 표시되고, `results/web/`과 Postgres 양쪽에 남는 것을 봤다. `USE_MCP_TOOLS=true`에서 C2 툴 호출이 MCP로 갔다(`mcp_calls 1`). 예외 7종(빈 입력, 아랍어 없음, 조건 오류, 형식 오류 재시도, 키 없음 기동 거부, DB 불통, MCP 서버 다운)을 재현했다
+- 설계와 달라진 것: C2 툴 교체는 `extra_tool_factories`가 아니라 새 인자 `analyze_tool_factory`로(앞쪽은 `bundle_search`로 표시되기 때문). `text.split_segments`는 신설하지 않고 기존 `segment_text`를 썼다. 번역은 `runs.result` JSONB에 둔다. MCP 리소스에 목록(`document://synthetic/{split}`)을 더했다. MCP 클라이언트의 살아 있음 확인은 `ping`이 아니라 `list_tools`다(fastmcp 4 서버가 ping에 Method not found를 냈다)
+- 관찰: 가짜 모델은 분석기가 모르는 토큰만 보류 항목으로 내므로 camel 분석기에서는 `name_items`가 0행이다. 실제 모델 1회 실행은 EXP-002가 같은 키로 돌고 있어 끝난 뒤에 한다. `docker compose up --build`는 돌려 보지 않았다
 
 ### 완료 (2026-10-21): EXP-002 실행 장치(재개·동시 실행·사용량 확인)와 dev 실제 모델 점검
 

@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import threading
 import unicodedata
 from collections.abc import Callable
 from functools import lru_cache
@@ -77,6 +78,21 @@ def _camel_analyzer() -> Analyzer:
 
 def camel_analyze(surface: str) -> list[dict]:
     return _camel_analyzer().analyze(surface)
+
+
+def thread_safe_analyze() -> AnalyzeFn:
+    """camel-tools는 스레드 안전을 보장하지 않아 호출을 하나씩 들여보낸다. 부르는 스레드에서 먼저 띄운다.
+
+    exp002의 동시 실행과 단계 1.5 서비스(작업 스레드)가 같은 함수를 쓴다.
+    """
+    camel_analyze("كتب")
+    lock = threading.Lock()
+
+    def analyze(surface: str) -> list[dict]:
+        with lock:
+            return camel_analyze(surface)
+
+    return analyze
 
 
 def analyzer_version() -> dict:
