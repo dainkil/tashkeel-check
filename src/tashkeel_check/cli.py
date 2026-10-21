@@ -1,7 +1,7 @@
 """명령줄 진입점: `uv run tashkeel <명령>`.
 
 종료 코드: 0 성공, 1 실행 동의 필요(exp002), 2 입력 오류(InputError, 쓸 수 없는 옵션 조합),
-3 설정·환경 오류(ConfigError).
+3 설정·환경 오류(ConfigError), 4 중간 정지(exp002, --resume으로 이어서 실행할 수 있다).
 """
 
 from __future__ import annotations
@@ -115,30 +115,82 @@ def _cmd_exp002(args: argparse.Namespace, settings: Settings) -> int:
     from .runner import make_model
 
     configure_tracing(settings)
-    docs_dir = Path(args.docs or settings.data_dir / "synthetic" / args.split)
-    n_docs = len(sorted(docs_dir.glob("*.json"))[: args.limit])
-    repeats = args.repeats or settings.repeats
+    root = settings.results_dir / "exp002" / args.split
+    run_dir, docs, limit, repeats = None, args.docs, args.limit, args.repeats
+    if args.workers < 1:
+        print("--workers는 1 이상이어야 합니다.", file=sys.stderr)
+        return 2
+    if args.finalize and args.resume is None:
+        print("--finalize는 --resume과 함께 씁니다.", file=sys.stderr)
+        return 2
+    if args.resume is not None:
+        run_dir = exp002.latest_run_dir(root) if args.resume == "latest" else Path(args.resume)
+        if run_dir is None:
+            print(f"이어서 실행할 실행 폴더가 없습니다: {root}", file=sys.stderr)
+            return 2
+        if args.finalize:
+            return _print_summary(exp002.write_summary(run_dir))
+        plan = exp002.load_plan(run_dir)  # 옵션을 주지 않으면 처음 정한 값을 쓴다. 주면 plan.json과 비교한다
+        docs, limit, repeats = docs or plan["docs_dir"], limit or len(plan["docs"]), repeats or plan["repeats"]
+        if (docs, limit, repeats) != (plan["docs_dir"], len(plan["docs"]), plan["repeats"]):
+            print(f"처음 정한 문서·규모와 다릅니다: {run_dir / exp002.PLAN_FILE}", file=sys.stderr)
+            return 2
+    docs_dir = Path(docs or settings.data_dir / "synthetic" / args.split)
+    n_docs = len(sorted(docs_dir.glob("*.json"))[:limit])
+    repeats = repeats or settings.repeats
     n_runs = len(CONDITIONS) * n_docs * repeats
+    n_left = n_runs - (len(exp002.done_runs(exp002.read_ledger(run_dir))) if run_dir else 0)
     if args.fake and args.split != "dev":
         print("연습 모드(--fake)는 dev 문서에만 씁니다. 평가 문서는 실제 실행에 한 번만 씁니다.", file=sys.stderr)
         return 2
     if not args.fake and not args.yes:
         print(
-            f"실행 계획: 조건 {len(CONDITIONS)} × 문서 {n_docs} × 반복 {repeats} = {n_runs}회, 모델 {settings.model}.\n"
-            "비용이 듭니다. 실행하려면 --yes를 붙이세요."
+            f"실행 계획: 조건 {len(CONDITIONS)} × 문서 {n_docs} × 반복 {repeats} = {n_runs}회 중 남은 {n_left}회, "
+            f"동시 {args.workers}개, 모델 {settings.model}.\n비용이 듭니다. 실행하려면 --yes를 붙이세요."
         )
         return 1
-    path = exp002.run(
+    status = exp002.run(
         docs_dir,
-        settings.results_dir / "exp002" / args.split,
+        root,
         lambda: make_model(settings, fake=args.fake),
         settings,
         repeats=repeats,
-        limit=args.limit,
+        limit=limit,
+        run_dir=run_dir,
+        workers=args.workers,
+        max_runs=args.max_runs,
+        token_budget=args.token_budget,
     )
-    verdict = json.loads(path.read_text(encoding="utf-8"))["verdict"]
+    if status.summary_path is None:
+        label = exp002.PAUSE_LABELS.get(status.paused_reason or "", status.paused_reason)
+        again = "--fake" if args.fake else "--yes"
+        print(f"중간 정지({label}): {status.done}/{status.planned}회 완료. 기록: {status.run_dir}")
+        print(
+            f"이어서 실행: uv run tashkeel exp002 --split {args.split} --resume {status.run_dir} "
+            f"--workers {args.workers} {again}"
+        )
+        return 4
+    return _print_summary(status.summary_path)
+
+
+def _print_summary(path: Path) -> int:
+    report = json.loads(path.read_text(encoding="utf-8"))
     print(path)
-    print(json.dumps({k: verdict.get(k) for k in ("decision", "reason")}, ensure_ascii=False))
+    print(json.dumps({k: report["verdict"].get(k) for k in ("decision", "reason")}, ensure_ascii=False))
+    if not report.get("complete", True):
+        print(f"[주의] 부분 결과: {report['n_runs_done']}/{report['n_runs_planned']}회", file=sys.stderr)
+    return 0
+
+
+def _cmd_exp002_status(args: argparse.Namespace, settings: Settings) -> int:
+    from .experiments import exp002
+
+    run_dir = Path(args.dir) if args.dir else exp002.latest_run_dir(settings.results_dir / "exp002" / args.split)
+    if run_dir is None:
+        print(f"실행 기록이 없습니다: {settings.results_dir / 'exp002' / args.split}", file=sys.stderr)
+        return 2
+    s = exp002.status(run_dir, settings)
+    print(json.dumps(s, ensure_ascii=False) if args.json else exp002.format_status(s))
     return 0
 
 
@@ -192,7 +244,20 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     p.add_argument("--limit", type=int)
     p.add_argument("--fake", action="store_true")
     p.add_argument("--yes", action="store_true", help="비용이 드는 실제 실행에 동의")
+    p.add_argument(
+        "--resume", nargs="?", const="latest", metavar="DIR", help="멈춘 실행을 이어서 한다(경로가 없으면 최근 실행)"
+    )
+    p.add_argument("--workers", type=int, default=1, help="동시에 돌릴 실행 수")
+    p.add_argument("--max-runs", type=int, help="이번에 새로 시작할 실행 수 상한. 닿으면 멈춘다")
+    p.add_argument("--token-budget", type=int, help="이번에 쓸 토큰 상한(입력+출력). 넘으면 새 실행을 시작하지 않는다")
+    p.add_argument("--finalize", action="store_true", help="--resume과 함께: 더 돌리지 않고 지금까지로 summary를 쓴다")
     p.set_defaults(func=_cmd_exp002)
+
+    p = sub.add_parser("exp002-status", help="EXP-002 실행의 진행과 사용량(결과 지표는 보이지 않는다)")
+    p.add_argument("dir", nargs="?", help="실행 폴더(없으면 그 split의 최근 실행)")
+    p.add_argument("--split", choices=["dev", "eval"], default="eval")
+    p.add_argument("--json", action="store_true")
+    p.set_defaults(func=_cmd_exp002_status)
 
     return parser
 

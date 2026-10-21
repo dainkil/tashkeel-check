@@ -1,6 +1,6 @@
 # 문서 지도
 
-- 마지막 업데이트: 2026-10-20
+- 마지막 업데이트: 2026-10-21
 - 현재 상태와 다음 작업은 루트 [PROJECT_PLAN.md](../PROJECT_PLAN.md)에 있다. 작업 규칙은 [AGENTS.md](../AGENTS.md).
 
 ## 무엇이 어디에 있는가
@@ -14,7 +14,7 @@
 | [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것 | 지표 정의, 판정 규칙, 기록 항목 |
 | [roadmap.md](roadmap.md) | 기능 F1~F14, 제품 스택·시스템 구성·API 초안·데이터 모델, 마일스톤 M0~M6, 테스트 전략, 단계별 체크리스트, 위험 | 기능·일정·제품 설계, 체크리스트 |
 | [changelog.md](changelog.md) | 계획 변경 이력 표와 날짜별 완료 기록 | 모든 계획·범위·구조 변경(이유와 영향을 함께) |
-| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~015, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
+| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~016, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
 | [troubleshooting.md](troubleshooting.md) | TS-001~003 | 재현 가능한 오류와 해결 과정 |
 | [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
 | [business/feasibility.md](business/feasibility.md) | 사업성 검토(시장성·기술성·경제성) | 사업 판단, 가격·고객 수 가정 |

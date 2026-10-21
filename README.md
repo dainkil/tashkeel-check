@@ -4,7 +4,7 @@
 
 *A review aid for people who are responsible for Arabic documents but cannot read Arabic. It surfaces the spots where an Arabic → English translation had to choose between readings, especially names and short fields, and refuses to settle them without evidence.*
 
-> **현재 상태 (2026-10-20): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 실제 모델로는 개발용 문서 2개로 동작 점검만 했고, 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 계획(단계 1.5)에 추가했고, 아직 구현 전입니다.
+> **현재 상태 (2026-10-21): 단계 1 실험 장치를 구현했고, 실험은 아직 돌리지 않았습니다.** 실제 모델로는 개발용 문서 3개로 동작 점검만 했고(마지막 점검은 네 조건 모두 형식 통과), 측정 결과는 없습니다. 점검에서 드러난 채점 정의 문제는 실험 전에 고쳤습니다. 분석기 실측(EXP-001)은 끝났습니다. 실제 걸프 이름 단위 3,023개 가운데 분석기 후보에 실제 영문 표기가 든 비율이 50.2%로, 사전에 정한 기준(50%)을 겨우 넘었습니다(가문명 42%, 이름 70%). 에이전트 조건 비교(EXP-002)는 아직입니다. 아래 질문들은 답을 가정하지 않은 실험 질문입니다. 사업 쪽 대상은 걸프(사우디·UAE)에서 아랍어 문서를 영어로 읽어야 하는 사람으로 정했고, 제품에 사람 검수는 넣지 않습니다. 1순위 고객은 걸프 법인 고객의 서류를 확인하는 KYC·컴플라이언스 팀이고, 판매 형태는 API입니다. 지금의 단일 에이전트는 중간 단계이고, 멀티 에이전트 구조는 단계 3에서 같은 지표로 비교한 뒤 정합니다. 과제 2 요건에 따라 웹 화면·API·MCP를 계획(단계 1.5)에 추가했고, 아직 구현 전입니다.
 
 ## 무엇을 하는가
 
@@ -56,6 +56,14 @@ uv run tashkeel run --doc data/synthetic/dev/dev_001.json --condition all --fake
 ```
 
 실제 모델로 돌리려면 `.env.example`을 `.env`로 복사해 `OPENAI_API_KEY`를 넣고 `--fake`를 뺍니다. LangSmith 키가 있으면 추적이 켜지고, 없으면 추적만 꺼집니다. 결과는 `results/debug/<문서>/<조건>/`에 `segments.json`, `proper_nouns.csv`, `metrics.json`, `run_meta.json`으로 남습니다.
+
+EXP-002(조건 비교, 360회)는 비용이 들어 `--yes`가 있어야 돌고, 끊어 가며 돌릴 수 있습니다. `--max-runs`·`--token-budget`에 닿거나 실행 폴더에 `STOP` 파일을 만들면 돌던 실행만 마치고 멈춥니다. 멈춘 실행은 `--resume`으로 이어서 합니다. `exp002-status`는 진행과 토큰만 보여 주고, 결과 지표는 다 끝난 뒤 `summary.json`에만 나옵니다([ADR-016](docs/adr/ADR-016.md)).
+
+```bash
+uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes
+uv run tashkeel exp002-status
+uv run tashkeel exp002 --resume --workers 4 --yes
+```
 
 ```bash
 uv run pytest -m "not live"

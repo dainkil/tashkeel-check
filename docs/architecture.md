@@ -156,7 +156,7 @@ src/tashkeel_check/
   results.py                 결과 형식 ReviewResult(파일·API·DB 공통 계약, 모르는 키는 오류)
   export.py                  JSON·CSV·run_meta (ReviewResult에서 씀)
   runner.py                  Reviewer(그래프 한 번 빌드, 문서마다 재사용), run_document(편의 래퍼), LangSmith
-  cli.py                     run / fetch-wikidata / make-synthetic / bundle-search / exp001 / exp002
+  cli.py                     run / fetch-wikidata / make-synthetic / bundle-search / exp001 / exp002 / exp002-status
   data/                      names.py(이름 정렬), wikidata.py, synthetic.py
   experiments/               exp001.py, exp002.py
   rag/                       bundle.py (단계 2 틀)
@@ -194,7 +194,8 @@ CLI에 `tashkeel serve` 하위 명령, `config.py`에 `DATABASE_URL`·`LLM_BACKE
 | `uv run tashkeel fetch-wikidata` | Wikidata 스냅숏과 이름 풀 (`--pool-only`: 재조회 없이 저장된 스냅숏으로 이름 풀만) |
 | `uv run tashkeel make-synthetic` | 합성 문서 dev 10개·eval 30개와 샘플 묶음 |
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
-| `uv run tashkeel exp002 --split eval --yes` | EXP-002(360회, 비용 발생) |
+| `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
+| `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
 | `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 
@@ -277,7 +278,8 @@ LangGraph 그래프 하나(노드 6개)가 아랍어 문서 1건을 받아 번�
 ```text
 CLI (uv run tashkeel <cmd>)
  ├─ run            → runner.run_document → graph
- ├─ exp002         → experiments/exp002 → runner.Reviewer(그래프 1회 빌드) → 조건 × 문서 × 반복
+ ├─ exp002         → experiments/exp002 → runner.run_document(실행마다 모델·그래프 새로) → 반복 × 문서 × 조건, 동시 실행, runs.jsonl로 재개
+ ├─ exp002-status  → experiments/exp002.status (plan.json + runs.jsonl만 읽음)
  ├─ exp001         → experiments/exp001 (그래프를 쓰지 않음: analyzer + data/names.align + romanize)
  ├─ fetch-wikidata → data/wikidata (SPARQL → gcc_persons.json → name_tokens.json)
  ├─ make-synthetic → data/synthetic (name_tokens.json + 템플릿 → dev 10 / eval 30 + gold)
@@ -332,7 +334,7 @@ runner      → graph, fake, config, prompts (Reviewer, make_model, @traceable)
 cli         → config, errors (+ 지연 import: runner, data, experiments, rag)
 data/names  → text ; data/wikidata → text, names ; data/synthetic → text
 experiments/exp001 → analyzer, names, romanize, text
-experiments/exp002 → config, runner        (PASS_BAR, judge: stop / pass / fail)
+experiments/exp002 → config, runner, analyzer, prompts, romanize   (PASS_BAR, judge: stop / pass / fail; plan.json 고정값)
 rag/bundle  → romanize, text               (Qdrant 메모리 모드, 기본 꺼짐)
 ```
 

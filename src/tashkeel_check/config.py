@@ -31,6 +31,9 @@ class Settings(BaseModel):
     eval_docs: int = Field(30, ge=1)
     repeats: int = Field(3, ge=1)
     max_candidates: int = Field(10, ge=1)  # 토큰당 LLM에게 보여 줄 분석기 후보 수 상한
+    # 달러/100만 토큰. 둘 다 있으면 exp002 진행 로그와 exp002-status에 추정 금액을 같이 보인다(청구 기준 아님)
+    price_input_per_mtok: float | None = Field(None, ge=0)
+    price_output_per_mtok: float | None = Field(None, ge=0)
     enable_bundle_search: bool = False  # 단계 2 틀(ADR-007). 단계 1 조건 C0~C3에서는 쓰지 않는다
     embedding_model: str = "text-embedding-3-small"
     langsmith_project: str = "tashkeel-check"
