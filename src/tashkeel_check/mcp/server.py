@@ -1,6 +1,7 @@
 """MCP 서버(FastMCP, stdio).
 
-툴 analyze_tokens, 리소스 document://synthetic/{split}[/{doc_id}], 프롬프트 review_instructions.
+툴 analyze_tokens·search_bundle, 리소스 document://synthetic/{split}[/{doc_id}]·document://synthetic/bundles/{split}[/{bundle_id}],
+프롬프트 review_instructions.
 
 같은 분석기·같은 프롬프트 함수를 서브프로세스에서 돌릴 뿐이다(ADR-004: 분석기는 코드에서 항상 돈다).
 실행: `python -m tashkeel_check.mcp.server`. 데이터 폴더는 DATA_DIR(없으면 작업 디렉터리의 data/)을 쓴다.
@@ -16,10 +17,14 @@ from pydantic import BaseModel
 
 from ..analyzer import AnalyzeFn, thread_safe_analyze, view_for_llm
 from ..analyzer import analyze_tokens as _analyze
+from ..bundle.evidence import search_evidence, validated
+from ..bundle.loader import parse_bundle
+from ..bundle.schemas import Document as BundleDocument
+from ..bundle.schemas import NameMention
 from ..config import CONDITIONS, load_settings
 from ..prompts import system_prompt
 from ..runner import load_doc, split_gold
-from ..text import Token
+from ..text import Token, normalize_key
 
 SERVER_NAME = "tashkeel-check"
 SPLITS = ("dev", "eval")
@@ -78,6 +83,58 @@ def analyze_tokens(tokens: list[TokenIn], token_ids: list[int], max_candidates: 
         else:
             results.append(view_for_llm(analyses[tid], max_candidates))
     return results
+
+
+@mcp.tool
+def search_bundle(
+    documents: list[BundleDocument], entity_id: str, arabic_name: str, from_document_id: str = ""
+) -> dict:
+    """Find Latin-script spellings of `arabic_name` for the party `entity_id` in the other documents of a bundle.
+
+    `documents` is the bundle (document_id, document_type, segments with segment_id, text, entity_id).
+    Only segments tagged with the same `entity_id` count; an identical Arabic spelling under another entity id
+    is never used. Each evidence row carries document_id, segment_id, the quoted segment text, the English
+    spelling and the validation result (valid/failure). Unknown entity ids come back as {"error": ...}.
+    """
+    if not any(seg.entity_id == entity_id for doc in documents for seg in doc.segments):
+        return {"error": f"unknown entity id {entity_id!r}", "evidence": []}
+    bundle = parse_bundle({"bundle_id": "mcp", "documents": [d.model_dump() for d in documents]})
+    mention = NameMention(
+        mention_id="mcp",
+        document_id=from_document_id,
+        segment_id="",
+        entity_id=entity_id,
+        arabic_name=arabic_name,
+        arabic_key=normalize_key(arabic_name),
+    )
+    evidence = validated(bundle, search_evidence(bundle, mention))
+    return {"entity_id": entity_id, "evidence": [e.model_dump() for e in evidence]}
+
+
+def _bundles_dir(split: str) -> Path:
+    if split not in SPLITS:
+        raise ValueError(f"unknown split {split!r}; expected one of {SPLITS}")
+    return _data_dir() / "synthetic" / "bundles" / split
+
+
+@mcp.resource("document://synthetic/bundles/{split}", mime_type="application/json")
+def list_bundles(split: str) -> str:
+    """합성 묶음 목록(bundle_id, case, entity_type). gold는 넣지 않는다."""
+    rows = []
+    for path in sorted(_bundles_dir(split).glob("*.json")):
+        obj = json.loads(path.read_text(encoding="utf-8"))
+        gold = obj.get("gold", {})
+        rows.append({"bundle_id": obj["bundle_id"], "case": gold.get("case"), "entity_type": gold.get("entity_type")})
+    return json.dumps(rows, ensure_ascii=False)
+
+
+@mcp.resource("document://synthetic/bundles/{split}/{bundle_id}", mime_type="application/json")
+def get_bundle(split: str, bundle_id: str) -> str:
+    """합성 묶음 하나(gold 제외). 없는 묶음은 오류."""
+    path = _bundles_dir(split) / f"{bundle_id}.json"
+    if not path.is_file() or path.name != f"{bundle_id}.json":
+        raise ValueError(f"bundle not found: {split}/{bundle_id}")
+    return parse_bundle(json.loads(path.read_text(encoding="utf-8"))).model_dump_json()
 
 
 def _split_dir(split: str) -> Path:

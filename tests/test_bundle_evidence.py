@@ -82,3 +82,14 @@ def test_validated_marks_each_evidence():
         + [BundleEvidence(document_id="id1", segment_id="s01", quote="Name: Fake", english_name="Fake")],
     )
     assert [(e.valid, e.failure) for e in evs] == [(True, None), (False, "quote_not_in_segment")]
+
+
+def test_entity_scoped_index_returns_source_ids_and_excludes_other_entities():
+    from tashkeel_check.rag import BundleIndex
+    from tashkeel_check.rag.bundle import PracticeEmbeddings
+
+    b = _bundle(CONTRACT, ID_E1, ID_E2_SAME_ARABIC)
+    index = BundleIndex.from_documents(b.documents, entity_id="e1", embeddings=PracticeEmbeddings())
+    hits = [h for h in index.search("مسلم", ["Musallam"]) if h.method == "arabic_exact"]
+    assert {(h.document_id, h.segment_id) for h in hits} == {("contract", "s01"), ("id1", "s01")}
+    assert not [h for h in index.search("", ["Muslim"]) if h.method == "romanized"]  # e2의 표기는 색인에 없다

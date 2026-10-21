@@ -32,6 +32,7 @@ from ..mcp.client import MCPClient, default_server_command
 from ..mcp.tools import make_mcp_analyze_tool_factory
 from ..runner import Reviewer, load_doc, make_model, model_label, split_gold
 from ..text import Segment, normalize_key, segment_text, tokenize
+from .bundle_jobs import BundleReviewManager
 from .bundles import BundleStore, DbBundleStore, DbDictionary, Dictionary, MemoryBundleStore
 from .db import Database
 from .jobs import NODES, JobManager
@@ -178,6 +179,7 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         app.state.jobs = JobManager(
             runtime.reviewer, runtime.settings.results_dir, db=runtime.db, mcp=runtime.mcp, max_workers=max_workers
         )
+        app.state.bundle_reviews = BundleReviewManager(app.state.jobs, runtime.bundles, runtime.dictionary)
         try:
             yield
         finally:
@@ -328,6 +330,37 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         if items is None:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         return JSONResponse([_item_json(i) for i in items if i.status == "pending"])
+
+    def bundle_reviews(request: Request) -> BundleReviewManager:
+        brm: BundleReviewManager = request.app.state.bundle_reviews
+        return brm
+
+    @app.post("/v1/bundles/{bundle_id}/reviews", status_code=202)
+    def start_bundle_review(bundle_id: str, request: Request, condition: str = "C3") -> JSONResponse:
+        """라벨 칸이 없는 문장의 고유명사를 LLM(C1~C3)으로 뽑아 묶음 판정에 합류시킨다. 서류마다 작업 하나."""
+        if condition not in CONDITIONS:
+            raise InputError(f"조건은 {', '.join(CONDITIONS)} 중 하나여야 합니다: {condition!r}")
+        bundle = runtime.bundles.get(bundle_id)
+        if bundle is None:
+            return _not_found(f"묶음이 없습니다: {bundle_id!r}")
+        brm = bundle_reviews(request)
+        rec = brm.start(bundle, condition)  # DB 불통 → ConfigError → 503
+        return JSONResponse(brm.summary(rec), status_code=202)
+
+    @app.get("/v1/bundles/{bundle_id}/reviews/{review_id}")
+    def get_bundle_review(bundle_id: str, review_id: str, request: Request) -> JSONResponse:
+        brm = bundle_reviews(request)
+        rec = brm.get(review_id)
+        if rec is None or rec.bundle.bundle_id != bundle_id:
+            return _not_found(f"묶음 검수가 없습니다: {review_id!r}")
+        body = brm.summary(rec)
+        if rec.items is not None:
+            body["items"] = [_item_json(i) for i in rec.items]
+            body["counts"] = {
+                "confirmed": sum(1 for i in rec.items if i.status == "confirmed"),
+                "pending": sum(1 for i in rec.items if i.status == "pending"),
+            }
+        return JSONResponse(body)
 
     @app.get("/v1/bundles/{bundle_id}")
     def bundle_detail(bundle_id: str) -> JSONResponse:

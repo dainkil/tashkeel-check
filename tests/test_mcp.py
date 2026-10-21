@@ -26,9 +26,11 @@ def mcp():
 
 
 def test_server_exposes_tool_resource_and_prompt(mcp):
-    assert mcp.list_tools() == ["analyze_tokens"]
+    assert sorted(mcp.list_tools()) == ["analyze_tokens", "search_bundle"]
     assert mcp.list_prompts() == ["review_instructions"]
-    assert mcp.list_resource_templates() == [
+    assert sorted(mcp.list_resource_templates()) == [
+        "document://synthetic/bundles/{split}",
+        "document://synthetic/bundles/{split}/{bundle_id}",
         "document://synthetic/{split}",
         "document://synthetic/{split}/{doc_id}",
     ]
@@ -120,3 +122,33 @@ def test_c2_through_mcp_tool_factory_matches_in_process_result(mcp):
     assert a["meta"]["tool_calls"] == b["meta"]["tool_calls"] == 1
     assert [i["token_ids"] for i in a["items"]] == [i["token_ids"] for i in b["items"]]
     assert a["metrics"]["valid_output"] and a["meta"]["bundle_search"] is False
+
+
+def test_search_bundle_tool_uses_entity_id_and_reports_unknown_ids(mcp):
+    import json
+
+    from tashkeel_check.bundle.loader import load_bundle_json
+
+    sample = load_bundle_json("data/bundles/sample_bundle.json")
+    out = mcp.call_tool(
+        "search_bundle",
+        {
+            "documents": sample["documents"],
+            "entity_id": "person_001",
+            "arabic_name": "مسلم",
+            "from_document_id": "contract_001",
+        },
+    )
+    assert [(e["document_id"], e["english_name"], e["valid"]) for e in out["evidence"]] == [
+        ("id_001", "Musallam", True)
+    ]
+    out = mcp.call_tool("search_bundle", {"documents": sample["documents"], "entity_id": "nope", "arabic_name": "مسلم"})
+    assert out["error"].startswith("unknown entity id") and out["evidence"] == []
+    assert "search_bundle" in mcp.list_tools()
+    rows = mcp.read_json_resource("document://synthetic/bundles/dev")
+    assert any(r["bundle_id"] == "dev_person_match" for r in rows)
+    bundle = mcp.read_json_resource("document://synthetic/bundles/dev/dev_person_match")
+    assert "gold" not in bundle and bundle["entities"] == {"person_dev_001": "person"}
+    with pytest.raises(Exception, match="bundle not found"):
+        mcp.read_resource("document://synthetic/bundles/dev/nope")
+    assert json.dumps(rows)  # 목록은 JSON으로 직렬화된다
