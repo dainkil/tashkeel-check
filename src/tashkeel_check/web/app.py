@@ -25,14 +25,16 @@ from pydantic import BaseModel, Field
 from .. import __version__
 from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
 from ..bundle import Bundle, parse_bundle, review_bundle
-from ..bundle.dictionary import DictionaryEntry, InMemoryDictionary
+from ..bundle.dictionary import DOCUMENT_SCOPE, DictionaryEntry, InMemoryDictionary
 from ..bundle.draft import build_draft
 from ..bundle.schemas import REASON_LABELS, ReviewItem
 from ..bundle.upload import bundle_from_uploads
 from ..config import ALL_CONDITIONS, CONDITIONS, Settings, configure_tracing, has_openai_key
+from ..dictionary_apply import name_text
 from ..errors import ConfigError, InputError
 from ..mcp.client import MCPClient, default_server_command
 from ..mcp.tools import make_mcp_analyze_tool_factory
+from ..ocr import OcrBackend, extract_text, make_backend
 from ..runner import Reviewer, load_doc, make_model, model_label, split_gold
 from ..text import Segment, normalize_key, segment_text, tokenize
 from .auth import AuthError, Principal, auth_mode, current_customer
@@ -47,6 +49,7 @@ logger = logging.getLogger(__name__)
 STATIC_DIR = Path(__file__).parent / "static"
 Who = Annotated[Principal, Depends(current_customer)]  # API 키 인증(ADR-019). /health·화면·/docs는 공개
 SAMPLE_SPLIT = "dev"  # eval은 최종 평가용이라 화면에 내지 않는다
+LOCAL_CUSTOMER = "local"  # 인증을 끈 서버(한 회사가 자체 배포)에서 사전을 묶는 고객(ADR-021)
 
 
 @dataclass
@@ -62,6 +65,7 @@ class Runtime:
     dictionary: Dictionary
     customers: CustomerStore
     usage: UsageStore
+    ocr: OcrBackend
 
     @property
     def backend(self) -> str:
@@ -95,7 +99,8 @@ def build_runtime(
     dictionary: Dictionary = DbDictionary(db) if db is not None else InMemoryDictionary()
     customers: CustomerStore = DbCustomerStore(db) if db is not None else MemoryCustomerStore()
     usage: UsageStore = DbUsageStore(db) if db is not None else MemoryUsageStore()
-    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary, customers, usage)
+    ocr = make_backend(settings)  # ocrspace인데 키가 없으면 ConfigError
+    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary, customers, usage, ocr)
 
 
 class SegmentIn(BaseModel):
@@ -106,7 +111,7 @@ class SegmentIn(BaseModel):
 class ReviewRequest(BaseModel):
     text: str | None = Field(None, description="빈 줄·줄 단위로 구간을 나눈다")
     segments: list[SegmentIn] | None = None
-    condition: str = "C3"
+    condition: str = "C1"  # EXP-003에서 99% 기준을 넘긴 설정(지시문 p1, 분석기 없음). ADR-021
     doc_id: str | None = Field(None, description="합성 dev 문서 id. 주면 text·segments 대신 그 문서를 쓴다")
 
 
@@ -119,9 +124,13 @@ def _bundle_samples_dir(settings: Settings) -> Path:
 
 
 class DictionaryCloseRequest(BaseModel):
-    bundle_id: str
-    mention_id: str
-    english_name: str | None = Field(None, description="비우면 항목의 번역 표기를 등록한다")
+    """두 형태: 묶음 항목(bundle_id + mention_id) 또는 단일 문서 항목(job_id + token_ids, ADR-021)."""
+
+    bundle_id: str | None = None
+    mention_id: str | None = None
+    job_id: str | None = None
+    token_ids: list[int] | None = None
+    english_name: str | None = Field(None, description="비우면 항목의 번역 표기(묶음) 또는 채택 표기(문서)를 등록한다")
     verified_by: str = "reviewer"
 
 
@@ -232,6 +241,8 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             mcp=runtime.mcp,
             max_workers=max_workers,
             usage=runtime.usage,
+            dictionary=runtime.dictionary,
+            default_customer=LOCAL_CUSTOMER,
         )
         app.state.bundle_reviews = BundleReviewManager(app.state.jobs, runtime.bundles, runtime.dictionary)
         try:
@@ -276,6 +287,11 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             "auth": auth_mode(runtime.settings, runtime.customers),
             "multi_agent": runtime.settings.multi_agent,
             "conditions": list(_service_conditions(runtime.settings)),
+            "prompt_version": runtime.settings.prompt_version,
+            "ocr": runtime.ocr.name,
+            "dictionary_customer": (
+                LOCAL_CUSTOMER if auth_mode(runtime.settings, runtime.customers) == "disabled" else None
+            ),
         }
 
     @app.get("/v1/samples")
@@ -296,6 +312,56 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         doc, source = _build_doc(runtime, req)
         job = jobs(request).submit(doc, req.condition, source, who.scope)  # DB 불통 → ConfigError → 503
         return {"job_id": job.id, "status": job.status, "condition": job.condition, "doc_id": doc["doc_id"]}
+
+    @app.post("/v1/extract")
+    def extract_only(
+        who: Who,
+        file: Annotated[UploadFile, File(description="서류 파일 1개(.txt/.md/.pdf/이미지)")],
+    ) -> dict[str, Any]:
+        """파일 → 텍스트만(검수 없음). 텍스트 층이 없는 PDF·이미지는 OCR 백엔드로 간다(ADR-021)."""
+        name = file.filename or "upload"
+        ex = extract_text(file.file.read(), name, runtime.ocr, runtime.settings.upload_max_bytes)
+        return {
+            "filename": name,
+            "text": ex.text,
+            "segments": [dict(sg) for sg in ex.segments],
+            "source": ex.source,
+            "backend": ex.backend,
+            "pages": ex.pages,
+            "warnings": ex.warnings,
+        }
+
+    @app.post("/v1/reviews/upload", status_code=202)
+    def create_review_from_file(
+        request: Request,
+        who: Who,
+        file: Annotated[UploadFile, File(description="서류 파일 1개(.txt/.md/.pdf/이미지)")],
+        condition: Annotated[str, Form()] = "C1",
+    ) -> dict[str, Any]:
+        """파일 하나를 올리면 추출 → 구간 분할 → 검수까지 한 번에(ADR-021). 결과는 `/v1/jobs/{id}/result`."""
+        _check_condition(runtime.settings, condition)
+        name = file.filename or "upload"
+        ex = extract_text(file.file.read(), name, runtime.ocr, runtime.settings.upload_max_bytes)
+        doc = {
+            "doc_id": Path(name).stem[:64] or "upload",
+            "synthetic": False,
+            "segments": ex.segments,
+            "meta": {"source": "upload", "filename": name, "extract": ex.source, "ocr": ex.backend, "pages": ex.pages},
+        }
+        job = jobs(request).submit(doc, condition, "upload", who.scope)  # DB 불통 → ConfigError → 503
+        return {
+            "job_id": job.id,
+            "status": job.status,
+            "condition": job.condition,
+            "doc_id": doc["doc_id"],
+            "extracted": {
+                "source": ex.source,
+                "backend": ex.backend,
+                "pages": ex.pages,
+                "n_segments": len(ex.segments),
+                "warnings": ex.warnings,
+            },
+        }
 
     def _job_for(request: Request, job_id: str, who: Principal):  # type: ignore[no-untyped-def]
         job = jobs(request).get(job_id)
@@ -339,6 +405,9 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         body = job.result.model_dump(mode="json")
         body["errors"] = list(job.result.metrics.get("errors", []))
         body["job"] = job.summary()
+        body["dictionary"] = list(job.dictionary)  # 회사 사전 덧씌움(ADR-021)
+        body["tokens"] = [dict(t) for t in tokenize(job.doc["segments"])]  # 화면이 토큰 위치로 이름을 표시한다
+        body["dictionary_customer"] = jobs(request).dictionary_scope(job.customer_id)
         return JSONResponse(body)
 
     # -- 묶음 검수(단계 2, 가이드 8단계). LLM 없이 동기로 돈다 --
@@ -460,7 +529,7 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         return brm
 
     @app.post("/v1/bundles/{bundle_id}/reviews", status_code=202)
-    def start_bundle_review(bundle_id: str, request: Request, who: Who, condition: str = "C3") -> JSONResponse:
+    def start_bundle_review(bundle_id: str, request: Request, who: Who, condition: str = "C1") -> JSONResponse:
         """라벨 칸이 없는 문장의 고유명사를 LLM(C1~C3, 켜면 M1)으로 뽑아 묶음 판정에 합류시킨다. 서류마다 작업 하나."""
         _check_condition(runtime.settings, condition)
         bundle = runtime.bundles.get(bundle_id, who.scope)
@@ -515,9 +584,14 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             return _not_found(f"묶음이 없습니다: {bundle_id!r}")
         return JSONResponse(bundle.model_dump(mode="json"))
 
-    @app.post("/v1/dictionary", status_code=201)
-    def close_pending(req: DictionaryCloseRequest, request: Request, who: Who) -> JSONResponse:
-        """담당자가 확인 대기 항목을 닫으며 표기를 등록한다(ADR-010). 자동 등록은 없다."""
+    def _dictionary_customer(request: Request, who: Principal) -> str:
+        scope = jobs(request).dictionary_scope(who.scope)
+        if not scope:
+            raise InputError("사전을 쓸 고객이 없습니다")
+        return scope
+
+    def _close_bundle_item(req: DictionaryCloseRequest, request: Request, who: Who) -> JSONResponse:
+        assert req.bundle_id is not None and req.mention_id is not None
         bundle = runtime.bundles.get(req.bundle_id, who.scope)
         items = runtime.bundles.items(req.bundle_id, who.scope)
         if bundle is None or items is None:
@@ -549,6 +623,82 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             )
         )
         return JSONResponse(entry.model_dump(mode="json"), status_code=201)
+
+    def _close_document_item(req: DictionaryCloseRequest, request: Request, who: Who) -> JSONResponse:
+        """단일 문서 항목을 사람이 확정해 회사 사전에 넣는다(ADR-021). 키는 고객 + "*" + 정규화 아랍어."""
+        assert req.job_id is not None
+        job = _job_for(request, req.job_id, who)
+        if job is None:
+            return _not_found("작업이 없습니다")
+        if job.result is None:
+            raise InputError("아직 끝나지 않은 작업입니다")
+        wanted = list(req.token_ids or [])
+        if not wanted:
+            raise InputError("token_ids가 비어 있습니다")
+        item = next((i for i in job.result.items if i.type == "proper_noun" and list(i.token_ids) == wanted), None)
+        if item is None:
+            raise InputError(f"작업에 그 토큰의 이름 항목이 없습니다: {wanted}")
+        english = (req.english_name or item.adopted or "").strip()
+        if not english:
+            raise InputError("등록할 영문 표기를 입력하세요")
+        customer = _dictionary_customer(request, who)
+        _require_db_ok(request)
+        ev = item.evidence if item.final_decision == "evidence_adopt" else None
+        arabic = name_text(item)
+        entry = runtime.dictionary.register(
+            DictionaryEntry(
+                customer_id=customer,
+                entity_id=DOCUMENT_SCOPE,
+                entity_type="other",
+                arabic_key=normalize_key(arabic),
+                arabic_name=arabic,
+                english_name=english,
+                evidence_document_id=job.document_id or job.doc.get("doc_id"),
+                evidence_segment_id=ev.segment_id if ev else item.segment_id,
+                evidence_quote=ev.quote if ev else None,
+                verified_by=req.verified_by,
+            )
+        )
+        # 같은 작업의 덧씌움도 바로 갱신해 결과 페이지가 다시 읽을 때 반영된다
+        job.dictionary = [o for o in job.dictionary if o["token_ids"] != wanted] + [
+            {
+                "item_index": item.item_index,
+                "token_ids": wanted,
+                "arabic": arabic,
+                "arabic_key": entry.arabic_key,
+                "status": "dictionary_adopt",
+                "english": english,
+                "entry_id": entry.id,
+                "document_spelling": item.adopted,
+                "detail": "방금 확정",
+            }
+        ]
+        return JSONResponse(entry.model_dump(mode="json"), status_code=201)
+
+    @app.post("/v1/dictionary", status_code=201)
+    def close_pending(req: DictionaryCloseRequest, request: Request, who: Who) -> JSONResponse:
+        """담당자가 확인 대기 항목을 닫으며 표기를 등록한다(ADR-010). 자동 등록은 없다."""
+        if req.job_id:
+            return _close_document_item(req, request, who)
+        if req.bundle_id and req.mention_id:
+            return _close_bundle_item(req, request, who)
+        raise InputError("bundle_id + mention_id 또는 job_id + token_ids가 필요합니다")
+
+    @app.get("/v1/dictionary")
+    def list_dictionary(request: Request, who: Who, limit: int = 200) -> dict[str, Any]:
+        customer = _dictionary_customer(request, who)
+        rows = runtime.dictionary.list_entries(customer, max(1, min(limit, 1000)))
+        return {"customer_id": customer, "entries": [e.model_dump(mode="json") for e in rows]}
+
+    @app.delete("/v1/dictionary/{entry_id}")
+    def delete_dictionary(entry_id: str, request: Request, who: Who) -> JSONResponse:
+        customer = _dictionary_customer(request, who)
+        _require_db_ok(request)
+        if not runtime.dictionary.delete(entry_id, customer):
+            return _not_found(f"사전 항목이 없습니다: {entry_id!r}")
+        for job in jobs(request).all_jobs():
+            job.dictionary = [o for o in job.dictionary if o.get("entry_id") != entry_id]
+        return JSONResponse({"deleted": entry_id})
 
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
     return app

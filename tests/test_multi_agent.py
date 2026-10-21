@@ -182,8 +182,9 @@ def test_m1_runs_end_to_end_with_fake_model(mini_doc, tmp_path):
         tool_call(OUTPUT_TOOL, {"translation": translation, "items": [_t_item(principal)]}),
         tool_call(VERIFIER_TOOL, {"items": [_v_item(principal)]}),
     )
+    settings = Settings(prompt_version="p0")  # 해시 기준값은 p0로 기록했다. 서비스 기본은 p1(ADR-021)
     result = run_document(
-        mini_doc, "M1", FakeAgentModel(responder=d), Settings(), out_dir=tmp_path, analyze_fn=fake_analyze
+        mini_doc, "M1", FakeAgentModel(responder=d), settings, out_dir=tmp_path, analyze_fn=fake_analyze
     )
     m = result.metrics
     assert result.condition == "M1" and m["valid_output"] and m["attempts"] == 1 and d.calls == 2

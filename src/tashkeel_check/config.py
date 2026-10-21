@@ -31,8 +31,9 @@ class Settings(BaseModel):
     # EXP-001 판단 기준: M5(방언 허용)가 이보다 낮으면 분석기를 이름 근거로 쓰지 않는다
     coverage_threshold: float = Field(0.5, ge=0, le=1)
     high_confidence: float = Field(0.8, ge=0, le=1)  # 근거 없이 이 확신도 이상으로 확정하면 "고확신 무근거 확정"
-    # 지시문 판과 근거 검사 규칙(ADR-017). EXP-002는 p0·v1, EXP-003은 p1·v2로 실험 코드가 정한다
-    prompt_version: Literal["p0", "p1"] = "p0"
+    # 지시문 판과 근거 검사 규칙(ADR-017). EXP-002는 p0·v1, EXP-003은 p1·v2로 실험 코드가 정한다.
+    # 서비스 기본은 EXP-003에서 99% 기준을 넘긴 p1(ADR-021). `prompts.PROMPT_VERSION`(p0)은 EXP-002 기록용이라 그대로다
+    prompt_version: Literal["p0", "p1"] = "p1"
     evidence_rule: Literal["v1", "v2"] = "v1"
     dev_docs: int = Field(10, ge=1)
     eval_docs: int = Field(30, ge=1)
@@ -50,6 +51,12 @@ class Settings(BaseModel):
     # 완제품 패키지(ADR-019). auto: 고객이 하나라도 있으면 API 키 필수, 없으면 열림. required / disabled
     auth: Literal["auto", "required", "disabled"] = "auto"
     multi_agent: bool = False  # true면 서비스 경로에서 조건 M1(멀티 에이전트 틀)을 받는다
+    # 스캔·PDF 입력의 문자 인식(ADR-021). none: 텍스트 층이 없는 PDF·이미지는 400. ocrspace: 무료 OCR API(외부 전송)
+    ocr_backend: Literal["none", "ocrspace"] = "none"
+    ocr_api_key: str | None = None
+    ocr_endpoint: str = "https://api.ocr.space/parse/image"
+    ocr_max_bytes: int = Field(1024 * 1024, ge=1)  # 무료 등급 파일 상한(공식 문서 기준으로 조정)
+    upload_max_bytes: int = Field(5 * 1024 * 1024, ge=1)  # 단일 문서 업로드 상한
     enable_bundle_search: bool = False  # 단계 2 틀(ADR-007). 단계 1 조건 C0~C3에서는 쓰지 않는다
     embedding_model: str = "text-embedding-3-small"
     langsmith_project: str = "tashkeel-check"

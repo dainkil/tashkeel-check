@@ -265,7 +265,9 @@ class Database:
                 )
             return out
 
-    def upsert_dictionary_entry(self, entry: dict) -> None:
+    def upsert_dictionary_entry(self, entry: dict) -> str:
+        """등록·갱신하고 행 id를 돌려준다. 같은 키(고객·대상·아랍어)면 덮어쓴다."""
+        skip = {"verified_at", "id"}
         with self.session() as s:
             row = (
                 s.execute(
@@ -279,13 +281,66 @@ class Database:
                 .first()
             )
             if row is None:
-                row = NameDictionary(id=new_id(), **{k: v for k, v in entry.items() if k != "verified_at"})
+                row = NameDictionary(id=new_id(), **{k: v for k, v in entry.items() if k not in skip})
                 s.add(row)
             else:
                 for k, v in entry.items():
-                    if k != "verified_at":
+                    if k not in skip:
                         setattr(row, k, v)
             row.verified_at = datetime.fromisoformat(entry["verified_at"]) if entry.get("verified_at") else now()
+            return row.id
+
+    @staticmethod
+    def _dictionary_dict(row: NameDictionary) -> dict:
+        return {
+            "id": row.id,
+            "customer_id": row.customer_id,
+            "entity_id": row.entity_id,
+            "entity_type": row.entity_type,
+            "arabic_key": row.arabic_key,
+            "arabic_name": row.arabic_name,
+            "english_name": row.english_name,
+            "evidence_document_id": row.evidence_document_id,
+            "evidence_segment_id": row.evidence_segment_id,
+            "evidence_quote": row.evidence_quote,
+            "verified_by": row.verified_by,
+            "verified_at": row.verified_at,
+        }
+
+    def list_dictionary(self, customer_id: str, limit: int = 200) -> list[dict]:
+        with self.session() as s:
+            rows = (
+                s.execute(
+                    select(NameDictionary)
+                    .where(NameDictionary.customer_id == customer_id)
+                    .order_by(NameDictionary.verified_at.desc())
+                    .limit(limit)
+                )
+                .scalars()
+                .all()
+            )
+            return [self._dictionary_dict(r) for r in rows]
+
+    def delete_dictionary_entry(self, entry_id: str, customer_id: str) -> bool:
+        with self.session() as s:
+            row = s.get(NameDictionary, entry_id)
+            if row is None or row.customer_id != customer_id:
+                return False
+            s.delete(row)
+            return True
+
+    def mark_name_items_glossary(self, run_id: str, hits: list[tuple[list[int], str]]) -> None:
+        """단일 문서 경로의 사전 적중(ADR-021)을 name_items에 남긴다. hits: (토큰 ID 목록, 영문 표기)."""
+        if not hits:
+            return
+        wanted = {tuple(ids): english for ids, english in hits}
+        with self.session() as s:
+            rows = s.execute(select(NameItem).where(NameItem.run_id == run_id)).scalars().all()
+            for r in rows:
+                english = wanted.get(tuple(r.token_ids))
+                if english is not None:
+                    r.evidence_source = "glossary"
+                    r.evidence_quote = english
 
     def lookup_verified_name(self, customer_id: str, entity_id: str, arabic_key: str) -> dict | None:
         with self.session() as s:
@@ -300,21 +355,7 @@ class Database:
                 .scalars()
                 .first()
             )
-            if row is None:
-                return None
-            return {
-                "customer_id": row.customer_id,
-                "entity_id": row.entity_id,
-                "entity_type": row.entity_type,
-                "arabic_key": row.arabic_key,
-                "arabic_name": row.arabic_name,
-                "english_name": row.english_name,
-                "evidence_document_id": row.evidence_document_id,
-                "evidence_segment_id": row.evidence_segment_id,
-                "evidence_quote": row.evidence_quote,
-                "verified_by": row.verified_by,
-                "verified_at": row.verified_at,
-            }
+            return None if row is None else self._dictionary_dict(row)
 
     # -- 고객·API 키·사용량(ADR-019) --
     @staticmethod

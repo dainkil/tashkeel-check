@@ -86,12 +86,18 @@ class DbDictionary:
     def register(self, entry: DictionaryEntry) -> DictionaryEntry:
         if entry.verified_at is None:
             entry = entry.model_copy(update={"verified_at": datetime.now(UTC)})
-        self.db.upsert_dictionary_entry(entry.model_dump(mode="json"))
-        return entry
+        entry_id = self.db.upsert_dictionary_entry(entry.model_dump(mode="json"))
+        return entry.model_copy(update={"id": entry_id})
 
     def lookup_verified_name(self, customer_id: str, entity_id: str, arabic_key: str) -> DictionaryEntry | None:
         row = self.db.lookup_verified_name(customer_id, entity_id, arabic_key)
         return None if row is None else DictionaryEntry.model_validate(row)
+
+    def list_entries(self, customer_id: str, limit: int = 200) -> list[DictionaryEntry]:
+        return [DictionaryEntry.model_validate(r) for r in self.db.list_dictionary(customer_id, limit)]
+
+    def delete(self, entry_id: str, customer_id: str) -> bool:
+        return self.db.delete_dictionary_entry(entry_id, customer_id)
 
 
 Dictionary = InMemoryDictionary | DbDictionary

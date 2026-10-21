@@ -147,7 +147,9 @@ def snapshot(doc_index: int, condition: str, analyzer: str, responder: str) -> A
     model = FakeAgentModel(responder=RESPONDERS[responder](doc_index))
     with tempfile.TemporaryDirectory() as tmp:
         out = Path(tmp)
-        result = run_document(doc, condition, model, Settings(), out_dir=out, analyze_fn=ANALYZERS[analyzer])
+        # 골든은 EXP-002 설정(지시문 p0)으로 기록했다. 서비스 기본이 p1로 바뀌어도(ADR-021) 기준값은 그대로다(ADR-013)
+        settings = Settings(prompt_version="p0")
+        result = run_document(doc, condition, model, settings, out_dir=out, analyze_fn=ANALYZERS[analyzer])
         files: dict[str, Any] = {name: json.loads((out / name).read_text(encoding="utf-8")) for name in OUTPUT_FILES}
         files["proper_nouns.csv"] = (out / "proper_nouns.csv").read_text(encoding="utf-8-sig")
     return _dedupe(_normalize({"result": _as_dict(result), "files": files}))

@@ -14,6 +14,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from ..bundle.dictionary import DictionaryLookup
+from ..dictionary_apply import apply_dictionary
 from ..errors import ConfigError, InputError, TashkeelError
 from ..mcp.client import MCPClient
 from ..results import ReviewResult
@@ -45,6 +47,7 @@ class JobRecord:
     run_id: str | None = None
     out_dir: str | None = None
     result: ReviewResult | None = None
+    dictionary: list[dict] = field(default_factory=list)  # 회사 사전 덧씌움(ADR-021, dictionary_apply)
     events: list[dict] = field(default_factory=list)
     cond: threading.Condition = field(default_factory=threading.Condition)
 
@@ -83,8 +86,12 @@ class JobManager:
         max_workers: int = 1,
         keep: int = 200,
         usage: UsageStore | None = None,
+        dictionary: DictionaryLookup | None = None,
+        default_customer: str | None = None,
     ) -> None:
         self.reviewer = reviewer
+        self.dictionary = dictionary
+        self.default_customer = default_customer  # 인증을 끈 서버에서 사전을 묶을 고객(ADR-021)
         self.results_dir = Path(results_dir)
         self.db = db
         self.mcp = mcp
@@ -98,6 +105,10 @@ class JobManager:
     # -- 조회 --
     def get(self, job_id: str) -> JobRecord | None:
         return self._jobs.get(job_id)
+
+    def all_jobs(self) -> list[JobRecord]:
+        with self._lock:
+            return [self._jobs[i] for i in self._order if i in self._jobs]
 
     def recent(self, limit: int, customer_id: str | None = None) -> list[dict]:
         with self._lock:
@@ -176,9 +187,12 @@ class JobManager:
             if self.mcp is not None and not self.mcp.healthy:
                 raise ConfigError(f"MCP 서버가 실행 중에 끊겼습니다: {self.mcp.last_error}")
             job.result = result
+            job.dictionary = self._apply_dictionary(job, result)
             if self.db is not None and job.document_id is not None:
                 try:
                     job.run_id = self.db.insert_run(job.id, job.document_id, result, job.out_dir)
+                    hits = [(o["token_ids"], o["english"]) for o in job.dictionary if o["status"] == "dictionary_adopt"]
+                    self.db.mark_name_items_glossary(job.run_id, hits)
                 except Exception as exc:
                     logger.warning("작업 %s 결과 DB 저장 실패: %s", job.id, exc)
                     job.error = f"결과 파일은 남았지만 DB 저장에 실패했습니다: {exc}"
@@ -193,6 +207,7 @@ class JobManager:
                 errors=result.metrics.get("errors", []),
                 run_id=job.run_id,
                 db_error=job.error,
+                dictionary_hits=sum(1 for o in job.dictionary if o["status"] == "dictionary_adopt"),
                 mcp_calls=(self.mcp.calls - mcp_calls_before) if self.mcp is not None else None,
             )
         except (TashkeelError, Exception) as exc:
@@ -201,6 +216,17 @@ class JobManager:
             job.status, job.error, job.finished_at = "failed", f"{type(exc).__name__}: {exc}", datetime.now(UTC)
             self._db_update(job, status="failed", error=job.error, finished_at=job.finished_at)
             job.emit("error", kind=kind, error=job.error)
+
+    def dictionary_scope(self, customer_id: str | None) -> str | None:
+        return customer_id or self.default_customer
+
+    def _apply_dictionary(self, job: JobRecord, result: ReviewResult) -> list[dict]:
+        try:
+            overlays = apply_dictionary(result, self.dictionary, self.dictionary_scope(job.customer_id))
+            return [o.model_dump(mode="json") for o in overlays]
+        except Exception as exc:  # 사전 조회 실패(DB 등)가 검수 결과를 망치지 않는다
+            logger.warning("작업 %s 사전 적용 실패: %s", job.id, exc)
+            return []
 
     def _record_usage(self, job: JobRecord, usage: dict[str, Any]) -> None:
         try:

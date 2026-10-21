@@ -14,11 +14,11 @@
 | [evaluation.md](evaluation.md) | EXP-001 지표 M1~M6, EXP-002 지표·판정, 실행마다 기록할 것, EXP-003 99% 기준(6.4절: 엄격 철자·근거 검사 v2·채점 v2), 묶음 검수 지표(6.5절) | 지표 정의, 판정 규칙, 기록 항목 |
 | [roadmap.md](roadmap.md) | 기능 F1~F14, 제품 스택·시스템 구성·API 초안·데이터 모델, 마일스톤 M0~M6, 테스트 전략, 단계별 체크리스트, 위험 | 기능·일정·제품 설계, 체크리스트 |
 | [changelog.md](changelog.md) | 계획 변경 이력 표와 날짜별 완료 기록 | 모든 계획·범위·구조 변경(이유와 영향을 함께) |
-| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~020, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
+| [adr/](adr/README.md) | 기술 결정 기록 ADR-001~021, 한 결정 한 파일 | 중요한 기술 결정. 뒤집으면 새 ADR을 추가해 연결 |
 | [troubleshooting.md](troubleshooting.md) | TS-001~004 | 재현 가능한 오류와 해결 과정 |
-| [deploy.md](deploy.md) | Docker Compose 패키지: `.env` 키, 첫 고객 키 발급, 스모크, 업그레이드·백업, 포함하지 않는 것 | 배포 절차(ADR-019) |
+| [deploy.md](deploy.md) | Docker Compose 패키지: `.env` 키(`PROMPT_VERSION`·`OCR_*` 포함), 첫 고객 키 발급, 스모크, 업그레이드·백업, 포함하지 않는 것 | 배포 절차(ADR-019) |
 | [experiments/](experiments/README.md) | 실험 목록, 템플릿, EXP-001·EXP-002(보류)·EXP-003(사전 등록) 기록 | 모델·프롬프트·규칙·도구 정책이 바뀐 비교 실험 |
-| [과제2-테스트-기록.md](과제2-테스트-기록.md) | 단계 1.5 서비스의 실행 방법, 기능별 테스트 16건, 예외 테스트 7종, 단계 2 묶음 검수 기능 19건·예외 9종(5절), 화면 캡처(`images/`) | API·화면·DB·MCP 동작이 바뀌면 다시 실행해 갱신 |
+| [과제2-테스트-기록.md](과제2-테스트-기록.md) | 단계 1.5 서비스의 실행 방법, 기능별 테스트 16건, 예외 테스트 7종, 단계 2 묶음 검수 기능 19건·예외 9종(5절), 완제품 패키지(6절), 방향 전환 뒤 파일 넣기 → 후보 → 확정 → 회사 사전 흐름(7절, 실제 모델 확인), 화면 캡처(`images/`) | API·화면·DB·MCP 동작이 바뀌면 다시 실행해 갱신 |
 | [business/feasibility.md](business/feasibility.md) | 사업성 검토(시장성·기술성·경제성) | 사업 판단, 가격·고객 수 가정 |
 | [business/market/](business/market/) | 시장 조사 기록, 출처 목록, 재계산 스크립트 | 조사 추가·출처 갱신 |
 | [../data/synthetic/README.md](../data/synthetic/README.md) | 합성 문서 파일 형식 | 생성기 출력 형식 |
