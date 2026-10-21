@@ -23,12 +23,16 @@ from pydantic import BaseModel, Field
 
 from .. import __version__
 from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
+from ..bundle import Bundle, parse_bundle, review_bundle
+from ..bundle.dictionary import DictionaryEntry, InMemoryDictionary
+from ..bundle.schemas import REASON_LABELS, ReviewItem
 from ..config import CONDITIONS, Settings, configure_tracing, has_openai_key
 from ..errors import ConfigError, InputError
 from ..mcp.client import MCPClient, default_server_command
 from ..mcp.tools import make_mcp_analyze_tool_factory
 from ..runner import Reviewer, load_doc, make_model, model_label, split_gold
-from ..text import Segment, segment_text, tokenize
+from ..text import Segment, normalize_key, segment_text, tokenize
+from .bundles import BundleStore, DbBundleStore, DbDictionary, Dictionary, MemoryBundleStore
 from .db import Database
 from .jobs import NODES, JobManager
 
@@ -46,6 +50,8 @@ class Runtime:
     db: Database | None
     mcp: MCPClient | None
     tracing: bool
+    bundles: BundleStore
+    dictionary: Dictionary
 
     @property
     def backend(self) -> str:
@@ -75,7 +81,9 @@ def build_runtime(
         client.start()  # 실패 → ConfigError
     factory = make_mcp_analyze_tool_factory(client) if client is not None else None
     reviewer = Reviewer(model, settings, analyze_fn=fn, analyze_tool_factory=factory)
-    return Runtime(settings, model, fn, reviewer, db, client, tracing)
+    bundles: BundleStore = DbBundleStore(db) if db is not None else MemoryBundleStore()
+    dictionary: Dictionary = DbDictionary(db) if db is not None else InMemoryDictionary()
+    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary)
 
 
 class SegmentIn(BaseModel):
@@ -92,6 +100,27 @@ class ReviewRequest(BaseModel):
 
 def _samples_dir(settings: Settings) -> Path:
     return settings.data_dir / "synthetic" / SAMPLE_SPLIT
+
+
+def _bundle_samples_dir(settings: Settings) -> Path:
+    return settings.data_dir / "synthetic" / "bundles" / SAMPLE_SPLIT
+
+
+class DictionaryCloseRequest(BaseModel):
+    bundle_id: str
+    mention_id: str
+    english_name: str | None = Field(None, description="비우면 항목의 번역 표기를 등록한다")
+    verified_by: str = "reviewer"
+
+
+def _item_json(item: ReviewItem) -> dict[str, Any]:
+    body = item.model_dump(mode="json")
+    body["reason_label"] = REASON_LABELS[item.reason]
+    return body
+
+
+def _not_found(what: str) -> JSONResponse:
+    return JSONResponse({"error": what, "kind": "input"}, status_code=404)
 
 
 def _list_samples(rt: Runtime) -> list[dict]:
@@ -242,6 +271,105 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         body["errors"] = list(job.result.metrics.get("errors", []))
         body["job"] = job.summary()
         return JSONResponse(body)
+
+    # -- 묶음 검수(단계 2, 가이드 8단계). LLM 없이 동기로 돈다 --
+    def _require_db_ok(request: Request) -> None:
+        if runtime.db is not None and not jobs(request).db_ok():
+            raise ConfigError("DB에 연결할 수 없습니다(DATABASE_URL). 묶음 검수를 저장할 수 없습니다.")
+
+    @app.get("/v1/bundles")
+    def list_bundles(limit: int = 20) -> list[dict]:
+        return runtime.bundles.recent(max(1, min(limit, 200)))
+
+    @app.get("/v1/bundles/samples")
+    def bundle_samples() -> list[dict]:
+        rows = []
+        for path in sorted(_bundle_samples_dir(runtime.settings).glob("*.json")):
+            obj = json.loads(path.read_text(encoding="utf-8"))
+            gold = obj.get("gold", {})
+            rows.append(
+                {"bundle_id": obj["bundle_id"], "case": gold.get("case"), "entity_type": gold.get("entity_type")}
+            )
+        return rows
+
+    @app.get("/v1/bundles/samples/{bundle_id}")
+    def bundle_sample(bundle_id: str) -> JSONResponse:
+        path = _bundle_samples_dir(runtime.settings) / f"{bundle_id}.json"
+        if not path.is_file() or path.name != f"{bundle_id}.json":
+            return _not_found(f"샘플 묶음이 없습니다: {bundle_id!r}")
+        bundle = parse_bundle(json.loads(path.read_text(encoding="utf-8")))  # gold는 뗀다
+        return JSONResponse(bundle.model_dump(mode="json"))
+
+    @app.post("/v1/bundles/review")
+    def review_bundle_endpoint(body: dict[str, Any], request: Request) -> dict[str, Any]:
+        bundle: Bundle = parse_bundle(body)  # 구조 오류 → InputError → 400
+        _require_db_ok(request)  # DB 불통 → 503
+        items = review_bundle(bundle, runtime.dictionary)
+        runtime.bundles.save(bundle, items)
+        return {
+            "bundle_id": bundle.bundle_id,
+            "counts": {
+                "confirmed": sum(1 for i in items if i.status == "confirmed"),
+                "pending": sum(1 for i in items if i.status == "pending"),
+            },
+            "items": [_item_json(i) for i in items],
+        }
+
+    @app.get("/v1/bundles/{bundle_id}/items")
+    def bundle_items(bundle_id: str) -> JSONResponse:
+        items = runtime.bundles.items(bundle_id)
+        if items is None:
+            return _not_found(f"묶음이 없습니다: {bundle_id!r}")
+        return JSONResponse([_item_json(i) for i in items])
+
+    @app.get("/v1/bundles/{bundle_id}/pending")
+    def bundle_pending(bundle_id: str) -> JSONResponse:
+        items = runtime.bundles.items(bundle_id)
+        if items is None:
+            return _not_found(f"묶음이 없습니다: {bundle_id!r}")
+        return JSONResponse([_item_json(i) for i in items if i.status == "pending"])
+
+    @app.get("/v1/bundles/{bundle_id}")
+    def bundle_detail(bundle_id: str) -> JSONResponse:
+        bundle = runtime.bundles.get(bundle_id)
+        if bundle is None:
+            return _not_found(f"묶음이 없습니다: {bundle_id!r}")
+        return JSONResponse(bundle.model_dump(mode="json"))
+
+    @app.post("/v1/dictionary", status_code=201)
+    def close_pending(req: DictionaryCloseRequest, request: Request) -> JSONResponse:
+        """담당자가 확인 대기 항목을 닫으며 표기를 등록한다(ADR-010). 자동 등록은 없다."""
+        bundle = runtime.bundles.get(req.bundle_id)
+        items = runtime.bundles.items(req.bundle_id)
+        if bundle is None or items is None:
+            return _not_found(f"묶음이 없습니다: {req.bundle_id!r}")
+        item = next((i for i in items if i.mention_id == req.mention_id), None)
+        if item is None:
+            return _not_found(f"항목이 없습니다: {req.mention_id!r}")
+        if not bundle.customer_id:
+            raise InputError("customer_id가 없는 묶음은 사전에 등록할 수 없습니다")
+        if item.entity_id is None:
+            raise InputError("대상 ID가 없는 항목은 사전에 등록할 수 없습니다")
+        english = (req.english_name or item.translated_name or "").strip()
+        if not english:
+            raise InputError("등록할 영문 표기가 없습니다")
+        _require_db_ok(request)
+        first = next((e for e in item.evidence if e.valid), None)
+        entry = runtime.dictionary.register(
+            DictionaryEntry(
+                customer_id=bundle.customer_id,
+                entity_id=item.entity_id,
+                entity_type=item.entity_type,
+                arabic_key=normalize_key(item.arabic_name),
+                arabic_name=item.arabic_name,
+                english_name=english,
+                evidence_document_id=first.document_id if first else None,
+                evidence_segment_id=first.segment_id if first else None,
+                evidence_quote=first.quote if first else None,
+                verified_by=req.verified_by,
+            )
+        )
+        return JSONResponse(entry.model_dump(mode="json"), status_code=201)
 
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
     return app

@@ -13,13 +13,13 @@ from contextlib import contextmanager
 from datetime import UTC, datetime
 from typing import Any
 
-from sqlalchemy import create_engine, select, text
+from sqlalchemy import create_engine, func, select, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
 from ..results import ReviewResult
 from ..text import normalize_key
-from .models import Base, Document, Job, NameItem, Run
+from .models import Base, BundleRow, Document, Job, NameDictionary, NameItem, ReviewItemRow, Run
 
 logger = logging.getLogger(__name__)
 
@@ -115,6 +115,7 @@ class Database:
                 decision=it.decision,
                 final_decision=it.final_decision,
                 evidence_source="document" if it.evidence is not None else None,
+                evidence_document_id=document_id if it.evidence is not None else None,
                 evidence_segment_id=it.evidence.segment_id if it.evidence is not None else None,
                 evidence_quote=it.evidence.quote if it.evidence is not None else None,
                 flags=list(it.flags),
@@ -153,3 +154,144 @@ class Database:
     def count_name_items(self, run_id: str) -> int:
         with self.session() as s:
             return len(s.execute(select(NameItem.id).where(NameItem.run_id == run_id)).all())
+
+    # -- 묶음 검수(단계 2) --
+    def upsert_bundle(self, bundle: dict, items: list[dict]) -> str:
+        """같은 bundle_id면 입력과 결과를 통째로 바꾼다."""
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle["bundle_id"])).scalars().first()
+            if row is None:
+                row = BundleRow(id=new_id(), bundle_id=bundle["bundle_id"])
+                s.add(row)
+            row.customer_id = bundle.get("customer_id")
+            row.payload = bundle
+            row.updated_at = now()
+            s.flush()
+            for old in s.execute(select(ReviewItemRow).where(ReviewItemRow.bundle_pk == row.id)).scalars().all():
+                s.delete(old)
+            s.add_all(
+                ReviewItemRow(
+                    id=new_id(),
+                    bundle_pk=row.id,
+                    mention_id=it["mention_id"],
+                    document_id=it["document_id"],
+                    segment_id=it["segment_id"],
+                    entity_id=it.get("entity_id"),
+                    entity_type=it["entity_type"],
+                    arabic_name=it["arabic_name"],
+                    arabic_key=normalize_key(it["arabic_name"]),
+                    translated_name=it.get("translated_name"),
+                    status=it["status"],
+                    reason=it["reason"],
+                    evidence=it["evidence"],
+                    suggestion=it.get("suggestion"),
+                    detail=it.get("detail", ""),
+                )
+                for it in items
+            )
+            return row.id
+
+    def get_bundle(self, bundle_id: str) -> dict | None:
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            return None if row is None else dict(row.payload)
+
+    def list_review_items(self, bundle_id: str) -> list[dict] | None:
+        with self.session() as s:
+            row = s.execute(select(BundleRow).where(BundleRow.bundle_id == bundle_id)).scalars().first()
+            if row is None:
+                return None
+            rows = s.execute(
+                select(ReviewItemRow).where(ReviewItemRow.bundle_pk == row.id).order_by(ReviewItemRow.mention_id)
+            ).scalars()
+            return [
+                {
+                    "mention_id": r.mention_id,
+                    "document_id": r.document_id,
+                    "segment_id": r.segment_id,
+                    "entity_id": r.entity_id,
+                    "entity_type": r.entity_type,
+                    "arabic_name": r.arabic_name,
+                    "translated_name": r.translated_name,
+                    "evidence": r.evidence,
+                    "status": r.status,
+                    "reason": r.reason,
+                    "detail": r.detail,
+                    "suggestion": r.suggestion,
+                }
+                for r in rows
+            ]
+
+    def recent_bundles(self, limit: int) -> list[dict]:
+        with self.session() as s:
+            rows = s.execute(select(BundleRow).order_by(BundleRow.updated_at.desc()).limit(limit)).scalars().all()
+            out = []
+            for r in rows:
+                counts = s.execute(
+                    select(ReviewItemRow.status, func.count())
+                    .where(ReviewItemRow.bundle_pk == r.id)
+                    .group_by(ReviewItemRow.status)
+                ).all()
+                by = {status: n for status, n in counts}
+                out.append(
+                    {
+                        "bundle_id": r.bundle_id,
+                        "customer_id": r.customer_id,
+                        "documents": len(r.payload.get("documents", [])),
+                        "confirmed": by.get("confirmed", 0),
+                        "pending": by.get("pending", 0),
+                        "created_at": r.updated_at.isoformat() if r.updated_at else None,
+                    }
+                )
+            return out
+
+    def upsert_dictionary_entry(self, entry: dict) -> None:
+        with self.session() as s:
+            row = (
+                s.execute(
+                    select(NameDictionary).where(
+                        NameDictionary.customer_id == entry["customer_id"],
+                        NameDictionary.entity_id == entry["entity_id"],
+                        NameDictionary.arabic_key == entry["arabic_key"],
+                    )
+                )
+                .scalars()
+                .first()
+            )
+            if row is None:
+                row = NameDictionary(id=new_id(), **{k: v for k, v in entry.items() if k != "verified_at"})
+                s.add(row)
+            else:
+                for k, v in entry.items():
+                    if k != "verified_at":
+                        setattr(row, k, v)
+            row.verified_at = datetime.fromisoformat(entry["verified_at"]) if entry.get("verified_at") else now()
+
+    def lookup_verified_name(self, customer_id: str, entity_id: str, arabic_key: str) -> dict | None:
+        with self.session() as s:
+            row = (
+                s.execute(
+                    select(NameDictionary).where(
+                        NameDictionary.customer_id == customer_id,
+                        NameDictionary.entity_id == entity_id,
+                        NameDictionary.arabic_key == arabic_key,
+                    )
+                )
+                .scalars()
+                .first()
+            )
+            if row is None:
+                return None
+            return {
+                "customer_id": row.customer_id,
+                "entity_id": row.entity_id,
+                "entity_type": row.entity_type,
+                "arabic_key": row.arabic_key,
+                "arabic_name": row.arabic_name,
+                "english_name": row.english_name,
+                "evidence_document_id": row.evidence_document_id,
+                "evidence_segment_id": row.evidence_segment_id,
+                "evidence_quote": row.evidence_quote,
+                "verified_by": row.verified_by,
+                "verified_at": row.verified_at,
+            }
