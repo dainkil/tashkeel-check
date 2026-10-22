@@ -4,13 +4,13 @@
 
 ## 기록과 계획 갱신
 
-- `PROJECT_PLAN.md`를 현재 상태와 다음 작업의 기준 문서로 사용한다. 본문은 `docs/`에 있다: 정의·목표 `problem-and-goals.md`, 범위 `scope.md`, 구조 `architecture.md`, 데이터 `data.md`, 측정 `evaluation.md`, 기능·마일스톤·체크리스트 `roadmap.md`.
+- `PROJECT_PLAN.md`를 현재 상태와 다음 작업의 기준 문서로 사용한다. 본문은 `docs/`에 있다: 정의·목표 `problem-and-goals.md`, 범위 `scope.md`, 구조 `architecture.md`, 데이터 `data.md`, 측정 `evaluation.md`, 기능 상태·다음 작업 `roadmap.md`. 지난 계획·진행 기록과 사업성 조사는 `docs/archive/`에 보관한다.
 - 계획·범위·구조·모델·데이터·평가 방식이 변경되면 해당 `docs/` 문서 본문을 수정하고 `docs/changelog.md`에 이유와 영향을 기록한다.
 - 중요한 기술 결정은 `docs/adr/`(한 결정 한 파일)에, 재현 가능한 오류와 해결 과정은 `docs/troubleshooting.md`에, 성능 비교는 `docs/experiments/`에 남긴다.
 - 기존 ADR을 뒤집는 경우 새 ADR을 추가하고 이전 기록을 연결한다.
-- 작업 종료 시 `PROJECT_PLAN.md`의 마지막 업데이트 날짜·현재 상태·다음 작업과 `docs/roadmap.md` 체크리스트를 실제 결과에 맞게 갱신한다.
+- 작업 종료 시 `PROJECT_PLAN.md`의 마지막 업데이트 날짜·현재 상태·다음 작업과 `docs/roadmap.md` 기능 상태를 실제 결과에 맞게 갱신한다.
 - 미실행 실험이나 확인하지 않은 성능을 완료 또는 사실로 기록하지 않는다. 가설·제안·관찰·확인 결과를 구분한다.
-- 새 문서를 만들면 `docs/README.md` 문서 지도에 한 줄을 더한다.
+- 새 문서를 만들면 `docs/README.md` 문서 지도에 한 줄을 더한다. 문서를 보관하면 `docs/archive/README.md`에 사유와 원래 위치를 적는다.
 - `README.md`는 외부용 소개 문서다. 정의·범위·진행 단계·알려진 한계가 바뀌면 `PROJECT_PLAN.md`·해당 `docs/` 문서와 함께 갱신한다. 세부 내용은 `docs/`에만 둔다.
 
 ## 초기 개발 방향
