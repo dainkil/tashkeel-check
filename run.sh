@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 단계 1.5 서비스 실행(Mac, uv 기준): 키·DB 검사 → 마이그레이션 → tashkeel serve → /health 대기.
-# 사용: ./run.sh            (.env의 LLM_BACKEND·DATABASE_URL·USE_MCP_TOOLS·WEB_PORT를 읽는다)
+# 사용: ./run.sh            (.env의 LLM_BACKEND·REVIEW_CONDITION·DATABASE_URL·USE_MCP_TOOLS·WEB_PORT를 읽는다)
+#       REVIEW_CONDITION=C1 ./run.sh  (기본 M2 대신 EXP-003에서 잰 설정 C1로)
 #       LLM_BACKEND=fake ./run.sh   (API 키 없이 가짜 모델로 화면을 본다)
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -17,6 +18,10 @@ MODE="${LLM_BACKEND:-openai}"
 case "$MODE" in
   fake|openai) ;;
   *) echo "지원하지 않는 LLM_BACKEND: $MODE (openai / fake)"; exit 1 ;;
+esac
+case "${REVIEW_CONDITION:-M2}" in
+  M2|C1) ;;
+  *) echo "지원하지 않는 REVIEW_CONDITION: ${REVIEW_CONDITION} (M2 / C1)"; exit 1 ;;
 esac
 if [[ "$MODE" == "openai" && -z "${OPENAI_API_KEY:-}" ]]; then
   echo "OPENAI_API_KEY가 없습니다. .env에 키를 넣거나 LLM_BACKEND=fake로 실행하세요."; exit 1

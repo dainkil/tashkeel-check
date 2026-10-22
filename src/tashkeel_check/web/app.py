@@ -24,19 +24,23 @@ from pydantic import BaseModel, Field
 
 from .. import __version__
 from ..analyzer import AnalyzeFn, analyzer_version, thread_safe_analyze
+from ..archive.search import CompanyArchive, make_embeddings
+from ..archive.store import InMemoryArchiveStore
 from ..bundle import Bundle, parse_bundle, review_bundle
 from ..bundle.dictionary import DOCUMENT_SCOPE, DictionaryEntry, InMemoryDictionary
 from ..bundle.draft import build_draft
 from ..bundle.schemas import REASON_LABELS, ReviewItem
 from ..bundle.upload import bundle_from_uploads
-from ..config import ALL_CONDITIONS, CONDITIONS, Settings, configure_tracing, has_openai_key
+from ..config import CONDITIONS, Settings, configure_tracing, has_openai_key
 from ..dictionary_apply import name_text
 from ..errors import ConfigError, InputError
 from ..mcp.client import MCPClient, default_server_command
+from ..mcp.records import ScopeRegistry, build_records_server, make_records_tool_factory, start_records_client
 from ..mcp.tools import make_mcp_analyze_tool_factory
 from ..ocr import OcrBackend, extract_text, make_backend
 from ..runner import Reviewer, load_doc, make_model, model_label, split_gold
 from ..text import Segment, normalize_key, segment_text, tokenize
+from .archive import DbArchiveStore
 from .auth import AuthError, Principal, auth_mode, current_customer
 from .bundle_jobs import BundleReviewManager
 from .bundles import BundleStore, DbBundleStore, DbDictionary, Dictionary, MemoryBundleStore
@@ -66,6 +70,9 @@ class Runtime:
     customers: CustomerStore
     usage: UsageStore
     ocr: OcrBackend
+    archive: CompanyArchive  # 회사 문서 보관함(ADR-022)
+    scopes: ScopeRegistry  # M2 회사 기록 툴의 작업별 범위 토큰
+    records: MCPClient  # 회사 기록 MCP 서버(같은 프로세스, 메모리 전송)
 
     @property
     def backend(self) -> str:
@@ -79,6 +86,9 @@ def build_runtime(
     mcp: MCPClient | None = None,
 ) -> Runtime:
     """기동에 필요한 것을 전부 만든다. 실패는 ConfigError(CLI 종료 코드 3)."""
+    if "evidence_rule" not in settings.model_fields_set:
+        # 서비스는 EXP-003에서 잰 근거 검사 v2를 쓴다. `Settings` 기본값(v1)은 골든·EXP-002에 묶여 있어 그대로 둔다
+        settings = settings.model_copy(update={"evidence_rule": "v2"})
     tracing = configure_tracing(settings)
     fn = analyze_fn or thread_safe_analyze()  # 분석기를 못 띄우면 AnalyzerUnavailable(ConfigError)
     if model is None:
@@ -94,13 +104,40 @@ def build_runtime(
         client = MCPClient(cmd, args, env=env)
         client.start()  # 실패 → ConfigError
     factory = make_mcp_analyze_tool_factory(client) if client is not None else None
-    reviewer = Reviewer(model, settings, analyze_fn=fn, analyze_tool_factory=factory)
     bundles: BundleStore = DbBundleStore(db) if db is not None else MemoryBundleStore()
     dictionary: Dictionary = DbDictionary(db) if db is not None else InMemoryDictionary()
     customers: CustomerStore = DbCustomerStore(db) if db is not None else MemoryCustomerStore()
     usage: UsageStore = DbUsageStore(db) if db is not None else MemoryUsageStore()
     ocr = make_backend(settings)  # ocrspace인데 키가 없으면 ConfigError
-    return Runtime(settings, model, fn, reviewer, db, client, tracing, bundles, dictionary, customers, usage, ocr)
+    # 회사 문서 보관함과 회사 기록 MCP 서버(ADR-022). 서버는 이 Runtime의 사전·보관함을 그대로 쓴다
+    embeddings, label = make_embeddings(settings.llm_backend, settings.embedding_model)
+    archive = CompanyArchive(DbArchiveStore(db) if db is not None else InMemoryArchiveStore(), embeddings, label)
+    scopes = ScopeRegistry()
+    records = start_records_client(build_records_server(archive, dictionary, scopes))  # 실패 → ConfigError
+    reviewer = Reviewer(
+        model,
+        settings,
+        analyze_fn=fn,
+        analyze_tool_factory=factory,
+        records_tool_factory=make_records_tool_factory(records),
+    )
+    return Runtime(
+        settings,
+        model,
+        fn,
+        reviewer,
+        db,
+        client,
+        tracing,
+        bundles,
+        dictionary,
+        customers,
+        usage,
+        ocr,
+        archive,
+        scopes,
+        records,
+    )
 
 
 class SegmentIn(BaseModel):
@@ -111,7 +148,7 @@ class SegmentIn(BaseModel):
 class ReviewRequest(BaseModel):
     text: str | None = Field(None, description="빈 줄·줄 단위로 구간을 나눈다")
     segments: list[SegmentIn] | None = None
-    condition: str = "C1"  # EXP-003에서 99% 기준을 넘긴 설정(지시문 p1, 분석기 없음). ADR-021
+    condition: str | None = None  # 비우면 서버 설정 REVIEW_CONDITION(기본 M2, ADR-022). C1은 EXP-003에서 잰 설정
     doc_id: str | None = Field(None, description="합성 dev 문서 id. 주면 text·segments 대신 그 문서를 쓴다")
 
 
@@ -131,6 +168,7 @@ class DictionaryCloseRequest(BaseModel):
     job_id: str | None = None
     token_ids: list[int] | None = None
     english_name: str | None = Field(None, description="비우면 항목의 번역 표기(묶음) 또는 채택 표기(문서)를 등록한다")
+    archive_hit_id: str | None = Field(None, description="보관함 제안을 확정할 때 그 구절의 hit_id(ADR-022)")
     verified_by: str = "reviewer"
 
 
@@ -192,8 +230,8 @@ def _load_sample(rt: Runtime, doc_id: str) -> dict | None:
 
 
 def _service_conditions(settings: Settings) -> tuple[str, ...]:
-    """서비스가 받는 조건. M1(멀티 에이전트 틀)은 MULTI_AGENT=true일 때만(ADR-019)."""
-    return ALL_CONDITIONS if settings.multi_agent else CONDITIONS
+    """서비스가 받는 조건. M2(기본, ADR-022)와 C0~C3. M1(멀티 에이전트 틀)은 MULTI_AGENT=true일 때만(ADR-019)."""
+    return (*CONDITIONS, "M2", "M1") if settings.multi_agent else (*CONDITIONS, "M2")
 
 
 def _check_condition(settings: Settings, condition: str) -> None:
@@ -205,7 +243,7 @@ def _check_condition(settings: Settings, condition: str) -> None:
 
 def _build_doc(rt: Runtime, req: ReviewRequest) -> tuple[dict, str]:
     """입력을 검증해 그래프 입력 문서로 만든다. 400 사유: 빈 입력, 아랍어 토큰 0개, 조건 오류, 없는 샘플."""
-    _check_condition(rt.settings, req.condition)
+    _check_condition(rt.settings, req.condition or rt.settings.review_condition)
     if req.doc_id:
         doc = _load_sample(rt, req.doc_id)
         if doc is None:
@@ -243,6 +281,9 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             usage=runtime.usage,
             dictionary=runtime.dictionary,
             default_customer=LOCAL_CUSTOMER,
+            archive=runtime.archive,
+            scopes=runtime.scopes,
+            records=runtime.records,
         )
         app.state.bundle_reviews = BundleReviewManager(app.state.jobs, runtime.bundles, runtime.dictionary)
         try:
@@ -251,6 +292,7 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             app.state.jobs.shutdown()
             if runtime.mcp is not None:
                 runtime.mcp.stop()
+            runtime.records.stop()
 
     app = FastAPI(title="Tashkeel Check", version=__version__, lifespan=lifespan)
 
@@ -287,6 +329,12 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
             "auth": auth_mode(runtime.settings, runtime.customers),
             "multi_agent": runtime.settings.multi_agent,
             "conditions": list(_service_conditions(runtime.settings)),
+            "default_condition": runtime.settings.review_condition,
+            "archive": {
+                "store": "db" if runtime.db is not None else "memory",
+                "embeddings": runtime.archive.embedding_label,
+            },
+            "records_mcp": runtime.records.healthy,
             "prompt_version": runtime.settings.prompt_version,
             "ocr": runtime.ocr.name,
             "dictionary_customer": (
@@ -310,7 +358,8 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
     @app.post("/v1/reviews", status_code=202)
     def create_review(req: ReviewRequest, request: Request, who: Who) -> dict[str, Any]:
         doc, source = _build_doc(runtime, req)
-        job = jobs(request).submit(doc, req.condition, source, who.scope)  # DB 불통 → ConfigError → 503
+        condition = req.condition or runtime.settings.review_condition
+        job = jobs(request).submit(doc, condition, source, who.scope)  # DB 불통 → ConfigError → 503
         return {"job_id": job.id, "status": job.status, "condition": job.condition, "doc_id": doc["doc_id"]}
 
     @app.post("/v1/extract")
@@ -336,9 +385,11 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         request: Request,
         who: Who,
         file: Annotated[UploadFile, File(description="서류 파일 1개(.txt/.md/.pdf/이미지)")],
-        condition: Annotated[str, Form()] = "C1",
+        condition: Annotated[str | None, Form()] = None,
     ) -> dict[str, Any]:
-        """파일 하나를 올리면 추출 → 구간 분할 → 검수까지 한 번에(ADR-021). 결과는 `/v1/jobs/{id}/result`."""
+        """파일 하나를 올리면 추출 → 구간 분할 → 검수까지 한 번에(ADR-021). 결과는 `/v1/jobs/{id}/result`.
+        조건을 비우면 서버 설정 REVIEW_CONDITION(기본 M2, ADR-022)을 쓴다."""
+        condition = condition or runtime.settings.review_condition
         _check_condition(runtime.settings, condition)
         name = file.filename or "upload"
         ex = extract_text(file.file.read(), name, runtime.ocr, runtime.settings.upload_max_bytes)
@@ -406,6 +457,7 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         body["errors"] = list(job.result.metrics.get("errors", []))
         body["job"] = job.summary()
         body["dictionary"] = list(job.dictionary)  # 회사 사전 덧씌움(ADR-021)
+        body["archive"] = list(job.archive)  # 보관함 제안 덧씌움(ADR-022)
         body["tokens"] = [dict(t) for t in tokenize(job.doc["segments"])]  # 화면이 토큰 위치로 이름을 표시한다
         body["dictionary_customer"] = jobs(request).dictionary_scope(job.customer_id)
         return JSONResponse(body)
@@ -530,6 +582,8 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
 
     @app.post("/v1/bundles/{bundle_id}/reviews", status_code=202)
     def start_bundle_review(bundle_id: str, request: Request, who: Who, condition: str = "C1") -> JSONResponse:
+        if condition == "M2":  # 보관함은 이름이 같다고 잇는다. 묶음 경로는 대상 ID로만 잇는다(ADR-018)
+            raise InputError("묶음 검수는 M2를 받지 않습니다(C0~C3, MULTI_AGENT=true면 M1)")
         """라벨 칸이 없는 문장의 고유명사를 LLM(C1~C3, 켜면 M1)으로 뽑아 묶음 판정에 합류시킨다. 서류마다 작업 하나."""
         _check_condition(runtime.settings, condition)
         bundle = runtime.bundles.get(bundle_id, who.scope)
@@ -638,13 +692,31 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         item = next((i for i in job.result.items if i.type == "proper_noun" and list(i.token_ids) == wanted), None)
         if item is None:
             raise InputError(f"작업에 그 토큰의 이름 항목이 없습니다: {wanted}")
-        english = (req.english_name or item.adopted or "").strip()
+        suggestion = None
+        if req.archive_hit_id:  # 보관함 제안을 확정한다. 근거 서류는 그 지난 서류로 남긴다(ADR-022)
+            overlay = next((o for o in job.archive if o["token_ids"] == wanted), None)
+            suggestion = next(
+                (g for g in (overlay or {}).get("suggestions", []) if g["hit_id"] == req.archive_hit_id), None
+            )
+            if suggestion is None:
+                raise InputError(f"그 이름의 보관함 제안이 없습니다: {req.archive_hit_id!r}")
+        english = (req.english_name or (suggestion or {}).get("spelling") or item.adopted or "").strip()
         if not english:
             raise InputError("등록할 영문 표기를 입력하세요")
         customer = _dictionary_customer(request, who)
         _require_db_ok(request)
         ev = item.evidence if item.final_decision == "evidence_adopt" else None
         arabic = name_text(item)
+        if suggestion is not None:
+            evidence_doc, evidence_seg, evidence_quote = (
+                suggestion["document_id"],
+                suggestion["segment_id"],
+                suggestion["quote"],
+            )
+        else:
+            evidence_doc = job.document_id or job.doc.get("doc_id")
+            evidence_seg = ev.segment_id if ev else item.segment_id
+            evidence_quote = ev.quote if ev else None
         entry = runtime.dictionary.register(
             DictionaryEntry(
                 customer_id=customer,
@@ -653,13 +725,14 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
                 arabic_key=normalize_key(arabic),
                 arabic_name=arabic,
                 english_name=english,
-                evidence_document_id=job.document_id or job.doc.get("doc_id"),
-                evidence_segment_id=ev.segment_id if ev else item.segment_id,
-                evidence_quote=ev.quote if ev else None,
+                evidence_document_id=evidence_doc,
+                evidence_segment_id=evidence_seg,
+                evidence_quote=evidence_quote,
                 verified_by=req.verified_by,
             )
         )
-        # 같은 작업의 덧씌움도 바로 갱신해 결과 페이지가 다시 읽을 때 반영된다
+        # 같은 작업의 덧씌움도 바로 갱신해 결과 페이지가 다시 읽을 때 반영된다. 사전이 보관함 제안을 이긴다
+        job.archive = [o for o in job.archive if o["token_ids"] != wanted]
         job.dictionary = [o for o in job.dictionary if o["token_ids"] != wanted] + [
             {
                 "item_index": item.item_index,
@@ -670,7 +743,7 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
                 "english": english,
                 "entry_id": entry.id,
                 "document_spelling": item.adopted,
-                "detail": "방금 확정",
+                "detail": "방금 확정" if suggestion is None else f"보관함 제안 확정({suggestion['document_label']})",
             }
         ]
         return JSONResponse(entry.model_dump(mode="json"), status_code=201)
@@ -699,6 +772,32 @@ def create_app(runtime: Runtime, max_workers: int = 1) -> FastAPI:
         for job in jobs(request).all_jobs():
             job.dictionary = [o for o in job.dictionary if o.get("entry_id") != entry_id]
         return JSONResponse({"deleted": entry_id})
+
+    # -- 회사 문서 보관함(ADR-022). 업로드·붙여넣기 서류가 검수를 마치면 들어간다 --
+    @app.get("/v1/archive")
+    def list_archive(request: Request, who: Who, limit: int = 200) -> dict[str, Any]:
+        customer = _dictionary_customer(request, who)
+        rows = runtime.archive.list_documents(customer, max(1, min(limit, 1000)))
+        return {
+            "customer_id": customer,
+            "embeddings": runtime.archive.embedding_label,
+            "documents": [r.model_dump(mode="json") for r in rows],
+        }
+
+    @app.delete("/v1/archive/{document_id}")
+    def delete_archive(document_id: str, request: Request, who: Who) -> JSONResponse:
+        customer = _dictionary_customer(request, who)
+        _require_db_ok(request)
+        if not runtime.archive.delete_document(customer, document_id):
+            return _not_found(f"보관함에 그 서류가 없습니다: {document_id!r}")
+        for job in jobs(request).all_jobs():  # 그 서류를 출처로 한 제안은 화면에서 바로 내린다
+            kept = []
+            for o in job.archive:
+                rest = [g for g in o["suggestions"] if g["document_id"] != document_id]
+                if rest:
+                    kept.append({**o, "suggestions": rest})
+            job.archive = kept
+        return JSONResponse({"deleted": document_id})
 
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
     return app

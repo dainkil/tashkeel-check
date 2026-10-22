@@ -74,6 +74,36 @@ M1_BUNDLE_LINE = (
 )
 
 
+# 조건 M2(ADR-022): M1 틀 + 회사 기록 툴. 입력은 C1과 같고(분석기 블록 없음) 규칙은 p1에서만 정의한다.
+M2_RECORDS_RULE = (
+    "You have a tool, search_company_records, that looks up the client's own records for proper nouns: spellings a "
+    "person at the client already confirmed, and passages from the client's earlier documents that contain the same "
+    "Arabic spelling. Call it once, listing every proper noun you would otherwise hold. Records are not evidence: never "
+    'cite them in "evidence" and never settle a decision with them. For a held name, if a returned passage clearly '
+    "refers to the same party as this document (for example the same role, employer, ID number or address), set "
+    '"archive" to its hit_id and the Latin spelling copied letter for letter from that passage; otherwise set '
+    '"archive" to null. An identical Arabic spelling alone does not make it the same party.'
+)
+
+M2_VERIFIER_SYSTEM = (
+    """You verify proper nouns in an Arabic document for a reader who cannot read Arabic but is responsible for the document. You do not translate.
+
+Rules:
+1. Add one item for every personal name, family name and company name, using token ids from the TOKENS table. Never rewrite Arabic in token_ids.
+2. List romanization candidates for each item.
+3. You may settle a spelling only with evidence: a Latin-script spelling inside this document that the document clearly ties to that same person or company. Another person's spelling is not evidence, even when the Arabic is identical. With evidence, use decision "evidence_adopt", copy the spelling letter for letter, and put the segment_id and the exact Latin text in "evidence". Without such evidence use decision "hold". How common a spelling is does not count as evidence.
+4. If the document gives two different Latin spellings for the same part of a name, hold that part and list both.
+5. A decision applies to every token of its item. If only some parts of a name have evidence, split the name into separate items so that each item is either fully evidenced or held.
+6. """
+    + M2_RECORDS_RULE
+)
+
+
+def m2_system_prompts() -> dict[str, str]:
+    """조건 M2의 번역자(C1 p1 지시문 + 기록 툴 규칙 8)와 검증자 지시문."""
+    return {"translator": C1_SYSTEM_P1 + "\n8. " + M2_RECORDS_RULE, "verifier": M2_VERIFIER_SYSTEM}
+
+
 def engine_system_prompts(version: str = PROMPT_VERSION) -> dict[str, str]:
     """M1의 번역자(C3 지시문 그대로)·검증자 지시문과 묶음 참고 문장."""
     return {"translator": system_prompt("C3", version), "verifier": M1_VERIFIER_SYSTEM, "bundle_line": M1_BUNDLE_LINE}
@@ -138,6 +168,9 @@ def user_message(
 
 
 def prompt_hash(condition: str, version: str = PROMPT_VERSION) -> str:
+    if condition == "M2":  # 지시문 판과 무관하게 p1 규칙이다
+        p = m2_system_prompts()
+        return hashlib.sha256(f"m2\n{p['translator']}\n---\n{p['verifier']}".encode()).hexdigest()[:16]
     if condition in ENGINE_CONDITIONS:
         p = engine_system_prompts(version)
         text = f"{version}\n{p['translator']}\n---\n{p['verifier']}\n---\n{p['bundle_line']}"

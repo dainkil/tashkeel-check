@@ -1,4 +1,7 @@
-"""파일 업로드 → 검수 → 후보 확정 → 회사 사전 → 다음 문서에서 자동 확정(ADR-021). 가짜 모델, DB 없음."""
+"""파일 업로드 → 검수 → 후보 확정 → 회사 사전 → 다음 문서에서 자동 확정(ADR-021). 가짜 모델, DB 없음.
+
+짜 둔 가짜 모델이 C1 출력 형식(AgentOutput)으로 답하므로 서버 기본 조건을 C1로 둔다. M2 흐름은 test_web_m2_archive.py.
+"""
 
 from __future__ import annotations
 
@@ -52,7 +55,9 @@ def _holding_model() -> FakeAgentModel:
 @pytest.fixture
 def client(tmp_path: Path):
     rt = build_runtime(
-        Settings(llm_backend="fake", results_dir=tmp_path), model=_holding_model(), analyze_fn=fake_analyze
+        Settings(llm_backend="fake", results_dir=tmp_path, review_condition="C1"),
+        model=_holding_model(),
+        analyze_fn=fake_analyze,
     )
     with TestClient(create_app(rt)) as c:
         yield c
@@ -81,7 +86,7 @@ def test_health_reports_prompt_ocr_and_dictionary_customer(client):
     assert h["prompt_version"] == "p1" and h["ocr"] == "none" and h["dictionary_customer"] == "local"
 
 
-def test_upload_txt_runs_c1_by_default_and_result_has_dictionary_section(client, tmp_path):
+def test_upload_txt_runs_configured_condition_and_result_has_dictionary_section(client, tmp_path):
     body = _upload(client)
     assert body["condition"] == "C1" and body["doc_id"] == "contract"
     assert body["extracted"] == {"source": "text", "backend": None, "pages": 1, "n_segments": 3, "warnings": []}

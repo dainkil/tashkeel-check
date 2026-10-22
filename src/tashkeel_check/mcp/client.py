@@ -1,4 +1,4 @@
-"""stdio MCP 서버에 한 번 연결해 재사용하는 동기 클라이언트.
+"""MCP 서버에 한 번 연결해 재사용하는 동기 클라이언트. stdio 서버(분석기) 또는 메모리 전송(회사 기록 서버, ADR-022).
 
 그래프 노드가 동기라 전용 스레드의 이벤트 루프 위에서 fastmcp.Client를 돌리고, 호출은 잠금으로 하나씩 보낸다.
 일시 오류(타임아웃)만 지수 백오프로 재시도하고, 서버가 죽으면 ConfigError를 낸다. in-process로 대체하지 않는다.
@@ -18,7 +18,7 @@ from collections.abc import Callable, Coroutine
 from typing import Any, TypeVar
 
 from fastmcp import Client
-from fastmcp.client.transports import StdioTransport
+from fastmcp.client.transports import ClientTransport, StdioTransport
 from mcp.types import CONNECTION_CLOSED
 
 from ..errors import ConfigError
@@ -59,7 +59,19 @@ class MCPClient:
         retries: int = 3,
         base_delay: float = 0.3,
     ) -> None:
-        self._transport = StdioTransport(command=command, args=args, env=env)
+        self._init(StdioTransport(command=command, args=args, env=env), timeout, retries, base_delay)
+
+    @classmethod
+    def from_transport(
+        cls, transport: ClientTransport, timeout: float = 60.0, retries: int = 3, base_delay: float = 0.3
+    ) -> MCPClient:
+        """이미 만든 전송으로 연결한다. 서비스는 회사 기록 서버를 같은 프로세스의 FastMCPTransport로 붙인다."""
+        client = cls.__new__(cls)
+        client._init(transport, timeout, retries, base_delay)
+        return client
+
+    def _init(self, transport: ClientTransport, timeout: float, retries: int, base_delay: float) -> None:
+        self._transport = transport
         self._timeout = timeout
         self._retries = retries
         self._base_delay = base_delay
@@ -141,9 +153,10 @@ class MCPClient:
         except ConfigError:
             return False
 
-    def call_tool(self, name: str, arguments: dict[str, Any]) -> Any:
+    def call_tool(self, name: str, arguments: dict[str, Any], meta: dict[str, Any] | None = None) -> Any:
+        """meta는 MCP 요청의 `_meta`로 간다(LLM이 보지 않는 값, 예: 회사 기록 서버의 작업 범위 토큰)."""
         self.calls += 1
-        result = self._call(lambda c: c.call_tool(name, arguments))
+        result = self._call(lambda c: c.call_tool(name, arguments, meta=meta))
         if result.data is not None:
             return result.data
         if result.structured_content is not None:

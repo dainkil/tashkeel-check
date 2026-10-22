@@ -19,7 +19,20 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from ..results import ReviewResult
 from ..text import normalize_key
-from .models import Base, BundleRow, Customer, Document, Job, NameDictionary, NameItem, ReviewItemRow, Run, UsageRow
+from .models import (
+    ArchiveDocumentRow,
+    ArchivePassageRow,
+    Base,
+    BundleRow,
+    Customer,
+    Document,
+    Job,
+    NameDictionary,
+    NameItem,
+    ReviewItemRow,
+    Run,
+    UsageRow,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -58,12 +71,13 @@ class Database:
             s.commit()
 
     # -- 쓰기 --
-    def insert_document(self, doc: dict, source: str, tokens: list[dict]) -> str:
+    def insert_document(self, doc: dict, source: str, tokens: list[dict], customer_id: str | None = None) -> str:
         text_norm = "\n".join(s["text"] for s in doc["segments"])
         row = Document(
             id=new_id(),
             source=source,
             doc_id=doc["doc_id"],
+            customer_id=customer_id,
             sha256=hashlib.sha256(text_norm.encode("utf-8")).hexdigest(),
             text_normalized=text_norm,
             segments=[dict(s) for s in doc["segments"]],
@@ -356,6 +370,99 @@ class Database:
                 .first()
             )
             return None if row is None else self._dictionary_dict(row)
+
+    # -- 회사 문서 보관함(ADR-022) --
+    _PASSAGE_FIELDS = (
+        "hit_id",
+        "customer_id",
+        "document_id",
+        "document_label",
+        "document_sha256",
+        "segment_id",
+        "text",
+        "window",
+        "text_key",
+        "latin_spans",
+        "embedding",
+        "embedding_model",
+        "created_at",
+    )
+
+    def archive_add(self, doc: dict, passages: list[dict]) -> None:
+        """같은 고객의 같은 문서를 다시 넣으면 구절을 지우고 새로 넣는다."""
+        with self.session() as s:
+            self._archive_delete(s, doc["customer_id"], doc["document_id"])
+            s.add(ArchiveDocumentRow(id=new_id(), **doc))
+            s.add_all(ArchivePassageRow(id=new_id(), **p) for p in passages)
+
+    @staticmethod
+    def _archive_delete(s: Session, customer_id: str, document_id: str) -> bool:
+        row = (
+            s.execute(
+                select(ArchiveDocumentRow).where(
+                    ArchiveDocumentRow.customer_id == customer_id, ArchiveDocumentRow.document_id == document_id
+                )
+            )
+            .scalars()
+            .first()
+        )
+        passages = (
+            s.execute(
+                select(ArchivePassageRow).where(
+                    ArchivePassageRow.customer_id == customer_id, ArchivePassageRow.document_id == document_id
+                )
+            )
+            .scalars()
+            .all()
+        )
+        for p in passages:
+            s.delete(p)
+        if row is not None:
+            s.delete(row)
+        s.flush()
+        return row is not None
+
+    def archive_delete(self, customer_id: str, document_id: str) -> bool:
+        with self.session() as s:
+            return self._archive_delete(s, customer_id, document_id)
+
+    def _passage_dict(self, row: ArchivePassageRow) -> dict:
+        return {k: getattr(row, k) for k in self._PASSAGE_FIELDS}
+
+    def archive_candidates(self, customer_id: str, words: list[str]) -> list[dict]:
+        q = select(ArchivePassageRow).where(ArchivePassageRow.customer_id == customer_id)
+        for w in words:
+            q = q.where(ArchivePassageRow.text_key.contains(w, autoescape=True))
+        with self.session() as s:
+            return [self._passage_dict(r) for r in s.execute(q.limit(200)).scalars().all()]
+
+    def archive_get(self, customer_id: str, hit_id: str) -> dict | None:
+        with self.session() as s:
+            row = (
+                s.execute(
+                    select(ArchivePassageRow).where(
+                        ArchivePassageRow.customer_id == customer_id, ArchivePassageRow.hit_id == hit_id
+                    )
+                )
+                .scalars()
+                .first()
+            )
+            return None if row is None else self._passage_dict(row)
+
+    def archive_list(self, customer_id: str, limit: int = 200) -> list[dict]:
+        with self.session() as s:
+            rows = (
+                s.execute(
+                    select(ArchiveDocumentRow)
+                    .where(ArchiveDocumentRow.customer_id == customer_id)
+                    .order_by(ArchiveDocumentRow.created_at.desc())
+                    .limit(limit)
+                )
+                .scalars()
+                .all()
+            )
+            keys = ("customer_id", "document_id", "document_label", "document_sha256", "n_passages", "created_at")
+            return [{k: getattr(r, k) for k in keys} for r in rows]
 
     # -- 고객·API 키·사용량(ADR-019) --
     @staticmethod

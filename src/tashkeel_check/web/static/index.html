@@ -6,7 +6,7 @@
 <title>Tashkeel Check</title>
 <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
 <style>
-  :root { --bg:#f6f7f9; --card:#fff; --ink:#1d2330; --mut:#6b7280; --line:#e3e6ea; --acc:#1f5eff; --warn:#b45309; --bad:#b91c1c; --ok:#047857; --dict:#1d4ed8; }
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1d2330; --mut:#6b7280; --line:#e3e6ea; --acc:#1f5eff; --warn:#b45309; --bad:#b91c1c; --ok:#047857; }
   * { box-sizing:border-box }
   body { margin:0; font:14px/1.5 -apple-system, "Noto Sans KR", "Segoe UI", sans-serif; color:var(--ink); background:var(--bg) }
   header { padding:12px 20px; background:var(--card); border-bottom:1px solid var(--line); display:flex; gap:16px; align-items:center; flex-wrap:wrap }
@@ -47,6 +47,7 @@
   .pill.evidence_adopt, .pill.adopt { color:var(--ok); border-color:#bfe3cf }
   .pill.adopt_unsupported { color:var(--warn); border-color:#f3d9a4 }
   ul.jobs { list-style:none; padding:0; margin:0 } ul.jobs li { padding:6px 0; border-bottom:1px solid var(--line); cursor:pointer } ul.jobs li:hover { color:var(--acc) }
+  .pill.g-ok { color:var(--ok); border-color:#bfe3cf } .pill.g-check { color:var(--warn); border-color:#f3d9a4 } .pill.g-conflict { color:var(--bad); border-color:#f5c2c2 }
   .pill.confirmed { color:var(--ok); border-color:#bfe3cf } .pill.pending { color:var(--warn); border-color:#f3d9a4 } .pill.person { color:#1d4ed8 } .pill.organization { color:#7c3aed } .pill.other { color:var(--mut) }
   tr.sel td { background:#f1f5ff } tr.click { cursor:pointer }
   .quote { background:#f9fafb; border-left:3px solid var(--line); padding:6px 8px; margin:4px 0; font-size:13px } .quote.bad { border-left-color:var(--bad) } .quote.ok { border-left-color:var(--ok) }
@@ -62,16 +63,16 @@
   /* 분석 결과 페이지 */
   .summary { display:flex; gap:10px; align-items:center; flex-wrap:wrap }
   .summary .n { font-size:13px; padding:3px 10px; border-radius:999px; border:1px solid var(--line); background:#fff }
-  .n.st-dict { color:var(--dict); border-color:#bfd0ff } .n.st-evidence { color:var(--ok); border-color:#bfe3cf } .n.st-hold { color:var(--warn); border-color:#f3d9a4 } .n.st-conflict { color:var(--bad); border-color:#f5c2c2 }
+  .n.st-ok { color:var(--ok); border-color:#bfe3cf } .n.st-check { color:var(--warn); border-color:#f3d9a4 } .n.st-conflict { color:var(--bad); border-color:#f5c2c2 }
   .doc .seg { padding:10px 0; border-bottom:1px solid var(--line) }
   .doc .seg .id { color:var(--mut); font-size:11px }
   .doc .ar { direction:rtl; text-align:right; font-size:18px; line-height:1.9 }
   .doc .en { color:#374151; margin-top:2px }
-  .doc .en b.dict { color:var(--dict); font-weight:600 }
+  .doc .en b.dict { color:var(--ok); font-weight:600 }
   span.name { cursor:pointer; border-radius:4px; padding:0 3px; border-bottom:2px solid transparent }
-  span.name.st-hold { background:#fff1e0; border-bottom-color:#f59e0b }
-  span.name.st-evidence { background:#e8f5ee; border-bottom-color:#10b981 }
-  span.name.st-dict { background:#e6edff; border-bottom-color:#2563eb }
+  /* 이름 상태는 셋: 확정(문서 근거·회사 사전), 확인 필요(보류·지난 서류 후보), 사전과 문서가 다름. 세부는 패널에 */
+  span.name.st-ok { background:#e8f5ee; border-bottom-color:#10b981 }
+  span.name.st-check { background:#fff1e0; border-bottom-color:#f59e0b }
   span.name.st-conflict { background:#fde2e2; border-bottom-color:#dc2626 }
   span.name.open { outline:2px solid var(--acc) }
   span.word { border-bottom:1px dotted #9ca3af; cursor:help }
@@ -81,7 +82,7 @@
   .chips { display:flex; gap:6px; flex-wrap:wrap; align-items:center }
   .chip { padding:5px 10px; border-radius:999px; border:1px solid var(--line); background:#fff; cursor:pointer; font-size:13px; width:auto; margin:0; color:var(--ink) }
   .chip:hover { border-color:var(--acc); color:var(--acc) }
-  .chip.src-dict { border-color:#bfd0ff; color:var(--dict) } .chip.src-evidence { border-color:#bfe3cf; color:var(--ok) }
+  .quote.arch { border-left-color:#f59e0b } .quote .src { font-size:12px; color:var(--mut) } .quote .txt { direction:rtl; text-align:right; font-size:15px }
   .chip .tag { font-size:10px; color:var(--mut); margin-left:4px }
   .cand input[type=text] { width:200px; padding:5px 8px }
   .legend { display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--mut) }
@@ -95,8 +96,7 @@
 <div id="app">
 <header>
   <h1 @click="go('#/upload')">Tashkeel Check</h1>
-  <span class="meta" v-if="health">모델 {{ health.model }} ({{ health.backend }}) · 지시문 {{ health.prompt_version }} · 문자 인식 {{ health.ocr === 'none' ? '없음' : health.ocr }} · DB {{ fmt(health.db) }}<span v-if="health.dictionary_customer"> · 사전 고객 {{ health.dictionary_customer }}</span></span>
-  <span class="meta err" v-else-if="healthError">{{ healthError }}</span>
+  <span class="meta err" v-if="healthError">{{ healthError }}</span>
   <div class="row" style="margin-left:auto"><label for="apiKey" style="margin:0">API 키</label><input id="apiKey" type="password" v-model="apiKey" placeholder="tk_… (인증이 켜진 서버)" style="width:220px"><button class="sm ghost" @click="saveKey">저장</button><button class="sm ghost" @click="clearKey">지우기</button><span class="small" v-if="health" style="white-space:nowrap">인증 {{ health.auth === 'required' ? '필요' : '꺼짐' }}</span></div>
 </header>
 
@@ -118,7 +118,7 @@
         </template>
       </div>
       <p class="err" v-if="submitError" style="margin-top:10px">{{ submitError }}</p>
-      <p class="small" style="margin-top:10px">이름마다 읽기 후보를 근거와 함께 내고, 근거가 없으면 확정하지 않습니다. 담당자가 확정한 표기만 회사 사전에 저장되어 다음 서류에서 바로 확정됩니다.</p>
+      <p class="small" style="margin-top:10px">이름마다 읽기 후보를 근거와 함께 내고, 근거가 없으면 확정하지 않습니다. 담당자가 확정한 표기만 회사 사전에 저장되어 다음 서류에서 바로 확정됩니다. 올린 서류는 회사 보관함에 남아, 다음 서류의 같은 이름에 "보관함 제안"(지난 서류의 영문 표기)으로 쓰입니다. 제안도 담당자가 눌러야 확정됩니다.</p>
     </div>
     <div class="card" style="margin-top:16px">
       <h2>최근 결과</h2>
@@ -127,10 +127,22 @@
         <li v-if="!jobs.length" class="small">아직 없음</li>
       </ul>
     </div>
+    <div class="card" style="margin-top:16px">
+      <details @toggle="$event.target.open && loadArchive()">
+        <summary>회사 문서 보관함 {{ archiveDocs.length }}건 <span class="small">(고객 {{ archiveCustomer || '—' }} · 임베딩 {{ health && health.archive ? health.archive.embeddings : '—' }})</span></summary>
+        <div class="dictlist" style="margin-top:8px">
+          <ul>
+            <li v-for="d in archiveDocs" :key="d.document_id"><b>{{ d.document_label }}</b><span class="small">영문 표기가 있는 구절 {{ d.n_passages }}개 · {{ (d.created_at || '').slice(0,16).replace('T',' ') }}</span><button class="sm ghost" style="margin-left:auto" @click="deleteArchive(d)">보관함에서 빼기</button></li>
+            <li v-if="!archiveDocs.length" class="small">아직 없음 · 파일을 넣어 검수를 마치면 들어갑니다</li>
+          </ul>
+          <p class="err" v-if="archiveError">{{ archiveError }}</p>
+        </div>
+      </details>
+    </div>
     <div class="card" style="margin-top:16px" v-if="samples.length">
       <h2>샘플로 체험</h2>
       <div class="row"><select v-model="sampleId" style="margin:0"><option v-for="s in samples" :value="s.doc_id">{{ s.doc_id }} · {{ s.doc_type }} · 근거 {{ s.evidence_layout }}</option></select><button class="sm" :disabled="running || !sampleId" @click="uploadSample">이 샘플 넣기</button></div>
-      <p class="small">합성 문서를 파일처럼 넣어 봅니다. 가짜 모델이면 분석기가 모르는 토큰만 보류로 나옵니다.</p>
+      <p class="small">합성 문서를 파일처럼 넣어 봅니다. 가짜 모델(연습 모드)은 번역하지 않고, 회사 기록(사전·보관함)에서 찾은 이름만 보류 항목으로 냅니다.</p>
     </div>
   </section>
 </main>
@@ -144,9 +156,8 @@
         <b v-if="job">{{ job.doc_id }}</b>
         <template v-if="result">
           <span class="n">이름 {{ counts.total }}</span>
-          <span class="n st-dict">사전 확정 {{ counts.dict }}</span>
-          <span class="n st-evidence">근거 확정 {{ counts.evidence }}</span>
-          <span class="n st-hold">보류 {{ counts.hold }}</span>
+          <span class="n st-ok">확정 {{ counts.ok }}</span>
+          <span class="n st-check">확인 필요 {{ counts.check }}</span>
           <span class="n st-conflict" v-if="counts.conflict">충돌 {{ counts.conflict }}</span>
         </template>
         <span class="small" v-if="job && job.status !== 'done'">{{ job.status }} · {{ curNode || '' }}</span>
@@ -154,7 +165,7 @@
       <div class="err" v-if="jobError" style="margin-top:8px">실패: {{ jobError }}</div>
       <p class="warn" v-if="authBlocked" style="margin:8px 0 0">인증이 켜진 서버입니다. 위에 API 키를 넣어야 표기를 확정할 수 있습니다.</p>
       <div class="legend" style="margin-top:8px" v-if="result">
-        <span class="name st-hold">보류 · 눌러서 후보 보기</span><span class="name st-evidence">문서 근거로 확정</span><span class="name st-dict">회사 사전으로 확정</span><span class="name st-conflict">사전과 문서가 다름</span><span class="word">읽기가 갈린 일반 단어</span>
+        <span class="name st-ok">확정</span><span class="name st-check">확인 필요 · 눌러서 후보 보기</span><span class="name st-conflict">사전과 문서가 다름</span><span class="word">읽기가 갈린 일반 단어</span>
       </div>
     </div>
 
@@ -165,16 +176,22 @@
         <div class="cand" v-if="openKey && openSeg === s.segment_id" @click.stop>
           <div class="head">
             <span class="ar">{{ nameText(openItem) }}</span>
-            <span class="pill" :class="statusOf(openItem)">{{ statusLabel(statusOf(openItem)) }}</span>
-            <span class="small" v-if="openOverlay && openOverlay.status==='conflict'">사전 {{ openOverlay.english }} ↔ 문서 {{ openOverlay.document_spelling }}</span>
-            <span class="small" v-else-if="openItem.reason">{{ openItem.reason }}</span>
+            <span class="pill" :class="'g-' + groupOf(statusOf(openItem))">{{ statusLabel(statusOf(openItem)) }}</span>
+            <span class="small">{{ sourceLine(openItem) }}</span>
             <button class="sm ghost" style="margin-left:auto" @click="openKey = null">닫기</button>
           </div>
           <div class="chips">
-            <button v-for="c in candidatesOf(openItem)" :key="c.tag + c.text" class="chip" :class="'src-' + c.src" :disabled="confirming || authBlocked" @click="confirm(openItem, c.text)">{{ c.text }}<span class="tag">{{ c.tag }}</span></button>
+            <button v-for="c in candidatesOf(openItem)" :key="c.tag + c.text" class="chip" :disabled="confirming || authBlocked" @click="confirm(openItem, c.text, c.hit)">{{ c.text }}<span class="tag">{{ c.tag }}</span></button>
             <input type="text" v-model="customSpelling" placeholder="직접 입력" :disabled="confirming || authBlocked" @keyup.enter="confirm(openItem, customSpelling)">
             <button class="sm" :disabled="confirming || authBlocked || !customSpelling.trim()" @click="confirm(openItem, customSpelling)">확정</button>
             <button class="sm ghost" v-if="openOverlay && openOverlay.entry_id" :disabled="confirming" @click="unconfirm(openOverlay)">확정 취소</button>
+          </div>
+          <div v-if="openArchive && !openOverlay" style="margin-top:8px">
+            <div class="quote arch" v-for="g in openArchive.suggestions" :key="g.hit_id">
+              <div class="src">보관함 · {{ g.document_label }} · {{ g.document_date }} · 영문 <b>{{ g.spelling }}</b> · {{ g.by.length > 1 ? '두 에이전트가 같은 표기를 고름' : (g.by[0] === 'translator' ? '번역 에이전트만 고름' : '검증 에이전트만 고름') }}</div>
+              <div class="txt">{{ g.quote }}</div>
+            </div>
+            <p class="small" style="margin:4px 0 0">지난 서류의 같은 아랍어 철자입니다. 같은 사람·회사·기관인지(직함·근무처·번호·주소) 확인한 뒤 누르세요. 이름이 같아도 다른 대상일 수 있습니다.</p>
           </div>
           <p class="small" style="margin:6px 0 0">후보를 누르면 바로 확정되어 회사 사전에 저장됩니다. 다음 서류의 같은 이름은 이 표기로 확정됩니다.</p>
           <p class="err" v-if="confirmError">{{ confirmError }}</p>
@@ -348,6 +365,7 @@ createApp({
     job: null, jobError: null, events: [], doneNodes: new Set(), curNode: null, attempts: 0,
     result: null, jobs: [], es: null,
     openKey: null, openSeg: null, customSpelling: '', confirming: false, confirmError: null, dictEntries: [],
+    archiveDocs: [], archiveCustomer: null, archiveError: null,
     bundleSamples: [], bundleSampleId: '', bundleJson: '', useLlm: false, bundleRunning: false, bundleError: null,
     bundles: [], bundleResult: null, bundleReview: null, selected: null, bundleObj: null, closeError: null, closeOk: null, closeName: '',
     bundleFiles: [], uploadCustomerId: '', uploadBundleId: '', bundleEs: null,
@@ -359,21 +377,24 @@ createApp({
       const m = this.result.metrics; const keys = ['valid_output','attempts','n_tokens','n_arabic_tokens','n_ambiguous_tokens','n_items','hold_rate','silent_rate','unsupported_adopt_rate','hold_candidate_hit_rate','n_unprocessed_names','n_unprocessed_ambiguous_words','n_evidence_failed','n_over_flag_tokens'];
       const out = {}; for (const k of keys) if (k in m && m[k] !== null && typeof m[k] !== 'object') out[k] = typeof m[k] === 'number' && !Number.isInteger(m[k]) ? m[k].toFixed(3) : String(m[k]);
       if (m.usage) out.tokens = (m.usage.total_tokens ?? 0) + ' (' + (m.usage.llm_calls ?? 0) + ' calls)';
+      if (m.engine && m.engine.tool_calls) out.records_tool_calls = '번역 ' + m.engine.tool_calls.translator + ' · 검증 ' + m.engine.tool_calls.verifier;
+      if (m.engine && m.engine.arbiter) out.agreed_confirmed = String(m.engine.arbiter.n_agreed_confirmed) + ' (보류 ' + m.engine.arbiter.n_held_by_arbiter + ')';
       return out;
     },
     authBlocked() { return !!(this.health && this.health.auth === 'required' && !this.apiKey) },
     overlayMap() { const m = {}; for (const o of (this.result && this.result.dictionary) || []) m[o.token_ids.join(',')] = o; return m },
+    archiveMap() { const m = {}; for (const o of (this.result && this.result.archive) || []) m[o.token_ids.join(',')] = o; return m },
     nameItems() { const out = []; for (const s of (this.result && this.result.segments) || []) for (const it of s.items) if (it.type === 'proper_noun' && it.valid) out.push(it); return out },
     counts() {
-      const c = { total: 0, dict: 0, evidence: 0, hold: 0, conflict: 0 };
-      for (const it of this.nameItems) { c.total++; const st = this.statusOf(it); if (st === 'dict') c.dict++; else if (st === 'evidence') c.evidence++; else if (st === 'conflict') c.conflict++; else c.hold++ }
+      const c = { total: 0, ok: 0, check: 0, conflict: 0 };
+      for (const it of this.nameItems) { c.total++; c[this.groupOf(this.statusOf(it))]++ }
       return c;
     },
     openItem() { return this.openKey ? this.nameItems.find(it => this.keyOf(it) === this.openKey) : null },
     openOverlay() { return this.openKey ? this.overlayMap[this.openKey] || null : null },
+    openArchive() { return this.openKey ? this.archiveMap[this.openKey] || null : null },
   },
   methods: {
-    fmt(v) { return v === 'disabled' ? '없음' : v === true ? 'OK' : v === false ? '불통' : String(v) },
     go(hash) { location.hash = hash },
     route() {
       const h = location.hash.replace(/^#\/?/, ''); const [name, rest] = h.split('/');
@@ -393,12 +414,14 @@ createApp({
     clearKey() { this.apiKey = ''; try { localStorage.removeItem('tashkeel_api_key') } catch (e) {} this.loadHealth() },
     async loadUsage() { try { this.usage = await this.api('/v1/usage') } catch (e) { this.usage = null } },
     async loadHealth() {
-      try { this.health = await this.api('/health'); this.condition = this.health.backend === 'fake' ? 'C3' : 'C1' }  // 가짜 모델은 분석기 결과가 있어야 보류 항목을 낸다
+      try { this.health = await this.api('/health') }  // 서류 검수 조건은 서버 설정(REVIEW_CONDITION)을 따른다. this.condition은 묶음 LLM 경로용
       catch (e) { this.healthError = '서버 상태를 읽지 못했습니다: ' + e.message }
     },
     async loadSamples() { try { this.samples = await this.api('/v1/samples'); if (this.samples.length && !this.sampleId) this.sampleId = this.samples[0].doc_id } catch (e) {} },
-    async loadJobs() { try { this.jobs = await this.api('/v1/jobs?limit=20') } catch (e) {} },
+    async loadJobs() { try { this.jobs = await this.api('/v1/jobs?limit=20') } catch (e) {} this.loadArchive() },
     async loadDictionary() { try { this.dictEntries = (await this.api('/v1/dictionary')).entries } catch (e) { this.dictEntries = [] } },
+    async loadArchive() { this.archiveError = null; try { const a = await this.api('/v1/archive'); this.archiveDocs = a.documents; this.archiveCustomer = a.customer_id } catch (e) { this.archiveDocs = []; this.archiveError = e.message } },
+    async deleteArchive(d) { try { await this.api('/v1/archive/' + encodeURIComponent(d.document_id), { method: 'DELETE' }); this.loadArchive() } catch (e) { this.archiveError = e.message } },
     // ---- 파일 넣기 ----
     onPick(ev) { const f = ev.target.files && ev.target.files[0]; ev.target.value = ''; if (f) this.upload(f) },
     onDrop(ev) { this.dragOver = false; const f = ev.dataTransfer.files && ev.dataTransfer.files[0]; if (f) this.upload(f) },
@@ -407,7 +430,7 @@ createApp({
       if (this.running) return;
       this.submitError = null; this.resetProgress(); this.running = true; this.fileName = file.name;
       try {
-        const fd = new FormData(); fd.append('file', file, file.name); fd.append('condition', this.condition);
+        const fd = new FormData(); fd.append('file', file, file.name);  // 조건은 서버 기본(REVIEW_CONDITION)
         const j = await this.api('/v1/reviews/upload', { method: 'POST', body: fd });
         this.extracted = true; this.job = { job_id: j.job_id, condition: j.condition, doc_id: j.doc_id };
         this.listen(j.job_id, () => { this.running = false; this.go('#/result/' + j.job_id) }, (msg) => { this.running = false; this.submitError = msg });
@@ -443,13 +466,25 @@ createApp({
     statusOf(it) {
       const o = this.overlayMap[this.keyOf(it)];
       if (o) return o.status === 'dictionary_adopt' ? 'dict' : o.status === 'conflict' ? 'conflict' : 'evidence';
+      if (this.archiveMap[this.keyOf(it)]) return 'archive';  // 확정이 아니다. 사람이 눌러야 사전에 들어간다
       return it.final_decision === 'evidence_adopt' ? 'evidence' : 'hold';
     },
-    statusLabel(st) { return { dict: '회사 사전으로 확정', evidence: '문서 근거로 확정', hold: '보류 · 근거 없음', conflict: '사전과 문서가 다름' }[st] || st },
+    groupOf(st) { return st === 'dict' || st === 'evidence' ? 'ok' : st === 'conflict' ? 'conflict' : 'check' },  // 화면 색은 셋, 세부 상태는 패널에
+    statusLabel(st) { return { dict: '확정 · 회사 사전', evidence: '확정 · 문서 근거', hold: '확인 필요 · 근거 없음', archive: '확인 필요 · 지난 서류에 후보', conflict: '사전과 문서가 다름' }[st] || st },
+    sourceLine(it) {
+      const st = this.statusOf(it); const o = this.overlayMap[this.keyOf(it)]; const a = this.archiveMap[this.keyOf(it)];
+      if (st === 'conflict') return '사전 ' + o.english + ' ↔ 문서 ' + o.document_spelling;
+      if (st === 'dict') return o.detail || '';
+      if (st === 'evidence' && it.evidence) return '문서 ' + it.evidence.segment_id + ' "' + it.evidence.quote + '"' + (o ? ' · 회사 사전과 같음' : '');
+      if (st === 'archive') return a.detail || '';
+      return it.reason || '';
+    },
     candidatesOf(it) {
-      const out = []; const seen = new Set(); const add = (text, tag, src) => { const k = (text || '').trim(); if (!k || seen.has(k.toLowerCase())) return; seen.add(k.toLowerCase()); out.push({ text: k, tag, src }) };
+      const out = []; const seen = new Set(); const add = (text, tag, src, hit) => { const k = (text || '').trim(); if (!k || seen.has(k.toLowerCase())) return; seen.add(k.toLowerCase()); out.push({ text: k, tag, src, hit: hit || null }) };
       const o = this.overlayMap[this.keyOf(it)];
       if (o) add(o.english, '사전', 'dict');
+      const a = this.archiveMap[this.keyOf(it)];
+      if (a && !o) for (const g of a.suggestions) add(g.spelling, '보관함 ' + g.document_label, 'archive', g.hit_id);
       if (it.evidence && it.evidence.quote) add(it.evidence.quote, '문서 ' + it.evidence.segment_id, 'evidence');
       if (it.adopted) add(it.adopted, '채택', 'evidence');
       for (const c of it.candidates || []) add(c.romanized, c.source === 'analyzer' ? '분석기' : 'LLM', 'llm');
@@ -470,7 +505,7 @@ createApp({
         const text = this.esc(seg.arabic.slice(t.start, toks[j].end));
         if (it.type === 'proper_noun') {
           const k = this.keyOf(it); const st = this.statusOf(it);
-          html += '<span class="name st-' + st + (this.openKey === k ? ' open' : '') + '" data-key="' + this.esc(k) + '" title="' + this.esc(this.statusLabel(st)) + '">' + text + '</span>';
+          html += '<span class="name st-' + this.groupOf(st) + (this.openKey === k ? ' open' : '') + '" data-key="' + this.esc(k) + '" title="' + this.esc(this.statusLabel(st)) + '">' + text + '</span>';
         } else {
           const title = (it.candidates || []).map(c => c.romanized).join(' / ') + (it.adopted ? ' → ' + it.adopted : ' (기권)');
           html += '<span class="word" title="' + this.esc(title) + '">' + text + '</span>';
@@ -496,13 +531,16 @@ createApp({
       if (this.openKey === k) { this.openKey = null; return }
       this.openKey = k; this.openSeg = seg ? seg.querySelector('.id').textContent.trim() : null; this.customSpelling = ''; this.confirmError = null;
     },
-    async confirm(it, spelling) {
+    async confirm(it, spelling, hitId) {
       const english = (spelling || '').trim(); if (!english) return;
       this.confirming = true; this.confirmError = null;
       try {
-        const e = await this.api('/v1/dictionary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ job_id: this.job.job_id, token_ids: it.token_ids, english_name: english }) });
+        const body = { job_id: this.job.job_id, token_ids: it.token_ids, english_name: english }; if (hitId) body.archive_hit_id = hitId;
+        const e = await this.api('/v1/dictionary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const g = hitId ? ((this.archiveMap[this.keyOf(it)] || {}).suggestions || []).find(x => x.hit_id === hitId) : null;
+        this.result.archive = (this.result.archive || []).filter(o => o.token_ids.join(',') !== this.keyOf(it));
         const rest = (this.result.dictionary || []).filter(o => o.token_ids.join(',') !== this.keyOf(it));
-        this.result.dictionary = rest.concat([{ item_index: it.item_index, token_ids: it.token_ids, arabic: it.arabic, arabic_key: e.arabic_key, status: 'dictionary_adopt', english: e.english_name, entry_id: e.id, document_spelling: it.adopted, detail: '방금 확정' }]);
+        this.result.dictionary = rest.concat([{ item_index: it.item_index, token_ids: it.token_ids, arabic: it.arabic, arabic_key: e.arabic_key, status: 'dictionary_adopt', english: e.english_name, entry_id: e.id, document_spelling: it.adopted, detail: g ? '보관함 제안 확정(' + g.document_label + ')' : '방금 확정' }]);
         this.openKey = null; this.loadDictionary();
       } catch (e) { this.confirmError = e.message }
       this.confirming = false;
