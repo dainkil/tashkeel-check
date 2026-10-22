@@ -58,7 +58,9 @@
 - 환경·모델·데이터 버전: 서비스 기본 조건 M2, `openai:gpt-6.1-sol`, 지시문 p1, 샘플 dev_005(synthetic-v2 위임장)
 - 증상과 영향: 결과 요약이 "이름 10"(실제 이름은 단어 8 + 회사 1). `نوال`을 누르면 전체 이름 `نوال معمر النجعي` 패널이 열리고, 번역문의 `[Nawal/Nawaal]`에 해당하는 단어별 항목은 누를 수 없다. 전체 이름을 확정하면 사전 키가 전체 이름이 되어 번역문 치환과 다음 서류의 단어별 재사용이 맞지 않는다.
 - 재현 입력·명령·조건: `LLM_BACKEND=openai AUTH=disabled uv run tashkeel serve` 뒤 `POST /v1/reviews {"doc_id": "dev_005"}`. 모델 출력에 따라 나오지 않을 수도 있다(temperature 고정 불가).
-- 관찰한 로그·증거: 번역 agent 항목 8개(단어별), 검증 agent 항목 3개(전체 이름 2 + 회사 1). 중재 통계 `n_agreed_confirmed: 1`(회사), `n_verifier_only: 2`. 59초, 토큰 10.4k, LLM 호출 4.
+- 관찰한 로그·증거:
+  - dev_005: 번역 agent 항목 8개(단어별), 검증 agent 항목 3개(전체 이름 2 + 회사 1). 중재 통계 `n_agreed_confirmed: 1`(회사), `n_verifier_only: 2`. 59초, 토큰 10.4k, LLM 호출 4.
+  - 반대 방향(같은 날, 짧은 합성 서류 `renewal-2026-11.txt`): 번역 agent가 `نوال الحربي`를 한 항목으로, 검증 agent가 단어별로 냈다. 회사 사전(`نوال → Nawal`, `الحربي → Al-Harbi`)은 단어별 항목에 붙어 원문은 초록으로 보였지만, 전체 이름 항목이 가려져 요약 "확인 필요 2"와 보이는 주황 1개가 맞지 않았고 번역문 `[Nawal Al-Harbi/Nawal Al Harbi]`는 사전 표기로 바뀌지 않았다([테스트 기록 8.6절](과제2-테스트-기록.md)).
 - 원인 [확인]: `multi_agent.arbitrate`는 토큰 묶음(`frozenset(token_ids)`)이 똑같은 항목끼리만 짝짓는다. 검증 agent의 전체 이름은 번역 agent의 단어별 항목과 짝이 없어 `verifier_only` 보류 항목으로 더해진다. 화면(`renderArabic`)은 한 토큰을 마지막 이름 항목이 차지하게 칠한다. 같은 어긋남 때문에 두 agent가 둘 다 확정한 이름도 `verifier_missing`으로 보류될 수 있다 [가설].
 - 시도한 방법과 결과: 없음.
 - 해결 또는 임시 대응: 없음. `REVIEW_CONDITION=C1`이면 단일 agent라 생기지 않는다.
