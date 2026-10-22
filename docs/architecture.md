@@ -1,22 +1,26 @@
 # 시스템 구조
 
-- 기준: 분할 전 `PROJECT_PLAN.md` 4절, `docs/아키텍처-설계.md`·`docs/툴-설계.md`(2026-10-13), 9절 실행 환경. 절 번호는 분할 전 번호를 그대로 둔다(다른 문서의 "N.M절" 참조가 이 번호를 가리킨다). 문서 지도는 [docs/README.md](README.md).
-- 마지막 업데이트: 2026-10-22 (서비스 기본 경로 조건 M2, 회사 문서 보관함, 회사 기록 MCP 서버, ADR-022)
+- 기준: 제출본(2026-10-22). 절 번호는 2026-10-20 문서 분할 전 번호를 그대로 쓴다(코드 주석·ADR·실험 기록이 이 번호를 인용한다). 문서 지도는 [docs/README.md](README.md).
+- 마지막 업데이트: 2026-10-22 (제출본 기준으로 다시 씀)
+
+**요약.** 아랍어 문서 1건은 LangGraph 그래프 하나(노드 6개)를 지난다. LLM은 `agent` 노드에만 있고, 검증·강등·지표 계산은 코드가 한다. 서비스 기본 조건 M2에서는 `agent` 노드가 하위 그래프(번역 agent ∥ 검증 agent → 코드 중재자)가 되고, 두 agent는 회사 기록 MCP 툴로 회사 사전과 문서 보관함을 찾는다. 그래프가 끝나면 코드가 사전 덧씌움과 보관함 덧씌움을 만든다. 확정하는 길은 둘뿐이다. 하나는 이번 문서 안 근거(두 agent 일치 + 코드 근거 검사)이고, 다른 하나는 사람이 확정한 회사 사전이다. 보관함과 LLM은 제안만 한다.
 
 ## 4.1 설계 원칙
 
 | 원칙 | 이유 |
 | --- | --- |
-| 분석기는 모든 조건에서 항상 실행하고, 조건은 LLM에게 보여 주는 방식만 바꾼다 | 측정이 LLM의 호출 여부에 따라 달라지면 조건을 비교할 수 없다 |
+| 분석기는 모든 조건에서 항상 실행하고, 조건은 LLM에게 보여 주는 것만 바꾼다 | 측정이 LLM의 호출 여부에 따라 달라지면 조건을 비교할 수 없다(ADR-004) |
 | 처분 누락 확인과 지표 계산은 코드가 한다 | LLM에게 자기 누락을 세게 하면 같은 실패가 한 단계 뒤에서 반복된다 |
 | LLM은 대상을 토큰 ID로 지목한다 | 아랍어 문자열을 다시 쓰면 함자 하나만 달라도 토큰과 맞춰지지 않아 가짜 누락이 생긴다 |
-| 고유명사는 근거 없이 확정하지 않는다 | "가장 흔한 표기"는 근거가 아니다. 단계 1에서 유효한 근거는 같은 문서 안의 라틴 문자 표기뿐이다 |
-| 인용은 코드가 원문과 대조한다 | 구조화 출력은 형식이 맞아도 사실 검증이 필요하다(참고 사이트 개념 사전) |
-| 조건 사이에서 한 번에 하나만 바꾼다 | 여러 요소를 한꺼번에 바꾸면 무엇이 효과를 냈는지 모른다(참고 사이트 LangSmith 실패 사례) |
-| LLM이 필요 없는 검증·계산은 일반 함수로 둔다 | 모든 노드를 agent로 만들 필요는 없다(참고 사이트 LangGraph 실무 사례) |
-| 분석기를 설치하지 못하면 LLM으로 대체하지 않고 멈춘다 | 분석기가 LLM과 독립된 신호라는 점이 Q3의 전제다 |
+| 고유명사(사람·회사·기관 등 명명된 대상)는 근거 없이 확정하지 않는다 | "가장 흔한 표기"는 근거가 아니다. 유효한 근거는 같은 문서 안의 라틴 문자 표기와 사람이 확정한 회사 사전뿐이다. 지난 서류(보관함)는 제안까지만 한다 |
+| 인용은 코드가 원문과 대조한다 | 구조화 출력은 형식이 맞아도 사실 검증이 필요하다 |
+| 결과(`ReviewResult`)는 고치지 않고 덧씌움으로만 보강한다 | 실험 경로·골든 테스트와 같은 결과 형식을 지키고, 사전·보관함이 무엇을 바꿨는지 따로 보인다 |
+| 고객 범위는 서버가 정한다 | LLM이 고르는 도구 인자로 고객을 받으면 다른 고객의 기록을 부를 길이 생긴다(ADR-022) |
+| 조건 사이에서 한 번에 하나만 바꾼다 | 여러 요소를 한꺼번에 바꾸면 무엇이 효과를 냈는지 모른다 |
+| LLM이 필요 없는 검증·계산은 일반 함수로 둔다 | 모든 노드를 agent로 만들 필요는 없다. 멀티 에이전트의 중재자도 규칙 함수다 |
+| 분석기를 설치하지 못하면 LLM으로 대체하지 않고 멈춘다 | 분석기가 LLM과 독립된 신호라는 점이 측정의 전제다 |
 
-참고 사이트: [ai-flow-learning-lab](https://ai-flow-learning-lab.vercel.app/). 단계 1은 그중 01 기본 체인(C0), 05 조건 분기와 반복(그래프), 06 Agent·Tool(C2), LangSmith 관찰·실험 비교를 쓴다. 02~04(RAG, Vector DB, Parent–Child)는 단계 2의 묶음 검색, 06의 사람 승인은 단계 2의 사람 검토, 07(Multi-Agent)은 단계 3에서 쓴다.
+패턴 참고: [ai-flow-learning-lab](https://ai-flow-learning-lab.vercel.app/)(기본 체인, 조건 분기, Agent·Tool, RAG, Multi-Agent, LangSmith).
 
 ## 4.2 그래프
 
@@ -25,47 +29,80 @@ flowchart LR
     S([START]) --> load[load<br/>입력 검사·구간·토큰 ID]
     load --> analyze[analyze<br/>CAMeL 전 토큰 분석]
     analyze --> agent[agent<br/>조건별 프롬프트·도구]
-    agent --> validate[validate<br/>스키마·토큰 ID·인용 확인]
+    agent --> validate[validate<br/>번역 누락 확인]
     validate -- 형식 오류, 1회 재시도 --> agent
-    validate --> reconcile[reconcile<br/>강등 규칙·지표 집계]
-    reconcile --> export[export<br/>JSON·CSV·지표·실행 메타]
+    validate --> reconcile[reconcile<br/>토큰 ID·인용 검증, 강등, 지표]
+    reconcile --> export[export<br/>ReviewResult 검증·파일 저장]
     export --> E([END])
 ```
 
-| 노드 | 하는 일 | LLM |
-| --- | --- | --- |
-| load | 유니코드 NFC, 원문 보존, 구간 분할, 토큰 ID 부여, 라틴 문자 구간 표시 | 없음 |
-| analyze | 모든 아랍어 토큰을 분석. 토큰별 분석 수(0 포함), 후보(모음 표기, 로마자, lemma, 품사, 뜻), 모호 여부, noun_prop 분석 여부를 저장 | 없음 |
-| agent | 조건별 동작(4.4절) | 있음 |
-| validate | 스키마 검사, 토큰 ID 실재 확인, 인용 문자열이 원문에 있는지 확인. 형식 오류면 1회 재시도(`Settings.max_retries`, 기본 1). 재귀 한도는 둘이다: 안쪽 `create_agent` 툴 루프 `Settings.recursion_limit`(기본 25), 바깥 그래프 `Reviewer.run`의 50 | 없음 |
-| reconcile | 강등 규칙(4.5절) 적용, [6절](evaluation.md) 지표 계산 | 없음 |
-| export | 구간별 결과 JSON, 고유명사 대조표 CSV, 지표 JSON, 실행 메타 저장 | 없음 |
+| 노드 | 하는 일 | LLM | 핵심 함수 |
+| --- | --- | --- | --- |
+| load | 조건 검사, 유니코드 NFC, 원문 보존, 구간 → 토큰 ID, 라틴 문자 구간 표시 | 없음 | `text.tokenize` |
+| analyze | 모든 아랍어 토큰을 분석해 토큰별 분석 수(0 포함), 후보(모음 표기, 로마자, lemma, 품사, 뜻), 모호 여부, noun_prop 여부를 저장. 모든 조건에서 돈다 | 없음 | `analyzer.analyze_tokens` |
+| agent | 조건별 동작(4.4절). M1·M2에서는 하위 그래프(4.7절) | 있음 | `prompts.system_prompt`·`user_message`, `create_agent`, `multi_agent.run_engine`, `multi_agent_m2.run_engine_m2` |
+| validate | 모든 `segment_id`에 번역이 있는지 확인. 형식 오류면 1회 재시도(`Settings.max_retries`) | 없음 | `reconcile.parse_c0` |
+| reconcile | 토큰 ID 실재 확인, 인용 검증, 강등 규칙(4.5절), [6절](evaluation.md) 지표 | 없음 | `reconcile.reconcile` |
+| export | `ReviewResult`로 검증한 뒤 JSON·CSV·실행 메타 저장 | 없음 | `export.write_outputs` |
 
-**모호 판정 규칙(analyze) [제안, EXP-001 전에 고정]:** 격어미와 탄윈을 뺀 모음 표기가 서로 다른 후보가 둘 이상이면 모호로 본다. 격어미만 달라도 표기가 갈리므로 원시 분석 수로 판정하면 본문 명사 대부분이 모호로 잡힐 것으로 본다 [가설]. 원시 분석 수는 따로 기록한다.
+재귀 한도는 둘이다. 안쪽 `create_agent` 툴 루프는 `Settings.recursion_limit`(기본 25), 바깥 그래프는 `Reviewer.run`의 50이다. 서비스는 `on_node` 콜백으로 노드가 끝날 때마다 진행 이벤트를 받는다. 콜백이 있으면 `graph.stream(stream_mode="updates")`로 돌지만 결과는 `invoke`와 같다.
+
+서비스 기본 조건 M2의 `agent` 노드와 그래프 뒤 처리(그래프 뒤는 서비스 작업 관리자 `web/jobs.py`가 한다):
+
+```mermaid
+flowchart LR
+    load --> analyze --> agent
+    subgraph agent[agent 노드 = 조건 M2 하위 그래프]
+      direction LR
+      T[번역 agent<br/>C1 입력 + p1 규칙 + 기록 툴 규칙] --> A[코드 중재자<br/>arbitrate + 보관함 선택 정리]
+      V[검증 agent<br/>같은 입력, 번역 안 함] --> A
+      T -. MCP .-> R[(회사 기록 서버<br/>사전 + 문서 보관함)]
+      V -. MCP .-> R
+    end
+    agent --> validate --> reconcile --> export --> D[사전 덧씌움] --> AR[보관함 덧씌움] --> IX[보관함에 이번 서류 저장]
+```
 
 ## 4.3 산출물 형식
 
-- `segments.json`: 구간마다 아랍어 원문, 영어 번역, 항목 목록
-- `proper_nouns.csv`: 아랍어 원문, 토큰 ID, 로마자 후보와 후보 출처(analyzer / llm), 채택 표기, 처분, 근거 위치, 분석기 분석 수
-- `metrics.json`: [6절](evaluation.md) 지표
-- `run_meta.json`: 조건, 모델 ID와 버전, 프롬프트 해시, 문서 ID, seed, 분석기·DB 버전, 토큰 사용량, 실행 시간
+**API 결과**(`GET /v1/jobs/{job_id}/result`): `ReviewResult.model_dump()`에 서비스 필드를 더한 JSON이다.
 
-## 4.4 실험 조건
+| 키 | 내용 |
+| --- | --- |
+| `doc_id`, `condition`, `segments`, `translation`, `items`, `unprocessed`, `suspected_missed_names`, `gold_status`, `proper_nouns`, `metrics`, `meta` | `ReviewResult`(`results.py`). 파일·API·DB가 같이 쓰는 계약이고 모르는 키는 오류다(`extra="forbid"`). `items`는 코드 검사 결과(`valid`, `final_decision`, `flags`, `evidence_failure`)가 붙은 항목, `meta`는 실행 메타(`RunMeta`, [6.3절](evaluation.md)) |
+| `errors` | 실행 중 오류(`metrics.errors`) |
+| `job` | 작업 요약(상태, 조건, 시각, 노드, 보관함 적재 수 등) |
+| `dictionary` | 회사 사전 덧씌움(`DictionaryOverlay`): `dictionary_adopt`(보류 → 사전 표기로 확정) / `conflict`(문서 근거와 사전 표기가 다름, 확정 안 함) / `agree` |
+| `archive` | 보관함 덧씌움(`ArchiveOverlay`): `archive_suggest`(`agreement: both | one`) / `archive_conflict`, `suggestions[{spelling, hit_id, by, document_id, document_label, document_date, segment_id, quote}]`. 확정이 아니다 |
+| `tokens` | 토큰 위치. 화면이 문자열 치환이 아니라 토큰 위치로 이름을 표시한다 |
+| `dictionary_customer` | 사전을 조회한 고객(인증을 끈 서버는 `local`) |
 
-같은 문서, 같은 모델, 같은 설정(지원하면 temperature 0)으로 돌린다. 평가 문서 30개를 문서마다 3회 반복한다 [확정].
+**파일 산출물**(`export.write_outputs`): CLI는 `results/debug/` 또는 `--out`, 서비스는 `results/web/<job_id>/`(git 제외)에 쓴다.
 
-| 조건 | LLM에 주는 것 | 출력 | 직전 조건 대비 바뀐 것 | 답하는 질문 |
+- `segments.json`: 구간마다 아랍어 원문, 영어 번역, 항목 목록, 미처리 토큰
+- `proper_nouns.csv`: 아랍어 원문, 토큰 ID, 후보와 출처(analyzer / llm), 채택 표기, 처분, 근거, 분석기 분석 수, 플래그
+- `metrics.json`: [6절](evaluation.md) 지표(M1·M2는 `engine`에 역할별 사용량·중재 통계·보관함 선택)
+- `run_meta.json`: 조건, 모델, 프롬프트 판·해시, 일치 규칙·분석기·패키지 버전, 토큰 사용량, 실행 시간
+
+DB가 있으면 결과 전체를 `runs.result`(JSONB)에 두고, `name_items`에는 `proper_noun` 항목만 펼친다.
+
+## 4.4 조건
+
+| 조건 | 쓰임 | LLM에 주는 것 | 출력 | 호출 방식 |
 | --- | --- | --- | --- | --- |
-| C0 기본 번역 | "영어로 번역하라" | 자유 텍스트 | — | Q1 |
-| C1 지시 | C0 + 처분 규칙 지시 | 구조화 출력(4.5절) | 지시와 출력 형식 | Q2 |
-| C2 지시 + 도구 | C1 + `analyze_tokens` 툴(호출 여부는 LLM이 정함) | 구조화 출력 | 도구 | Q3 |
-| C3 지시 + 결과 주입 | C1 + analyze 결과를 프롬프트에 항상 포함 | 구조화 출력 | 도구 대신 결과 주입 | Q3 보조 |
+| C0 기본 번역 | 실험(EXP-002·003) | "영어로 번역하라", 원문만 | 자유 텍스트 | `ChatPromptTemplate \| model` |
+| C1 지시 | 실험, 서비스 되돌리기용(`REVIEW_CONDITION=C1`) | 처분 규칙 지시문(판 p0 / p1) + 원문·토큰 표 | 구조화 출력(4.5절) | `create_agent(..., response_format=ToolStrategy(AgentOutput))` |
+| C2 지시 + 도구 | 실험 | C1 + `analyze_tokens` 툴(호출 여부는 LLM이 정함) | 구조화 출력 | C1과 같음 |
+| C3 지시 + 결과 주입 | 실험 | C1 + 분석기 결과(ANALYZER 블록)를 항상 포함 | 구조화 출력 | C1과 같음 |
+| M1 멀티 에이전트 틀 | `MULTI_AGENT=true`일 때만 | 번역자(C3 입력) → 격리 검증자 → 규칙 중재자, 순서대로 | `AgentOutput` 모양 | 하위 그래프(4.7절) |
+| M2 서비스 기본 | 서비스(`REVIEW_CONDITION`, 기본 `M2`) | 번역 agent ∥ 검증 agent(C1 입력, 지시문 p1), 회사 기록 툴 → 코드 중재자 | `AgentOutput` 모양 + 보관함 선택 | 하위 그래프(4.7절) |
 
-- C0는 참고 사이트 01 기본 체인(`prompt | model | parser`)으로, C1~C3는 골격의 `create_agent`(`response_format` 사용)로 만든다.
-- C0 → C1은 지시와 출력 형식을 함께 바꾼다. 구조화 출력이 없으면 처분을 셀 수 없기 때문이다. 이 점을 한계로 기록한다.
-- C3는 "도구를 주는 것"과 "결과가 항상 보이는 것"의 차이를 본다. 탐지를 LLM 판단에 맡기면 모호성 은폐가 한 단계 앞에서 반복될 수 있다는 가설을 확인한다.
+- 서비스가 받는 조건은 C0~C3과 M2이고, M1은 `MULTI_AGENT=true`일 때만 받는다. 묶음 검수 경로는 M2를 받지 않는다(묶음은 대상 ID로만 잇는다, ADR-018).
+- C0~C3은 `CONDITIONS`, M1·M2는 `ENGINE_CONDITIONS`에 따로 둔다. 실험 계획·골든·해시 열거가 `CONDITIONS`에 묶여 있어서다.
+- C0 → C1은 지시와 출력 형식을 함께 바꾼다. 구조화 출력이 없으면 처분을 셀 수 없기 때문이고, 한계로 기록한다. C3는 "도구를 주는 것"과 "결과가 항상 보이는 것"의 차이를 본다.
+- 실험은 같은 문서·같은 모델·같은 설정으로 돈다. 현재 모델은 temperature 0을 받지 않아 `temperature`를 보내지 않는다.
+- 측정한 것은 C0~C3(EXP-002·003)뿐이다. M1·M2는 재지 않았다.
 
-## 4.5 출력 스키마와 강등 규칙 (C1~C3)
+## 4.5 출력 스키마와 강등 규칙 (C1~C3, M1·M2 공통)
 
 ```json
 {
@@ -88,240 +125,197 @@ flowchart LR
 | 일반 단어 (`word`) | 채택(`adopt`, 이유·확신도 필수) / 기권(`abstain`) |
 | 고유명사 (`proper_noun`) | 근거 채택(`evidence_adopt`, `evidence`에 구간 ID와 인용 필수) / 보류(`hold`, 후보 나열) |
 
+M2의 번역 agent는 항목마다 `archive{hit_id, spelling} | null`을 더한 `AgentOutputM2`를 낸다. 중재자가 `archive`를 떼어 낸 뒤의 모양은 위와 같다.
+
 reconcile이 코드로 적용하는 규칙:
 
 - 고유명사에 근거 없이 `adopt`를 쓰면 "근거 없는 확정"으로 센다. 보류로 바꿔 주지 않는다. 실패를 지우지 않기 위해서다.
-- `evidence_adopt`의 인용이 원문에 없거나 채택 표기와 맞지 않으면 보류로 내리고 "근거 검증 실패"로 센다. 채택 표기가 인용과 맞는지는 근거 검사 규칙으로 본다. v1(EXP-002)은 인용 안 연속 단어열과 일치 규칙 v1로 맞으면 통과한다. v2(EXP-003, ADR-017)는 단어 묶음마다 인용 안 단어열과 엄격 철자가 같아야 하고, 순서·대소문자·MRZ `<`는 무시한다. 규칙은 `Settings.evidence_rule`로 고르고 실험 코드가 정한다.
+- `evidence_adopt`의 인용이 원문에 없거나 채택 표기와 맞지 않으면 보류로 내리고 "근거 검증 실패"로 센다. 채택 표기가 인용과 맞는지는 근거 검사 규칙으로 본다. v1(EXP-002)은 인용 안 연속 단어열과 일치 규칙 v1로 맞으면 통과한다. v2(EXP-003, ADR-017)는 단어 묶음마다 인용 안 단어열과 엄격 철자가 같아야 하고, 순서·대소문자·MRZ `<`는 무시한다. 규칙은 `Settings.evidence_rule`로 고른다. 기본값 v1은 골든·EXP-002에 묶여 있고, 실험 코드는 각자 값을 정하며, 서비스는 `EVIDENCE_RULE`을 따로 주지 않으면 v2를 쓴다(`web.app.build_runtime`).
 - 존재하지 않는 토큰 ID를 가리키는 항목은 무효 항목으로 센다.
 - 정답 고유명사와 분석기 모호 토큰 가운데 어느 항목에도 덮이지 않은 것은 "미처리"로 결과에 넣고 센다. 중립 토큰(합성 문서의 지명·국가명·발급 기관·법인 형태)은 처분을 기대하지도 감점하지도 않는다(ADR-014).
 - 한 토큰을 여러 항목이 덮으면 고유명사 항목을 대표로 판정한다. 정답 이름 상태와 근거 없는 확정 집계가 같은 기준을 쓴다(ADR-014).
+- 고유명사 `abstain`은 보류로, 일반 단어 `hold`는 기권으로 바꾸고 유형·처분 불일치로 센다.
 - LLM이 말한 확신도는 기록만 하고 판정에 쓰지 않는다.
 
-## 4.6 툴 (단계 1)
+## 4.6 툴
 
-LLM이 호출하는 툴은 하나다. 나머지는 노드 안의 일반 함수다. 단계 2용 `search_bundle`(LangChain 툴, `rag/bundle.py`)은 틀만 있고 꺼져 있다(ADR-007). 묶음 검수(단계 2, 2026-10-21)는 LLM 툴이 아니라 코드 경로다(`bundle/`, 아래 4.8절 "단계 2에서 더한 것"). 상세는 4.9절.
+LLM이 부르는 툴은 셋이고, 나머지(탐지·검증·집계)는 노드 안의 일반 함수다. LLM이 부를지 말지 고르게 두면 측정하려는 실패(모호한 곳을 말없이 넘김)가 같은 자리에서 반복되기 때문이다. 구조화 출력 `AgentOutput`은 LangChain `ToolStrategy`가 출력용 툴로 노출한다. 상세는 4.9절.
 
-| 이름 | 입력 | 출력 | 호출 시점 | 실패 시 |
-| --- | --- | --- | --- | --- |
-| `analyze_tokens` | `token_ids: list[int]` | 토큰마다 `token_id`, `surface`, `analysis_count`, `candidates[{diac, romanized, lemma, pos, gloss}]`, `ambiguous` | C2에서 LLM이 정함 | 없는 ID는 해당 ID에 오류 항목을 돌려준다. 분석기 예외는 오류 결과로 돌려주고 툴 로그에 남긴다. LLM 추정으로 대신 채우지 않는다 |
-
-일반 함수: 정규화, 토큰화, `romanize`(모음 표기 아랍어 → ASCII 로마자), `match_spelling`(표기 일치 판정. 2026-10-20 EXP-001 개발용 표본에서 v1로 고쳐 고정: 모음은 같아야 하고, 영문 e·o는 가능한 아랍어 모음으로 펼치며, 자음 쪽 한 글자 차이만 허용한다. ADR-015), 강등 규칙, 지표 계산.
-
-툴 설계 문서에는 툴마다 이름, 입력과 출력 스키마, 호출 시점, 실패했을 때의 동작을 적는다.
-
-**MCP 노출 [확인, 단계 1.5, 2026-10-21 구현]:** 과제 2 안내는 MCP를 필수로 하지 않지만(ZIP README: "LangGraph/MCP 없이 구현해도 됩니다") 사용자가 범위에 넣기로 했으므로(2026-10-20) 최소 범위로 둔다. 실험 경로(CLI `run`, `exp001`, `exp002`)는 지금처럼 in-process 툴을 쓴다(ADR-004: 분석기는 코드에서 항상 돈다). 서비스 경로에서 `USE_MCP_TOOLS=true`일 때만 C2의 `analyze_tokens`를 MCP 서버의 같은 이름 툴로 바꿔 끼우고(`build_graph(analyze_tool_factory=…)`. `extra_tool_factories`는 `bundle_search`로 표시되므로 쓰지 않는다), 툴 로그에 `via: "mcp"`를 남긴다. LLM이 보는 툴 이름·인자·설명은 in-process 툴과 글자 단위로 같다(`tests/test_mcp.py`). 서버는 `python -m tashkeel_check.mcp.server`(FastMCP, stdio)이고, 리소스 `document://synthetic/{split}`(목록)도 더했다. 클라이언트(`mcp/client.py`)는 전용 스레드의 이벤트 루프에서 한 번 연결해 잠금으로 하나씩 보내고, 타임아웃만 지수 백오프로 재시도한다. 노출 항목은 툴 `analyze_tokens`, 리소스 `document://synthetic/{split}/{doc_id}`(합성 문서, gold 제외), 프롬프트 `review_instructions(condition)`(`prompts.system_prompt`) 세 개다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다. 단계 2(2026-10-21)에 툴 `search_bundle(documents, entity_id, arabic_name)`(같은 대상 ID의 다른 서류에서 영문 칸을 찾아 검증 결과와 함께 돌려줌, 없는 ID는 `error`)과 리소스 `document://synthetic/bundles/{split}[/{bundle_id}]`를 더했다. C2 그래프에는 끼우지 않고 외부 에이전트용 부품이다.
-
-## 4.7 기술 스택
-
-코드 골격은 `~/Documents/skala_langgraph`의 노트북을 따른다 [확인].
-
-| 구성 | 골격에서 확인한 방식 | 단계 1에서 쓰는 방식 |
-| --- | --- | --- |
-| 모델 | `init_chat_model("<provider>:<model>")`. 노트북마다 Gemini, OpenAI를 씀 | `init_chat_model("openai:gpt-6.1-sol")`. 모델 문자열은 `.env`의 `MODEL`(ADR-006) |
-| Agent | `create_agent(model, tools, system_prompt, response_format)` | C1~C3 |
-| 그래프 | `StateGraph(TypedDict)`, `add_edge`, `add_conditional_edges`, `draw_mermaid` | 4.2절 그래프 |
-| 체인 | `prompt | model | StrOutputParser()` | C0 |
-| 추적 | `@traceable`, `.env`의 `LANGSMITH_API_KEY`·`LANGSMITH_TRACING`·`LANGSMITH_PROJECT` | 실행마다 [6.3절](evaluation.md) 메타데이터. 키가 없으면 추적만 꺼지고 나머지는 동작 |
-| 키 없을 때 | 연습 모드(가짜 모델) | 가짜 모델(스크립트된 tool call)로 그래프와 reconcile 테스트. 실제 실험은 키가 필요 |
-| 벡터 DB | Qdrant 메모리 모드, `langchain_qdrant` | 단계 2 틀(`rag/bundle.py`)에만 쓴다. 단계 1 조건에는 붙이지 않음(ADR-003, ADR-007). 제품 경로에서는 M3에서 Postgres pgvector로 교체(ADR-011) |
-| 웹·API [확인, 단계 1.5, 2026-10-21] | 골격에 없음. 제공 ZIP(`all_total_vue_student/`)의 FastAPI lifespan·`/health`·SSE(`graph.astream(stream_mode="updates")` → `data: [DONE]`) 패턴, Vue 3 CDN 무빌드 HTML + `EventSource` 진행 표시 | FastAPI가 정적 HTML을 직접 서빙(ZIP의 프록시 서버는 쓰지 않음). 그래프 노드가 동기이므로 작업은 스레드에서 돌리고, 진행은 노드 단위 이벤트만 SSE로 보낸다. 토큰 스트리밍은 구조화 출력에 의미가 없어 넣지 않는다 |
-| 저장 [확인, 단계 1.5, 2026-10-21] | ZIP은 SQLite(`session_store.py`) | 쓰지 않는다. Postgres + SQLAlchemy 2 + psycopg 3 + Alembic(ADR-011). 단계 1.5에서는 `documents`·`jobs`·`runs`·`name_items` 네 테이블만. `results/` 파일 쓰기는 유지 |
-| MCP [확인, 단계 1.5, 2026-10-21] | ZIP의 FastMCP 서버 + stdio 클라이언트(서버별 세션·lock, `find_prompt`·`find_resource_template`), `with_retry` | 4.6절 "MCP 노출". 서비스 경로에서만 |
-
-- Python 3.11 이상(camel-tools 1.6.0 요구 사항), uv, pytest.
-- CAMeL Tools 1.6.0과 기본 형태소 DB calima-msa-r13. DB는 `camel_data`로 내려받는다. 패키지 이름은 공식 문서에서 확인한다.
-- calima-msa-r13은 GPL v2다(ADR-005). README에 적는다.
-
-## 4.7 멀티 에이전트 틀 M1 [확인, 2026-10-21 구현, ADR-019]
-
-조건 `M1`은 `ENGINE_CONDITIONS`에 있고 `CONDITIONS`(C0~C3)에는 없다(실험 계획·골든·해시 열거가 묶여 있어서). 그래프의 `agent` 노드만 하위 그래프 `translator → verifier → arbiter`로 바뀌고 `validate`·`reconcile`·`export`는 그대로다. 형식 재시도는 둘 다 다시 돈다.
-
-| 노드 | 보는 것 | 지시문 | 출력 |
+| 툴 | 쓰는 조건 | 붙는 방식 | 상태 |
 | --- | --- | --- | --- |
-| 번역자 | 원문·토큰 표·분석기 블록(C3 입력) + 묶음 참고 블록(있을 때) | C3 지시문 + 묶음 참고 문장 | `AgentOutput`(지금과 같은 `create_agent` 호출) |
-| 격리 검증자 | 번역자와 같은 입력만. **번역자 출력은 보지 않는다** | `M1_VERIFIER_SYSTEM`(번역 안 함, 고유명사마다 처분) | `VerifierOutput(items[token_ids, candidates, decision, adopted, evidence, reason])` |
-| 중재자 | 두 출력 + 원문 | 없음(규칙 함수 `arbitrate`) | `AgentOutput` 모양. 통계 `metrics.engine.arbiter` |
+| `analyze_tokens` | C2 | in-process 툴(실험 경로). 서비스에서 `USE_MCP_TOOLS=true`면 stdio MCP 서버의 같은 이름 툴로 바꿔 끼운다(LLM이 보는 이름·인자·설명은 글자 단위로 같음, `tests/test_mcp.py`) | 쓰는 중. `USE_MCP_TOOLS` 기본은 끔 |
+| `search_company_records` | M2 | 회사 기록 MCP 서버(같은 프로세스, 메모리 전송). 역할당 최대 2회 | 서비스 기본 경로 |
+| `search_bundle` | C1~C3(`extra_tool_factories`) | LangChain 툴(`rag/bundle.py`). `ENABLE_BUNDLE_SEARCH=true`와 `--bundle`을 함께 줄 때만 | 꺼짐(ADR-007) |
 
-중재 규칙: 번역은 번역자 것. `word`는 통과. `proper_noun`은 토큰 집합이 같은 검증자 항목과 짝지어, **둘 다 근거 채택 + 철자 정확 일치(`strict_form`) + 둘 다 `reconcile.verify_evidence` 통과**일 때만 확정. 아니면 보류(사유 코드 `translator_unsupported_adopt | verifier_missing | verifier_hold | spelling_disagree | evidence_failed`, 후보는 합집합). 검증자만 낸 이름은 보류로 추가. 보류로 바뀐 이름이 번역문에 채택 철자 그대로 있으면 `[c1/c2]`로 고쳐 쓴다(`n_translation_rewritten`). 다수결·근거 생성 없음. 묶음 LLM 검수에서는 다른 서류·사전의 영문 표기를 `BUNDLE EVIDENCE` 블록으로 **참고**만 준다(`bundle.evidence.evidence_rows_for_document`). 교차 서류 확정은 `bundle/rules.decide_status`가 한다.
+MCP 서버는 둘이다.
 
-## 4.7 서비스 기본 경로 조건 M2 [확인, 2026-10-22 구현, ADR-022, 정확도 미측정]
+| 서버 | 노출 항목 | 쓰는 곳 |
+| --- | --- | --- |
+| 회사 기록 서버 `mcp/records.py`(FastMCP) | 툴 `search_company_records` | M2의 두 agent. `build_runtime`이 Runtime의 사전·보관함을 그대로 쓰는 서버를 만들어 `FastMCPTransport`로 붙인다. 고객 범위는 작업마다 발급하고 끝나면 없애는 128비트 범위 토큰(MCP `_meta`)으로만 정한다. 쓰기·확정 도구는 없다. 외부 클라이언트용 `/mcp`는 열지 않았다 |
+| 분석기 서버 `mcp/server.py`(FastMCP, stdio, `python -m tashkeel_check.mcp.server`) | 툴 `analyze_tokens`·`search_bundle(documents, entity_id, arabic_name)`, 리소스 `document://synthetic/{split}`·`document://synthetic/{split}/{doc_id}`(gold 제외)·`document://synthetic/bundles/{split}[/{bundle_id}]`, 프롬프트 `review_instructions(condition)` | 서비스에서 `USE_MCP_TOOLS=true`일 때 C2의 `analyze_tokens`. `search_bundle`은 외부 에이전트용 부품이고 그래프에는 끼우지 않는다 |
 
-서비스가 파일을 받으면 기본으로 도는 구조다(`REVIEW_CONDITION`, 기본 `M2`, 되돌리면 `C1`). M1 틀(번역 → 격리 검증 → 코드 중재)에 **회사 기록 툴**을 더했다. agent·RAG·MCP·멀티 에이전트가 한 경로에 들어 있고, 각 부품이 맡은 일은 아래와 같다.
+실험 경로(CLI `run`, `exp001`~`exp003`)는 in-process 툴만 쓴다(ADR-004). 클라이언트(`mcp/client.py`)는 전용 스레드의 이벤트 루프에서 한 번 연결해 잠금으로 하나씩 보내고, 타임아웃만 지수 백오프로 재시도한다. MCP 서버가 죽으면 작업을 실패로 기록하고 in-process로 대체하지 않는다.
 
-```mermaid
-flowchart LR
-    load --> analyze --> agent
-    subgraph agent[agent 노드 = 조건 M2 하위 그래프]
-      direction LR
-      T[번역 agent<br/>C1 입력 + p1 규칙 8개] --> A[코드 중재자<br/>arbitrate + 보관함 선택 정리]
-      V[검증 agent<br/>같은 입력, 번역 안 함] --> A
-      T -. MCP .-> R[(회사 기록 서버<br/>사전 + 문서 보관함)]
-      V -. MCP .-> R
-    end
-    agent --> validate --> reconcile --> export --> D[사전 덧씌움] --> AR[보관함 덧씌움] --> IX[보관함에 이번 서류 저장]
-```
+## 4.7 멀티 에이전트: M1 틀과 서비스 기본 M2
+
+M1과 M2 모두 그래프의 `agent` 노드만 하위 그래프로 바뀌고 `validate`·`reconcile`·`export`는 그대로다. 형식 재시도 때는 두 역할이 다 다시 돈다.
+
+**중재 규칙(`multi_agent.arbitrate`, M1·M2 공통, LLM 없음):** 번역은 번역 쪽 것을 쓴다. `word`는 통과한다. `proper_noun`은 토큰 집합이 같은 검증 쪽 항목과 짝지어, **둘 다 근거 채택 + 철자 정확 일치(`strict_form`) + 둘 다 `reconcile.verify_evidence` 통과**일 때만 확정한다. 아니면 보류이고, 사유 코드(`translator_unsupported_adopt | verifier_missing | verifier_hold | spelling_disagree | evidence_failed`)를 남기며 후보는 합집합이다. 검증 쪽만 낸 이름은 보류로 더한다. 보류로 바뀐 이름이 번역문에 채택 철자 그대로 있으면 `[c1/c2]`로 고쳐 쓴다(`n_translation_rewritten`). 다수결이나 근거 생성은 없다. 통계는 `metrics.engine`에 남는다.
+
+| | M1 (`multi_agent.py`) | M2 (`multi_agent_m2.py`) |
+| --- | --- | --- |
+| 켜는 법 | `MULTI_AGENT=true` + `condition=M1` | 서비스 기본(`REVIEW_CONDITION=M2`) |
+| 실행 순서 | 번역자 → 검증자 → 중재자(순서대로) | 번역 agent와 검증 agent가 START에서 동시에 갈라져 중재자에서 합친다. 같은 단계에서 돌기 때문에 사용량·툴 기록·오류를 역할별 키(`t_*`·`v_*`)에 따로 쓴다 |
+| 번역 쪽 입력·지시문 | C3 입력(원문·토큰 표·분석기 블록) + 묶음 참고 블록(있을 때), C3 지시문 | C1 입력(분석기 블록 없음), `C1_SYSTEM_P1` + 규칙 8(기록 툴, `M2_RECORDS_RULE`) |
+| 검증 쪽 | 같은 입력, `M1_VERIFIER_SYSTEM`(번역 안 함, 고유명사마다 처분). 번역 쪽 출력은 보지 않는다 | 같은 입력, `M2_VERIFIER_SYSTEM`(M1 검증 규칙 + 나뉜 이름 규칙 + 기록 툴 규칙). 번역 쪽 출력은 보지 않는다 |
+| 출력 | `AgentOutput` / `VerifierOutput` | `AgentOutputM2` / `VerifierOutputM2`(항목마다 `archive` 선택) |
+| 툴 | extra 툴만(`search_bundle` 훅, 꺼짐). 묶음 LLM 검수에서는 다른 서류·사전의 영문 표기를 `BUNDLE EVIDENCE` 블록으로 참고만 준다 | `search_company_records`, 역할당 최대 2회(`ToolCallLimitMiddleware`) |
+| 측정 | 안 함. 가짜 모델로만 테스트 | 안 함. 실제 모델 작동 확인 2회(`docs/과제2-테스트-기록.md` 8.3절) |
+
+**M2 부품이 맡은 일(ADR-022):**
 
 | 부품 | 하는 일 | 코드 |
 | --- | --- | --- |
-| agent | 두 agent가 이름 목록(토큰 ID 묶음)을 한 번에 넘겨 `search_company_records`를 직접 부른다. 역할당 최대 2회(`ToolCallLimitMiddleware`) | `multi_agent_m2.py` |
-| RAG | 같은 고객이 전에 올린 서류의 구절 가운데 같은 아랍어 이름이 단어 단위로 있는 것을 고르고(접두 و·ب·ل·ف·ك 허용, 공백 뺀 3글자 미만은 찾지 않음), 이번 서류의 이름 주변 문맥(구간 ±1)과 임베딩이 비슷한 순서로 최대 4개 돌려준다. 이름은 임베딩만으로 잘 잡히지 않으므로 아랍어 일치가 주 경로이고 임베딩은 순서만 정한다 | `archive/search.py` |
-| MCP | 회사 기록 서버(FastMCP)는 Runtime의 사전·보관함을 그대로 쓰고, 같은 프로세스의 메모리 전송(`FastMCPTransport`)으로 붙는다. 고객 범위는 도구 인자가 아니라 작업마다 발급하고 끝나면 없애는 범위 토큰(MCP `_meta`)으로만 정한다. 쓰기·확정 도구는 없다. 외부 클라이언트용 `/mcp` 공개는 미뤘다 | `mcp/records.py` |
-| 멀티 에이전트 | 두 역할이 START에서 동시에 갈라져 중재자에서 합친다. 검증 agent는 번역 agent의 출력을 보지 않는다. 같은 단계에서 돌기 때문에 사용량·툴 기록·오류를 역할별 키(`t_*`·`v_*`)에 따로 쓴다 | `build_engine_m2` |
+| agent | 두 agent가 이름 목록(토큰 ID 묶음)을 한 번에 넘겨 기록 툴을 직접 부른다. 아랍어와 문맥은 래퍼가 토큰 표에서 만든다(LLM이 아랍어를 다시 쓰지 않게) | `multi_agent_m2.py`, `mcp/records.py` |
+| RAG | 같은 고객이 전에 올린 서류의 구절 가운데 같은 아랍어 이름이 단어 단위로 있는 것을 고르고(접두 و·ب·ل·ف·ك 허용, 공백 뺀 3글자 미만은 찾지 않음), 이번 서류의 이름 주변 문맥(구간 ±1)과 임베딩이 비슷한 순서로 이름당 최대 4개 돌려준다. 사람이 확정한 사전 표기가 있으면 그것만 돌려준다. 이름은 임베딩만으로 잘 잡히지 않으므로 아랍어 일치가 주 경로이고 임베딩은 순서만 정한다 | `archive/search.py` |
+| MCP | 회사 기록을 고객 범위로 묶어 내준다(4.6절) | `mcp/records.py` |
+| 코드 중재자 | 항목에서 `archive`를 떼고 `arbitrate()`를 그대로 부른다(확정 규칙이 M1과 같다). 보류로 남은 이름의 보관함 선택은 그 역할의 툴이 실제로 돌려준 `hit_id`만 받아 `metrics.engine.archive`에 적는다 | `multi_agent_m2.archive_claims` |
 
-| 역할 | 보는 것 | 지시문 | 출력 |
-| --- | --- | --- | --- |
-| 번역 agent | 원문·토큰 표(C1 입력, 분석기 블록 없음) + 회사 기록 툴 | `C1_SYSTEM_P1` + 규칙 8(기록 툴) | `AgentOutputM2`(`AgentOutput` + 항목마다 `archive{hit_id, spelling} | null`) |
-| 검증 agent | 같은 입력 + 회사 기록 툴. 번역 agent 출력은 보지 않는다 | `M2_VERIFIER_SYSTEM`(M1 검증 규칙 1~4 + 나뉜 이름 규칙 + 기록 툴 규칙) | `VerifierOutputM2` |
-| 코드 중재자 | 두 출력, 원문, 역할별 툴 기록 | 없음 | 항목에서 `archive`를 떼고 M1의 `arbitrate()`를 그대로 부른다(확정 규칙 동일). 보류로 남은 이름의 보관함 선택은 그 역할의 툴이 실제로 돌려준 `hit_id`만 받아 `metrics.engine.archive`에 적는다 |
+**보관함 선택은 확정을 바꾸지 못한다.** 화면에 낼지는 그래프 뒤의 보관함 덧씌움(`archive_apply.apply_archive`)이 정한다. 사전 덧씌움 다음에 돌고 사전이 이긴다. 보류(`hold`)이거나 근거 검증에 실패한 확정(`adopt_unsupported`)이면서 사전 덧씌움이 없는 항목만 본다. 보관함 원문을 다시 읽어 (1) 같은 고객인가 (2) 이번 서류가 아닌가(ID와 파일 해시) (3) 이름이 그 구절에 단어 단위로 있는가 (4) 철자가 구절 안 라틴 문자와 글자 그대로 같은가(`strict_words_in_quote`, 근거 검사 v2)를 확인한다. 통과한 철자가 하나면 `archive_suggest`(두 agent가 같은 철자를 골랐으면 `agreement: both`), 둘 이상이면 `archive_conflict`다. 사람이 제안을 누르면(`POST /v1/dictionary`의 `archive_hit_id`) 사전에 등록되고 근거 서류는 그 지난 서류로 남는다.
 
-**보관함 선택은 확정을 바꾸지 못한다.** 화면에 낼지는 그래프 뒤의 코드 덧씌움(`archive_apply.apply_archive`)이 정한다. 사전 덧씌움 다음에 돌고 사전이 이긴다. 보관함 원문을 다시 읽어 (1) 같은 고객인가 (2) 이번 서류가 아닌가(ID와 파일 해시) (3) 이름이 그 구절에 단어 단위로 있는가 (4) 철자가 구절 안 라틴 문자와 글자 그대로 같은가(`strict_words_in_quote`, 근거 검사 v2)를 확인한다. 통과한 철자가 하나면 `archive_suggest`(두 agent가 같은 철자면 `agreement: both`), 둘 이상이면 `archive_conflict`다. 사람이 제안을 누르면(`POST /v1/dictionary`의 `archive_hit_id`) 사전에 등록되고 근거 서류는 그 지난 서류로 남는다.
-
-**보관함에 넣는 것:** 검수를 마친 업로드·붙여넣기 서류만(합성 샘플·묶음 서류는 넣지 않는다). 아랍어가 있고 그 구간이나 다음 구간에 라틴 문자가 있는 구간만 구절로 남긴다. 조건과 무관하게 넣는다(C1 작업도 보관함을 채운다). 저장은 메모리(재시작하면 비어 있음) 또는 Postgres `archive_documents`·`archive_passages`(Alembic 0004). 임베딩은 실수 배열로 두고 유사도는 Python에서 계산한다(pgvector는 보관함이 커지면, ADR-011 범위 안). 실제 모델 서비스는 OpenAI 임베딩(`EMBEDDING_MODEL`)이라 보관함 글이 OpenAI로 간다.
+**보관함에 넣는 것:** 검수를 마친 업로드·붙여넣기 서류만 넣는다(합성 샘플·묶음 서류는 넣지 않는다). 조건과 무관하게 넣으므로 C1 작업도 보관함을 채운다. 아랍어가 있고 그 구간이나 다음 구간에 라틴 문자가 있는 구간만 구절로 남긴다(구절당 600자 상한). 저장은 메모리(재시작하면 비어 있음) 또는 Postgres `archive_documents`·`archive_passages`다. 임베딩은 실수 배열로 두고 유사도는 Python에서 계산한다(pgvector는 쓰지 않는다, ADR-011·022). 실제 모델 서비스는 OpenAI 임베딩(`EMBEDDING_MODEL`, 기본 `text-embedding-3-small`)이라 보관함 글이 OpenAI로 간다. 가짜 모델이면 연습용 문자 n-gram 임베딩이다.
 
 **M2가 바꾸지 않는 것:** 문서 안 근거로만 확정한다는 규칙, 근거 검사, C0~C3·M1의 지시문·스키마·해시, 골든 160건, 실험 경로. M2 지시문은 p1에서만 정의한다(`prompt_hash("M2")`는 판과 무관).
 
-**재지 않은 것:** M2의 정확도·비용·시간. 합성 시험지의 99%(EXP-003)는 C1 값이다. 비교 실험(EXP-005 [제안]: C1 대 M2, 보관함 사례 합성 데이터, 코드만 쓰는 보관함 조회 A0 기준)은 하지 않았다.
+**재지 않은 것:** M2의 정확도·비용·시간. 합성 시험지의 99%(EXP-003)는 C1 값이다. 비교 실험(EXP-005 [제안])은 하지 않았다. 알려진 문제: 두 agent가 이름을 다른 단위로 내면(전체 이름 한 항목 / 단어별) 짝지어지지 않아 한쪽 항목이 따로 보류로 더해진다([TS-005](troubleshooting.md), 미해결).
 
-## 4.8 저장소 구조 [확인, 2026-10-13 구현, 2026-10-20 리팩토링 반영]
-
-계획 초안의 `scripts/`는 CLI 하위 명령(`uv run tashkeel <명령>`)으로 바꿨다.
+## 4.8 저장소 구조
 
 ```text
 pyproject.toml, uv.lock      Python 3.11, uv. ruff·mypy·pytest 설정(ADR-013)
-.env.example                 골격 .env와 같은 키 이름 + MODEL, 판단 기준, 실험 규모, DATA_DIR·RESULTS_DIR
-.pre-commit-config.yaml      ruff·mypy 훅(uv.lock 버전 사용)
+.env.example                 설정 키(MODEL, LLM_BACKEND, REVIEW_CONDITION, DATABASE_URL, AUTH, OCR_*, EMBEDDING_MODEL, 실험 규모 등)
+.pre-commit-config.yaml      ruff·mypy 훅
 .github/workflows/ci.yml     ruff·mypy·pytest(live·camel 제외)
+Dockerfile, docker-compose.yml, .dockerignore   완제품 패키지: app + postgres(pgvector/pgvector:pg16 이미지)
+run.sh                       키·포트·DB 검사 → alembic upgrade → tashkeel serve → /health 대기
+scripts/smoke.sh             패키지 스모크(docs/deploy.md)
+alembic/, alembic.ini        마이그레이션 0001~0004
 src/tashkeel_check/
-  config.py                  설정(검증하는 pydantic 모델, 환경 변수는 load_settings만 읽음), 조건, LangSmith
+  config.py                  Settings(검증하는 pydantic 모델, 환경 변수는 load_settings만 읽음), 조건 목록, LangSmith 설정
   errors.py                  TashkeelError → InputError(400·종료 2) / ConfigError·AnalyzerUnavailable(503·종료 3)
-  text.py                    정규화, 구간·토큰 ID
-  analyzer.py                CAMeL 래퍼, 격어미 제거, 모호 판정
-  romanize.py                romanize, match_spelling (v1), 엄격 철자 strict_* (s1, ADR-017)
+  text.py                    정규화, 구간·토큰 ID, normalize_key
+  analyzer.py                CAMeL 래퍼, 격어미 제거, 모호 판정, thread_safe_analyze
+  romanize.py                romanize, match_spelling(v1), 엄격 철자 strict_*(ADR-017)
   schemas.py                 구조화 출력 AgentOutput
-  prompts.py                 C0~C3 프롬프트, 지시문 판 p0(EXP-002)·p1(EXP-003)
-  tools.py                   analyze_tokens
-  fake.py                    가짜 모델(연습 모드, 테스트)
-  graph.py                   StateGraph
+  prompts.py                 C0~C3 지시문(판 p0·p1), M1·M2 역할 지시문, prompt_hash
+  tools.py                   analyze_tokens 툴
+  fake.py                    가짜 모델(연습 모드·테스트. M2는 번역하지 않고 기록 툴로 찾은 이름만 보류로 낸다)
+  graph.py                   StateGraph(6노드)
+  multi_agent.py             M1 틀: 번역자 → 격리 검증자 → 규칙 중재자(arbitrate)
+  multi_agent_m2.py          M2: 두 역할 동시 실행, 기록 툴, archive_claims
   reconcile.py               강등 규칙(근거 검사 v1·v2), 지표
   scoring_v2.py              gold 형식 2의 이름 부분별 안전·엄격 판정(채점 v2, ADR-017)
-  results.py                 결과 형식 ReviewResult(파일·API·DB 공통 계약, 모르는 키는 오류)
-  export.py                  JSON·CSV·run_meta (ReviewResult에서 씀)
-  runner.py                  Reviewer(그래프 한 번 빌드, 문서마다 재사용), run_document(편의 래퍼), LangSmith
-  cli.py                     run / fetch-wikidata / make-synthetic / make-synthetic-hard / inspect-gold / bundle-search /
-                             exp001 / exp002 / exp002-status / exp003 / exp003-status / exp003-errors / exp003-rescore
-  data/                      names.py(이름 정렬), wikidata.py, synthetic.py, synthetic_hard.py(어려운 시험지, ADR-017)
-  experiments/               exp001.py, harness.py(재개·동시 실행 장치, 통계, 라벨·단계 판단), exp002.py, exp003.py, tiers.py(flex 처리 등급 모델: 용량 부족이면 다시 부르거나 그 호출만 기본 등급, ADR-020)
-  rag/                       bundle.py (단계 2 틀)
-data/wikidata/  data/synthetic/{dev,eval}/  data/synthetic-hard/{dev,eval}/  data/bundles/sample/
-results/                     평가 실행 결과는 보존, results/debug/는 git 제외
-tests/                       golden/(골든 스냅숏 160건), golden_cases.py, test_llm_inputs.py(LLM 입력 해시)
-docs/                        README.md(문서 지도), problem-and-goals, scope, architecture, data, evaluation, roadmap,
-                             changelog, troubleshooting, adr/, experiments/, business/ (2026-10-20 재구성)
+  results.py                 결과 형식 ReviewResult(파일·API·DB 공통 계약)
+  export.py                  JSON·CSV·run_meta 쓰기
+  runner.py                  Reviewer(그래프 한 번 빌드, 문서마다 재사용), make_model, LangSmith @traceable
+  dictionary_apply.py        회사 사전 덧씌움(ADR-021)
+  archive_apply.py           보관함 제안 덧씌움(ADR-022)
+  archive/                   store.py(구절·서류 형식, 메모리 저장소), search.py(CompanyArchive: 색인·찾기·제안 확인, 임베딩)
+  ocr/                       base.py(OcrBackend 프로토콜), extract.py(extract_text), ocrspace.py(무료 OCR API)
+  mcp/                       records.py(회사 기록 서버·범위 토큰·LLM용 툴 래퍼), server.py(분석기 stdio 서버),
+                             client.py(MCPClient: stdio·메모리 전송, 재시도), tools.py(MCP 툴을 그래프 툴로 감쌈)
+  web/                       app.py(build_runtime·create_app·엔드포인트·정적 파일), jobs.py(작업 스레드·SSE·덧씌움·보관함 적재),
+                             db.py(엔진·세션), models.py(표 11개), auth.py(API 키), customers.py, usage.py,
+                             archive.py(보관함 Postgres 저장소), bundles.py·bundle_jobs.py(묶음 검수, 보류),
+                             static/index.html(Vue 3 한 파일 화면: #/upload, #/result/{id}, #/bundle)
+  bundle/                    묶음 검수(ADR-018, 보류): schemas, loader, extractor, evidence, rules, dictionary(DictionaryLookup),
+                             pipeline, mrz, upload, draft
+  rag/bundle.py              묶음 검색 틀(Qdrant 메모리 모드, 꺼짐), 연습용 임베딩 PracticeEmbeddings
+  data/                      names.py(이름 정렬), wikidata.py, synthetic.py, synthetic_hard.py, bundles.py, kyc_bundles.py
+  experiments/               harness.py(재개·동시 실행·통계·단계 판단), exp001.py, exp002.py, exp003.py, tiers.py(flex 처리 등급)
+  cli.py                     tashkeel 하위 명령(아래 표)
+data/                        wikidata/, synthetic/{dev,eval}/, synthetic/bundles/{dev,eval}/, synthetic-hard/{dev,eval}/, bundles/sample/
+results/                     실험 결과(exp001은 git에 보존, 나머지·debug·web은 git 제외)
+tests/                       pytest. golden/(골든 스냅숏 160건), test_llm_inputs.py(LLM 입력 해시), 기능별 테스트
+docs/                        문서(docs/README.md가 지도)
 ```
 
-단계 1.5에서 더한 것 [확인, 2026-10-21]:
+**기술 스택**
 
-```text
-src/tashkeel_check/
-  web/                       app.py(FastAPI·엔드포인트·SSE·정적 파일), jobs.py(스레드 실행·진행 큐·DB 저장),
-                             db.py(엔진·세션·DATABASE_URL), models.py(documents·jobs·runs·name_items),
-                             static/index.html(Vue 3 폼 화면)
-  mcp/                       server.py(FastMCP 툴·리소스·프롬프트), client.py(stdio + with_retry),
-                             tools.py(MCP 툴을 graph ToolFactory로 감쌈)
-alembic/, alembic.ini        초기 마이그레이션 1개
-docker-compose.yml, Dockerfile   app + postgres(pgvector 이미지, M3 대비)
-run.sh                       키·포트·DB 검사 → alembic upgrade → uv run tashkeel serve → /health 대기
-tests/test_web_api.py, tests/test_mcp.py
-docs/과제2-테스트-기록.md    기능별 입력·결과, 예외 테스트(실행한 것만), docs/images/ 캡처
-```
+| 층 | 쓰는 것 | 비고 |
+| --- | --- | --- |
+| 언어·환경 | Python 3.11, uv, ruff, mypy, pytest | Docker 이미지는 `python:3.11-slim` |
+| 아랍어 분석 | CAMeL Tools 1.6.0 + 형태소 DB calima-msa-r13 | GPL v2라 측정에만 쓴다(ADR-005). 분석기는 모든 조건에서 돌지만 판정은 LLM 처분과 코드 검사로 한다 |
+| LLM | OpenAI `openai:gpt-6.1-sol`, `init_chat_model`, `.env`의 `MODEL`로 교체 | ADR-006 |
+| 에이전트·그래프 | LangGraph `StateGraph`, LangChain `create_agent` + `ToolStrategy` 구조화 출력, `ToolCallLimitMiddleware` | langchain 1.4.5, langgraph 1.2.15 |
+| RAG(보관함) | 아랍어 이름 단어 일치 → 임베딩 코사인 순서, OpenAI `text-embedding-3-small`(가짜 모델이면 n-gram) | 벡터 DB 없음. Qdrant는 묶음 검색 틀(꺼짐)에만 있다 |
+| MCP | FastMCP 4.1.3 서버 + `mcp` 2.3.0 클라이언트 | 회사 기록 서버는 메모리 전송, 분석기 서버는 stdio |
+| API·화면 | FastAPI 0.156.4 + uvicorn, SSE, Vue 3.5(CDN, 빌드 없는 한 파일) | 그래프 노드가 동기라 작업은 스레드에서 돌리고 진행은 노드 단위 이벤트만 보낸다 |
+| 저장 | Postgres 16, SQLAlchemy 2, psycopg 3, Alembic. `DATABASE_URL`이 없으면 메모리 | ADR-011. pgvector 확장은 쓰지 않는다 |
+| 입력 | pypdf(텍스트 층), OCR 백엔드 `none` / `ocrspace`(무료 API, 파일이 제3자에게 간다) | 인식 성능은 재지 않았다(ADR-021) |
+| 인증 | API 키(`tk_` + 48자, sha256만 저장), `X-API-Key` / Bearer / SSE는 `?api_key=` | ADR-019 |
+| 관측 | LangSmith `@traceable`(키가 있을 때만), `run_meta.json` | 범위 토큰은 `Reviewer.run`의 추적 입력에서 뺀다 |
+| 배포 | Docker Compose(app + postgres), `run.sh` | [deploy.md](deploy.md) |
 
-CLI에 `tashkeel serve`, `config.py`에 `DATABASE_URL`·`LLM_BACKEND`(`openai` 기본, `fake`는 명시)·`USE_MCP_TOOLS`(기본 false)·`WEB_HOST`/`WEB_PORT`를 더했다(실험 경로는 읽지 않는다). 의존성: `fastapi`, `uvicorn[standard]`, `sqlalchemy>=2`, `psycopg[binary]`, `alembic`, `fastmcp`, `mcp`, dev에 `httpx`. `runner.Reviewer.run`에 `on_node` 콜백을 더했다. 콜백이 있을 때만 `graph.stream(stream_mode="updates")`로 돌고 결과는 `invoke`와 같다(`tests/test_graph_fake.py`, 골든 160건 그대로). `analyzer.thread_safe_analyze()`(exp002의 잠금 래퍼를 옮김)를 서비스와 MCP 서버가 같이 쓴다. 서비스는 `web.app.build_runtime(settings)`가 모델·분석기·DB·MCP·`Reviewer`를 먼저 만들고(실패는 ConfigError → `serve` 종료 코드 3), `create_app(runtime)`이 엔드포인트를 붙인다. `InputError`는 400, `ConfigError`는 503, 응답은 `ReviewResult.model_dump()` + `errors` + `job`. 번역을 포함한 결과 전체는 `runs.result`(JSONB)에 두고 `name_items`는 LLM이 낸 `proper_noun` 항목만 펼친다. `DATABASE_URL`이 없으면 DB 없이(메모리·파일만) 돌고, 있는데 닿지 않으면 기동은 하되 `/health db:false`·작업 생성 503이다. MCP 서버가 죽으면 작업을 failed로 기록한다(in-process 대체 없음). 과제 안내 파일과의 대응표는 README에 둔다.
+**서비스 기동.** `web.app.build_runtime(settings)`가 모델·분석기·DB·저장소(사전·고객·사용량·묶음·보관함)·OCR 백엔드·회사 기록 MCP 서버·(켰으면) 분석기 MCP 클라이언트·`Reviewer`를 먼저 만든다. 하나라도 실패하면 `ConfigError`이고 `tashkeel serve`는 종료 코드 3으로 멈춘다. `create_app(runtime)`이 엔드포인트를 붙인다. `InputError`는 400, `ConfigError`는 503, 인증 실패는 401(`kind: "auth"`)이다. `DATABASE_URL`이 없으면 메모리·파일만으로 돌고, 있는데 닿지 않으면 기동은 하되 `/health`의 `db: false`와 작업 생성 503이다.
 
-단계 2(묶음 검수)에서 더한 것 [확인, 2026-10-21, ADR-018]:
+**API 엔드포인트**(`web/app.py`). `/v1/*`는 모두 API 키 인증을 거친다(`AUTH=auto`면 고객이 하나라도 있을 때만 필수).
 
-```text
-src/tashkeel_check/
-  bundle/                    schemas.py(Bundle·Document·Segment·NameMention·BundleEvidence·ReviewItem, 사유 코드와 한국어 표시명)
-                             loader.py(파일 없음 BundleNotFound / 형식 오류 InvalidBundle, gold 분리)
-                             extractor.py(라벨 칸 추출, 라벨 표 LABELS → 대상 종류)
-                             evidence.py(같은 대상 ID의 다른 서류에서 영문 칸 검색, 인용 검증, strict_form)
-                             rules.py(판정 순서, 정확 일치 확정, 변이 일치는 제안)
-                             dictionary.py(DictionaryLookup 프로토콜, 메모리 사전)
-                             pipeline.py(review_bundle, LLM 결과 합류 mentions_from_result·merge_mentions, model_error_item)
-  bundle/mrz.py              여권 MRZ 첫 줄 해독·생성(is_mrz_line, mrz_name, mrz_line1)
-  bundle/upload.py           업로드 파일(묶음 JSON / 서류 .json·.txt·.md) → Bundle (bundle_from_uploads)
-  data/bundles.py            합성 묶음 생성기(사례 9 × 종류 3, gold 포함) — tashkeel make-bundles
-  data/kyc_bundles.py        합성 KYC 묶음 생성기(상업등기 + 여권 + 정관, 사례 8, gold 포함) — 같은 명령
-  web/bundles.py             BundleStore(메모리 / Postgres), DbDictionary
-  web/bundle_jobs.py         묶음 LLM 검수: 서류별 JobManager 작업 → 합류 → 저장
-  web/app.py                 /v1/bundles/*(업로드, 초안 /draft, 묶음 SSE 포함), /v1/dictionary, /v1/usage 엔드포인트. 모든 /v1/*가 API 키 인증(Who)
-  web/auth.py                API 키 인증(ADR-019): X-API-Key / Bearer / ?api_key, AUTH=auto·required·disabled, Principal
-  web/customers.py           고객·API 키(발급 때만 평문, sha256 저장), 메모리/DB 저장소
-  web/usage.py               사용량 기록·집계(작업·라벨 검수), 메모리/DB 저장소
-  multi_agent.py             M1 틀: 번역자 → 격리 검증자(VerifierOutput) → 규칙 중재자(arbitrate), build_engine·run_engine
-  bundle/draft.py            업로드 초안: 이름 칸과 같은 대상 제안(build_draft). 저장·자동 연결 없음
-  web/static/index.html      "서류 묶음" 탭(딥링크 #bundle?sample=…&run=1[&llm=C2])
-  mcp/server.py              search_bundle 툴, document://synthetic/bundles/{split}[/{bundle_id}]
-  rag/bundle.py              BundleIndex.from_documents(entity_id=…), BundleHit.document_id·segment_id
-alembic/versions/0002_bundles.py   bundles, review_items, name_dictionary; name_items.evidence_document_id
-alembic/versions/0003_customers_usage.py   customers, usage, jobs.customer_id, bundles 유일 키 (customer_id, bundle_id)
-alembic/versions/0004_archive.py   archive_documents, archive_passages, documents.customer_id 색인·되채우기(ADR-022)
-docker-compose.yml  Dockerfile  .dockerignore  scripts/smoke.sh  docs/deploy.md   완제품 패키지(ADR-019)
-data/bundles/sample_bundle.json    가이드 예시(개인 + 회사)   data/synthetic/bundles/{dev,eval}/   사례 묶음 60개 + KYC 묶음 16개
-tests/test_bundle_{loader,extractor,evidence,rules,pipeline,eval,eval_kyc,mrz,api,llm,draft}.py
-tests/test_auth_api.py  test_customers_store.py  test_cli_customers.py  test_multi_agent.py
-```
+| 묶음 | 엔드포인트 | 하는 일 |
+| --- | --- | --- |
+| 상태 | `GET /health` | 모델·백엔드·분석기·DB·MCP·인증·조건 목록·기본 조건·보관함·OCR·사전 고객 |
+| 단일 문서 검수 | `POST /v1/reviews/upload` | 파일 하나 → 추출 → 구간 → 검수 작업(202). 조건을 비우면 `REVIEW_CONDITION` |
+| | `POST /v1/reviews` | 붙여넣은 텍스트·구간 또는 합성 dev 문서(`doc_id`)로 검수 작업(202) |
+| | `POST /v1/extract` | 추출만 |
+| | `GET /v1/samples`, `GET /v1/samples/{doc_id}` | 합성 dev 샘플 |
+| 작업 | `GET /v1/jobs`, `GET /v1/jobs/{job_id}` | 목록·상태 |
+| | `GET /v1/jobs/{job_id}/events` | SSE 진행(`queued` → `node` … → `done` / `error`) |
+| | `GET /v1/jobs/{job_id}/result` | 결과(4.3절) |
+| 회사 사전 | `POST /v1/dictionary` | 사람이 확정한 표기 등록(`job_id + token_ids`, 선택 `english_name`·`archive_hit_id`) |
+| | `GET /v1/dictionary`, `DELETE /v1/dictionary/{entry_id}` | 목록·취소 |
+| 보관함 | `GET /v1/archive`, `DELETE /v1/archive/{document_id}` | 보관함 서류 목록·빼기 |
+| 사용량 | `GET /v1/usage` | 고객별 작업 사용량(`from`·`to`) |
+| 묶음 검수(보류) | `POST /v1/bundles/review`, `POST /v1/bundles`, `POST /v1/bundles/draft`, `GET /v1/bundles`, `GET /v1/bundles/samples[/{bundle_id}]`, `GET /v1/bundles/{bundle_id}[/items|/pending]`, `POST /v1/bundles/{bundle_id}/reviews`, `GET /v1/bundles/{bundle_id}/reviews/{review_id}[/events]` | ADR-018·019. 코드와 테스트는 있고 추가 개발은 하지 않는다 |
+| 화면 | `/`(정적 파일) | `#/upload`, `#/result/{job_id}`, `#/bundle` |
 
-조건 M2와 회사 문서 보관함에서 더한 것 [확인, 2026-10-22, ADR-022]:
+**Postgres 표 11개**(`web/models.py`, Alembic):
 
-```text
-src/tashkeel_check/
-  archive/store.py           ArchivePassage·ArchiveDocument, build_passages, hit_id, InMemoryArchiveStore
-  archive/search.py          CompanyArchive(색인·찾기·제안 확인 verify_pick), search_records(사전 우선), name_in_text, make_embeddings
-  archive_apply.py           보관함 제안 덧씌움(ArchiveOverlay: archive_suggest / archive_conflict)
-  multi_agent_m2.py          조건 M2: AgentOutputM2·VerifierOutputM2, 두 역할 동시 실행, archive_claims, build_engine_m2·run_engine_m2
-  mcp/records.py             회사 기록 FastMCP 서버(search_company_records), ScopeRegistry(작업별 범위 토큰), LLM용 툴 래퍼
-  mcp/client.py              MCPClient.from_transport(메모리 전송), call_tool(meta=…)
-  web/archive.py             DbArchiveStore
-  web/app.py                 Runtime.archive·scopes·records, REVIEW_CONDITION, /v1/archive(GET·DELETE), 사전 등록의 archive_hit_id
-  web/jobs.py                작업마다 범위 토큰 발급·폐기, 보관함 덧씌움, 끝난 서류 보관함 저장
-  fake.py                    연습 모드 M2(기록 툴을 부르고 찾은 이름만 보류로 낸다)
-  web/static/index.html      이름 상태 셋(확정·확인 필요·사전과 문서가 다름)과 패널의 세부 출처, 후보·보관함 구절, 보관함 목록·삭제
-tests/test_archive_store.py  test_mcp_records.py  test_multi_agent_m2.py  test_archive_apply.py  test_web_m2_archive.py
-```
+| 표 | 내용 | 마이그레이션 |
+| --- | --- | --- |
+| `documents` | 입력 문서(정규화 원문, 구간, 토큰, 해시, 고객) | 0001(0004에서 `customer_id` 색인·되채우기) |
+| `jobs` | 작업 상태(조건, 고객, 노드, 시각, 오류) | 0001(0003에서 `customer_id`) |
+| `runs` | 실행 결과(모델, 프롬프트 해시, 지표, 메타, 사용량, `result` JSONB) | 0001 |
+| `name_items` | 고유명사 항목 펼침(처분, 근거 출처·서류·구간·인용) | 0001(0002에서 `evidence_document_id`) |
+| `bundles`, `review_items` | 묶음 입력과 묶음 검수 결과(보류 기능) | 0002 |
+| `name_dictionary` | 회사 사전. 유일 키 (고객, 대상 ID, 정규화 아랍어). 단일 문서 경로는 대상 ID `"*"` | 0002 |
+| `customers`, `usage` | 고객·API 키 해시, 사용량 | 0003 |
+| `archive_documents`, `archive_passages` | 보관함 서류와 구절(임베딩 실수 배열) | 0004 |
 
-데이터 흐름(라벨 경로, LLM 없음): 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값, 같은 구간에 영문 칸이 있으면 근거 출처라 검수 대상에서 제외) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸. 여권의 성·이름 칸은 하나로 합치고 MRZ는 해독하되, 같은 서류에 인쇄 칸이 있으면 MRZ는 뺀다) → `validate_evidence`(서류·구간·인용·영문 대조) → `decide_status` → `ReviewItem`. LLM 경로: 서류마다 단일 문서 그래프(C1~C3)를 돌려 `proper_noun` 항목을 `NameMention(source="llm")`으로 바꾸되, 라벨 칸이 있는 구간은 라벨 결과만 쓴다. 두 경로의 판정 함수는 같다.
-
-주요 명령:
+**주요 명령**
 
 | 명령 | 하는 일 |
 | --- | --- |
-| `uv run tashkeel run --doc data/synthetic/dev/dev_001.json --condition all --fake` | 문서 1개를 C0~C3로 실행(연습 모드), `results/debug/`에 JSON·CSV |
+| `uv run tashkeel serve` 또는 `./run.sh` | 서비스(API·화면). `.env`의 `LLM_BACKEND`·`REVIEW_CONDITION`·`DATABASE_URL`·`AUTH`·`OCR_*`·`USE_MCP_TOOLS`·`WEB_PORT`. 키·분석기·MCP가 없으면 기동 거부(종료 코드 3) |
+| `uv run alembic upgrade head` | Postgres 표 11개 생성·갱신(`DATABASE_URL` 필요) |
+| `uv run tashkeel customers add --name X` / `list` / `revoke <id>` | 고객과 API 키. 키는 발급 때 한 번만 출력. `DATABASE_URL` 필요 |
+| `docker compose up -d --build` / `./scripts/smoke.sh` | 완제품 패키지 기동 / 스모크([deploy.md](deploy.md)) |
+| `uv run tashkeel run --doc data/synthetic/dev/dev_001.json --condition all --fake` | 문서 1개를 C0~C3로 실행(연습 모드), `results/debug/`에 파일 |
 | `uv run tashkeel run --doc ... --condition C2` | 실제 OpenAI 모델로 실행(키 필요) |
-| `uv run tashkeel fetch-wikidata` | Wikidata 스냅숏과 이름 풀 (`--pool-only`: 재조회 없이 저장된 스냅숏으로 이름 풀만) |
-| `uv run tashkeel make-synthetic` | 합성 문서 dev 10개·eval 30개와 샘플 묶음 |
-| `uv run tashkeel make-bundles` | 합성 묶음(평가 사례 9개 × 대상 종류 3개 60개 + KYC 사례 8개 × dev·eval 16개) → `data/synthetic/bundles/` |
+| `uv run tashkeel fetch-wikidata` (`--pool-only`) | Wikidata 스냅숏과 이름 풀 / 저장된 스냅숏으로 이름 풀만 |
+| `uv run tashkeel make-synthetic` / `make-synthetic-hard --split dev` / `make-bundles` | 합성 문서 / 어려운 합성 문서(eval은 이미 있으면 거부) / 합성 묶음 |
+| `uv run tashkeel inspect-gold --case C2 --n 2` | synthetic-hard 문서의 구간별 정답을 읽기 좋게 출력 |
 | `uv run tashkeel exp001 --split dev` | EXP-001 |
-| `uv run tashkeel exp002 --split eval --workers 4 --max-runs 8 --yes` | EXP-002(360회, 비용 발생). 멈추면 종료 코드 4, `--resume`으로 이어서. `--token-budget`, 실행 폴더의 `STOP` 파일로도 멈춘다(ADR-016) |
-| `uv run tashkeel exp002-status` | EXP-002 최근 실행의 진행·토큰·예상 총량(결과 지표는 보이지 않음) |
-| `uv run tashkeel make-synthetic-hard --split dev` | 어려운 합성 문서 synthetic-hard(gold 형식 2). eval은 한 번만 만들고, 이미 있으면 거부(ADR-017) |
-| `uv run tashkeel inspect-gold --case C2 --n 2` | synthetic-hard 문서의 구간별 정답(기대 처분·유형)을 읽기 좋게 출력 |
-| `uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4` | EXP-003(어려운 시험지, 99% 기준). 실행 장치·옵션은 exp002와 같고, 참고 조건 C1p0(반복 1회)와 단계적 반복(최대 3회)이 더해진다. 실제 실행은 `--split eval --workers 16 --service-tier flex|default --yes`(ADR-020). 처리 등급은 세션 기록에 남는다 |
-| `uv run tashkeel exp003-status` / `exp003-errors` / `exp003-rescore` | 진행·사용량 / 자동 판정 오류 전부와 정답 표본을 사람 확인용 `errors.csv`로 / 저장된 출력을 지금 채점 코드로 다시 채점(참고 값) |
-| `uv run tashkeel serve` 또는 `./run.sh` | 서비스(API·화면). `.env`의 `LLM_BACKEND`·`REVIEW_CONDITION`(기본 M2)·`DATABASE_URL`·`USE_MCP_TOOLS`·`WEB_PORT`. 키·분석기·MCP가 없으면 기동 거부(종료 코드 3) |
-| `uv run python -m tashkeel_check.mcp.server` | MCP 서버(stdio) 단독 실행 |
-| `uv run alembic upgrade head` | Postgres 테이블 11개 생성·갱신(`DATABASE_URL` 필요). 0001 단계 1.5, 0002 묶음 검수, 0003 고객·사용량, 0004 회사 문서 보관함 |
-| `uv run tashkeel customers add --name X` / `list` / `revoke <id>` | 고객과 API 키(ADR-019). 키는 발급 때 한 번만 출력. `DATABASE_URL` 필요 |
-| `docker compose up -d --build` / `./scripts/smoke.sh` | 완제품 패키지 기동 / 스모크(`docs/deploy.md`) |
-| `uv run pytest -m "not live"` | 테스트(골든 포함). `live` 마커는 실제 OpenAI를 부르므로 키가 있으면 `uv run pytest`가 비용을 낸다 |
+| `uv run tashkeel exp002 ...` / `exp002-status` | EXP-002(재개·동시 실행·멈춤, ADR-016) / 진행·사용량 |
+| `uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4` | EXP-003 연습. 실제 실행은 `--split eval --workers 16 --service-tier flex|default --yes`(ADR-020) |
+| `uv run tashkeel exp003-status` / `exp003-errors` / `exp003-rescore` | 진행·사용량 / 사람 확인용 `errors.csv` / 저장된 출력을 지금 채점 코드로 다시 채점(참고 값) |
+| `uv run tashkeel bundle-search` | 묶음 검색 틀 직접 시험 |
+| `uv run python -m tashkeel_check.mcp.server` | 분석기 MCP 서버(stdio) 단독 실행 |
+| `uv run pytest -m "not live"` | 테스트(골든 포함). `live`는 실제 OpenAI를 부른다. `db` 마커는 `DATABASE_URL`이 닿을 때만 |
 | `uv run ruff check . && uv run ruff format --check . && uv run mypy` | 린트·서식·타입 검사(CI와 같음) |
 
+**묶음 검수 데이터 흐름(보류 기능, LLM 없음):** 묶음 JSON → `extract_names`(라벨 칸의 아랍어 값) → `search_evidence`(같은 묶음·다른 서류·같은 `entity_id`의 영문 칸. 여권 성·이름 칸은 합치고 MRZ는 해독하되, 같은 서류에 인쇄 칸이 있으면 MRZ는 뺀다) → `validate_evidence` → `decide_status` → `ReviewItem`. LLM 경로는 서류마다 단일 문서 그래프(C1~C3, 켜면 M1)를 돌려 같은 판정 함수에 합류시킨다.
 
-## 4.9 툴 상세 (구 `docs/툴-설계.md`)
-
-### 결론
-
-실험 조건(C0~C3)에서 LLM이 호출하는 툴은 `analyze_tokens` 하나이고 C2에서만 묶는다. 구조화 출력 `AgentOutput`은 LangChain `ToolStrategy`가 출력용 툴로 노출한다. 단계 2용 `search_bundle`은 틀만 있고 꺼져 있다. 서비스 기본 경로 조건 M2(ADR-022)는 `search_company_records`(회사 기록, MCP)를 두 agent에 묶는다. 탐지, 검증, 집계는 툴이 아니라 노드 안의 일반 함수다. LLM이 부를지 말지 고르게 두면 측정하려는 실패(모호한 곳을 말없이 넘김)가 같은 자리에서 반복되기 때문이다.
+## 4.9 툴 상세
 
 ### LLM이 호출하는 툴
 
@@ -332,9 +326,21 @@ tests/test_archive_store.py  test_mcp_records.py  test_multi_agent_m2.py  test_a
 | 하는 일 | 토큰 ID에 대해 CAMeL 형태소 분석기의 독법 후보를 돌려준다 |
 | 입력 | `{"token_ids": list[int]}` |
 | 출력 | 토큰마다 `{token_id, surface, analysis_count, ambiguous, candidates[{reading, romanized, pos, gloss}], candidates_truncated}` |
-| 호출 시점 | C2에서 LLM이 정한다. 결과는 `analyze` 노드가 미리 계산한 값이라 조건과 무관하게 같다 |
-| 실패 시 | 없는 ID는 `{"token_id", "error": "unknown token id"}`, 아랍어가 아닌 토큰은 `"not an Arabic token"`을 돌려준다. 분석기 자체를 쓸 수 없으면 그래프가 `analyze` 단계에서 멈춘다. LLM 추정으로 대신 채우지 않는다 |
-| 기록 | 호출마다 `tool_log`에 조회한 토큰과 오류 수를 남긴다. 지표: 호출 수, 모호 토큰 중 조회된 비율, 조회한 토큰 중 모호 토큰 비율 |
+| 호출 시점 | C2에서 LLM이 정한다. 결과는 `analyze` 노드가 미리 계산한 값이라 조건과 무관하게 같다(분석기를 다시 돌리지 않는다) |
+| 실패 시 | 없는 ID는 `{"token_id", "error": "unknown token id"}`, 아랍어가 아닌 토큰은 `"not an Arabic token"`. 분석기 자체를 쓸 수 없으면 그래프가 `analyze` 단계에서 멈춘다. LLM 추정으로 대신 채우지 않는다 |
+| 기록 | 호출마다 `tool_log`에 조회한 토큰과 오류 수(MCP 경유면 `via: "mcp"`). 지표: 호출 수, 모호 토큰 중 조회된 비율, 조회한 토큰 중 모호 토큰 비율 |
+
+#### search_company_records (M2, MCP)
+
+| 항목 | 내용 |
+| --- | --- |
+| 하는 일 | 고객의 회사 기록을 찾는다: 사람이 확정한 사전 표기, 없으면 전에 올린 서류의 같은 아랍어 이름 구절(근처 라틴 문자 포함) |
+| 입력(LLM) | `{"names": list[list[int]]}`(이름마다 토큰 ID 묶음, 한 번에 최대 40개). 아랍어·문맥은 래퍼가 토큰 표에서 만든다. 고객 범위는 MCP `_meta`의 작업별 토큰으로만 |
+| 출력 | 이름마다 `{token_ids, arabic, dictionary{english, entry_id} | null, hits[{hit_id, document, date, text, latin_candidates, similarity}]}`. 사전이 있으면 `hits`는 비운다 |
+| 호출 시점 | M2의 번역·검증 agent가 정한다. 역할당 최대 2회 |
+| 실패 시 | 범위 토큰이 없으면 부르지 않고 빈 목록, 거부되면 `[{"error"}]`를 LLM에게 돌려주고 기록한다. MCP 서버가 실행 중 끊기면 작업을 실패로 기록한다 |
+| 기록 | `tool_log`에 역할·이름 수·사전 적중 수·돌려준 `hit_id`·`via: "mcp"`. 중재자는 그 역할이 받은 `hit_id`만 보관함 선택으로 인정한다 |
+| 비고 | 결과는 근거가 아니다. `verify_evidence`는 이번 문서 구간만 받는다. 화면에 내는 제안은 `archive_apply`가 원문으로 다시 확인한다 |
 
 #### AgentOutput (구조화 출력)
 
@@ -342,10 +348,10 @@ tests/test_archive_store.py  test_mcp_records.py  test_multi_agent_m2.py  test_a
 | --- | --- |
 | 입력(LLM이 채움) | `translation[{segment_id, english}]`, `items[{token_ids, type, candidates[{reading, romanized, source}], decision, adopted, reason, confidence, evidence{segment_id, quote}}]` |
 | 허용 처분 | `word`: `adopt` / `abstain`. `proper_noun`: `evidence_adopt` / `hold` |
-| 호출 시점 | C1~C3의 마지막 응답 |
+| 호출 시점 | C1~C3과 M1·M2 번역 쪽의 마지막 응답 |
 | 실패 시 | 스키마 오류는 `ToolStrategy`가 LLM에게 되돌려 다시 쓰게 한다. 구간이 빠지면 `validate`가 1회 재시도한다. 그래도 실패하면 실패한 채로 대조·저장한다 |
 
-#### search_bundle (단계 2 틀, 꺼짐)
+#### search_bundle (묶음 검색 틀, 꺼짐)
 
 | 항목 | 내용 |
 | --- | --- |
@@ -354,138 +360,130 @@ tests/test_archive_store.py  test_mcp_records.py  test_multi_agent_m2.py  test_a
 | 출력 | `[{method, source, parent_id, line_no, text, latin_candidates, score}]`. method는 `arabic_exact` / `romanized` / `vector` |
 | 호출 시점 | `ENABLE_BUNDLE_SEARCH=true`이고 `--bundle`을 줄 때만. C0~C3 비교에는 쓰지 않는다 |
 | 실패 시 | 결과가 없으면 빈 목록. 근거가 없으면 보류가 맞는 처분이다 |
-| 비고 | 묶음 밖의 인용은 아직 `verify_evidence`가 검증하지 못한다(단계 2 작업) |
-
-#### search_company_records (조건 M2, MCP, 2026-10-22)
-
-| 항목 | 내용 |
-| --- | --- |
-| 하는 일 | 고객의 회사 기록을 찾는다: 사람이 확정한 사전 표기, 없으면 전에 올린 서류의 같은 아랍어 이름 구절(근처 라틴 문자 포함) |
-| 입력(LLM) | `{"names": list[list[int]]}`(이름마다 토큰 ID 묶음, 한 번에 최대 40개). 아랍어·문맥은 래퍼가 토큰 표에서 만든다. 고객 범위는 MCP `_meta`의 작업별 토큰으로만 |
-| 출력 | 이름마다 `{token_ids, arabic, dictionary{english, entry_id} | null, hits[{hit_id, document, date, text, latin_candidates, similarity}]}`. 사전이 있으면 `hits`는 비운다 |
-| 호출 시점 | M2의 번역·검증 agent가 정한다. 역할당 최대 2회 |
-| 실패 시 | 범위 토큰이 없으면 부르지 않고 빈 목록, 거부되면 `[{"error"}]`를 LLM에게 돌려주고 기록한다. MCP 서버가 끊기면 작업을 실패로 기록한다 |
-| 기록 | `tool_log`에 역할·이름 수·사전 적중 수·돌려준 `hit_id`·`via: "mcp"`. 중재자는 그 역할이 받은 `hit_id`만 보관함 선택으로 인정한다 |
-| 비고 | 결과는 근거가 아니다. `verify_evidence`는 여전히 이번 문서 구간만 받는다. 화면에 내는 제안은 `archive_apply`가 원문으로 다시 확인한다 |
+| 비고 | 묶음 밖의 인용은 `verify_evidence`가 검증하지 못한다. 묶음 검수의 교차 서류 확정은 `bundle/rules.decide_status`가 한다(ADR-018) |
 
 ### 노드 안의 일반 함수
 
 | 함수 | 규칙 | 버전 |
 | --- | --- | --- |
-| 모호 판정 (`summarize`) | 격어미·탄윈·수쿤을 뗀 모음 표기(`strip_case_ending`)가 서로 다른 후보가 둘 이상이면 모호. 원시 분석 수는 따로 기록 | 계획 4.2절 |
+| 모호 판정 (`summarize`) | 격어미·탄윈·수쿤을 뗀 모음 표기(`strip_case_ending`)가 서로 다른 후보가 둘 이상이면 모호. 원시 분석 수는 따로 기록 | EXP-001 전에 고정 |
 | `romanize` | 모음 표기 아랍어 → ASCII. 단모음, 장모음, 샷다(겹자음), 관사(al-)를 살린다 | v0 |
-| `match_spelling` | 관사·하이픈·아포스트로피를 걷고, 붙여 쓴 Abdul을 abd로, 영문 e는 a·i·u, o·ou는 u·aw로 펼치고, th·dh·z·d와 q·k를 같게 보고, 겹글자를 접은 정규형이 같으면 같은 이름. 아니면 대표형끼리 자음 한 글자 차이(또는 y↔i, w↔u)만 허용하고 모음 차이는 다른 이름. 방언 옵션은 q↔g를 더함 | v1, EXP-001 dev에서 고정(2026-10-20, ADR-015) |
-| `verify_evidence` | 인용한 구간이 있고, 인용에 라틴 문자가 있고, 인용이 그 구간 원문에 있고, 채택 표기가 인용 안에 있어야 통과. 실패하면 보류로 내리고 실패 사유를 남긴다 | — |
-| 강등 규칙 | 고유명사 `adopt`는 "근거 없는 확정"으로 센다. 고유명사 `abstain`은 보류로, 일반 단어 `hold`는 기권으로 바꾸고 유형·처분 불일치로 센다 | 계획 4.5절 |
-| C0 판정 | 번역문에 후보 표기가 둘 이상 나오거나, 일치한 표기 바로 앞뒤 3자 안에 불확실 표시가 있거나, "/"·"?"가 든 괄호 안에 있으면 표시한 것으로 본다 | v0, 실행 전 고정, 20건 수동 확인 예정 |
-| `dictionary_apply.apply_dictionary` (서비스 경로, ADR-021) | 검수 결과의 고유명사마다 고객 + `"*"` + 정규화 아랍어로 회사 사전을 조회해 결과 위에 덧씌움을 만든다. 보류·근거 검증 실패 + 적중 → 사전 표기로 확정(glossary), 문서 근거 확정과 표기가 다르면 충돌, 같으면 동의. `name_text`가 같은 이름의 여러 등장을 묶은 항목("نوال نوال")의 반복을 걷어 키를 만든다. `ReviewResult`는 바꾸지 않는다 | 2026-10-21 |
-| `ocr.extract_text` (서비스 경로, ADR-021) | .txt/.md는 그대로, .pdf는 `pypdf` 텍스트 층에 아랍어 토큰이 있으면 그대로, 없으면 OCR 백엔드, 이미지는 OCR 백엔드. 백엔드는 `OcrBackend` 프로토콜(`none`, `ocrspace`). 성능은 재지 않는다 | 2026-10-21 |
+| `match_spelling` | 관사·하이픈·아포스트로피를 걷고, 붙여 쓴 Abdul을 abd로, 영문 e는 a·i·u, o·ou는 u·aw로 펼치고, th·dh·z·d와 q·k를 같게 보고, 겹글자를 접은 정규형이 같으면 같은 이름. 아니면 대표형끼리 자음 한 글자 차이(또는 y↔i, w↔u)만 허용하고 모음 차이는 다른 이름. 방언 옵션은 q↔g를 더함 | v1(ADR-015) |
+| 엄격 철자 `strict_*` | 대소문자·공백·하이픈·아포스트로피·MRZ `<`·연결어(bin·bint·ibn)만 무시하고 모음·자음은 글자 그대로 | s1(ADR-017) |
+| `verify_evidence` | 인용한 구간이 있고, 인용에 라틴 문자가 있고, 인용이 그 구간 원문에 있고, 채택 표기가 인용과 맞아야 통과(v1: `match_spelling`, v2: `strict_words_in_quote`). 실패하면 보류로 내리고 실패 사유를 남긴다 | v1·v2(4.5절) |
+| 강등 규칙 | 4.5절 | — |
+| C0 판정 | 번역문에 후보 표기가 둘 이상 나오거나, 일치한 표기 바로 앞뒤 3자 안에 불확실 표시가 있거나, "/"·"?"가 든 괄호 안에 있으면 표시한 것으로 본다 | v0 → t2(EXP-003, 잘린 창 버그 수정). 20건 수동 확인은 안 했다 [미확인] |
+| `dictionary_apply.apply_dictionary` | 고유명사마다 고객 + `"*"` + 정규화 아랍어로 회사 사전을 조회해 덧씌움을 만든다. 보류·근거 검증 실패 + 적중 → `dictionary_adopt`, 문서 근거 확정과 표기가 다르면 `conflict`, 같으면 `agree`. `name_text`가 같은 이름의 여러 등장을 묶은 항목("نوال نوال")의 반복을 걷어 키를 만든다 | ADR-021 |
+| `archive_apply.apply_archive` | 4.7절 "보관함 선택은 확정을 바꾸지 못한다" | ADR-022 |
+| `ocr.extract_text` | .txt/.md는 그대로, .pdf는 `pypdf` 텍스트 층에 아랍어 토큰이 있으면 그대로, 없으면 OCR 백엔드, 이미지는 OCR 백엔드. 업로드 상한 `UPLOAD_MAX_BYTES`(기본 5MB), OCR 상한 `OCR_MAX_BYTES`(기본 1MB) | ADR-021 |
 
-## 4.10 실행 환경과 구현 중 관찰 (구 9절)
+## 4.10 실행 환경
 
-### 구현 중 본 것 (측정 아님)
-
-- 연습 모드 실행에서 `dev_004`의 아랍어 토큰 57개 가운데 26개가 모호 판정 규칙(격어미 제거 후 후보 ≥ 2)에 걸렸다 [관찰, 문서 1개]. 격어미를 빼도 접어(و، ب 등) 분석 차이로 후보가 갈리는 것으로 보인다 [가설]. 이 규칙대로면 C1~C3에서 LLM이 처분해야 할 일반 단어가 많아 "미처리(일반 단어)" 수가 커질 수 있다. 규칙을 바꾸려면 EXP-002 실행 전에 정해야 한다.
-- CAMeL 데이터 목록에 걸프 아랍어 DB(`morphology-db-glf-01`, CC BY 4.0, 8.0MB)가 있다 [확인, `camel_data -l`]. 라이선스가 GPL이 아니고 걸프 방언용이라 이름 후보 비교 대상으로 검토할 만하다 [제안, 미채택].
-
-### 실행 환경 (2026-10-13, 이 장비)
-
-| 항목 | 결과 |
+| 항목 | 내용 |
 | --- | --- |
-| Python·도구 | Python 3.11.15, uv, 주요 패키지는 `uv.lock`(langchain 1.4.5, langgraph 1.2.15, langsmith 0.14.8, langchain-openai 1.7.1, camel-tools 1.6.0) |
-| 디스크 | 여유 약 619GB |
-| API 키 | 2026-10-13: OpenAI·LangSmith 키 없음. 2026-10-20: `.env`에 OpenAI 키가 있다(`MODEL=openai:gpt-6.1-sol`). LangSmith 키는 없다 |
+| Python·패키지 | Python 3.11(camel-tools 1.6.0 요구 사항, `requires-python >=3.11,<3.13`). 버전은 `uv.lock`(langchain 1.4.5, langgraph 1.2.15, langsmith 0.14.8, langchain-openai 1.7.1, camel-tools 1.6.0, fastapi 0.156.4, fastmcp 4.1.3, mcp 2.3.0, sqlalchemy 2.1.5) |
+| 형태소 DB | `uv run camel_data -i morphology-db-msa-r13`로 받는다. `--fake`로 돌려도 필요하다(가짜 모델은 LLM만 대체) |
+| 키 | 실제 모델·임베딩은 `OPENAI_API_KEY`. 선택: `LANGSMITH_API_KEY`(추적), `OCR_API_KEY`(`OCR_BACKEND=ocrspace`). 키가 없으면 `LLM_BACKEND=fake`로만 돈다(조용히 가짜로 바뀌지 않는다) |
+| 모델 설정 | `gpt-6.1-sol`은 temperature 0을 거부해 보내지 않는다. 같은 입력도 실행마다 결과가 다를 수 있다 |
+| 걸프 방언 DB | CAMeL 목록에 `morphology-db-glf-01`(CC BY 4.0)이 있다. 이름 후보 비교 대상으로 검토할 만하다 [제안, 미채택] |
 
-## 4.11 코드 대조 [확인, 2026-10-20]
+## 4.11 코드 대조
 
-`src/tashkeel_check/`를 직접 읽어 위 설계와 맞춘 결과다. 구 `docs/아키텍처-설계.md`(2026-10-13)의 내용은 여기에 흡수했다.
+`src/tashkeel_check/`를 직접 읽어 위 설계와 맞춘 결과다(2026-10-22 제출본).
 
 ### 한 줄 요약
 
-LangGraph 그래프 하나(노드 6개)가 아랍어 문서 1건을 받아 번역과 이름별 처분(확정/보류)을 내고, 검증·강등·지표 계산은 코드가 한다. LLM은 `agent` 노드 하나에만 있다. 조건 C0~C3는 `agent`가 LLM에게 무엇을 보여 주는지만 바꾼다.
+LangGraph 그래프 하나(노드 6개)가 아랍어 문서 1건을 받아 번역과 이름별 처분(확정/보류)을 내고, 검증·강등·지표 계산은 코드가 한다. LLM은 `agent` 노드에만 있다. 조건 C0~C3는 `agent`가 LLM에게 무엇을 보여 주는지만 바꾸고, M1·M2는 `agent`를 하위 그래프로 바꾼다. 서비스는 같은 그래프를 `Reviewer`로 부르고, 결과 위에 사전·보관함 덧씌움을 얹는다.
 
 ### 실행 경로
 
 ```text
+서비스 (uv run tashkeel serve)
+ └─ web.app.create_app → web.jobs.JobManager(스레드)
+      → runner.Reviewer.run(doc, condition, on_node, records_scope) → graph
+      → dictionary_apply.apply_dictionary → archive_apply.apply_archive → archive.CompanyArchive.index_document
+      → web.db(runs·name_items·usage)
+
 CLI (uv run tashkeel <cmd>)
  ├─ run            → runner.run_document → graph
- ├─ exp002         → experiments/exp002 → runner.run_document(실행마다 모델·그래프 새로) → 반복 × 문서 × 조건, 동시 실행, runs.jsonl로 재개
- ├─ exp002-status  → experiments/exp002.status (plan.json + runs.jsonl만 읽음)
- ├─ exp003(-status·-errors·-rescore) → experiments/exp003 → harness.run(Spec: p1·v2, 99% 판정, 라벨 C1p0, 단계 판단) → 같은 장치
+ ├─ exp002(-status) → experiments/exp002 → harness.run → runner(실행마다 모델·그래프 새로), runs.jsonl로 재개
+ ├─ exp003(-status·-errors·-rescore) → experiments/exp003 → harness.run(Spec: p1·v2, 99% 판정, 참고 조건 C1p0, 단계 판단)
  ├─ exp001         → experiments/exp001 (그래프를 쓰지 않음: analyzer + data/names.align + romanize)
  ├─ fetch-wikidata → data/wikidata (SPARQL → gcc_persons.json → name_tokens.json)
- ├─ make-synthetic → data/synthetic (name_tokens.json + 템플릿 → dev 10 / eval 30 + gold)
- ├─ make-synthetic-hard → data/synthetic-hard (dev 20 / eval 70 + gold 형식 2, 유형 17가지)
- └─ bundle-search  → rag/bundle (단계 2 틀, 그래프 밖에서만)
+ ├─ make-synthetic / make-synthetic-hard / make-bundles → data/synthetic·synthetic_hard·bundles·kyc_bundles
+ ├─ inspect-gold   → synthetic-hard 정답 출력
+ ├─ bundle-search  → rag/bundle (그래프 밖에서만)
+ ├─ customers      → web.customers (DATABASE_URL 필요)
+ └─ serve          → 위 서비스
 ```
 
-### 그래프 (`graph.py`)
+### 그래프 상태 (`graph.GraphState`)
 
-```text
-START → load → analyze → agent → validate ─(valid)→ reconcile → export → END
-                          ▲          │
-                          └─(invalid, attempts ≤ Settings.max_retries=1)┘
-```
+`doc_id`, `condition`, `segments`, `gold`(reconcile 전용. `runner.split_gold`가 떼어 넘기고 프롬프트에는 들어가지 않음), `out_dir`, `meta`, `tokens`, `analyses`, `output`, `tool_log`, `usage`, `attempts`, `errors`, `valid`, `reconciled`, `result`, `bundle_evidence`(M1 묶음 참고용), `engine`(M1·M2 역할별 사용량·중재 통계·보관함 선택), `records_scope`(M2 범위 토큰).
 
-| 노드 | 역할 | LLM | 핵심 함수 |
-| --- | --- | --- | --- |
-| load | 조건 검사, NFC, 구간 → 토큰 ID, usage·errors 초기화 | 없음 | `text.tokenize` |
-| analyze | 모든 아랍어 토큰을 CAMeL로 분석(모든 조건) | 없음 | `analyzer.analyze_tokens` |
-| agent | 조건별 프롬프트·툴로 LLM 호출 | 있음 | `prompts.system_prompt`·`user_message`, `tools.make_analyze_tool`, `create_agent` |
-| validate | 모든 segment_id에 번역이 있는지 | 없음 | `reconcile.parse_c0` |
-| reconcile | 토큰 ID·인용 검증, 강등, 지표 | 없음 | `reconcile.reconcile` |
-| export | `ReviewResult`로 검증한 뒤 JSON·CSV·메타 저장 | 없음 | `export.write_outputs` |
-
-상태(`GraphState`): `doc_id`, `condition`, `segments`, `gold`(reconcile 전용. `runner.split_gold`가 떼어 넘기고 프롬프트에는 들어가지 않음), `out_dir`, `meta`, `tokens`, `analyses`, `output`, `tool_log`, `usage`, `attempts`, `errors`, `valid`, `reconciled`, `result`.
-
-### 조건 (agent 노드 안에서만 분기)
+### 조건 분기 (agent 노드 안에서만)
 
 | 조건 | 호출 방식 | 툴 | 시스템 프롬프트 | 사용자 메시지 |
 | --- | --- | --- | --- | --- |
 | C0 | `ChatPromptTemplate \| model`, 자유 텍스트 | 없음 | `C0_SYSTEM` | 원문만 |
-| C1 | `create_agent(..., response_format=ToolStrategy(AgentOutput))` | extra만 | `C1_SYSTEM` | 원문 + 토큰 표 |
+| C1 | `create_agent(..., response_format=ToolStrategy(AgentOutput))` | extra만 | `C1_SYSTEM`(p0) / `C1_SYSTEM_P1`(p1) | 원문 + 토큰 표 |
 | C2 | C1과 같음 | `analyze_tokens` + extra | C1 + `C2_TOOL_LINE` | C1과 같음 |
 | C3 | C1과 같음 | extra만 | C1 + `C3_ANALYZER_LINE` | C1 + ANALYZER 블록 |
+| M1 | `run_engine`: 번역자 → 검증자 → `arbitrate` | extra만 | `engine_system_prompts`(C3 지시문, `M1_VERIFIER_SYSTEM`) | C3 입력(+ 묶음 참고 블록) |
+| M2 | `run_engine_m2`: 두 역할 동시 → `arbitrate` | `search_company_records` | `C1_SYSTEM_P1` + `M2_RECORDS_RULE`, `M2_VERIFIER_SYSTEM` | C1 입력 |
 
-- `analyze_tokens` 툴은 analyze 노드가 이미 계산한 결과를 돌려주고 `tool_log`에 호출을 남길 뿐, 분석기를 다시 돌리지 않는다.
-- `extra_tool_factories`(단계 2 `search_bundle`용 훅, `ToolFactory = Callable[[tokens, tool_log], BaseTool]`)는 C1·C2·C3 모두에 붙는다. C2 전용이 아니다.
+`extra_tool_factories`(`search_bundle`용 훅, `ToolFactory = Callable[[tokens, tool_log], BaseTool]`)는 C1·C2·C3 모두에 붙는다. C2의 `analyze_tokens`만 바꾸는 훅은 `analyze_tool_factory`(MCP), M2의 기록 툴은 `records_tool_factory`다.
 
 ### 모듈 계층 (import 방향, 아래 → 위)
 
 ```text
-errors, text, schemas, fake                (내부 의존 없음)
+errors, text, schemas, fake, bundle/schemas, bundle/mrz, ocr/base, experiments/tiers, web/models   (내부 의존 없음)
 romanize    → text
-analyzer    → errors, romanize, text       (CAMeL 래퍼, 격어미 제거, 모호 판정. 없으면 AnalyzerUnavailable)
-config      → errors                       (Settings는 frozen. load_settings만 .env를 읽음)
-results     → schemas                      (ReviewResult: 파일·API·DB 공통 계약, extra=forbid)
-prompts     → analyzer, errors, text       (PROMPT_VERSION, prompt_hash)
+analyzer    → errors, romanize, text            (CAMeL 래퍼, 모호 판정. 없으면 AnalyzerUnavailable)
+config      → errors                            (Settings는 frozen. load_settings만 .env를 읽음)
+results     → schemas                           (ReviewResult, extra=forbid)
+prompts     → analyzer, config, errors, text    (지시문 판 p0·p1, M1·M2 역할 지시문, prompt_hash)
 tools       → analyzer, text
-reconcile   → analyzer, romanize, text     (527줄, 강등 규칙·지표 전부)
+reconcile   → analyzer, romanize, text          (강등 규칙·지표 전부)
 export      → results
-graph       → 위 전부
-runner      → graph, fake, config, prompts (Reviewer, make_model, @traceable)
-cli         → config, errors (+ 지연 import: runner, data, experiments, rag)
-data/names  → text ; data/wikidata → text, names ; data/synthetic → text
-experiments/exp001 → analyzer, names, romanize, text
-experiments/harness → config, runner, analyzer, results          (재개·동시 실행·멈춤·사용량, Spec, Clopper–Pearson·부트스트랩)
-experiments/exp002 → harness, config, analyzer, prompts, romanize   (PASS_BAR, judge: stop / pass / fail; plan.json 고정값, p0·v1)
-experiments/exp003 → harness, scoring_v2, data/synthetic_hard        (99% 두 기준, service_claim; p1·v2)
-scoring_v2  → reconcile, romanize, analyzer ; data/synthetic_hard → romanize, text, synthetic
-rag/bundle  → romanize, text               (Qdrant 메모리 모드, 기본 꺼짐)
+bundle/*    → text, errors, results, romanize   (dictionary: DictionaryLookup, evidence: strict_form, pipeline: review_bundle)
+dictionary_apply → bundle/dictionary, bundle/evidence, results, text
+rag/bundle  → romanize, text                    (Qdrant 메모리 모드, PracticeEmbeddings)
+archive/store → text ; archive/search → archive/store, bundle/dictionary, rag/bundle, romanize, text
+archive_apply → archive/search, dictionary_apply, results, romanize, text
+mcp/client  → errors
+mcp/records → mcp/client, archive/search, bundle/dictionary, dictionary_apply, errors, text
+multi_agent → analyzer, bundle/evidence, config, prompts, reconcile, schemas, text
+multi_agent_m2 → multi_agent, mcp/records, config, prompts, romanize, schemas, text
+graph       → analyzer, config, errors, export, mcp/records, multi_agent, multi_agent_m2, prompts, reconcile, results, schemas, text, tools
+runner      → graph, analyzer, config, errors, fake, mcp/records, prompts, results, romanize   (Reviewer, make_model, @traceable)
+mcp/tools   → mcp/client, graph, analyzer, text ; mcp/server → analyzer, bundle/*, config, prompts, runner, text
+ocr/extract → ocr/base, config, errors, text ; ocr/ocrspace → ocr/base, errors
+web/db      → web/models, results, text ; web/{customers, usage, archive, bundles} → web/db (+ archive/store, bundle/*)
+web/auth    → web/customers, config, errors ; web/bundle_jobs → web/jobs, web/bundles, bundle/*, config, text
+web/jobs    → runner, dictionary_apply, archive_apply, archive/*, mcp/client, mcp/records, bundle/dictionary, results, errors, text, web/db, web/usage
+web/app     → web/*, runner, analyzer, archive/*, bundle/*, config, dictionary_apply, errors, mcp/*, ocr, text
+data/names  → text ; data/wikidata → text, names ; data/synthetic → text ; data/synthetic_hard → romanize, text, synthetic
+data/kyc_bundles → data/bundles, bundle/evidence, bundle/mrz
+scoring_v2  → analyzer, reconcile, romanize
+experiments/exp001 → analyzer, data/names, romanize, text
+experiments/harness → analyzer, config, errors, results, runner   (재개·동시 실행·멈춤·사용량, Spec, Clopper–Pearson·부트스트랩)
+experiments/exp002 → harness, analyzer, config, prompts, romanize (PASS_BAR, judge: stop / pass / fail; p0·v1)
+experiments/exp003 → harness, analyzer, config, data/synthetic_hard, prompts, reconcile, romanize, runner, text (99% 두 기준, service_claim; p1·v2)
+cli         → config, errors (+ 지연 import: runner, data, experiments, rag, web)
 ```
 
 ### 설정·오류·가짜 모델
 
-- `Settings`: model `openai:gpt-6.1-sol`, temperature None, max_retries 1, recursion_limit 25, high_confidence 0.8, dev 10 / eval 30 / repeats 3, max_candidates 10, enable_bundle_search False.
-- 오류: `InputError`(종료 코드 2) / `ConfigError`·`AnalyzerUnavailable`(종료 코드 3).
-- `fake.FakeAgentModel`은 LLM만 대체한다. `--fake`로 돌려도 CAMeL DB는 필요하다. 가짜 분석기는 `tests/conftest.py`의 `fake_analyze`뿐이고 `analyze_fn` 인자로 주입한다.
+- `Settings` 기본값: model `openai:gpt-6.1-sol`, temperature None, max_retries 1, recursion_limit 25, high_confidence 0.8, prompt_version p1, evidence_rule v1(서비스는 v2로 덮음), dev 10 / eval 30 / repeats 3, max_candidates 10, llm_backend openai, use_mcp_tools False, auth auto, multi_agent False, review_condition M2, ocr_backend none, upload_max_bytes 5MB, enable_bundle_search False, embedding_model `text-embedding-3-small`. 실험 코드는 실험마다 판·규칙을 덮어쓴다(EXP-002 p0·v1, EXP-003 p1·v2).
+- 오류: `InputError`(400, 종료 코드 2) / `ConfigError`·`AnalyzerUnavailable`(503, 종료 코드 3).
+- `fake.FakeAgentModel`은 LLM만 대체한다. `--fake`·`LLM_BACKEND=fake`로 돌려도 CAMeL DB는 필요하다. 가짜 분석기는 `tests/conftest.py`의 `fake_analyze`뿐이고 `analyze_fn` 인자로 주입한다.
 
-### 실험용인가 제품용인가
+### 실험 경로와 제품 경로
 
-실험 장치다. 다만 그래프·`Reviewer`·`ReviewResult`는 단계 1.5 서비스 경로에서 그대로 호출하고(ADR-012), 단계 2는 `extra_tool_factories`로 `search_bundle`을 더하며(`rag/bundle.py` 틀: 아랍어 정확 일치, 로마자 유사 일치, 벡터 검색, Parent–Child), 단계 3은 `agent` 노드만 번역자 / 격리된 검증자 / 중재자 하위 그래프로 바꾼다. `load`·`analyze`·`validate`·`reconcile`·`export`와 지표는 그대로 써서 단계 1과 같은 기준으로 비교한다. 제품 여부 자체는 EXP-002 판정 뒤에 정해진다.
+둘은 같은 그래프·`Reviewer`·`ReviewResult`를 쓴다. 실험 경로(CLI)는 C0~C3을 같은 기준으로 비교하는 장치이고, 결과는 `results/`와 [experiments/](experiments/README.md)에 있다. 제품 경로(서비스)는 기본 M2로 돌고, 그 위에 사전·보관함 덧씌움, 인증·고객 분리·사용량, 저장을 더한다. 그래서 M2를 재게 되면 같은 지표(4.5절, [6절](evaluation.md))로 C1과 바로 비교할 수 있다.
 
-### 알려진 작은 불일치 (코드는 이번에 고치지 않음)
+### 알려진 작은 불일치 (코드는 고치지 않음)
 
 1. `errors.py` docstring이 가리키는 `cli.EXIT_CODES`는 없고 실제 이름은 `cli._exit_code()`다.
-2. `rag/bundle.py`가 지연 import하는 `sklearn`(연습 임베딩)은 `pyproject.toml` 의존성에 없다.
-3. `results/m0/`은 `src/`의 기본 출력 경로가 아니라 수동 `--out`으로 만든 것으로 보인다.
+2. `rag/bundle.PracticeEmbeddings`가 지연 import하는 `sklearn`은 `pyproject.toml`의 직접 의존성에 없고 camel-tools를 거쳐 설치된다. 가짜 모델 서비스의 보관함 임베딩도 이 클래스를 쓴다.
