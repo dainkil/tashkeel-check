@@ -1,4 +1,4 @@
-"""단계 1.5 초기 테이블: documents, jobs, runs, name_items (docs/roadmap.md 2.5절 M1.5 부분집합)
+"""단계 1.5 초기 테이블: documents, jobs, runs, name_items (표 목록은 docs/architecture.md 4.8절)
 
 Revision ID: 0001
 Revises:

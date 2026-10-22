@@ -29,7 +29,7 @@
 
 처음 가설은 "형태소 분석기(CAMeL Tools)를 LLM에 주면 모호한 이름을 더 잘 잡는다"였다. 그래서 기능보다 측정 장치를 먼저 만들었다. 조건 네 개(C0 지시 없음, C1 지시문만, C2·C3 지시문 + 분석기)를 두고, 업무 규칙으로 만든 합성 서류와 자동 채점으로 비교했다.
 
-결과는 가설과 달랐다. 어려운 합성 시험지(문서 70개, 이름 부분 1,457개)에서 원칙을 분명히 한 지시문만 준 C1이 엄격 99.93%·안전 100%를 냈고, 분석기를 준 조건과 차이가 없었다. 조건별 정확도·시간·비용, 오류 분석, 한계는 [EXP-003 기록](docs/experiments/EXP-003.md)에 있다.
+결과는 가설과 달랐다. 어려운 합성 시험지(문서 70개, 이름 부분 1,457개)에서 원칙을 분명히 한 지시문만 준 C1이 엄격 99.93%·안전 100%를 냈고, 분석기를 준 조건과 차이가 없었다. 조건별 정확도·시간·비용, 오류 분석, 한계는 [EXP-003 기록](docs/experiments/EXP-003.md)에, 프로젝트 중 한 측정 전체의 요약은 [실험 요약](docs/experiments/README.md)에 있다.
 
 그래서 방향을 바꿨다.
 
@@ -50,7 +50,7 @@
 | 입력 | `ocr/`. `.txt`·`.md` 그대로, `.pdf`는 `pypdf` 텍스트 층 먼저, 아랍어가 없으면 OCR. 백엔드는 `Protocol`이라 갈아끼울 수 있고 지금은 `none`과 무료 API `ocrspace`가 있다 |
 | 서비스 | FastAPI(`web/app.py`), 작업 스레드와 SSE 진행 이벤트(`web/jobs.py`), Postgres + Alembic(`web/db.py`, 없으면 메모리), Vue 3 한 파일 화면 |
 | MCP | 회사 기록 서버 `mcp/records.py`(FastMCP, 툴 `search_company_records`): M2의 두 agent가 같은 프로세스의 메모리 전송으로 부른다. 고객 범위는 도구 인자가 아니라 작업마다 발급하고 끝나면 없애는 토큰(`_meta`)으로만 정하고, 쓰기 도구는 없다. 분석기 서버 `mcp/server.py`(stdio): 툴 `analyze_tokens`·`search_bundle`, 리소스 `document://synthetic/...`, 프롬프트 `review_instructions`. `USE_MCP_TOOLS=true`면 C2의 툴 호출이 MCP로 간다 |
-| 의존성 주입 | `Settings` → `build_runtime()` → `Runtime(model, analyzer, dictionary, ocr)`. 모델은 `make_model(fake=...)`로 진짜·가짜를 바꾸고 테스트는 가짜를 넣는다 |
+| 의존성 주입 | `Settings` → `build_runtime()` → `Runtime`(모델, 분석기, `Reviewer`, DB, 사전, 보관함, 회사 기록 MCP 클라이언트, OCR 백엔드 등). 모델은 `make_model(fake=...)`로 진짜·가짜를 바꾸고 테스트는 가짜를 넣는다 |
 | 묶음 검수 | `bundle/`. 같은 대상 ID가 붙은 다른 서류의 영문 칸만 근거로 쓰고 정확히 일치할 때만 확정. 여권 MRZ 해독 포함. 보류 중 |
 | 멀티 에이전트 | `multi_agent.py`의 M1: 번역자 → 격리된 검증자 → 규칙 중재자(순서대로, C3 입력, `MULTI_AGENT=true`일 때만). M2가 이 틀에 회사 기록 툴을 더해 동시에 돌린다 |
 | 실험 | `experiments/`. `plan.json`에 문서 해시·프롬프트 해시·설정을 고정하고 `runs.jsonl`로 재개한다. API 오류는 완료로 치지 않는다 |
@@ -133,6 +133,7 @@ uv run ruff check . && uv run ruff format --check . && uv run mypy
 
 - [PROJECT_PLAN.md](PROJECT_PLAN.md): 현재 상태, 다음 작업, 정할 것
 - [docs/README.md](docs/README.md): 문서 지도(정의·범위·구조·데이터·측정·로드맵·ADR·변경 이력)
-- [docs/experiments/](docs/experiments/README.md): EXP-001~003 기록
+- [docs/experiments/](docs/experiments/README.md): 프로젝트 중 한 측정의 핵심 요약과 EXP-001~003 상세 기록
 - [docs/과제2-테스트-기록.md](docs/과제2-테스트-기록.md): 기능별·예외 테스트의 입력·예상·실제
-- [docs/business/feasibility.md](docs/business/feasibility.md): 사업성 검토
+- [docs/adr/](docs/adr/README.md): 기술 결정 기록
+- [docs/archive/](docs/archive/README.md): 지난 진행 기록과 사업성·시장 조사(보관)

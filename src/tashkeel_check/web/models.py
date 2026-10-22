@@ -1,4 +1,4 @@
-"""Postgres 테이블(docs/roadmap.md 2.5절).
+"""Postgres 테이블(docs/architecture.md 4.8절).
 
 단계 1.5: documents, jobs, runs, name_items. 단계 2: bundles, review_items, name_dictionary.
 완제품(ADR-019): customers, usage, jobs.customer_id, bundles 유일 키 (customer_id, bundle_id).
