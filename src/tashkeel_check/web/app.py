@@ -1,4 +1,5 @@
-"""FastAPI 앱(단계 1.5, docs/roadmap.md 2.3절 M1.5 부분집합). 단일 문서 범위, 읽기 전용 화면.
+"""FastAPI 앱: 서류 업로드·검수 작업·결과·회사 사전·보관함 API와 화면(묶음 검수 API는 보류 기능).
+엔드포인트 목록은 docs/architecture.md 4.8절.
 
 구성은 `build_runtime(settings)`가 먼저 만든다(모델·분석기·DB·MCP·Reviewer). 키가 없거나 분석기를 못 띄우면
 ConfigError로 기동을 거부한다. `create_app(runtime)`은 엔드포인트만 붙인다. 테스트는 가짜 모델로 runtime을 만든다.

@@ -1,6 +1,6 @@
 """검수 작업 실행: 스레드에서 그래프를 돌리고, 노드 진행을 이벤트로 흘리며, 결과를 DB와 results/에 남긴다.
 
-그래프 노드가 동기라 ThreadPoolExecutor로 돌린다(큐 서버 없음, docs/roadmap.md 2.1절). 토큰 스트리밍은 없다.
+그래프 노드가 동기라 ThreadPoolExecutor로 돌린다(큐 서버 없음, docs/architecture.md 4.8절). 토큰 스트리밍은 없다.
 """
 
 from __future__ import annotations
