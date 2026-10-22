@@ -19,6 +19,7 @@ from .config import Settings, has_openai_key, tracing_enabled
 from .errors import ConfigError
 from .fake import FakeAgentModel, Responder
 from .graph import AnalyzeToolFactory, ToolFactory, build_graph
+from .mcp.records import RecordsToolFactory
 from .prompts import prompt_hash
 from .results import ReviewResult
 from .romanize import MATCHER_VERSION
@@ -76,6 +77,7 @@ class Reviewer:
     실행 상태는 invoke마다 새로 만들므로 같은 Reviewer로 여러 문서를 돌려도 결과가 섞이지 않는다.
     서비스(단계 1.5)는 기동할 때 하나를 만들어 둔다.
     analyze_tool_factory는 C2의 analyze_tokens를 MCP 툴로 바꿀 때만 준다.
+    records_tool_factory는 M2의 회사 기록 툴(MCP)이다. 서비스가 준다(ADR-022).
     """
 
     def __init__(
@@ -85,11 +87,14 @@ class Reviewer:
         analyze_fn: AnalyzeFn | None = None,
         extra_tool_factories: list[ToolFactory] | None = None,
         analyze_tool_factory: AnalyzeToolFactory | None = None,
+        records_tool_factory: RecordsToolFactory | None = None,
     ) -> None:
         self.model = model
         self.settings = settings
         self.bundle_search = bool(extra_tool_factories)
-        self.graph = build_graph(model, settings, analyze_fn, extra_tool_factories, analyze_tool_factory)
+        self.graph = build_graph(
+            model, settings, analyze_fn, extra_tool_factories, analyze_tool_factory, records_tool_factory
+        )
 
     def _meta(self, doc: dict, condition: str, repeat: int) -> dict:
         return {
@@ -114,7 +119,7 @@ class Reviewer:
     @traceable(
         name="tashkeel_run",
         run_type="chain",
-        process_inputs=lambda inputs: {k: v for k, v in inputs.items() if k != "self"},
+        process_inputs=lambda inputs: {k: v for k, v in inputs.items() if k not in ("self", "records_scope")},
     )
     def run(
         self,
@@ -123,8 +128,10 @@ class Reviewer:
         out_dir: str | Path | None = None,
         repeat: int = 0,
         on_node: NodeCallback | None = None,
+        records_scope: str | None = None,
     ) -> ReviewResult:
-        """on_node(노드 이름, 그 노드의 갱신분)는 노드가 끝날 때마다 불린다(단계 1.5 진행 표시). 결과는 같다."""
+        """on_node(노드 이름, 그 노드의 갱신분)는 노드가 끝날 때마다 불린다(단계 1.5 진행 표시). 결과는 같다.
+        records_scope는 M2 회사 기록 툴의 범위 토큰이다. 추적(LangSmith) 입력에는 남기지 않는다."""
         doc_in, gold = split_gold(doc)
         meta = self._meta(doc, condition, repeat)
         state = {
@@ -137,6 +144,8 @@ class Reviewer:
         }
         if "bundle_evidence" in doc_in:  # M1 참고용(묶음 LLM 검수). C0~C3 입력은 그대로다
             state["bundle_evidence"] = doc_in["bundle_evidence"]
+        if records_scope is not None:
+            state["records_scope"] = records_scope
         config: RunnableConfig = {
             "recursion_limit": 50,
             "run_name": f"{doc['doc_id']}:{condition}:r{repeat}",

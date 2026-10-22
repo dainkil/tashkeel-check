@@ -14,10 +14,14 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from ..archive.search import CompanyArchive
+from ..archive.store import text_sha256
+from ..archive_apply import apply_archive
 from ..bundle.dictionary import DictionaryLookup
 from ..dictionary_apply import apply_dictionary
 from ..errors import ConfigError, InputError, TashkeelError
 from ..mcp.client import MCPClient
+from ..mcp.records import ScopeRegistry
 from ..results import ReviewResult
 from ..runner import Reviewer
 from ..text import tokenize
@@ -33,7 +37,7 @@ NODES = ("load", "analyze", "agent", "validate", "reconcile", "export")
 class JobRecord:
     id: str
     doc: dict
-    source: str  # paste | sample
+    source: str  # paste | sample | upload | bundle
     condition: str
     customer_id: str | None = None  # 인증된 요청이면 키의 고객(ADR-019)
     status: str = "queued"  # queued | running | done | failed
@@ -48,6 +52,9 @@ class JobRecord:
     out_dir: str | None = None
     result: ReviewResult | None = None
     dictionary: list[dict] = field(default_factory=list)  # 회사 사전 덧씌움(ADR-021, dictionary_apply)
+    archive: list[dict] = field(default_factory=list)  # 보관함 제안 덧씌움(ADR-022, archive_apply)
+    sha256: str | None = None  # 구간 텍스트 해시. 같은 파일을 다시 올리면 보관함 제안에서 뺀다
+    archived_passages: int | None = None  # 보관함에 넣은 구절 수(넣지 않았으면 None)
     events: list[dict] = field(default_factory=list)
     cond: threading.Condition = field(default_factory=threading.Condition)
 
@@ -66,9 +73,16 @@ class JobRecord:
             "started_at": self.started_at.isoformat() if self.started_at else None,
             "finished_at": self.finished_at.isoformat() if self.finished_at else None,
             "document_id": self.document_id,
+            "archive_id": self.archive_id,
+            "archived_passages": self.archived_passages,
             "run_id": self.run_id,
             "out_dir": self.out_dir,
         }
+
+    @property
+    def archive_id(self) -> str:
+        """보관함에서 이 서류를 가리키는 ID. DB가 있으면 documents.id, 없으면 작업 ID."""
+        return self.document_id or self.id
 
     def emit(self, event: str, **data: Any) -> None:
         with self.cond:
@@ -88,9 +102,15 @@ class JobManager:
         usage: UsageStore | None = None,
         dictionary: DictionaryLookup | None = None,
         default_customer: str | None = None,
+        archive: CompanyArchive | None = None,
+        scopes: ScopeRegistry | None = None,
+        records: MCPClient | None = None,
     ) -> None:
         self.reviewer = reviewer
         self.dictionary = dictionary
+        self.archive = archive  # 회사 문서 보관함(ADR-022). 업로드·붙여넣기 서류를 끝난 뒤 넣는다
+        self.scopes = scopes  # M2 회사 기록 툴의 작업별 범위 토큰
+        self.records = records  # 회사 기록 MCP 클라이언트(메모리 전송)
         self.default_customer = default_customer  # 인증을 끈 서버에서 사전을 묶을 고객(ADR-021)
         self.results_dir = Path(results_dir)
         self.db = db
@@ -134,10 +154,12 @@ class JobManager:
     def submit(self, doc: dict, condition: str, source: str, customer_id: str | None = None) -> JobRecord:
         """doc는 이미 검증된 입력(구간 1개 이상, 아랍어 토큰 1개 이상, 조건 유효)이다."""
         job = JobRecord(id=new_id(), doc=doc, source=source, condition=condition, customer_id=customer_id)
+        job.sha256 = text_sha256(doc["segments"])
         if self.db is not None:
             if not self.db.ping():
                 raise ConfigError("DB에 연결할 수 없습니다(DATABASE_URL). 검수 작업을 만들지 않습니다.")
-            job.document_id = self.db.insert_document(doc, source, [dict(t) for t in tokenize(doc["segments"])])
+            tokens = [dict(t) for t in tokenize(doc["segments"])]
+            job.document_id = self.db.insert_document(doc, source, tokens, customer_id)
             self.db.insert_job(job.id, job.document_id, condition, customer_id)
         with self._lock:
             self._jobs[job.id] = job
@@ -180,14 +202,23 @@ class JobManager:
             self._db_update(job, node=node, attempts=job.attempts)
 
         mcp_calls_before = self.mcp.calls if self.mcp is not None else 0
+        records_before = self.records.calls if self.records is not None else 0
+        customer = self.dictionary_scope(job.customer_id)
+        scope = None
+        if job.condition == "M2" and self.scopes is not None and customer:
+            scope = self.scopes.issue(customer, job.archive_id, job.sha256)  # 작업이 끝나면 없앤다
         try:
             if self.mcp is not None and not self.mcp.ping():
                 raise ConfigError(f"MCP 서버가 응답하지 않습니다: {self.mcp.last_error or 'ping 실패'}")
-            result = self.reviewer.run(job.doc, job.condition, out_dir=out_dir, on_node=on_node)
+            result = self.reviewer.run(job.doc, job.condition, out_dir=out_dir, on_node=on_node, records_scope=scope)
             if self.mcp is not None and not self.mcp.healthy:
                 raise ConfigError(f"MCP 서버가 실행 중에 끊겼습니다: {self.mcp.last_error}")
+            if scope is not None and self.records is not None and not self.records.healthy:
+                raise ConfigError(f"회사 기록 MCP 서버가 실행 중에 끊겼습니다: {self.records.last_error}")
             job.result = result
             job.dictionary = self._apply_dictionary(job, result)
+            job.archive = self._apply_archive(job, result)
+            self._index_archive(job)
             if self.db is not None and job.document_id is not None:
                 try:
                     job.run_id = self.db.insert_run(job.id, job.document_id, result, job.out_dir)
@@ -208,7 +239,10 @@ class JobManager:
                 run_id=job.run_id,
                 db_error=job.error,
                 dictionary_hits=sum(1 for o in job.dictionary if o["status"] == "dictionary_adopt"),
+                archive_suggestions=len(job.archive),
+                archived_passages=job.archived_passages,
                 mcp_calls=(self.mcp.calls - mcp_calls_before) if self.mcp is not None else None,
+                records_calls=(self.records.calls - records_before) if self.records is not None else None,
             )
         except (TashkeelError, Exception) as exc:
             kind = "input" if isinstance(exc, InputError) else "config" if isinstance(exc, ConfigError) else "internal"
@@ -216,6 +250,9 @@ class JobManager:
             job.status, job.error, job.finished_at = "failed", f"{type(exc).__name__}: {exc}", datetime.now(UTC)
             self._db_update(job, status="failed", error=job.error, finished_at=job.finished_at)
             job.emit("error", kind=kind, error=job.error)
+        finally:
+            if self.scopes is not None:
+                self.scopes.revoke(scope)
 
     def dictionary_scope(self, customer_id: str | None) -> str | None:
         return customer_id or self.default_customer
@@ -227,6 +264,34 @@ class JobManager:
         except Exception as exc:  # 사전 조회 실패(DB 등)가 검수 결과를 망치지 않는다
             logger.warning("작업 %s 사전 적용 실패: %s", job.id, exc)
             return []
+
+    def _apply_archive(self, job: JobRecord, result: ReviewResult) -> list[dict]:
+        try:
+            overlays = apply_archive(
+                result,
+                self.archive,
+                self.dictionary_scope(job.customer_id),
+                job.archive_id,
+                job.sha256,
+                job.dictionary,
+            )
+            return [o.model_dump(mode="json") for o in overlays]
+        except Exception as exc:  # 보관함 조회 실패가 검수 결과를 망치지 않는다
+            logger.warning("작업 %s 보관함 제안 실패: %s", job.id, exc)
+            return []
+
+    def _index_archive(self, job: JobRecord) -> None:
+        """사람이 올린 서류(업로드·붙여넣기)만 보관함에 넣는다. 합성 샘플과 묶음 서류는 넣지 않는다."""
+        customer = self.dictionary_scope(job.customer_id)
+        if self.archive is None or not customer or job.source not in ("upload", "paste"):
+            return
+        label = str((job.doc.get("meta") or {}).get("filename") or job.doc["doc_id"])
+        try:
+            job.archived_passages = self.archive.index_document(
+                customer, job.archive_id, label, job.doc["segments"], job.sha256
+            )
+        except Exception as exc:
+            logger.warning("작업 %s 보관함 저장 실패: %s", job.id, exc)
 
     def _record_usage(self, job: JobRecord, usage: dict[str, Any]) -> None:
         try:

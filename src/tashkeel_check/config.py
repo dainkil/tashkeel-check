@@ -17,7 +17,8 @@ from .errors import ConfigError
 
 CONDITIONS = ("C0", "C1", "C2", "C3")
 # 완제품 엔진 조건(ADR-019). 실험 계획·골든·해시 열거가 CONDITIONS에 묶여 있어 따로 둔다.
-ENGINE_CONDITIONS = ("M1",)  # M1: 번역자 → 격리 검증자 → 규칙 중재자
+# M1: 번역자 → 격리 검증자 → 규칙 중재자. M2(ADR-022): M1 + 회사 기록 툴(사전·보관함, MCP), 두 역할 동시 실행
+ENGINE_CONDITIONS = ("M1", "M2")
 ALL_CONDITIONS = (*CONDITIONS, *ENGINE_CONDITIONS)
 
 
@@ -51,6 +52,8 @@ class Settings(BaseModel):
     # 완제품 패키지(ADR-019). auto: 고객이 하나라도 있으면 API 키 필수, 없으면 열림. required / disabled
     auth: Literal["auto", "required", "disabled"] = "auto"
     multi_agent: bool = False  # true면 서비스 경로에서 조건 M1(멀티 에이전트 틀)을 받는다
+    # 서비스 기본 조건(ADR-022). M2는 측정하지 않은 구조다. 되돌리려면 C1(EXP-003에서 잰 설정)
+    review_condition: Literal["C1", "M2"] = "M2"
     # 스캔·PDF 입력의 문자 인식(ADR-021). none: 텍스트 층이 없는 PDF·이미지는 400. ocrspace: 무료 OCR API(외부 전송)
     ocr_backend: Literal["none", "ocrspace"] = "none"
     ocr_api_key: str | None = None

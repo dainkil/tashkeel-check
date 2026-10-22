@@ -1,5 +1,5 @@
 # 완제품 패키지(ADR-019): 앱 1개 + Postgres(pgvector 이미지) 1개. `docker compose up --build`
-# .env에서 읽는 것: POSTGRES_PASSWORD(필수), OPENAI_API_KEY(LLM_BACKEND=openai일 때 필수), LLM_BACKEND, AUTH, MULTI_AGENT, MODEL …
+# .env에서 읽는 것: POSTGRES_PASSWORD(필수), OPENAI_API_KEY(LLM_BACKEND=openai일 때 필수), LLM_BACKEND, AUTH, MULTI_AGENT, REVIEW_CONDITION, MODEL …
 # DATABASE_URL·WEB_HOST·WEB_PORT·DATA_DIR·RESULTS_DIR는 여기서 정한다. 첫 실행 뒤 API 키 발급:
 #   docker compose run --rm app tashkeel customers add --name <고객 이름>
 services:
@@ -27,6 +27,7 @@ services:
       LLM_BACKEND: ${LLM_BACKEND:-openai}
       AUTH: ${AUTH:-required}
       MULTI_AGENT: ${MULTI_AGENT:-false}
+      REVIEW_CONDITION: ${REVIEW_CONDITION:-M2}
       WEB_HOST: 0.0.0.0
       WEB_PORT: "8000"
       DATA_DIR: /app/data

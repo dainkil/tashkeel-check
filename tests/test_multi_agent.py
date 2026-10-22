@@ -31,8 +31,8 @@ def _sha(data) -> str:
 
 
 def test_conditions_are_separate_and_pinned():
-    assert CONDITIONS == ("C0", "C1", "C2", "C3") and ENGINE_CONDITIONS == ("M1",)
-    assert ALL_CONDITIONS == ("C0", "C1", "C2", "C3", "M1")
+    assert CONDITIONS == ("C0", "C1", "C2", "C3") and ENGINE_CONDITIONS == ("M1", "M2")  # M2: ADR-022
+    assert ALL_CONDITIONS == ("C0", "C1", "C2", "C3", "M1", "M2")
     assert {v: prompt_hash("M1", v) for v in ("p0", "p1")} == PROMPT_HASHES_M1
     assert _sha(convert_to_openai_tool(VerifierOutput)) == VERIFIER_SCHEMA_SHA
 

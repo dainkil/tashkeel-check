@@ -42,7 +42,12 @@ class DictionaryOverlay(BaseModel):
 def name_text(it: CheckedItem) -> str:
     """항목의 아랍어 이름 한 벌. 모델이 같은 이름의 두 등장을 한 항목에 묶으면(`token_ids` [11, 86] → "نوال نوال")
     반복을 걷어 낸다. 사전 키와 등록 표기는 이 값으로 만든다."""
-    words = it.arabic.split()
+    return collapse_repeats(it.arabic)
+
+
+def collapse_repeats(arabic: str) -> str:
+    """단어열이 같은 묶음의 반복이면 한 벌만 남긴다("نوال نوال" → "نوال")."""
+    words = arabic.split()
     n = len(words)
     for period in range(1, n):
         if n % period == 0 and words == words[:period] * (n // period):

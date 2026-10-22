@@ -2,6 +2,7 @@
 
 단계 1.5: documents, jobs, runs, name_items. 단계 2: bundles, review_items, name_dictionary.
 완제품(ADR-019): customers, usage, jobs.customer_id, bundles 유일 키 (customer_id, bundle_id).
+회사 문서 보관함(ADR-022): archive_documents, archive_passages, documents.customer_id 채움.
 
 번역을 포함한 결과 전체는 runs.result(JSONB, ReviewResult dump)에 두고, 확인 대기 목록은 name_items로 펼친다.
 """
@@ -11,7 +12,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import ARRAY, Boolean, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint, func
+from sqlalchemy import ARRAY, Boolean, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -27,7 +28,7 @@ class Document(Base):
     source: Mapped[str] = mapped_column(String(16))  # paste | sample
     doc_id: Mapped[str] = mapped_column(String(64))
     bundle_id: Mapped[str | None] = mapped_column(String(64), nullable=True)  # 단계 2
-    customer_id: Mapped[str | None] = mapped_column(String(32), nullable=True)  # 단계 2
+    customer_id: Mapped[str | None] = mapped_column(String(32), nullable=True, index=True)  # 작업의 고객(ADR-022)
     sha256: Mapped[str] = mapped_column(String(64))
     text_normalized: Mapped[str] = mapped_column(Text)
     segments: Mapped[list[dict[str, Any]]] = mapped_column(JSONB)
@@ -184,3 +185,40 @@ class UsageRow(Base):
     n_segments: Mapped[int] = mapped_column(Integer, default=0)
     n_arabic_tokens: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), index=True)
+
+
+class ArchiveDocumentRow(Base):
+    """보관함에 넣은 서류 한 건(ADR-022). 영문 표기가 있는 구절이 없어도 목록에는 남는다."""
+
+    __tablename__ = "archive_documents"
+    __table_args__ = (UniqueConstraint("customer_id", "document_id", name="uq_archive_documents_key"),)
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    customer_id: Mapped[str] = mapped_column(String(64), index=True)
+    document_id: Mapped[str] = mapped_column(String(64))
+    document_label: Mapped[str] = mapped_column(Text)
+    document_sha256: Mapped[str] = mapped_column(String(64))
+    n_passages: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class ArchivePassageRow(Base):
+    """보관함 구절(archive.store.ArchivePassage). 임베딩은 실수 배열로 두고 유사도는 Python에서 계산한다."""
+
+    __tablename__ = "archive_passages"
+    __table_args__ = (UniqueConstraint("customer_id", "hit_id", name="uq_archive_passages_hit"),)
+
+    id: Mapped[str] = mapped_column(String(32), primary_key=True)
+    customer_id: Mapped[str] = mapped_column(String(64), index=True)
+    hit_id: Mapped[str] = mapped_column(String(16))
+    document_id: Mapped[str] = mapped_column(String(64), index=True)
+    document_label: Mapped[str] = mapped_column(Text)
+    document_sha256: Mapped[str] = mapped_column(String(64))
+    segment_id: Mapped[str] = mapped_column(String(32))
+    text: Mapped[str] = mapped_column(Text)
+    window: Mapped[str] = mapped_column(Text)
+    text_key: Mapped[str] = mapped_column(Text)
+    latin_spans: Mapped[list[str]] = mapped_column(JSONB)
+    embedding: Mapped[list[float] | None] = mapped_column(ARRAY(Float), nullable=True)
+    embedding_model: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))

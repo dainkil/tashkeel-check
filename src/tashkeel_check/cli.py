@@ -349,7 +349,9 @@ def _cmd_serve(args: argparse.Namespace, settings: Settings) -> int:
     host = args.host or settings.web_host
     port = args.port or settings.web_port
     print(
-        f"모델 {runtime.backend}, DB {'있음' if runtime.db else '없음'}, MCP {'켬' if runtime.mcp else '끔'} → "
+        f"모델 {runtime.backend}, 기본 조건 {runtime.settings.review_condition}, "
+        f"DB {'있음' if runtime.db else '없음'}, 분석기 MCP {'켬' if runtime.mcp else '끔'}, "
+        f"회사 기록 MCP {'켬' if runtime.records.healthy else '끔'} → "
         f"http://{host}:{port}  (API 문서 /docs, 상태 /health)",
         file=sys.stderr,
     )
@@ -450,7 +452,7 @@ def _parser(settings: Settings) -> argparse.ArgumentParser:
     c.add_argument("customer_id")
     p.set_defaults(func=_cmd_customers)
 
-    p = sub.add_parser("serve", help="단계 1.5 서비스: API·폼 화면(.env의 LLM_BACKEND·DATABASE_URL·USE_MCP_TOOLS)")
+    p = sub.add_parser("serve", help="서비스: API·화면(.env의 LLM_BACKEND·REVIEW_CONDITION·DATABASE_URL·USE_MCP_TOOLS)")
     p.add_argument("--host", help=f"기본 {settings.web_host}")
     p.add_argument("--port", type=int, help=f"기본 {settings.web_port}")
     p.set_defaults(func=_cmd_serve)

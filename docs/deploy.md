@@ -14,6 +14,8 @@
 | `AUTH` | 선택 | compose 기본은 `required`(항상 API 키). `auto`는 활성 고객이 없을 때만 열림 |
 | `MULTI_AGENT` | 선택 | `true`면 조건 `M1`(번역자 → 격리 검증자 → 규칙 중재자)을 받는다. 기본 `false` |
 | `PROMPT_VERSION` | 선택 | 기본 `p1`(EXP-003에서 99% 기준을 넘긴 지시문). `p0`는 옛 지시문 |
+| `REVIEW_CONDITION` | 선택 | 서비스 기본 조건. 기본 `M2`(두 에이전트 + 회사 기록 툴 MCP + 코드 중재자, ADR-022, **정확도 미측정**). `C1`로 두면 EXP-003에서 잰 설정(LLM 한 번)으로 돌아간다. 요청마다 `condition`으로 고를 수도 있다 |
+| `EMBEDDING_MODEL` | 선택 | 회사 문서 보관함 구절의 순서를 정하는 임베딩(기본 `text-embedding-3-small`, `LLM_BACKEND=openai`일 때). **보관함 글이 OpenAI로 간다**(LLM 호출과 같은 경계). 가짜 모델이면 연습용 n-gram |
 | `OCR_BACKEND` | 선택 | 기본 `none`(텍스트 층 없는 PDF·이미지는 400). `ocrspace`는 무료 OCR API이고 `OCR_API_KEY`가 필요하다. **파일을 제3자 서버로 보내므로 "자체 배포 안에서 처리"라는 전제와 어긋난다. 민감 서류는 텍스트로 넣거나 나중에 로컬 백엔드로 갈아끼운다(`ocr/base.py`의 `OcrBackend`가 교체 지점)** |
 | `OCR_MAX_BYTES` · `UPLOAD_MAX_BYTES` | 선택 | OCR로 보낼 파일 상한(기본 1 MB, 무료 등급 제한은 공식 문서로 확인)과 업로드 상한(기본 5 MB) |
 | (인증 끔) | — | `AUTH=disabled`이거나 고객이 없으면 회사 사전은 고객 `local`에 묶인다(한 회사 자체 배포용, ADR-021) |

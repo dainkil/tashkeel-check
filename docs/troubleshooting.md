@@ -35,7 +35,6 @@
 - 남은 문제·재발 방지: 골든 테스트가 실행마다 다른 seed로 돌기 때문에 순서 의존이 다시 생기면 걸린다.
 - 관련 코드·ADR·실험: `reconcile.find_spellings`, `_c0`, EXP-002 C0 판정 규칙, ADR-013(골든 테스트)
 
-```markdown
 ## TS-004 — langchain이 감싼 API 오류를 실행 장치가 형식 실패로 기록함 (EXP-003, 2026-10-21)
 
 - 증상:
@@ -52,6 +51,22 @@
 - 확인: `tests/test_exp003.py`(`test_wrapped_api_errors_are_not_counted_as_done`, flex 문구 둘). EXP-003 eval은 그 한 회만 다시 돌려 350/350으로 다시 집계했다.
 - 영향: EXP-002 기록의 실행은 모두 API 오류 없이 끝나 바뀌지 않는다.
 
+## TS-005 — 조건 M2에서 검증 agent의 전체 이름 항목이 단어별 항목을 덮음 (2026-10-22, 미해결)
+
+- 발생일 / 해결일: 2026-10-22 / 미해결(제출본에서는 고치지 않고 알려진 한계로 둠, 사용자 결정)
+- 상태: 조사 중
+- 환경·모델·데이터 버전: 서비스 기본 조건 M2, `openai:gpt-6.1-sol`, 지시문 p1, 샘플 dev_005(synthetic-v2 위임장)
+- 증상과 영향: 결과 요약이 "이름 10"(실제 이름은 단어 8 + 회사 1). `نوال`을 누르면 전체 이름 `نوال معمر النجعي` 패널이 열리고, 번역문의 `[Nawal/Nawaal]`에 해당하는 단어별 항목은 누를 수 없다. 전체 이름을 확정하면 사전 키가 전체 이름이 되어 번역문 치환과 다음 서류의 단어별 재사용이 맞지 않는다.
+- 재현 입력·명령·조건: `LLM_BACKEND=openai AUTH=disabled uv run tashkeel serve` 뒤 `POST /v1/reviews {"doc_id": "dev_005"}`. 모델 출력에 따라 나오지 않을 수도 있다(temperature 고정 불가).
+- 관찰한 로그·증거: 번역 agent 항목 8개(단어별), 검증 agent 항목 3개(전체 이름 2 + 회사 1). 중재 통계 `n_agreed_confirmed: 1`(회사), `n_verifier_only: 2`. 59초, 토큰 10.4k, LLM 호출 4.
+- 원인 [확인]: `multi_agent.arbitrate`는 토큰 묶음(`frozenset(token_ids)`)이 똑같은 항목끼리만 짝짓는다. 검증 agent의 전체 이름은 번역 agent의 단어별 항목과 짝이 없어 `verifier_only` 보류 항목으로 더해진다. 화면(`renderArabic`)은 한 토큰을 마지막 이름 항목이 차지하게 칠한다. 같은 어긋남 때문에 두 agent가 둘 다 확정한 이름도 `verifier_missing`으로 보류될 수 있다 [가설].
+- 시도한 방법과 결과: 없음.
+- 해결 또는 임시 대응: 없음. `REVIEW_CONDITION=C1`이면 단일 agent라 생기지 않는다.
+- 해결 확인 방법과 실제 결과: —
+- 남은 문제·재발 방지: 고칠 방향 [제안]: 중재자에서 검증 agent 항목이 번역 agent의 단어별 항목들을 통째로 덮으면 그 단어들과 짝지은 것으로 보고 따로 보류 항목을 만들지 않는다(확정 판단은 단어 단위 그대로). `arbitrate`는 M1과 같이 쓴다.
+- 관련 코드·ADR·실험: `multi_agent.arbitrate`, `multi_agent_m2.py`, `web/static/index.html` `renderArabic`, ADR-022, [테스트 기록 8.5절](과제2-테스트-기록.md)
+
+```markdown
 ## TS-XXX — 문제 제목
 - 발생일 / 해결일:
 - 상태: 조사 중 / 임시 대응 / 해결 / 재발

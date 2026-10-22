@@ -143,7 +143,7 @@ def test_m1_condition_is_rejected_unless_enabled(tmp_path):
     with TestClient(create_app(_rt(tmp_path))) as c:
         r = c.post("/v1/reviews", json={"text": ARABIC, "condition": "M1"})
         assert r.status_code == 400 and "MULTI_AGENT" in r.json()["error"]
-        assert c.get("/health").json()["conditions"] == ["C0", "C1", "C2", "C3"]
+        assert c.get("/health").json()["conditions"] == ["C0", "C1", "C2", "C3", "M2"]
         assert c.get("/health").json()["multi_agent"] is False
 
 

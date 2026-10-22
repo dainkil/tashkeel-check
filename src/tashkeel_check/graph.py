@@ -24,7 +24,9 @@ from .analyzer import AnalyzeFn, TokenAnalysis, analyze_tokens
 from .config import ALL_CONDITIONS, ENGINE_CONDITIONS, Settings
 from .errors import InputError
 from .export import write_outputs
+from .mcp.records import RecordsToolFactory
 from .multi_agent import build_engine, run_engine
+from .multi_agent_m2 import build_engine_m2, run_engine_m2
 from .prompts import system_prompt, user_message
 from .reconcile import parse_c0, reconcile
 from .results import ReviewResult
@@ -57,7 +59,8 @@ class GraphState(TypedDict, total=False):
     reconciled: dict  # reconcile 노드의 결과(검증 전)
     result: ReviewResult  # export 노드가 검증한 최종 결과
     bundle_evidence: list[dict] | None  # M1 참고용(묶음 LLM 검수에서만 채운다)
-    engine: dict  # M1에서만: 번역자·검증자 사용량과 중재 통계
+    engine: dict  # M1·M2에서만: 번역자·검증자 사용량과 중재 통계(M2는 보관함 선택 `archive`도)
+    records_scope: str | None  # M2 회사 기록 툴의 작업 범위 토큰(서비스가 작업마다 발급, ADR-022)
 
 
 def _add_usage(usage: dict, msg: AIMessage) -> None:
@@ -73,10 +76,12 @@ def build_graph(
     analyze_fn: AnalyzeFn | None = None,
     extra_tool_factories: list[ToolFactory] | None = None,
     analyze_tool_factory: AnalyzeToolFactory | None = None,
+    records_tool_factory: RecordsToolFactory | None = None,
 ) -> CompiledStateGraph:
     extra_tool_factories = extra_tool_factories or []
     analyze_factory: AnalyzeToolFactory = analyze_tool_factory or make_analyze_tool
     engine = build_engine(model, settings, extra_tool_factories)  # M1(ADR-019). C0~C3는 쓰지 않는다
+    engine_m2 = build_engine_m2(model, settings, records_tool_factory)  # M2(ADR-022). 툴이 없으면 기록 없이 돈다
 
     def load(state: GraphState) -> dict:
         if state["condition"] not in ALL_CONDITIONS:
@@ -101,6 +106,8 @@ def build_graph(
     def agent(state: GraphState) -> dict:
         condition = state["condition"]
         attempts = state.get("attempts", 0) + 1
+        if condition == "M2":
+            return run_engine_m2(engine_m2, state, attempts, settings)
         if condition in ENGINE_CONDITIONS:
             return run_engine(engine, state, attempts, settings)
         usage = dict(state.get("usage", {}))
@@ -188,7 +195,7 @@ def build_graph(
                 "n_arabic_tokens": len(state["analyses"]),
             }
         )
-        if state.get("engine"):  # M1에서만. C0~C3 덤프는 그대로다(골든)
+        if state.get("engine"):  # M1·M2에서만. C0~C3 덤프는 그대로다(골든)
             result["metrics"]["engine"] = state["engine"]
         result["doc_id"] = state["doc_id"]
         return {"reconciled": result}
