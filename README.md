@@ -1,139 +1,83 @@
 # Tashkeel Check
 
-아랍어 서류를 영어로 읽어야 하는 사람을 위한 검수 도구.
+아랍어 음성 에이전트가 이름을 제대로 읽게 하는 앞단 층. **2026-10-23 방향 전환, 계획 단계.**
 
-아랍어는 단모음을 적지 않아서 같은 철자의 이름이 여러 가지로 읽힌다. مسلم은 Muslim일 수도 Musallam일 수도 있다. 번역 LLM은 이런 자리를 표시 없이 하나로 정해 버릴 수 있고, 아랍어를 모르는 읽는 사람은 그런 선택이 있었다는 사실조차 모른다.
+아랍어는 단모음을 적지 않아서 같은 철자의 이름이 여러 가지로 읽힌다. مسلم은 Muslim일 수도 Musallam일 수도 있다. TTS 엔진은 내부에서 발음을 추측해 하나로 읽고, 그 선택을 표시하지 않는다. 디아크리타이저와 LLM은 바로 이 고유명사에서 가장 자주 틀리고(GPT-4o가 영어 표기를 받고도 73%, NYUAD 고유명사 벤치), 운영자도 듣는 사람도 틀렸다는 사실을 모른다.
 
-이 도구는 문서를 넣으면 고유명사(사람·회사·기관 이름)마다 읽기 후보를 문서 안 근거와 함께 보여 주고, 근거가 없으면 확정하지 않고 보류한다. 이 회사가 전에 올린 서류에 같은 이름의 영문 표기가 있으면 "보관함 제안"으로 출처와 함께 보여 준다. 사람이 후보를 골라 확정하면 회사 사전에 저장되고, 다음 서류의 같은 이름은 처음부터 확정으로 나온다. 대상은 걸프(사우디·UAE)에 진출한 외국 중소기업이 아랍어 서류를 내부 검토용으로 읽는 경우다.
+이 도구는 음성 에이전트가 말할 텍스트에서 고유명사(사람·회사·지명)마다 올바른 독법을 근거와 함께 정해 TTS 엔진에 넘긴다. 근거(고객 발음 사전, 본인 녹음, 등록 서류의 라틴 표기, 사람 확정)가 있으면 그 독법을 쓰고, 없으면 기본 독법을 내보내되 낮은 확신으로 표시해 사후 확정 큐에 넣는다. 사람이 확정한 발음은 고객 발음 사전에 쌓여 다음 발화부터 바로 쓰인다. 대상은 사우디·UAE에서 아랍어 음성 봇·IVR을 운영하는 은행·통신사·정부 서비스와 이들에게 음성 에이전트를 공급하는 쪽이다.
 
-## 사용 흐름
+TTS 엔진이 아니다. 엔진은 기존 것(Azure·Amazon Polly·Google·ElevenLabs·오픈 모델)을 쓰고, 이 도구는 그 앞에서 "어느 이름이 확정이고 어느 이름이 추측인지"를 정해 넘긴다.
 
-![파일 넣는 페이지](docs/images/screen-upload.jpg)
+## 상태
 
-1. `#/upload`에서 점선 상자를 누르면 로컬 파일 선택 창이 열린다. `.txt`, `.md`, 텍스트 층이 있는 `.pdf`를 받고, 스캔·이미지는 OCR 백엔드를 켰을 때만 읽는다.
-2. 추출 → 분석이 끝나면 결과 페이지로 넘어간다. 원문의 이름은 세 가지 색으로 표시된다. 초록은 확정(같은 문서 안의 영문 표기나 회사 사전이 근거), 주황은 확인 필요(근거가 없어 보류. 지난 서류에 같은 이름의 영문 표기가 있으면 그것이 첫 후보로 나온다), 빨강은 회사 사전과 이 문서의 표기가 다른 경우다. 근거가 무엇인지는 이름을 누르면 나온다.
-3. 이름을 누르면 그 자리에 후보가 열린다. 사전 표기, 보관함 제안, 문서 근거, LLM 후보, 직접 입력 순이다. 보관함 제안에는 지난 서류 이름·날짜·그 구절과 "두 에이전트가 같은 표기를 고름 / 한쪽만"이 함께 나온다.
+- **코드:** 아직 이전 제품(아랍어 서류의 이름을 영문 표기 후보와 근거로 보여 주는 검수 서비스, 2026-10-22 제출본) 그대로다. TTS 앞단 층의 코드는 없다.
+- **문서:** TTS 기준으로 다시 썼다([ADR-023](docs/adr/ADR-023.md)). 이전 제품 문서는 [docs/archive/document-review/](docs/archive/document-review/)에 있다.
+- **측정값:** 없다. 첫 실험 [EXP-006](docs/experiments/EXP-006.md)(엔진 베이스라인)은 사전 등록 초안만 있고 실행하지 않았다.
 
-![보관함 제안](docs/images/screen-archive-suggestion.jpg)
+## 사용 흐름 (계획)
 
+**오프라인:** 고객이 이름 목록(CRM, 등록 서류, 선택으로 본인 녹음)을 올린다. 이름마다 독법 후보를 만들고(형태소 분석기·디아크리타이저·LLM·라틴 표기 역음역), 근거를 검사하고(라틴 표기 일치, 녹음 정렬, 사람 확정), 확정 큐에서 후보를 합성해 들려주고 고르면 고객 발음 사전에 들어간다.
 
-![후보 토글](docs/images/screen-result-candidates.jpg)
+**실시간:** 음성 에이전트의 LLM이 낸 문장이 TTS로 가기 전에 `POST /v1/pronounce`를 거친다. 사전에 있는 이름은 확정 독법(high), 없는 이름은 결정적 디아크리타이저의 기본 독법에 확신 등급(medium/low)을 붙여 엔진 형식(디아크리틱스 텍스트, IPA/X-SAMPA phoneme, 사전 항목)으로 치환한다. LLM 호출은 없고 목표는 문장당 50ms 이하다 [제안]. 저확신 발화는 사후 확정 큐로 간다.
 
-4. 후보를 누르면 바로 회사 사전에 저장되고 번역문의 `[Nawal/Nawaal]`이 `Nawal`로 바뀐다. 같은 문서를 다시 넣으면 모델 출력은 여전히 보류지만 사전이 덧씌워져 처음부터 확정(초록, 근거는 회사 사전)으로 나온다.
+## 왜 앞단 층인가
 
-![확정 뒤](docs/images/screen-result.jpg)
+- 디아크리타이저·LLM의 오류는 고유명사에 집중한다(Sadeed 2025, CamelProp 2025). 신경망 TTS는 저자원 고유명사를 체계적으로 틀린다(SonoEdit 2026).
+- 최신 오픈 엔진은 디아크리틱스 없이 합성하는 쪽으로 간다(Habibi 2026). 이름 발음 제어는 엔진 밖에서 해야 할 필요가 커진다.
+- 발음 제어 수단(SSML phoneme·사전)은 엔진·모델·로케일마다 지원이 다르고 조용히 무시되기도 한다. 어느 입력을 어느 엔진이 받는지 실험으로 채우는 것이 제품의 일부다.
+- 이전 제품에서 확인한 원칙이 그대로 쓰인다: 모델이 "모름"을 판단하게 두지 않고 코드가 근거 유무로 정한다. 인용·일치는 코드가 검사한다. 사전은 사람만 쓴다.
 
-사전은 사람이 후보를 누를 때만 쌓인다. 검수 결과를 자동으로 사전에 넣지 않는다. 문서 근거와 사전이 다르면 확정하지 않고 충돌로 보여 준다. 보관함 제안도 확정이 아니다. 같은 철자가 다른 사람·회사일 수 있어서, 사람이 출처 구절을 보고 눌러야 사전에 들어간다. 올린 서류는 검수가 끝나면 회사 보관함에 들어가고, 업로드 페이지에서 목록을 보고 뺄 수 있다.
+조사 근거는 [docs/research/tts-literature.md](docs/research/tts-literature.md)에 있다.
 
-## 설계 배경과 실험 결과
+## 지금 코드로 할 수 있는 것
 
-처음 가설은 "형태소 분석기(CAMeL Tools)를 LLM에 주면 모호한 이름을 더 잘 잡는다"였다. 그래서 기능보다 측정 장치를 먼저 만들었다. 조건 네 개(C0 지시 없음, C1 지시문만, C2·C3 지시문 + 분석기)를 두고, 업무 규칙으로 만든 합성 서류와 자동 채점으로 비교했다.
-
-결과는 가설과 달랐다. 어려운 합성 시험지(문서 70개, 이름 부분 1,457개)에서 원칙을 분명히 한 지시문만 준 C1이 엄격 99.93%·안전 100%를 냈고, 분석기를 준 조건과 차이가 없었다. 조건별 정확도·시간·비용, 오류 분석, 한계는 [EXP-003 기록](docs/experiments/EXP-003.md)에, 프로젝트 중 한 측정 전체의 요약은 [실험 요약](docs/experiments/README.md)에 있다.
-
-그래서 방향을 바꿨다.
-
-- [ADR-021](docs/adr/ADR-021.md): 읽기 자체는 지시문으로 거의 해결되므로, 제품의 가치를 근거 찾기·검증·기록·재사용에 두고 회사 사전과 파일 업로드 화면을 만들었다. 분석기는 측정용으로만 남겼다.
-- [ADR-022](docs/adr/ADR-022.md): 기본 경로를 조건 M2로 바꿨다. 두 agent(번역, 번역을 보지 않는 검증)가 동시에 돌며 MCP 서버의 회사 기록 툴로 사전과 지난 서류(보관함)를 찾고(RAG), 코드 중재자가 C1과 같은 규칙으로만 확정한다. 지난달 계약서에는 영문 표기가 있었는데 이번 통지에는 아랍어만 있는 경우처럼, 문서 밖 근거를 맡는다.
-
-99%는 합성 문서에서 잰 C1의 값이고, 지금 서비스 기본값인 M2는 재지 않았다(사용자 결정: 실험은 빼고 완제품부터, `REVIEW_CONDITION=C1`로 되돌릴 수 있음). 실제 서류로 일반화하지 않는다.
-
-## 시스템 구성
-
-| 부분 | 내용 |
-| --- | --- |
-| 그래프 | `graph.py`의 6노드. 구조화 출력이 형식에 안 맞으면 agent 노드를 1회 재시도한다. 처분 누락 확인과 지표 계산은 LLM이 아니라 코드가 한다 |
-| 기본 경로 M2 | `multi_agent_m2.py`. agent 노드가 하위 그래프(번역 agent ∥ 검증 agent → 코드 중재자)로 바뀐다. 두 agent는 C1 입력(분석기 블록 없음)과 p1 규칙을 쓰고 회사 기록 툴을 역할당 최대 2번 부른다. 중재자는 M1의 `arbitrate`(둘 다 문서 근거로 같은 철자일 때만 확정)를 그대로 쓰고, 보관함 선택은 확정과 따로 적는다 |
-| 회사 문서 보관함 | `archive/`. 업로드·붙여넣기 서류의 구간 가운데 근처에 라틴 문자가 있는 것을 남긴다. 같은 아랍어 이름이 단어 단위로 있는 구절을 찾고, 이번 서류 문맥과 임베딩이 비슷한 순으로 놓는다. 메모리 또는 Postgres(`archive_passages`) |
-| 보관함 덧씌움 | `archive_apply.py`. 사전 덧씌움 다음에 돈다. 보관함 원문으로 다시 확인한다(같은 고객, 이번 서류 아님, 이름이 구절에 있음, 철자가 글자 그대로 있음). 통과한 것만 "보관함 제안", 철자가 갈리면 충돌. 확정은 하지 않는다 |
-| 사전 덧씌움 | `dictionary_apply.py`. 결과를 고치지 않고 그 위에 덧씌움만 만든다. 보류 + 사전 적중이면 사전 확정, 문서 근거와 다르면 충돌. 키는 고객 + 정규화한 아랍어 |
-| 입력 | `ocr/`. `.txt`·`.md` 그대로, `.pdf`는 `pypdf` 텍스트 층 먼저, 아랍어가 없으면 OCR. 백엔드는 `Protocol`이라 갈아끼울 수 있고 지금은 `none`과 무료 API `ocrspace`가 있다 |
-| 서비스 | FastAPI(`web/app.py`), 작업 스레드와 SSE 진행 이벤트(`web/jobs.py`), Postgres + Alembic(`web/db.py`, 없으면 메모리), Vue 3 한 파일 화면 |
-| MCP | 회사 기록 서버 `mcp/records.py`(FastMCP, 툴 `search_company_records`): M2의 두 agent가 같은 프로세스의 메모리 전송으로 부른다. 고객 범위는 도구 인자가 아니라 작업마다 발급하고 끝나면 없애는 토큰(`_meta`)으로만 정하고, 쓰기 도구는 없다. 분석기 서버 `mcp/server.py`(stdio): 툴 `analyze_tokens`·`search_bundle`, 리소스 `document://synthetic/...`, 프롬프트 `review_instructions`. `USE_MCP_TOOLS=true`면 C2의 툴 호출이 MCP로 간다 |
-| 의존성 주입 | `Settings` → `build_runtime()` → `Runtime`(모델, 분석기, `Reviewer`, DB, 사전, 보관함, 회사 기록 MCP 클라이언트, OCR 백엔드 등). 모델은 `make_model(fake=...)`로 진짜·가짜를 바꾸고 테스트는 가짜를 넣는다 |
-| 묶음 검수 | `bundle/`. 같은 대상 ID가 붙은 다른 서류의 영문 칸만 근거로 쓰고 정확히 일치할 때만 확정. 여권 MRZ 해독 포함. 보류 중 |
-| 멀티 에이전트 | `multi_agent.py`의 M1: 번역자 → 격리된 검증자 → 규칙 중재자(순서대로, C3 입력, `MULTI_AGENT=true`일 때만). M2가 이 틀에 회사 기록 툴을 더해 동시에 돌린다 |
-| 실험 | `experiments/`. `plan.json`에 문서 해시·프롬프트 해시·설정을 고정하고 `runs.jsonl`로 재개한다. API 오류는 완료로 치지 않는다 |
-| 추적 | `runner.py`의 LangSmith `@traceable`. 키가 있으면 켜지고 없으면 추적만 꺼진다 |
-| 테스트 | pytest 559개(Postgres 포함). 골든 스냅샷 160건은 리팩토링 전후 결과가 같은지 보는 기준값이라 고치지 않는다([ADR-013](docs/adr/ADR-013.md)). ruff, mypy |
-
-모듈 계층과 코드 대조는 [docs/architecture.md](docs/architecture.md)에 있다.
-
-## 설치 및 실행
-
-Python 3.11과 [uv](https://docs.astral.sh/uv/)가 필요하다.
+이전 제품(서류 검수 서비스)이 그대로 돈다. Python 3.11과 [uv](https://docs.astral.sh/uv/)가 필요하다.
 
 ```bash
 uv sync
 uv run camel_data -i morphology-db-msa-r13
 cp .env.example .env     # OPENAI_API_KEY. 없으면 LLM_BACKEND=fake
-```
-
-```bash
 LLM_BACKEND=openai AUTH=disabled uv run tashkeel serve --port 8000
-# http://127.0.0.1:8000/#/upload   (API 문서 /docs, 상태 /health)
-```
-
-API로 쓰려면:
-
-```bash
-curl -s -F file=@계약서.txt localhost:8000/v1/reviews/upload          # 202 job_id
-curl -s localhost:8000/v1/jobs/<job_id>/result | jq '.dictionary'
-curl -s -X POST localhost:8000/v1/dictionary -H 'content-type: application/json' \
-  -d '{"job_id": "<job_id>", "token_ids": [11, 86], "english_name": "Nawal"}'
-curl -s localhost:8000/v1/dictionary                                    # DELETE /v1/dictionary/{id}로 취소
-curl -s localhost:8000/v1/jobs/<job_id>/result | jq '.archive'          # 보관함 제안(지난 서류·구절·hit_id)
-curl -s -X POST localhost:8000/v1/dictionary -H 'content-type: application/json' \
-  -d '{"job_id": "<job_id>", "token_ids": [11], "archive_hit_id": "<hit_id>"}'   # 제안을 확정
-curl -s localhost:8000/v1/archive                                       # 보관함 목록, DELETE /v1/archive/{document_id}로 빼기
-```
-
-가짜 모델(`LLM_BACKEND=fake`)은 비용이 없지만 번역하지 않고, 회사 기록(사전·보관함)에서 찾은 이름만 보류로 낸다. 그래서 첫 서류에는 이름 항목이 없고, 영문 표기가 있는 서류를 넣은 뒤 같은 이름이 나오는 서류에서 보관함 제안이 보인다. 실제 모델은 C1 기준으로 문서 하나에 60~100초, 약 $0.05가 든다. 기본값 M2는 두 agent라 약 2배로 추정한다(재지 않음). `REVIEW_CONDITION=C1`이면 측정한 설정으로 돈다. 스캔·이미지는 `OCR_BACKEND=ocrspace OCR_API_KEY=...`가 있어야 읽히고, 무료 API는 파일을 제3자 서버로 보낸다. Postgres를 쓰려면 `DATABASE_URL`을 준다. `run.sh`는 키·포트 검사와 `alembic upgrade head`까지 해 준다. Docker Compose와 API 키 발급은 [docs/deploy.md](docs/deploy.md)에 있다.
-
-실험과 CLI:
-
-```bash
-uv run tashkeel run --doc data/synthetic/dev/dev_001.json --condition all --fake   # 네 조건 연습 실행
-uv run tashkeel exp003 --split dev --fake --repeats 1 --workers 4                  # 연습, 비용 없음
-uv run tashkeel exp003-errors                                                       # 사람 확인용 errors.csv
-uv run tashkeel make-bundles                                                        # 합성 묶음 생성
+# http://127.0.0.1:8000/#/upload
 ```
 
 ```bash
-uv run pytest -m "not live"      # db 마커는 DATABASE_URL이 닿을 때만, live는 실제 모델 호출
+uv run pytest -m "not live"      # 559개
 uv run ruff check . && uv run ruff format --check . && uv run mypy
 ```
 
+서류 검수 서비스의 사용 흐름·API·시스템 구성·실험 결과는 [보관 문서](docs/archive/document-review/)와 [배포 절차](docs/deploy.md), [테스트 기록](docs/과제2-테스트-기록.md)에 있다. 그 코드 중 TTS 앞단 층이 가져가는 것(토큰·구간 ID, 정규화 키, 형태소 분석기 독법 후보, 사전 저장소·API, 범위 토큰 MCP, 실험 장치)과 바꾸는 것은 [docs/architecture.md](docs/architecture.md) 4.3절에 있다.
+
 ## 알려진 한계
 
-- 에이전트 실험은 합성 문서로 했다. 실제 서류의 오류율이나 포착률로 일반화하지 않는다.
-- 서비스 기본값 M2(두 agent + 회사 기록)는 정확도·비용·시간을 재지 않았다. 두 agent가 일치해야 확정하므로 C1보다 보류가 늘 수 있다.
-- M2에서 두 agent가 이름을 다른 단위로 내면(한쪽은 성·이름을 한 항목으로, 다른 쪽은 단어별로) 둘이 짝지어지지 않아 한쪽 항목이 따로 보류로 더해진다. 화면에서는 한 항목이 다른 항목을 가려 누를 수 없는 이름이 생기고, 요약 수와 보이는 색이 맞지 않거나 사전 표기가 번역문에 적용되지 않을 수 있다(2026-10-22 실제 모델에서 두 방향 모두 확인, 미해결, [TS-005](docs/troubleshooting.md)).
-- 보관함 제안은 같은 아랍어 철자를 찾는 것이라 이름이 같은 다른 사람·회사가 걸린다. 확정은 사람이 출처를 보고 하지만, 잘못된 제안이 얼마나 나오는지는 모른다.
-- 실제 모델 서비스에서 보관함 구절의 순서를 정하는 임베딩은 OpenAI로 간다. DB 없이 돌리면 서버를 다시 띄울 때 보관함이 비어 있다.
-- 단일 문서에서 근거로 인정하는 것은 같은 문서 안의 영문 표기와 회사 사전뿐이다.
-- 회사 사전은 고객 안에서 같은 아랍어 철자를 같은 이름으로 본다. 같은 철자의 다른 사람이면 잘못 확정할 수 있고, 문서 근거와 다를 때만 충돌로 잡는다.
-- 문자 인식 성능은 재지 않았고, 인식 오류와 독법 오류를 구분해 보고하지 못한다.
-- 현재 모델은 temperature를 0으로 고정할 수 없어 같은 입력에도 실행마다 결과가 다를 수 있다.
-- CAMeL Tools의 형태소 DB(calima-msa-r13)는 GPL v2다. 측정에만 쓰고, 배포 전 법률 검토가 필요하다.
+- 계획 단계다. TTS 앞단 층의 코드·측정값이 없다.
+- 이름 벤치는 공개 인물(Wikipedia·Wikidata) 위주다. 고객 이름 분포로 일반화하지 않는다.
+- 자체 라벨(걸프 인명 디아크리틱스)에는 아랍어 원어민 라벨러 2인이 필요하다. 팀 안에 없다.
+- 결정적 디아크리타이저가 이름 구간에서 수십 ms 안에 드는지는 어느 논문도 보고하지 않았다. 직접 재야 한다.
+- 라틴 표기(Musallam)에서 모음을 역추론하는 것은 상한이 있다. e/o·장모음·shadda·인두음 정보가 라틴 표기에 없다.
+- 걸프 방언 독법과 표준 아랍어 독법 중 고객이 어느 쪽을 원하는지 모른다. 설정으로 두고 잰다.
+- 본인 녹음은 개인(생체) 데이터다. 역내 저장과 동의가 필요하고, 수집이 어려우면 근거를 라틴 표기·사람 확정으로 줄인다.
+- 사람 간 디아크리틱스 불일치(WER 1.6~5.6%)보다 높은 정확도는 약속하지 않는다.
+- CAMeL Tools의 형태소 DB(calima-msa-r13)는 GPL v2다. 측정·오프라인에만 쓰고 실시간 경로의 디아크리타이저는 Apache-2.0·MIT 것을 우선한다.
 
 ## 향후 계획
 
-1. M2 측정(EXP-005 [제안]): 합성 시험지 dev에서 C1 대비 하락 여부, "근거가 지난 서류에만 있는" 합성 사례에서 제안 적중률과 이름이 같은 다른 대상을 잘못 제안하는 비율, 코드만 쓰는 보관함 조회와 비교. 결과가 나쁘면 C1로 되돌린다.
-2. 외부 MCP 클라이언트용 `/mcp` 공개(API 키로 고객 결정).
-3. M2에서 검증 agent의 전체 이름 항목이 단어별 항목을 덮는 문제 해결([TS-005](docs/troubleshooting.md)). 중재자에서 겹치는 항목을 짝짓는 방향을 검토한다.
-4. 자기 회사 표기 감시. 자기 회사를 거래처 0번으로 등록하고 서류의 회사명·등기번호·세금번호가 다르면 경고한다.
-5. OCR 실제 호출 1회(키가 생기면)와 무료 등급 제한 확인. 민감 서류용 로컬 백엔드는 요구가 생기면.
-6. Postgres에 사전을 둔 실행과 `docker compose up --build` 재확인.
-7. 중소기업 서류(거래처 계약, 정부 통지, 임대차, 인보이스, 근로계약)로 합성 문서 생성기 v3.
-8. EXP-003 `errors.csv`의 사람 확인과, 공개 이중언어 문서로 실제 서류 측정.
-9. 사전 키를 거래처 단위로 나눌지 결정.
+[PROJECT_PLAN.md](PROJECT_PLAN.md)와 [docs/roadmap.md](docs/roadmap.md) 2절과 같은 순서다.
+
+1. EXP-006 엔진 베이스라인의 판정 기준·예산·엔진 목록 확정과 실행. 결과로 엔진 지원 매트릭스를 채운다.
+2. 디아크리타이저 3종(CATT-EO ONNX·libtashkeel·CAMeL GLF)의 이름 단위 정확도·지연 점검.
+3. 사전 스키마 확장과 독법 후보 생성.
+4. 엔진 어댑터 2개와 G2P 첫 판.
+5. 확정 큐와 피드백 기록.
+6. 실시간 API와 지연 측정.
+7. 사업성 검토 재계산(이전 검토는 서류 검수 기준).
+8. 서류 검수 코드 유지 여부 결정.
 
 ## 관련 문서
 
 - [PROJECT_PLAN.md](PROJECT_PLAN.md): 현재 상태, 다음 작업, 정할 것
-- [docs/README.md](docs/README.md): 문서 지도(정의·범위·구조·데이터·측정·로드맵·ADR·변경 이력)
-- [docs/experiments/](docs/experiments/README.md): 프로젝트 중 한 측정의 핵심 요약과 EXP-001~003 상세 기록
-- [docs/과제2-테스트-기록.md](docs/과제2-테스트-기록.md): 기능별·예외 테스트의 입력·예상·실제
-- [docs/adr/](docs/adr/README.md): 기술 결정 기록
-- [docs/archive/](docs/archive/README.md): 지난 진행 기록과 사업성·시장 조사(보관)
+- [docs/README.md](docs/README.md): 문서 지도
+- [docs/adr/ADR-023.md](docs/adr/ADR-023.md): 전환 결정
+- [docs/research/](docs/research/tts-literature.md): 조사 기록
+- [docs/experiments/](docs/experiments/README.md): 실험 요약과 EXP-006 사전 등록
+- [docs/archive/document-review/](docs/archive/document-review/): 이전 제품(서류 검수) 문서
