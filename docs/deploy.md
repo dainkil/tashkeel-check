@@ -1,5 +1,7 @@
 # 배포: Docker Compose 패키지
 
+> 2026-10-23: 이 문서는 서류 검수 제품(제출본 2026-10-22)의 배포 절차다. 제품은 TTS 앞단 층으로 전환했지만([ADR-023](adr/ADR-023.md)) 코드가 그대로라 이 절차도 그대로 유효하다. TTS 코드가 생기면 다시 쓴다.
+
 앱 1개와 Postgres 1개를 `docker compose`로 띄운다(ADR-019). 앱 컨테이너는 기동할 때 `alembic upgrade head`(0001~0004, 표 11개)를 돌리고 `tashkeel serve`를 띄운다. 클라우드 배포 설정·TLS·리버스 프록시는 포함하지 않는다. 앞단에 두는 것은 운영하는 쪽의 몫이다.
 
 compose 없이 한 대에서 띄우는 방법(`uv run tashkeel serve`, `./run.sh`)은 [README](../README.md)의 "설치 및 실행"에 있다.
